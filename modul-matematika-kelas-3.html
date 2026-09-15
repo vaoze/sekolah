@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modul Matematika Kelas 3 — Kurikulum Merdeka</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F7F1E1; --paper-line:#E4D9BE;
+    --ink:#2B2B27; --ink-soft:#5B5648;
+    --accent:#2F6F6B; --tint:#E4F0EE;
+    --chalk:#2E3430;
+    --card-shadow: 3px 3px 0 rgba(43,43,39,0.10);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:repeating-linear-gradient(to bottom, transparent 0px, transparent 34px, var(--paper-line) 35px), var(--paper);
+    color:var(--ink); font-family:'Atkinson Hyperlegible', sans-serif; font-size:17px; line-height:1.65; padding-bottom:60px;
+  }
+  h1,h2,h3,h4{font-family:'Baloo 2', sans-serif; margin:0 0 .4em 0;}
+
+  .cover{position:relative; padding:38px 24px 30px; max-width:920px; margin:0 auto; border-bottom:3px solid var(--ink);}
+  .cover .stamp{position:absolute; top:28px; right:24px; width:88px; height:88px; border-radius:50%; border:3px dashed var(--ink);
+    display:flex; align-items:center; justify-content:center; transform:rotate(-8deg); font-family:'Baloo 2',sans-serif; font-weight:700;
+    font-size:12px; text-align:center; line-height:1.2; color:var(--ink-soft); padding:6px;}
+  .cover h1{font-size:2.1rem; max-width:600px; color:var(--accent);}
+  .cover p.sub{margin:0; color:var(--ink-soft); font-size:1.02rem; max-width:600px;}
+  .cover .meta{margin-top:18px; display:flex; flex-wrap:wrap; gap:10px 26px; font-size:.92rem; color:var(--ink-soft);}
+  .cover .meta span b{color:var(--ink); font-weight:700;}
+
+  .semlabel{
+    max-width:920px; margin:18px auto 0; padding:0 24px;
+    font-family:'Baloo 2',sans-serif; font-weight:700; font-size:.82rem; color:var(--ink-soft);
+  }
+
+  .topicbar{
+    max-width:920px; margin:8px auto 0; padding:0 24px 6px;
+    display:flex; gap:8px; flex-wrap:wrap; position:sticky; top:0; background:var(--paper); z-index:20; padding-top:10px;
+  }
+  .topic-btn{
+    appearance:none; cursor:pointer; border:2.5px solid var(--ink); background:#fff; color:var(--ink-soft);
+    font-family:'Baloo 2',sans-serif; font-weight:700; font-size:.82rem; padding:8px 14px; border-radius:20px;
+  }
+  .topic-btn.active{background:var(--accent); border-color:var(--accent); color:#fff;}
+
+  .panelwrap{max-width:920px; margin:0 auto; border:3px solid var(--ink); border-top:none; background:#fffdf8; padding:6px;}
+  .panel{display:none; padding:26px 26px 10px;}
+  .panel.active{display:block;}
+
+  .section{margin:0 0 34px;}
+  .section-head{display:flex; align-items:baseline; gap:10px; border-bottom:2.5px solid var(--accent); padding-bottom:6px; margin-bottom:14px;}
+  .section-head h2{font-size:1.35rem; color:var(--ink);}
+  .section-head .tag{font-family:'Baloo 2',sans-serif; font-weight:700; font-size:.72rem; padding:3px 10px; border-radius:20px; background:var(--accent); color:#fff;}
+
+  .info-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px 24px; background:#fff; border:2px solid var(--paper-line); border-radius:10px; padding:16px 18px; font-size:.94rem;}
+  .info-grid div b{display:block; color:var(--ink-soft); font-size:.78rem; font-weight:700; margin-bottom:2px;}
+  @media(max-width:600px){.info-grid{grid-template-columns:1fr;}}
+
+  ul.tp-list{margin:0; padding-left:22px;}
+  ul.tp-list li{margin-bottom:6px;}
+
+  .callout{border-radius:10px; padding:18px 20px; margin:16px 0;}
+  .callout h4{font-size:1.02rem; display:flex; align-items:center; gap:8px; color:var(--accent);}
+  .pemahaman{border:2px dashed var(--accent); background:var(--tint);}
+  .pemahaman h4{color:var(--accent);}
+
+  .guru{background:var(--chalk); color:#EDEAE2; border:2px solid var(--chalk);}
+  .guru h4{color:#fff;} .guru b{color:#fff;}
+  .guru ul{padding-left:20px; margin:8px 0 0;} .guru li{margin-bottom:6px;}
+
+  .murid{border:2.5px solid var(--accent); background:#fff;}
+  .murid .isi{color:var(--ink);}
+
+  .contoh-visual{display:flex; flex-wrap:wrap; gap:14px; margin:14px 0;}
+  .contoh-visual .kartu{flex:1 1 150px; background:#fff; border:2px solid var(--paper-line); border-radius:10px; padding:12px 14px; text-align:center; font-size:.92rem;}
+  .contoh-visual .kartu .emoji{font-size:1.6rem; display:block; margin-bottom:6px; letter-spacing:2px;}
+
+  table.tabel-ref{border-collapse:collapse; width:100%; margin:14px 0; font-size:.88rem;}
+  table.tabel-ref th, table.tabel-ref td{border:1.5px solid var(--paper-line); text-align:center; padding:6px 4px;}
+  table.tabel-ref th{background:var(--tint); font-family:'Baloo 2',sans-serif;}
+
+  .soal-card{background:#fff; border:2px solid var(--ink); border-radius:2px 14px 2px 14px; padding:16px 18px; margin-bottom:14px; box-shadow:var(--card-shadow);}
+  .soal-card .no{font-family:'Baloo 2',sans-serif; font-weight:800; font-size:.85rem; color:#fff; background:var(--ink);
+    display:inline-flex; align-items:center; justify-content:center; width:26px; height:26px; border-radius:50%; margin-right:8px; flex-shrink:0;}
+  .soal-card .pertanyaan{display:flex; align-items:flex-start; gap:4px; font-weight:600;}
+  .soal-card .pilihan{list-style:none; padding:0; margin:10px 0 0 34px; font-size:.95rem;}
+  .soal-card .pilihan li{margin-bottom:4px;} .soal-card .pilihan li b{margin-right:6px;}
+  details.jawaban{margin:10px 0 0 34px;}
+  details.jawaban summary{cursor:pointer; font-family:'Baloo 2',sans-serif; font-weight:700; font-size:.85rem; color:var(--ink-soft); display:inline-block; padding:4px 0;}
+  details.jawaban[open] summary{color:var(--ink);}
+  details.jawaban .kotak-jawab{margin-top:8px; padding:10px 14px; border-radius:8px; font-size:.92rem; background:var(--tint);}
+
+  footer{max-width:920px; margin:24px auto 0; padding:0 26px; color:var(--ink-soft); font-size:.85rem; text-align:center;}
+  @media print{.topicbar{display:none;} .panel{display:block !important; page-break-after:always;}}
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="stamp">KURIKULUM<br>MERDEKA<br>FASE B</div>
+  <h1>Modul Ajar Matematika</h1>
+  <p class="sub">Kelas 3 SD — 6 topik lengkap untuk 2 semester, disusun dengan catatan pedagogis untuk guru, penjelasan ramah-anak untuk murid, dan latihan soal beserta kunci jawaban.</p>
+  <div class="meta">
+    <span>Kelas: <b>3 (Tiga)</b></span>
+    <span>Elemen CP: <b>Bilangan, Aljabar, Pengukuran, Geometri, Data & Peluang</b></span>
+    <span>Total Alokasi: <b>±24 pertemuan</b></span>
+  </div>
+</div>
+
+<div class="topicbar" id="topicbar">
+  <button class="topic-btn active" data-t="t1">1. Bilangan sampai 10.000</button>
+  <button class="topic-btn" data-t="t2">2. Perkalian & Pembagian</button>
+  <button class="topic-btn" data-t="t3">3. Pengukuran</button>
+  <button class="topic-btn" data-t="t4">4. Pecahan Sederhana</button>
+  <button class="topic-btn" data-t="t5">5. Bangun Datar & Ruang</button>
+  <button class="topic-btn" data-t="t6">6. Pola & Data Sederhana</button>
+</div>
+
+<div class="panelwrap">
+
+<!-- ============ TOPIK 1 ============ -->
+<div class="panel active" data-t="t1">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 1</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Bilangan Cacah sampai 10.000</div>
+      <div><b>Alokasi Waktu</b>4 x pertemuan (4 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Memahami bilangan sampai 100 dan nilai tempatnya</div>
+      <div><b>Profil Pelajar Pancasila</b>Bernalar kritis, mandiri</div>
+      <div><b>Sarana</b>Blok nilai tempat/kartu bilangan, garis bilangan, papan tulis</div>
+      <div><b>Model</b>Tatap muka dengan alat peraga konkret</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat membaca dan menulis lambang bilangan sampai 10.000.</li>
+      <li>Peserta didik dapat menjelaskan nilai tempat (ribuan, ratusan, puluhan, satuan) suatu bilangan.</li>
+      <li>Peserta didik dapat membandingkan dan mengurutkan bilangan sampai 10.000.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Nilai tempat membantu kita memahami seberapa besar suatu angka — misalnya membedakan harga Rp2.500 dengan Rp25.000 — sehingga kita tidak salah membaca atau membandingkan jumlah dalam kehidupan sehari-hari.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>🍎 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Gunakan alat peraga nilai tempat</b> (blok satuan-puluhan-ratusan-ribuan atau kartu nilai tempat) sebelum masuk ke angka abstrak, agar siswa benar-benar melihat "besarnya" tiap posisi angka.</li>
+        <li><b>Miskonsepsi umum:</b> siswa sering membaca angka ribuan dengan menyebut digit satu per satu ("tiga dua empat lima") alih-alih membaca nilainya ("tiga ribu dua ratus empat puluh lima"). Latih dengan sering menunjuk tiap digit dan menyebut nilainya.</li>
+        <li><b>Bangun bertahap:</b> pastikan siswa sudah kuat di nilai tempat satuan-puluhan-ratusan sebelum diperkenalkan ribuan, karena kesalahan di tahap awal akan terbawa ke bilangan yang lebih besar.</li>
+        <li><b>Gunakan garis bilangan</b> untuk melatih membandingkan dan mengurutkan — posisi lebih kanan berarti lebih besar, ini lebih intuitif daripada hanya membandingkan digit.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah lancar bisa diminta mengurutkan 5 bilangan sekaligus atau menyusun bilangan terbesar/terkecil dari kumpulan angka acak; siswa yang masih kesulitan cukup berlatih dengan 2 bilangan dahulu.</li>
+        <li><b>Asesmen formatif:</b> minta siswa menuliskan sebuah bilangan lalu mewarnai/menandai tiap digit dengan warna berbeda sesuai nilai tempatnya — ini mengungkap pemahaman lebih jujur daripada sekadar tes tertulis.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>🔢 Ayo Kenali Nilai Tempat!</h4>
+      <div class="isi">
+        <p>Setiap angka dalam sebuah bilangan punya "rumah" atau tempatnya masing-masing. Contoh bilangan <b>3.245</b>:</p>
+        <div class="contoh-visual">
+          <div class="kartu"><span class="emoji">📦📦📦</span>3 = Ribuan</div>
+          <div class="kartu"><span class="emoji">🔲🔲</span>2 = Ratusan</div>
+          <div class="kartu"><span class="emoji">🔟🔟🔟🔟</span>4 = Puluhan</div>
+          <div class="kartu"><span class="emoji">⭐⭐⭐⭐⭐</span>5 = Satuan</div>
+        </div>
+        <p>Jadi 3.245 = 3.000 + 200 + 40 + 5.</p>
+        <p><b>Membandingkan bilangan:</b> lihat dulu digit ribuan, kalau sama baru lihat ratusan, lalu puluhan, lalu satuan. Contoh: 4.521 lebih kecil dari 4.512? Cek: ribuan sama (4), ratusan sama (5), puluhan 2 vs 1 → 4.521 lebih besar karena 2 > 1.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">8 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Tulis lambang bilangan dari "empat ribu tujuh ratus dua puluh tiga".</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: 4.723</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Nilai tempat angka 5 pada bilangan 5.328 adalah ...</div>
+      <ul class="pilihan"><li><b>a.</b> satuan</li><li><b>b.</b> puluhan</li><li><b>c.</b> ratusan</li><li><b>d.</b> ribuan</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: d. ribuan</b><br>Pembahasan: angka 5 berada di posisi paling kiri (posisi keempat dari kanan) yaitu ribuan.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Bilangan mana yang lebih besar: 3.456 atau 3.465?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: 3.465</b><br>Pembahasan: ribuan dan ratusan sama, tapi puluhan 6 > 5, jadi 3.465 lebih besar.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Urutkan dari yang terkecil: 2.310, 2.130, 2.301</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: 2.130, 2.301, 2.310</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Isilah: 7.000 + 200 + 30 + 4 = ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: 7.234</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">6</span>Bentuk panjang dari bilangan 6.052 adalah ...</div>
+      <ul class="pilihan"><li><b>a.</b> 6.000 + 500 + 2</li><li><b>b.</b> 6.000 + 50 + 2</li><li><b>c.</b> 6.000 + 0 + 50 + 2</li><li><b>d.</b> 6.000 + 20 + 5</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: c. 6.000 + 0 + 50 + 2</b><br>Pembahasan: 6.052 tidak punya ratusan (0), lalu 5 puluhan dan 2 satuan.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">7</span>Sebuah toko buku memiliki 4.500 buku. Sebanyak 1.200 buku terjual. Berapa sisa buku di toko?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: 3.300 buku</b><br>Pembahasan: 4.500 − 1.200 = 3.300.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">8</span>Sebutkan nilai tempat tiap digit pada bilangan 9.081!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> 9 = ribuan, 0 = ratusan, 8 = puluhan, 1 = satuan.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 2 (existing) ============ -->
+<div class="panel" data-t="t2">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 1</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Perkalian dan Pembagian Bilangan sampai 100</div>
+      <div><b>Alokasi Waktu</b>4 x pertemuan (4 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Memahami penjumlahan dan pengurangan bilangan sampai 100</div>
+      <div><b>Profil Pelajar Pancasila</b>Bernalar kritis, mandiri, gotong royong</div>
+      <div><b>Sarana</b>Kelereng/biji-bijian, kartu bilangan, buku berpetak</div>
+      <div><b>Model</b>Tatap muka & penugasan</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat menjelaskan makna perkalian sebagai penjumlahan berulang.</li>
+      <li>Peserta didik dapat menyelesaikan perkalian dua bilangan satu angka (1–10) dengan lancar.</li>
+      <li>Peserta didik dapat menjelaskan makna pembagian sebagai pembagian sama rata (kebalikan perkalian).</li>
+      <li>Peserta didik dapat menyelesaikan soal pembagian sederhana dan soal cerita sehari-hari.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Perkalian dan pembagian dipakai setiap hari — membagi kue rata ke teman, menghitung total harga barang yang sama, atau menyusun kursi berbaris. Memahami konsep ini melatih anak berpikir efisien tanpa harus menjumlah satu-satu.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>🍎 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Mulai dari konkret ke abstrak.</b> Sebelum masuk ke angka, gunakan benda nyata (kelereng, kancing, potongan kertas). Misalnya "4 kelompok isi 3" ditunjukkan langsung dengan menyusun benda, baru ditulis sebagai 4 × 3.</li>
+        <li><b>Miskonsepsi umum:</b> siswa sering menukar makna "4 × 3" dengan "3 × 4" seolah selalu berbeda hasil susunannya. Tekankan bahwa hasilnya sama (sifat komutatif), tetapi cerita/konteksnya bisa berbeda — penting untuk soal cerita.</li>
+        <li><b>Kaitkan perkalian dan pembagian sebagai pasangan.</b> Setelah siswa hafal 6 × 4 = 24, tanyakan langsung "kalau 24 dibagi 4, hasilnya berapa?" agar mereka melihat hubungan dua arah, bukan dua topik terpisah.</li>
+        <li><b>Hindari hafalan buta di awal.</b> Tabel perkalian boleh dihafal, tetapi hanya setelah siswa paham konsepnya lewat penjumlahan berulang dan alat peraga, supaya tidak mudah lupa.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah lancar bisa diberi soal cerita dua langkah (kalikan lalu kurangi); siswa yang masih kesulitan tetap gunakan benda konkret dan angka kecil (1–5) dulu.</li>
+        <li><b>Asesmen formatif:</b> amati saat siswa menyusun benda menjadi kelompok sama besar — ini indikator paling jujur bahwa mereka paham konsep, bukan sekadar hasil akhirnya benar.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>✏️ Ayo Belajar Perkalian!</h4>
+      <div class="isi">
+        <p><b>Perkalian itu penjumlahan yang diulang-ulang.</b> Kalau Bu Guru bilang "3 × 4", artinya ada 3 kelompok, dan setiap kelompok isinya 4.</p>
+        <div class="contoh-visual">
+          <div class="kartu"><span class="emoji">🍬🍬🍬🍬</span>Kelompok 1</div>
+          <div class="kartu"><span class="emoji">🍬🍬🍬🍬</span>Kelompok 2</div>
+          <div class="kartu"><span class="emoji">🍬🍬🍬🍬</span>Kelompok 3</div>
+        </div>
+        <p>3 kelompok × 4 permen = 4 + 4 + 4 = <b>12 permen</b>.</p>
+        <p><b>Pembagian itu kebalikannya</b> — membagi rata ke beberapa kelompok. Kalau ada 12 permen dibagi ke 3 anak sama banyak, setiap anak dapat 4 permen. Ditulis: 12 : 3 = 4.</p>
+      </div>
+    </div>
+    <table class="tabel-ref">
+      <tr><th>×</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th></tr>
+      <tr><th>1</th><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td></tr>
+      <tr><th>2</th><td>2</td><td>4</td><td>6</td><td>8</td><td>10</td><td>12</td><td>14</td><td>16</td><td>18</td><td>20</td></tr>
+      <tr><th>3</th><td>3</td><td>6</td><td>9</td><td>12</td><td>15</td><td>18</td><td>21</td><td>24</td><td>27</td><td>30</td></tr>
+      <tr><th>4</th><td>4</td><td>8</td><td>12</td><td>16</td><td>20</td><td>24</td><td>28</td><td>32</td><td>36</td><td>40</td></tr>
+      <tr><th>5</th><td>5</td><td>10</td><td>15</td><td>20</td><td>25</td><td>30</td><td>35</td><td>40</td><td>45</td><td>50</td></tr>
+    </table>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">8 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>4 × 3 = ...</div>
+      <ul class="pilihan"><li><b>a.</b> 7</li><li><b>b.</b> 12</li><li><b>c.</b> 14</li><li><b>d.</b> 9</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: b. 12</b><br>Pembahasan: 4 × 3 artinya 4 + 4 + 4 = 12.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>6 × 5 = ...</div>
+      <ul class="pilihan"><li><b>a.</b> 11</li><li><b>b.</b> 35</li><li><b>c.</b> 30</li><li><b>d.</b> 25</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: c. 30</b><br>Pembahasan: 6 kelompok isi 5, atau 5+5+5+5+5+5 = 30.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Isilah: 7 × 4 = ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: 28</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>24 : 6 = ...</div>
+      <ul class="pilihan"><li><b>a.</b> 3</li><li><b>b.</b> 4</li><li><b>c.</b> 5</li><li><b>d.</b> 6</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: b. 4</b><br>Pembahasan: 6 × 4 = 24, jadi 24 : 6 = 4.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Isilah: 36 : 9 = ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: 4</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">6</span>Ibu punya 5 piring kue. Setiap piring diisi 6 kue. Berapa jumlah kue Ibu semuanya?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: 30 kue</b><br>Pembahasan: 5 × 6 = 30.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">7</span>Ada 28 kelereng dibagi rata ke 4 anak. Setiap anak dapat berapa kelereng?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: 7 kelereng</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">8</span>Andi punya 3 kotak pensil, tiap kotak isi 9 pensil. Ia memberi 5 pensil ke temannya. Berapa sisa pensil Andi?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: 22 pensil</b><br>Pembahasan: 3×9=27, 27−5=22.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 3 ============ -->
+<div class="panel" data-t="t3">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 1</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Pengukuran Panjang, Berat, dan Waktu</div>
+      <div><b>Alokasi Waktu</b>4 x pertemuan (4 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Mengenal satuan tidak baku (jengkal, langkah) untuk mengukur</div>
+      <div><b>Profil Pelajar Pancasila</b>Mandiri, gotong royong (kerja kelompok mengukur)</div>
+      <div><b>Sarana</b>Penggaris, meteran, timbangan sederhana, jam dinding/jam tiruan</div>
+      <div><b>Model</b>Eksplorasi langsung dengan alat ukur nyata</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat mengukur panjang benda menggunakan satuan baku (cm, m).</li>
+      <li>Peserta didik dapat mengukur berat benda menggunakan satuan baku (gram, kg).</li>
+      <li>Peserta didik dapat membaca jam dan menghitung selisih waktu sederhana.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Pengukuran memungkinkan kita membandingkan ukuran benda secara akurat dan konsisten di mana pun kita berada, bukan hanya berdasarkan perkiraan.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>📏 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Sediakan alat ukur nyata</b> — penggaris, meteran, timbangan sederhana, jam dinding — dan biarkan siswa mempraktikkan langsung, bukan hanya membaca dari buku.</li>
+        <li><b>Miskonsepsi umum:</b> siswa sering bingung kapan memakai cm dan kapan memakai m, begitu juga gram dan kg. Latih konversi sederhana: 1 m = 100 cm, 1 kg = 1.000 gram, dengan alat peraga nyata sebagai pembanding.</li>
+        <li><b>Membaca jam analog lebih dulu</b> sebelum jam digital, karena banyak siswa kesulitan membedakan jarum pendek (jam) dan jarum panjang (menit).</li>
+        <li><b>Aktivitas berkeliling kelas:</b> siswa mengukur beberapa benda nyata (meja, buku, pintu) dan mencatat hasilnya, lalu membandingkan dengan hasil teman untuk melihat konsistensi pengukuran.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah lancar diberi soal konversi (2 m = ... cm); siswa yang masih kesulitan fokus pada pengukuran langsung dengan alat.</li>
+        <li><b>Asesmen formatif:</b> amati ketepatan siswa saat membaca skala pada penggaris atau timbangan — kesalahan membaca skala adalah indikator paling umum yang perlu diperbaiki.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>📐 Ayo Mengukur!</h4>
+      <div class="isi">
+        <p><b>Panjang:</b> gunakan <b>cm</b> untuk benda kecil (pensil, buku) dan <b>m</b> untuk benda besar (panjang kelas, tinggi pintu).</p>
+        <p><b>Berat:</b> gunakan <b>gram</b> untuk benda ringan (permen, kertas) dan <b>kg</b> untuk benda berat (badan kita, beras sekarung).</p>
+        <p><b>Waktu:</b> jarum pendek menunjukkan jam, jarum panjang menunjukkan menit. Ingat, 1 jam = 60 menit!</p>
+        <div class="contoh-visual">
+          <div class="kartu"><span class="emoji">📏</span>1 m = 100 cm</div>
+          <div class="kartu"><span class="emoji">⚖️</span>1 kg = 1000 gram</div>
+          <div class="kartu"><span class="emoji">🕐</span>1 jam = 60 menit</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">7 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Pensil Budi panjangnya 15 ... (isi dengan cm atau m)</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: cm</b><br>Pembahasan: pensil adalah benda kecil, satuan yang tepat adalah cm.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Berat badan adik 12 ... (isi dengan gram atau kg)</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: kg</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>1 meter = ... cm</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: 100 cm</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>2 kg = ... gram</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: 2.000 gram</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Pelajaran dimulai pukul 07.15 dan berlangsung selama 45 menit. Pukul berapa pelajaran selesai?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: pukul 08.00</b><br>Pembahasan: 07.15 + 45 menit = 08.00.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">6</span>Panjang meja belajar adalah 120 cm. Berapa meter panjang meja tersebut?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: 1,2 meter</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">7</span>Alat yang tepat digunakan untuk mengukur berat badan adalah ...</div>
+      <ul class="pilihan"><li><b>a.</b> penggaris</li><li><b>b.</b> timbangan</li><li><b>c.</b> jam</li><li><b>d.</b> meteran kain</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: b. timbangan</b></div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 4 ============ -->
+<div class="panel" data-t="t4">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 2</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Pecahan Sederhana</div>
+      <div><b>Alokasi Waktu</b>3 x pertemuan (3 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Memahami konsep pembagian sama rata</div>
+      <div><b>Profil Pelajar Pancasila</b>Bernalar kritis</div>
+      <div><b>Sarana</b>Kertas lipat, kue/buah tiruan yang bisa dipotong, gambar bangun datar</div>
+      <div><b>Model</b>Demonstrasi konkret dengan benda yang dipotong</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat mengenal pecahan sebagai bagian dari keseluruhan (1/2, 1/3, 1/4, dst).</li>
+      <li>Peserta didik dapat membandingkan pecahan sederhana.</li>
+      <li>Peserta didik dapat menyelesaikan soal cerita sederhana tentang pecahan.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Pecahan membantu menggambarkan bagian dari sesuatu yang utuh, seperti membagi kue atau pizza sama rata kepada teman-teman.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>🍕 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Gunakan benda yang bisa dipotong nyata</b> (kertas lipat, kue tiruan dari kertas/plastisin) untuk menunjukkan konsep pembilang dan penyebut secara visual.</li>
+        <li><b>Miskonsepsi umum:</b> siswa sering mengira pecahan dengan penyebut lebih besar berarti nilainya lebih besar (mengira 1/4 lebih besar dari 1/2). Tunjukkan secara visual dengan potongan nyata bahwa semakin banyak bagian, semakin kecil tiap potongannya.</li>
+        <li><b>Gunakan bahasa sederhana</b> untuk pembilang ("berapa bagian yang diambil") dan penyebut ("dibagi berapa bagian sama besar") sebelum memperkenalkan istilah formalnya.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah lancar dapat membandingkan pecahan berpenyebut berbeda (1/2 vs 1/4); siswa yang masih kesulitan fokus pada pecahan berpenyebut sama dahulu.</li>
+        <li><b>Asesmen formatif:</b> minta siswa mewarnai bagian tertentu pada gambar bangun datar sesuai pecahan yang diminta (misalnya warnai 3/4 bagian lingkaran).</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>🍕 Apa itu Pecahan?</h4>
+      <div class="isi">
+        <p>Pecahan adalah <b>bagian dari sesuatu yang utuh</b>. Kalau pizza dipotong menjadi 4 bagian sama besar, dan kita ambil 1 potong, itu artinya kita punya <b>1/4 (satu per empat)</b> pizza.</p>
+        <div class="contoh-visual">
+          <div class="kartu"><span class="emoji">🍕</span>1/2 = dibagi 2, ambil 1</div>
+          <div class="kartu"><span class="emoji">🍕</span>1/3 = dibagi 3, ambil 1</div>
+          <div class="kartu"><span class="emoji">🍕</span>1/4 = dibagi 4, ambil 1</div>
+        </div>
+        <p>Ingat: semakin besar angka penyebut (angka bawah), semakin <b>kecil</b> tiap potongannya. Jadi 1/2 lebih besar daripada 1/4, walaupun angka 4 lebih besar dari 2!</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">7 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Sebuah pizza dibagi menjadi 4 bagian sama besar, lalu 1 bagian diambil. Pecahan yang menunjukkan bagian yang diambil adalah ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: 1/4</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Manakah yang lebih besar, 1/2 atau 1/3?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: 1/2</b><br>Pembahasan: dibagi menjadi 2 bagian, tiap bagian lebih besar daripada dibagi 3 bagian.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Ibu membagi roti menjadi 2 bagian sama besar, Adi makan 1 bagian. Berapa pecahan bagian yang dimakan Adi?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: 1/2</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Penyebut pada pecahan 3/5 adalah ...</div>
+      <ul class="pilihan"><li><b>a.</b> 3</li><li><b>b.</b> 5</li><li><b>c.</b> 8</li><li><b>d.</b> 2</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: b. 5</b><br>Pembahasan: penyebut adalah angka di bawah garis pecahan.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Pecahan 2/4 senilai dengan pecahan ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: 1/2</b><br>Pembahasan: 2/4 jika disederhanakan (dibagi 2 pembilang dan penyebutnya) menjadi 1/2.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">6</span>Semangka dipotong menjadi 8 bagian sama besar, lalu dimakan 3 bagian. Berapa pecahan sisa semangka?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: 5/8</b><br>Pembahasan: 8 − 3 = 5 bagian tersisa dari 8 bagian.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">7</span>Urutkan dari yang terkecil: 1/2, 1/4, 1/3</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: 1/4, 1/3, 1/2</b></div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 5 ============ -->
+<div class="panel" data-t="t5">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 2</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Bangun Datar dan Bangun Ruang Sederhana</div>
+      <div><b>Alokasi Waktu</b>4 x pertemuan (4 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Mengenal bentuk-bentuk dasar di lingkungan sekitar</div>
+      <div><b>Profil Pelajar Pancasila</b>Bernalar kritis, kreatif</div>
+      <div><b>Sarana</b>Benda nyata (kotak kado, bola, kaleng), tali/benang, gambar bangun datar</div>
+      <div><b>Model</b>Eksplorasi benda nyata di lingkungan sekolah</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat mengidentifikasi bangun datar (persegi, persegi panjang, segitiga, lingkaran) berdasarkan ciri-cirinya.</li>
+      <li>Peserta didik dapat mengidentifikasi bangun ruang sederhana (kubus, balok, bola, tabung) di lingkungan sekitar.</li>
+      <li>Peserta didik dapat menghitung keliling bangun datar sederhana.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Mengenali bentuk membantu kita memahami dan mendeskripsikan benda-benda di sekitar, serta menjadi dasar untuk menghitung ukuran ruang dan permukaan di kemudian hari.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>📦 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Gunakan benda nyata sehari-hari</b> — kotak kado (kubus/balok), bola, kaleng susu (tabung) — untuk mengenalkan bangun ruang, bukan hanya gambar di buku.</li>
+        <li><b>Miskonsepsi umum:</b> siswa sering menyamakan persegi dan persegi panjang. Tekankan ciri khusus persegi: keempat sisinya sama panjang, sedangkan persegi panjang hanya sisi yang berhadapan yang sama panjang.</li>
+        <li><b>Ajarkan keliling secara konkret dulu</b> — gunakan benang yang dililitkan di sekeliling bangun dan diukur panjangnya — sebelum masuk ke rumus penjumlahan sisi.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah lancar diberi soal keliling bangun gabungan; siswa yang masih kesulitan fokus mengidentifikasi bentuk terlebih dahulu.</li>
+        <li><b>Asesmen formatif:</b> minta siswa berkeliling kelas/sekolah mencari 3 benda yang berbentuk bangun ruang tertentu dan mencatatnya.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>🔺 Ayo Kenali Bentuk!</h4>
+      <div class="isi">
+        <p><b>Bangun datar</b> (bentuk pipih, 2 dimensi):</p>
+        <div class="contoh-visual">
+          <div class="kartu"><span class="emoji">⬜</span>Persegi: 4 sisi sama panjang</div>
+          <div class="kartu"><span class="emoji">▭</span>Persegi panjang: sisi berhadapan sama panjang</div>
+          <div class="kartu"><span class="emoji">🔺</span>Segitiga: 3 sisi</div>
+          <div class="kartu"><span class="emoji">⚪</span>Lingkaran: bulat, tanpa sudut</div>
+        </div>
+        <p><b>Bangun ruang</b> (bentuk yang punya isi, 3 dimensi): kubus (kotak dadu), balok (kotak sepatu), bola, dan tabung (kaleng susu).</p>
+        <p><b>Keliling</b> = jumlah semua sisi bangun datar. Contoh persegi dengan sisi 5 cm, kelilingnya = 5+5+5+5 = 20 cm.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">7 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Bangun datar yang memiliki 3 sisi disebut ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: segitiga</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Benda berikut yang berbentuk bola adalah ...</div>
+      <ul class="pilihan"><li><b>a.</b> buku</li><li><b>b.</b> bola sepak</li><li><b>c.</b> penggaris</li><li><b>d.</b> kotak pensil</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: b. bola sepak</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Keliling persegi dengan panjang sisi 5 cm adalah ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: 20 cm</b><br>Pembahasan: 5+5+5+5 = 20 cm.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Ciri khas yang membedakan persegi dari persegi panjang adalah ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> persegi memiliki keempat sisi yang sama panjang, sedangkan persegi panjang hanya sisi yang berhadapan yang sama panjang.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Sebutkan 2 contoh benda berbentuk tabung yang ada di sekitarmu!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> kaleng susu, botol minum berbentuk tabung, gelas.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">6</span>Sebuah taman berbentuk persegi panjang dengan panjang 8 m dan lebar 5 m. Berapa kelilingnya?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: 26 m</b><br>Pembahasan: (8+5) × 2 = 26 m.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">7</span>Bangun ruang yang tidak memiliki sudut adalah ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: bola</b></div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 6 ============ -->
+<div class="panel" data-t="t6">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 2</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Pola Bilangan dan Penyajian Data Sederhana</div>
+      <div><b>Alokasi Waktu</b>3 x pertemuan (3 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Memahami urutan bilangan dan operasi hitung dasar</div>
+      <div><b>Profil Pelajar Pancasila</b>Bernalar kritis, gotong royong (survei kelas)</div>
+      <div><b>Sarana</b>Kancing/manik warna-warni, tabel turus, kertas untuk diagram</div>
+      <div><b>Model</b>Survei sederhana & eksplorasi pola benda</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat mengenali dan melanjutkan pola bilangan sederhana.</li>
+      <li>Peserta didik dapat membaca dan menyajikan data sederhana dalam bentuk turus dan diagram gambar.</li>
+      <li>Peserta didik dapat menafsirkan informasi dari data yang disajikan.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Mengenali pola melatih anak berpikir logis untuk memprediksi sesuatu, sementara membaca data melatih anak mengambil kesimpulan dari informasi di sekitarnya.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>📊 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Gunakan pola benda konkret</b> (susunan kancing atau manik warna-warni) sebelum masuk ke pola angka yang abstrak.</li>
+        <li><b>Miskonsepsi umum:</b> siswa hanya menghafal urutan tanpa memahami aturan penambahan/pengurangan yang konsisten pada pola. Selalu tanyakan "apa aturannya?" bukan hanya "apa angka selanjutnya?".</li>
+        <li><b>Latih membaca turus (tally)</b> dari hasil survei sederhana di kelas (misalnya buah favorit) sebelum masuk ke diagram batang yang lebih abstrak.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah lancar bisa membuat pola sendiri dan menjelaskan aturannya kepada teman; siswa yang masih kesulitan cukup melanjutkan pola yang sudah disediakan.</li>
+        <li><b>Asesmen formatif:</b> minta siswa melakukan survei kecil ke 10 teman sekelas (misalnya warna favorit) dan menyajikan hasilnya dalam bentuk turus.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>🔁 Ayo Kenali Pola dan Data!</h4>
+      <div class="isi">
+        <p><b>Pola bilangan</b> adalah urutan angka yang mengikuti aturan tertentu. Contoh: 2, 4, 6, 8, ... — setiap angka bertambah 2, jadi angka berikutnya adalah 10.</p>
+        <p><b>Data turus</b> digunakan untuk mencatat hasil survei. Setiap satu orang = satu garis (l), dan garis kelima dicoret miring untuk memudahkan menghitung.</p>
+        <div class="contoh-visual">
+          <div class="kartu"><span class="emoji">🍎🍊🍎🍊</span>Pola berulang</div>
+          <div class="kartu"><span class="emoji">llll ⁄</span>Turus = 5</div>
+          <div class="kartu"><span class="emoji">📊</span>Diagram gambar</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">7 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Lanjutkan pola berikut: 5, 10, 15, 20, ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: 25</b><br>Pembahasan: pola bertambah 5 setiap angka.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Aturan pada pola 3, 6, 9, 12 adalah ditambah ... setiap bilangan.</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: 3</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Lanjutkan pola berikut: 20, 17, 14, 11, ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: 8</b><br>Pembahasan: pola berkurang 3 setiap angka.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Hasil survei buah favorit kelas: Apel IIII, Jeruk III, Mangga IIIII. Buah paling favorit adalah ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: Mangga</b><br>Pembahasan: Mangga memiliki 5 turus, paling banyak dibanding Apel (4) dan Jeruk (3).</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Berdasarkan data pada soal nomor 4, berapa total siswa yang disurvei?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: 12 siswa</b><br>Pembahasan: 4 + 3 + 5 = 12.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">6</span>Andi menabung Rp1.000 pada hari pertama, lalu setiap hari naik Rp1.000. Berapa tabungan Andi pada hari ke-5?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: Rp5.000</b><br>Pembahasan: pola 1.000, 2.000, 3.000, 4.000, 5.000 — hari ke-5 adalah Rp5.000.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">7</span>Sebutkan aturan pola pada barisan 1, 4, 7, 10!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: ditambah 3 setiap bilangan</b></div></details></div>
+  </div>
+</div>
+
+</div><!-- /panelwrap -->
+
+<footer>Modul Matematika Kelas 3 · Kurikulum Merdeka Fase B · Dapat dicetak (Ctrl/Cmd + P) untuk dibagikan ke siswa</footer>
+
+<script>
+  const btns = document.querySelectorAll('.topic-btn');
+  const panels = document.querySelectorAll('.panel');
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const t = btn.getAttribute('data-t');
+      btns.forEach(b => b.classList.toggle('active', b === btn));
+      panels.forEach(p => p.classList.toggle('active', p.getAttribute('data-t') === t));
+      window.scrollTo({top: 0, behavior:'smooth'});
+    });
+  });
+</script>
+
+</body>
+</html>

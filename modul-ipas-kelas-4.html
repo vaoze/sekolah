@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modul IPAS Kelas 4 — Kurikulum Merdeka</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F7F1E1; --paper-line:#E4D9BE;
+    --ink:#2B2B27; --ink-soft:#5B5648;
+    --accent:#4F7A3D; --tint:#EBF1E4;
+    --chalk:#2E3430;
+    --card-shadow: 3px 3px 0 rgba(43,43,39,0.10);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:repeating-linear-gradient(to bottom, transparent 0px, transparent 34px, var(--paper-line) 35px), var(--paper);
+    color:var(--ink); font-family:'Atkinson Hyperlegible', sans-serif; font-size:17px; line-height:1.65; padding-bottom:60px;
+  }
+  h1,h2,h3,h4{font-family:'Baloo 2', sans-serif; margin:0 0 .4em 0;}
+
+  .cover{position:relative; padding:38px 24px 30px; max-width:920px; margin:0 auto; border-bottom:3px solid var(--ink);}
+  .cover .stamp{position:absolute; top:28px; right:24px; width:88px; height:88px; border-radius:50%; border:3px dashed var(--ink);
+    display:flex; align-items:center; justify-content:center; transform:rotate(-8deg); font-family:'Baloo 2',sans-serif; font-weight:700;
+    font-size:12px; text-align:center; line-height:1.2; color:var(--ink-soft); padding:6px;}
+  .cover h1{font-size:2.1rem; max-width:600px; color:var(--accent);}
+  .cover p.sub{margin:0; color:var(--ink-soft); font-size:1.02rem; max-width:600px;}
+  .cover .meta{margin-top:18px; display:flex; flex-wrap:wrap; gap:10px 26px; font-size:.92rem; color:var(--ink-soft);}
+  .cover .meta span b{color:var(--ink); font-weight:700;}
+
+  .topicbar{
+    max-width:920px; margin:8px auto 0; padding:0 24px 6px;
+    display:flex; gap:8px; flex-wrap:wrap; position:sticky; top:0; background:var(--paper); z-index:20; padding-top:10px;
+  }
+  .topic-btn{
+    appearance:none; cursor:pointer; border:2.5px solid var(--ink); background:#fff; color:var(--ink-soft);
+    font-family:'Baloo 2',sans-serif; font-weight:700; font-size:.82rem; padding:8px 14px; border-radius:20px;
+  }
+  .topic-btn.active{background:var(--accent); border-color:var(--accent); color:#fff;}
+
+  .panelwrap{max-width:920px; margin:0 auto; border:3px solid var(--ink); border-top:none; background:#fffdf8; padding:6px;}
+  .panel{display:none; padding:26px 26px 10px;}
+  .panel.active{display:block;}
+
+  .section{margin:0 0 34px;}
+  .section-head{display:flex; align-items:baseline; gap:10px; border-bottom:2.5px solid var(--accent); padding-bottom:6px; margin-bottom:14px;}
+  .section-head h2{font-size:1.35rem; color:var(--ink);}
+  .section-head .tag{font-family:'Baloo 2',sans-serif; font-weight:700; font-size:.72rem; padding:3px 10px; border-radius:20px; background:var(--accent); color:#fff;}
+
+  .info-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px 24px; background:#fff; border:2px solid var(--paper-line); border-radius:10px; padding:16px 18px; font-size:.94rem;}
+  .info-grid div b{display:block; color:var(--ink-soft); font-size:.78rem; font-weight:700; margin-bottom:2px;}
+  @media(max-width:600px){.info-grid{grid-template-columns:1fr;}}
+
+  ul.tp-list{margin:0; padding-left:22px;}
+  ul.tp-list li{margin-bottom:6px;}
+
+  .callout{border-radius:10px; padding:18px 20px; margin:16px 0;}
+  .callout h4{font-size:1.02rem; display:flex; align-items:center; gap:8px; color:var(--accent);}
+  .pemahaman{border:2px dashed var(--accent); background:var(--tint);}
+  .pemahaman h4{color:var(--accent);}
+
+  .guru{background:var(--chalk); color:#EDEAE2; border:2px solid var(--chalk);}
+  .guru h4{color:#fff;} .guru b{color:#fff;}
+  .guru ul{padding-left:20px; margin:8px 0 0;} .guru li{margin-bottom:6px;}
+
+  .murid{border:2.5px solid var(--accent); background:#fff;}
+  .murid .isi{color:var(--ink);}
+
+  .contoh-visual{display:flex; flex-wrap:wrap; gap:14px; margin:14px 0;}
+  .contoh-visual .kartu{flex:1 1 150px; background:#fff; border:2px solid var(--paper-line); border-radius:10px; padding:12px 14px; text-align:center; font-size:.92rem;}
+  .contoh-visual .kartu .emoji{font-size:1.6rem; display:block; margin-bottom:6px; letter-spacing:2px;}
+
+  .soal-card{background:#fff; border:2px solid var(--ink); border-radius:2px 14px 2px 14px; padding:16px 18px; margin-bottom:14px; box-shadow:var(--card-shadow);}
+  .soal-card .no{font-family:'Baloo 2',sans-serif; font-weight:800; font-size:.85rem; color:#fff; background:var(--ink);
+    display:inline-flex; align-items:center; justify-content:center; width:26px; height:26px; border-radius:50%; margin-right:8px; flex-shrink:0;}
+  .soal-card .pertanyaan{display:flex; align-items:flex-start; gap:4px; font-weight:600;}
+  .soal-card .pilihan{list-style:none; padding:0; margin:10px 0 0 34px; font-size:.95rem;}
+  .soal-card .pilihan li{margin-bottom:4px;} .soal-card .pilihan li b{margin-right:6px;}
+  details.jawaban{margin:10px 0 0 34px;}
+  details.jawaban summary{cursor:pointer; font-family:'Baloo 2',sans-serif; font-weight:700; font-size:.85rem; color:var(--ink-soft); display:inline-block; padding:4px 0;}
+  details.jawaban[open] summary{color:var(--ink);}
+  details.jawaban .kotak-jawab{margin-top:8px; padding:10px 14px; border-radius:8px; font-size:.92rem; background:var(--tint);}
+
+  footer{max-width:920px; margin:24px auto 0; padding:0 26px; color:var(--ink-soft); font-size:.85rem; text-align:center;}
+  @media print{.topicbar{display:none;} .panel{display:block !important; page-break-after:always;}}
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="stamp">KURIKULUM<br>MERDEKA<br>FASE B</div>
+  <h1>Modul Ajar IPAS</h1>
+  <p class="sub">Kelas 4 SD — 6 topik lengkap untuk 2 semester, melanjutkan dan memperdalam kompetensi Fase B dari kelas 3, dengan catatan pedagogis untuk guru, penjelasan untuk murid, dan latihan soal beserta kunci jawaban.</p>
+  <div class="meta">
+    <span>Kelas: <b>4 (Empat)</b></span>
+    <span>Elemen CP: <b>Pemahaman IPAS & Keterampilan Proses</b></span>
+    <span>Total Alokasi: <b>±21 pertemuan</b></span>
+  </div>
+</div>
+
+<div class="topicbar" id="topicbar">
+  <button class="topic-btn active" data-t="t1">1. Wujud & Sifat Zat</button>
+  <button class="topic-btn" data-t="t2">2. Gaya & Energi</button>
+  <button class="topic-btn" data-t="t3">3. Kekayaan Alam Daerah</button>
+  <button class="topic-btn" data-t="t4">4. Keragaman Budaya</button>
+  <button class="topic-btn" data-t="t5">5. Daur Hidup</button>
+  <button class="topic-btn" data-t="t6">6. Geografis Indonesia</button>
+</div>
+
+<div class="panelwrap">
+
+<!-- ============ TOPIK 1 ============ -->
+<div class="panel active" data-t="t1">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 1</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Wujud Zat dan Sifat Bendanya (Lanjutan)</div>
+      <div><b>Alokasi Waktu</b>3 x pertemuan (3 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Memahami 3 wujud benda dasar (materi kelas 3)</div>
+      <div><b>Profil Pelajar Pancasila</b>Bernalar kritis</div>
+      <div><b>Sarana</b>Es batu, gelas berisi es, kapur barus</div>
+      <div><b>Model</b>Eksperimen sederhana & pengamatan langsung</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat menjelaskan sifat-sifat benda padat, cair, dan gas secara lebih rinci.</li>
+      <li>Peserta didik dapat mengidentifikasi faktor yang memengaruhi perubahan wujud benda (suhu).</li>
+      <li>Peserta didik dapat memberikan contoh perubahan wujud dalam kehidupan sehari-hari (mencair, membeku, menguap, mengembun, menyublim).</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Memahami perubahan wujud benda membantu kita menjelaskan berbagai fenomena sehari-hari, seperti mengapa gelas berisi es terlihat basah di luarnya.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>🧊 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Lanjutkan dari kelas 3</b> dengan menambah proses perubahan wujud yang lebih lengkap (mengembun, menyublim), tidak hanya mencair-membeku-menguap.</li>
+        <li><b>Miskonsepsi umum:</b> siswa mengira perubahan wujud mengubah jenis zatnya (es mencair dikira menjadi zat baru, bukan tetap air). Tekankan bahwa perubahan wujud tidak mengubah jenis zat, hanya bentuknya.</li>
+        <li><b>Lakukan eksperimen sederhana mengembun</b> (gelas berisi es di udara panas) untuk pengamatan langsung yang mengesankan.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah mahir menjelaskan proses menyublim (kapur barus); siswa lain fokus pada 3 proses dasar (mencair, membeku, menguap).</li>
+        <li><b>Asesmen formatif:</b> siswa membuat diagram siklus perubahan wujud sederhana.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>🧊 Ayo Kenali Perubahan Wujud!</h4>
+      <div class="isi">
+        <div class="contoh-visual">
+          <div class="kartu"><span class="emoji">🧊➡️💧</span>Mencair</div>
+          <div class="kartu"><span class="emoji">💧➡️🧊</span>Membeku</div>
+          <div class="kartu"><span class="emoji">💧➡️💨</span>Menguap</div>
+          <div class="kartu"><span class="emoji">💨➡️💧</span>Mengembun</div>
+          <div class="kartu"><span class="emoji">🧴➡️💨</span>Menyublim</div>
+        </div>
+        <p>Perubahan wujud tidak mengubah jenis zatnya — es yang mencair tetap air, hanya berubah bentuk.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">6 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Proses uap air berubah menjadi embun disebut ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: mengembun</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Proses kapur barus mengecil dan menghilang disebut ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: menyublim</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Perubahan wujud benda tidak mengubah ...</div>
+      <ul class="pilihan"><li><b>a.</b> jenis zatnya</li><li><b>b.</b> bentuknya</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: a</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Sebutkan 1 contoh proses mengembun dalam kehidupan sehari-hari!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> embun di rerumputan pagi hari, air di luar gelas es.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Mengapa gelas berisi es terlihat basah di bagian luarnya?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> karena uap air di udara mengembun saat menyentuh permukaan gelas yang dingin.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">6</span>Sebutkan faktor yang memengaruhi perubahan wujud benda!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: suhu (panas atau dingin)</b></div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 2 ============ -->
+<div class="panel" data-t="t2">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 1</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Gaya dan Energi</div>
+      <div><b>Alokasi Waktu</b>4 x pertemuan (4 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Memahami konsep gaya sebagai tarikan/dorongan (materi kelas 3)</div>
+      <div><b>Profil Pelajar Pancasila</b>Bernalar kritis, peduli lingkungan</div>
+      <div><b>Sarana</b>Gambar sumber energi, poster hemat energi</div>
+      <div><b>Model</b>Diskusi & proyek poster sederhana</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat menjelaskan berbagai bentuk energi (energi gerak, panas, cahaya, bunyi, listrik).</li>
+      <li>Peserta didik dapat mengidentifikasi sumber energi terbarukan dan tidak terbarukan.</li>
+      <li>Peserta didik dapat menjelaskan pentingnya menghemat energi.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Memahami sumber energi membantu kita membuat pilihan yang bijak dalam menggunakan energi sehari-hari demi kelestarian bumi di masa depan.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>⚡ Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Gunakan contoh nyata sumber energi di sekitar siswa</b> (matahari, listrik, bahan bakar kendaraan) untuk pengenalan awal.</li>
+        <li><b>Miskonsepsi umum:</b> siswa mengira energi hanya berkaitan dengan listrik. Perluas pemahaman ke berbagai bentuk energi lain (panas, cahaya, bunyi, gerak).</li>
+        <li><b>Diskusikan energi terbarukan</b> (matahari, angin, air) <b>vs tidak terbarukan</b> (minyak bumi, batu bara) dan alasan pentingnya beralih ke energi terbarukan.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah mahir menjelaskan cara kerja sumber energi terbarukan sederhana; siswa lain fokus mengenal jenis-jenis energi.</li>
+        <li><b>Asesmen formatif:</b> siswa membuat poster sederhana tentang cara menghemat energi di rumah.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>⚡ Ayo Kenali Energi!</h4>
+      <div class="isi">
+        <div class="contoh-visual">
+          <div class="kartu"><span class="emoji">☀️</span>Terbarukan: matahari, angin, air</div>
+          <div class="kartu"><span class="emoji">⛽</span>Tidak terbarukan: minyak bumi, batu bara</div>
+        </div>
+        <p>Energi terbarukan tidak akan habis karena terus tersedia, sedangkan energi tidak terbarukan bisa habis jika terus digunakan.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">6 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Sebutkan 3 bentuk energi yang kamu ketahui!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> energi panas, energi cahaya, energi gerak.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Matahari adalah contoh sumber energi ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: terbarukan</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Minyak bumi adalah contoh sumber energi ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: tidak terbarukan</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Mengapa kita perlu menghemat energi listrik?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> agar sumber energi tidak cepat habis dan mengurangi biaya serta dampak lingkungan.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Sebutkan 1 contoh cara menghemat energi di rumah!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> mematikan lampu saat tidak digunakan.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">6</span>Mengapa energi matahari disebut energi terbarukan?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> karena tidak akan habis dan terus tersedia setiap hari.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 3 ============ -->
+<div class="panel" data-t="t3">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 1</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Daerahku dan Kekayaan Alamnya</div>
+      <div><b>Alokasi Waktu</b>3 x pertemuan (3 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Mengenal lingkungan sekitar rumah (materi kelas 3)</div>
+      <div><b>Profil Pelajar Pancasila</b>Peduli lingkungan, bernalar kritis</div>
+      <div><b>Sarana</b>Gambar/peta sumber daya alam daerah</div>
+      <div><b>Model</b>Riset sederhana bersama orang tua</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat mengidentifikasi sumber daya alam yang ada di daerah tempat tinggal.</li>
+      <li>Peserta didik dapat menjelaskan pemanfaatan sumber daya alam bagi kehidupan masyarakat.</li>
+      <li>Peserta didik dapat menjelaskan pentingnya menjaga kelestarian sumber daya alam daerah.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Setiap daerah memiliki kekayaan alam yang menopang kehidupan masyarakatnya, sehingga menjaganya adalah tanggung jawab bersama.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>🌾 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Ajak siswa mencari tahu</b> (riset sederhana bersama orang tua) tentang sumber daya alam khas daerah masing-masing.</li>
+        <li><b>Miskonsepsi umum:</b> siswa mengira sumber daya alam tidak akan pernah habis. Diskusikan sumber daya alam yang bisa habis (tambang) vs yang bisa diperbarui (hutan jika dikelola baik).</li>
+        <li><b>Kaitkan dengan mata pencaharian masyarakat sekitar</b> yang bergantung pada sumber daya alam tersebut.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah mahir menjelaskan dampak eksploitasi berlebihan; siswa lain fokus mengenal jenis sumber daya alam daerahnya.</li>
+        <li><b>Asesmen formatif:</b> siswa mempresentasikan hasil riset sederhana tentang sumber daya alam daerahnya.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>🌾 Ayo Kenali Kekayaan Alam Daerahmu!</h4>
+      <div class="isi">
+        <div class="contoh-visual">
+          <div class="kartu"><span class="emoji">⛏️</span>Hasil tambang</div>
+          <div class="kartu"><span class="emoji">🌳</span>Hasil hutan</div>
+          <div class="kartu"><span class="emoji">🐟</span>Hasil laut</div>
+          <div class="kartu"><span class="emoji">🌾</span>Hasil pertanian</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">6 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Sebutkan 1 sumber daya alam yang ada di daerahmu!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban bebas</b> sesuai kondisi daerah masing-masing siswa.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Sumber daya alam yang dapat diperbarui adalah ...</div>
+      <ul class="pilihan"><li><b>a.</b> hutan (jika dikelola dengan baik)</li><li><b>b.</b> batu bara</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: a</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Bagaimana pemanfaatan sumber daya alam bisa membantu perekonomian masyarakat?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> sumber daya alam bisa diolah dan dijual, membuka lapangan kerja bagi masyarakat sekitar.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Contoh sumber daya alam yang tidak dapat diperbarui adalah ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: batu bara/minyak bumi</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Mengapa kita harus menjaga kelestarian sumber daya alam?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> agar sumber daya alam tetap tersedia bagi generasi mendatang.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">6</span>Sebutkan 1 dampak jika sumber daya alam dieksploitasi secara berlebihan!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> kerusakan lingkungan, sumber daya cepat habis, bencana alam.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 4 ============ -->
+<div class="panel" data-t="t4">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 2</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Bhinneka Tunggal Ika (Keragaman Budaya Indonesia)</div>
+      <div><b>Alokasi Waktu</b>3 x pertemuan (3 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Mengenal keberagaman teman di kelas (materi kelas 3)</div>
+      <div><b>Profil Pelajar Pancasila</b>Berkebinekaan global, bernalar kritis</div>
+      <div><b>Sarana</b>Peta Indonesia, gambar pakaian/rumah adat</div>
+      <div><b>Model</b>Diskusi & proyek poster budaya</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat mengidentifikasi keragaman suku, bahasa, dan budaya di Indonesia.</li>
+      <li>Peserta didik dapat menjelaskan pentingnya sikap toleransi dalam keberagaman budaya.</li>
+      <li>Peserta didik dapat memberikan contoh perilaku menghargai keragaman budaya.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Keragaman budaya Indonesia adalah kekayaan bangsa yang harus dijaga dan dihargai bersama, bukan menjadi sumber perpecahan.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>🌏 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Gunakan peta Indonesia dan gambar pakaian/rumah adat</b> untuk menunjukkan keragaman secara visual dan konkret.</li>
+        <li><b>Miskonsepsi umum:</b> siswa mengira budaya sendiri lebih baik dari budaya lain (etnosentrisme). Tekankan bahwa semua budaya memiliki nilai dan keunikan yang sama-sama berharga.</li>
+        <li><b>Ajak siswa berbagi cerita</b> tentang budaya daerah asal keluarga masing-masing untuk memperkaya diskusi kelas.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah mahir menjelaskan manfaat keragaman budaya bagi bangsa; siswa lain cukup menyebutkan contoh keragaman yang mereka ketahui.</li>
+        <li><b>Asesmen formatif:</b> siswa membuat poster sederhana tentang salah satu budaya daerah di Indonesia.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>🌏 Ayo Kenali Keragaman Budaya Indonesia!</h4>
+      <div class="isi">
+        <p>Indonesia punya banyak suku, bahasa daerah, pakaian adat, dan rumah adat. Semua itu adalah kekayaan bangsa kita.</p>
+        <p><b>Bhinneka Tunggal Ika</b> berarti berbeda-beda tetapi tetap satu jua.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">6 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Sebutkan 2 contoh keragaman budaya di Indonesia!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> keragaman bahasa daerah, pakaian adat, rumah adat.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Sikap yang tepat terhadap budaya daerah lain adalah ...</div>
+      <ul class="pilihan"><li><b>a.</b> menghormati dan menghargai</li><li><b>b.</b> menganggapnya kurang baik</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: a</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Sebutkan 1 pakaian adat dan asal daerahnya yang kamu ketahui!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> kebaya (Jawa), ulos (Batak), baju bodo (Bugis).</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Mengapa kita harus bangga dengan keragaman budaya Indonesia?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> karena keragaman budaya adalah kekayaan yang membuat Indonesia unik dan istimewa.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Bhinneka Tunggal Ika berarti ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: berbeda-beda tetapi tetap satu jua</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">6</span>Sebutkan 1 contoh perilaku menghargai keragaman budaya di sekolah!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> ikut merayakan atau mempelajari budaya teman yang berbeda daerah asal.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 5 ============ -->
+<div class="panel" data-t="t5">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 2</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Daur Hidup Makhluk Hidup dan Pelestarian Lingkungan</div>
+      <div><b>Alokasi Waktu</b>3 x pertemuan (3 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Memahami ciri-ciri makhluk hidup (materi kelas 3)</div>
+      <div><b>Profil Pelajar Pancasila</b>Peduli lingkungan, bernalar kritis</div>
+      <div><b>Sarana</b>Gambar berseri daur hidup kupu-kupu dan belalang</div>
+      <div><b>Model</b>Pengamatan gambar & diskusi</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat menjelaskan daur hidup beberapa hewan (dengan dan tanpa metamorfosis).</li>
+      <li>Peserta didik dapat membandingkan metamorfosis sempurna dan tidak sempurna.</li>
+      <li>Peserta didik dapat menjelaskan upaya pelestarian makhluk hidup dan lingkungannya.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Memahami daur hidup hewan membantu kita menyadari bahwa setiap makhluk hidup mengalami tahapan pertumbuhan yang unik, dan perlu dijaga kelestariannya.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>🦋 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Gunakan gambar berseri daur hidup kupu-kupu dan belalang</b> untuk membandingkan jenis metamorfosis secara visual.</li>
+        <li><b>Miskonsepsi umum:</b> siswa mengira semua hewan mengalami metamorfosis seperti kupu-kupu. Jelaskan bahwa banyak hewan (misalnya kucing, ayam) tidak mengalami metamorfosis, hanya tumbuh membesar.</li>
+        <li><b>Diskusikan upaya pelestarian nyata</b> (kebun binatang, suaka margasatwa, tidak berburu liar) yang relevan dengan konteks Indonesia.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah mahir membandingkan metamorfosis sempurna vs tidak sempurna secara detail; siswa lain fokus mengenal 1 contoh daur hidup.</li>
+        <li><b>Asesmen formatif:</b> siswa menggambar dan menjelaskan daur hidup salah satu hewan pilihannya.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>🦋 Ayo Kenali Daur Hidup!</h4>
+      <div class="isi">
+        <div class="contoh-visual">
+          <div class="kartu"><span class="emoji">🥚🐛🦋</span>Metamorfosis sempurna (kupu-kupu): telur - ulat - kepompong - kupu-kupu</div>
+          <div class="kartu"><span class="emoji">🥚🦗</span>Metamorfosis tidak sempurna (belalang): telur - nimfa - dewasa</div>
+        </div>
+        <p>Kucing dan ayam tidak mengalami metamorfosis — mereka hanya tumbuh membesar dari kecil ke dewasa.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">6 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Sebutkan urutan daur hidup kupu-kupu!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> telur - ulat - kepompong - kupu-kupu.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Metamorfosis kupu-kupu termasuk metamorfosis ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: sempurna</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Sebutkan 1 hewan yang mengalami metamorfosis tidak sempurna!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: belalang (atau capung, kecoa)</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Hewan yang tidak mengalami metamorfosis adalah ...</div>
+      <ul class="pilihan"><li><b>a.</b> kucing</li><li><b>b.</b> kupu-kupu</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: a</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Sebutkan 1 upaya pelestarian makhluk hidup yang kamu ketahui!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> tidak berburu liar, mendukung kebun binatang/suaka margasatwa.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">6</span>Mengapa kita perlu melestarikan makhluk hidup dan lingkungannya?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> agar keseimbangan alam terjaga dan makhluk hidup tidak punah.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 6 ============ -->
+<div class="panel" data-t="t6">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 2</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Indonesiaku Kaya Raya (Keragaman Geografis)</div>
+      <div><b>Alokasi Waktu</b>3 x pertemuan (3 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Mengenal kenampakan alam sekitar (materi kelas 3)</div>
+      <div><b>Profil Pelajar Pancasila</b>Berkebinekaan global, bernalar kritis</div>
+      <div><b>Sarana</b>Peta Indonesia, gambar bentang alam berbagai daerah</div>
+      <div><b>Model</b>Eksplorasi peta & diskusi</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat mengidentifikasi kenampakan alam Indonesia (gunung, laut, sungai, dataran) secara lebih luas.</li>
+      <li>Peserta didik dapat menjelaskan letak geografis Indonesia sebagai negara kepulauan.</li>
+      <li>Peserta didik dapat menjelaskan pengaruh kondisi geografis terhadap kehidupan masyarakat.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Kondisi geografis Indonesia yang beragam memengaruhi cara hidup, mata pencaharian, dan budaya masyarakat di setiap daerah.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>🗺️ Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Gunakan peta Indonesia</b> untuk menunjukkan bentang alam yang beragam di berbagai pulau secara visual.</li>
+        <li><b>Miskonsepsi umum:</b> siswa mengira seluruh Indonesia memiliki kondisi geografis yang sama. Tunjukkan variasi bentang alam antarpulau/daerah dengan contoh nyata.</li>
+        <li><b>Kaitkan kondisi geografis dengan mata pencaharian masyarakat</b> (nelayan di pesisir, petani di dataran, dan seterusnya).</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah mahir menjelaskan pengaruh geografis terhadap budaya/mata pencaharian; siswa lain fokus mengenal jenis kenampakan alam.</li>
+        <li><b>Asesmen formatif:</b> siswa menunjukkan pada peta lokasi salah satu kenampakan alam Indonesia yang terkenal.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>🗺️ Ayo Kenali Indonesiaku!</h4>
+      <div class="isi">
+        <p>Indonesia adalah <b>negara kepulauan</b> dengan gunung, laut, sungai, dataran tinggi, dan dataran rendah yang beragam.</p>
+        <div class="contoh-visual">
+          <div class="kartu"><span class="emoji">🎣</span>Pesisir → nelayan</div>
+          <div class="kartu"><span class="emoji">🌱</span>Dataran tinggi → petani sayur/teh/kopi</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">6 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Sebutkan 1 alasan mengapa Indonesia disebut negara kepulauan!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> karena Indonesia terdiri dari ribuan pulau yang dikelilingi laut.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Penduduk di daerah pesisir biasanya bermata pencaharian sebagai ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: nelayan</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Sebutkan 2 contoh kenampakan alam yang ada di Indonesia!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> gunung, laut, sungai, dataran tinggi.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Penduduk di dataran tinggi biasanya bermata pencaharian sebagai ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> petani (sayuran, teh, atau kopi).</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Mengapa kondisi geografis memengaruhi mata pencaharian penduduk?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> karena sumber daya dan aktivitas yang bisa dilakukan berbeda-beda tergantung bentang alamnya (laut, gunung, dataran).</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">6</span>Sebutkan 1 gunung atau laut terkenal di Indonesia yang kamu ketahui!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> Gunung Bromo, Gunung Rinjani, Laut Jawa.</div></details></div>
+  </div>
+</div>
+
+</div><!-- /panelwrap -->
+
+<footer>Modul IPAS Kelas 4 · Kurikulum Merdeka Fase B · Dapat dicetak (Ctrl/Cmd + P) untuk dibagikan ke siswa</footer>
+
+<script>
+  const btns = document.querySelectorAll('.topic-btn');
+  const panels = document.querySelectorAll('.panel');
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const t = btn.getAttribute('data-t');
+      btns.forEach(b => b.classList.toggle('active', b === btn));
+      panels.forEach(p => p.classList.toggle('active', p.getAttribute('data-t') === t));
+      window.scrollTo({top: 0, behavior:'smooth'});
+    });
+  });
+</script>
+
+</body>
+</html>

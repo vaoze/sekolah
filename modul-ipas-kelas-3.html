@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modul IPAS Kelas 3 — Kurikulum Merdeka</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F7F1E1; --paper-line:#E4D9BE;
+    --ink:#2B2B27; --ink-soft:#5B5648;
+    --accent:#4F7A3D; --tint:#EBF1E4;
+    --chalk:#2E3430;
+    --card-shadow: 3px 3px 0 rgba(43,43,39,0.10);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:repeating-linear-gradient(to bottom, transparent 0px, transparent 34px, var(--paper-line) 35px), var(--paper);
+    color:var(--ink); font-family:'Atkinson Hyperlegible', sans-serif; font-size:17px; line-height:1.65; padding-bottom:60px;
+  }
+  h1,h2,h3,h4{font-family:'Baloo 2', sans-serif; margin:0 0 .4em 0;}
+
+  .cover{position:relative; padding:38px 24px 30px; max-width:920px; margin:0 auto; border-bottom:3px solid var(--ink);}
+  .cover .stamp{position:absolute; top:28px; right:24px; width:88px; height:88px; border-radius:50%; border:3px dashed var(--ink);
+    display:flex; align-items:center; justify-content:center; transform:rotate(-8deg); font-family:'Baloo 2',sans-serif; font-weight:700;
+    font-size:12px; text-align:center; line-height:1.2; color:var(--ink-soft); padding:6px;}
+  .cover h1{font-size:2.1rem; max-width:600px; color:var(--accent);}
+  .cover p.sub{margin:0; color:var(--ink-soft); font-size:1.02rem; max-width:600px;}
+  .cover .meta{margin-top:18px; display:flex; flex-wrap:wrap; gap:10px 26px; font-size:.92rem; color:var(--ink-soft);}
+  .cover .meta span b{color:var(--ink); font-weight:700;}
+
+  .topicbar{
+    max-width:920px; margin:8px auto 0; padding:0 24px 6px;
+    display:flex; gap:8px; flex-wrap:wrap; position:sticky; top:0; background:var(--paper); z-index:20; padding-top:10px;
+  }
+  .topic-btn{
+    appearance:none; cursor:pointer; border:2.5px solid var(--ink); background:#fff; color:var(--ink-soft);
+    font-family:'Baloo 2',sans-serif; font-weight:700; font-size:.82rem; padding:8px 14px; border-radius:20px;
+  }
+  .topic-btn.active{background:var(--accent); border-color:var(--accent); color:#fff;}
+
+  .panelwrap{max-width:920px; margin:0 auto; border:3px solid var(--ink); border-top:none; background:#fffdf8; padding:6px;}
+  .panel{display:none; padding:26px 26px 10px;}
+  .panel.active{display:block;}
+
+  .section{margin:0 0 34px;}
+  .section-head{display:flex; align-items:baseline; gap:10px; border-bottom:2.5px solid var(--accent); padding-bottom:6px; margin-bottom:14px;}
+  .section-head h2{font-size:1.35rem; color:var(--ink);}
+  .section-head .tag{font-family:'Baloo 2',sans-serif; font-weight:700; font-size:.72rem; padding:3px 10px; border-radius:20px; background:var(--accent); color:#fff;}
+
+  .info-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px 24px; background:#fff; border:2px solid var(--paper-line); border-radius:10px; padding:16px 18px; font-size:.94rem;}
+  .info-grid div b{display:block; color:var(--ink-soft); font-size:.78rem; font-weight:700; margin-bottom:2px;}
+  @media(max-width:600px){.info-grid{grid-template-columns:1fr;}}
+
+  ul.tp-list{margin:0; padding-left:22px;}
+  ul.tp-list li{margin-bottom:6px;}
+
+  .callout{border-radius:10px; padding:18px 20px; margin:16px 0;}
+  .callout h4{font-size:1.02rem; display:flex; align-items:center; gap:8px; color:var(--accent);}
+  .pemahaman{border:2px dashed var(--accent); background:var(--tint);}
+  .pemahaman h4{color:var(--accent);}
+
+  .guru{background:var(--chalk); color:#EDEAE2; border:2px solid var(--chalk);}
+  .guru h4{color:#fff;} .guru b{color:#fff;}
+  .guru ul{padding-left:20px; margin:8px 0 0;} .guru li{margin-bottom:6px;}
+
+  .murid{border:2.5px solid var(--accent); background:#fff;}
+  .murid .isi{color:var(--ink);}
+
+  .contoh-visual{display:flex; flex-wrap:wrap; gap:14px; margin:14px 0;}
+  .contoh-visual .kartu{flex:1 1 150px; background:#fff; border:2px solid var(--paper-line); border-radius:10px; padding:12px 14px; text-align:center; font-size:.92rem;}
+  .contoh-visual .kartu .emoji{font-size:1.6rem; display:block; margin-bottom:6px; letter-spacing:2px;}
+
+  .soal-card{background:#fff; border:2px solid var(--ink); border-radius:2px 14px 2px 14px; padding:16px 18px; margin-bottom:14px; box-shadow:var(--card-shadow);}
+  .soal-card .no{font-family:'Baloo 2',sans-serif; font-weight:800; font-size:.85rem; color:#fff; background:var(--ink);
+    display:inline-flex; align-items:center; justify-content:center; width:26px; height:26px; border-radius:50%; margin-right:8px; flex-shrink:0;}
+  .soal-card .pertanyaan{display:flex; align-items:flex-start; gap:4px; font-weight:600;}
+  .soal-card .pilihan{list-style:none; padding:0; margin:10px 0 0 34px; font-size:.95rem;}
+  .soal-card .pilihan li{margin-bottom:4px;} .soal-card .pilihan li b{margin-right:6px;}
+  details.jawaban{margin:10px 0 0 34px;}
+  details.jawaban summary{cursor:pointer; font-family:'Baloo 2',sans-serif; font-weight:700; font-size:.85rem; color:var(--ink-soft); display:inline-block; padding:4px 0;}
+  details.jawaban[open] summary{color:var(--ink);}
+  details.jawaban .kotak-jawab{margin-top:8px; padding:10px 14px; border-radius:8px; font-size:.92rem; background:var(--tint);}
+
+  footer{max-width:920px; margin:24px auto 0; padding:0 26px; color:var(--ink-soft); font-size:.85rem; text-align:center;}
+  @media print{.topicbar{display:none;} .panel{display:block !important; page-break-after:always;}}
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="stamp">KURIKULUM<br>MERDEKA<br>FASE B</div>
+  <h1>Modul Ajar IPAS</h1>
+  <p class="sub">Kelas 3 SD — 6 topik lengkap untuk 2 semester, disusun dengan catatan pedagogis untuk guru, penjelasan ramah-anak untuk murid, dan latihan soal beserta kunci jawaban.</p>
+  <div class="meta">
+    <span>Kelas: <b>3 (Tiga)</b></span>
+    <span>Elemen CP: <b>Pemahaman IPAS & Keterampilan Proses</b></span>
+    <span>Total Alokasi: <b>±21 pertemuan</b></span>
+  </div>
+</div>
+
+<div class="topicbar" id="topicbar">
+  <button class="topic-btn active" data-t="t1">1. Makhluk Hidup</button>
+  <button class="topic-btn" data-t="t2">2. Tubuh & Panca Indra</button>
+  <button class="topic-btn" data-t="t3">3. Wujud Benda</button>
+  <button class="topic-btn" data-t="t4">4. Gaya & Gerak</button>
+  <button class="topic-btn" data-t="t5">5. Keluarga & Denah</button>
+  <button class="topic-btn" data-t="t6">6. Cuaca & Bumi</button>
+</div>
+
+<div class="panelwrap">
+
+<!-- ============ TOPIK 1 (existing) ============ -->
+<div class="panel active" data-t="t1">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 1</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Mengenal Makhluk Hidup dan Lingkungannya</div>
+      <div><b>Alokasi Waktu</b>3 x pertemuan (3 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Mengenal berbagai hewan dan tumbuhan di sekitarnya</div>
+      <div><b>Profil Pelajar Pancasila</b>Bernalar kritis, peduli lingkungan, gotong royong</div>
+      <div><b>Sarana</b>Gambar/kartu hewan-tumbuhan, lingkungan sekolah untuk observasi</div>
+      <div><b>Model</b>Observasi langsung di lingkungan sekolah</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat menyebutkan ciri-ciri makhluk hidup.</li>
+      <li>Peserta didik dapat mengelompokkan makhluk hidup berdasarkan tempat hidupnya (darat, air, keduanya).</li>
+      <li>Peserta didik dapat menjelaskan pentingnya menjaga lingkungan bagi kelangsungan makhluk hidup.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Semua makhluk hidup saling bergantung dengan lingkungannya. Memahami ciri dan kebutuhan makhluk hidup membantu anak menyadari perannya menjaga alam sejak dini.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>🌱 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Gunakan pendekatan inkuiri/observasi langsung.</b> Ajak siswa keluar kelas mengamati tumbuhan dan hewan di halaman sekolah — lebih melekat daripada hanya membaca buku.</li>
+        <li><b>Miskonsepsi umum:</b> siswa sering menganggap benda yang bergerak otomatis "hidup" (awan, air mengalir, mobil). Tekankan lima ciri utama makhluk hidup: bernapas, bergerak, tumbuh, berkembang biak, dan memerlukan makanan — kelimanya harus dipenuhi bersamaan.</li>
+        <li><b>Klasifikasi tempat hidup jangan terlalu kaku.</b> Beberapa hewan hidup di dua tempat (amfibi seperti katak) — gunakan ini sebagai diskusi menarik.</li>
+        <li><b>Kaitkan dengan isu nyata:</b> diskusikan dampak sampah atau penebangan pohon terhadap hewan di sekitar sekolah agar konsep "menjaga lingkungan" terasa konkret.</li>
+        <li><b>Asesmen formatif:</b> minta siswa membuat tabel sederhana berisi nama makhluk hidup yang ditemukan saat observasi dan tempat hidupnya.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>🐸 Ciri-Ciri Makhluk Hidup</h4>
+      <div class="isi">
+        <p>Semua makhluk hidup punya 5 ciri utama:</p>
+        <div class="contoh-visual">
+          <div class="kartu"><span class="emoji">💨</span>Bernapas</div>
+          <div class="kartu"><span class="emoji">🏃</span>Bergerak</div>
+          <div class="kartu"><span class="emoji">📏</span>Tumbuh</div>
+          <div class="kartu"><span class="emoji">🍼</span>Berkembang biak</div>
+          <div class="kartu"><span class="emoji">🍚</span>Butuh makanan</div>
+        </div>
+        <p>Makhluk hidup juga bisa dikelompokkan berdasarkan <b>tempat tinggalnya</b>: ikan hidup di air, kucing dan ayam hidup di darat, sedangkan katak bisa hidup di air maupun darat.</p>
+        <p>Kita wajib <b>menjaga lingkungan</b> — tidak membuang sampah sembarangan dan tidak merusak tumbuhan — supaya semua makhluk hidup di sekitar kita tetap sehat dan lestari.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">7 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Berikut ini yang BUKAN ciri makhluk hidup adalah ...</div>
+      <ul class="pilihan"><li><b>a.</b> bernapas</li><li><b>b.</b> tumbuh</li><li><b>c.</b> terbuat dari plastik</li><li><b>d.</b> berkembang biak</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: c</b><br>Pembahasan: benda dari plastik tidak bernapas, tumbuh, atau berkembang biak.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Hewan yang hidup di air adalah ...</div>
+      <ul class="pilihan"><li><b>a.</b> kucing</li><li><b>b.</b> ikan</li><li><b>c.</b> ayam</li><li><b>d.</b> kelinci</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: b. ikan</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Sebutkan hewan yang bisa hidup di dua tempat, yaitu air dan darat!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: katak</b> (atau hewan amfibi lain)</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Sebutkan 3 dari 5 ciri makhluk hidup!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> bernapas, bergerak, tumbuh, berkembang biak, memerlukan makanan (sebutkan 3 saja).</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Mengapa manusia perlu menjaga kebersihan lingkungan bagi makhluk hidup lain?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> agar hewan dan tumbuhan tetap memiliki tempat tinggal dan makanan yang sehat.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">6</span>Pasangkan: (1) burung, (2) ikan lele, (3) sapi — dengan (A) air, (B) darat, (C) udara/pohon.</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> (1)-C, (2)-A, (3)-B</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">7</span>Sebutkan satu contoh perbuatan yang merusak lingkungan dan satu yang menjaganya!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> Merusak — membuang sampah ke sungai. Menjaga — menanam pohon.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 2 ============ -->
+<div class="panel" data-t="t2">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 1</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Tubuh Manusia dan Panca Indra</div>
+      <div><b>Alokasi Waktu</b>3 x pertemuan (3 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Mengenal bagian-bagian tubuh secara umum</div>
+      <div><b>Profil Pelajar Pancasila</b>Mandiri (merawat diri), bernalar kritis</div>
+      <div><b>Sarana</b>Gambar tubuh manusia berlabel, benda untuk eksperimen indra (benda beraroma, bertekstur)</div>
+      <div><b>Model</b>Eksperimen sederhana & diskusi</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat menyebutkan bagian-bagian tubuh manusia dan fungsinya.</li>
+      <li>Peserta didik dapat menjelaskan fungsi kelima panca indra.</li>
+      <li>Peserta didik dapat menjelaskan cara merawat tubuh dan panca indra agar tetap sehat.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Memahami fungsi tubuh dan panca indra membantu kita merawat diri dengan baik, sehingga tubuh tetap sehat dan bisa beraktivitas maksimal.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>👁️ Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Gunakan gambar tubuh manusia berlabel</b> sebagai alat peraga utama, lalu minta siswa menunjuk bagian tubuhnya sendiri sesuai gambar.</li>
+        <li><b>Miskonsepsi umum:</b> siswa sering hanya menghafal nama panca indra tanpa memahami fungsinya secara spesifik. Pancing dengan pertanyaan "mengapa hidung penting?" bukan hanya "sebutkan panca indra".</li>
+        <li><b>Kaitkan dengan kebiasaan sehari-hari:</b> mencuci tangan, menggosok gigi, tidak menonton TV terlalu dekat, dst., sebagai penerapan nyata merawat tubuh.</li>
+        <li><b>Lakukan eksperimen sederhana:</b> tutup mata dan tebak benda dari bau/rasa/teksturnya, untuk melatih kepekaan indra secara langsung.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah lancar menjelaskan dampak jika salah satu indra tidak berfungsi baik; siswa lain fokus mengenal nama dan fungsi dasar.</li>
+        <li><b>Asesmen formatif:</b> siswa mengisi tabel fungsi panca indra secara mandiri setelah eksperimen.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>👀 Ayo Kenali Panca Indra!</h4>
+      <div class="isi">
+        <p>Kita punya 5 panca indra yang membantu kita mengenal dunia sekitar:</p>
+        <div class="contoh-visual">
+          <div class="kartu"><span class="emoji">👁️</span>Mata: melihat</div>
+          <div class="kartu"><span class="emoji">👂</span>Telinga: mendengar</div>
+          <div class="kartu"><span class="emoji">👃</span>Hidung: mencium bau</div>
+          <div class="kartu"><span class="emoji">👅</span>Lidah: mengecap rasa</div>
+          <div class="kartu"><span class="emoji">✋</span>Kulit: meraba</div>
+        </div>
+        <p>Cara merawatnya: jangan menonton TV terlalu dekat (mata), jangan mengorek telinga terlalu kasar, cuci tangan sebelum makan, dan jaga kebersihan kulit.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">7 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Organ yang digunakan untuk melihat adalah ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: mata</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Sebutkan fungsi hidung!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> untuk mencium bau/aroma dan sebagai alat bernapas.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Cara menjaga kesehatan mata adalah ...</div>
+      <ul class="pilihan"><li><b>a.</b> menonton TV sangat dekat</li><li><b>b.</b> membaca di tempat gelap</li><li><b>c.</b> tidak menatap layar terlalu lama dan dekat</li><li><b>d.</b> mengucek mata dengan tangan kotor</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: c</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Sebutkan 3 dari 5 panca indra beserta fungsinya!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> mata untuk melihat, telinga untuk mendengar, lidah untuk mengecap rasa.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Budi makan permen dan merasakan manisnya. Indra apa yang digunakan Budi?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: lidah</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">6</span>Berikut ini yang BUKAN termasuk panca indra adalah ...</div>
+      <ul class="pilihan"><li><b>a.</b> mata</li><li><b>b.</b> otak</li><li><b>c.</b> hidung</li><li><b>d.</b> kulit</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: b. otak</b><br>Pembahasan: otak adalah organ pengendali tubuh, bukan bagian dari panca indra.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">7</span>Mengapa kita perlu mencuci tangan sebelum makan?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> agar kuman dan kotoran di tangan tidak ikut masuk ke tubuh bersama makanan.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 3 ============ -->
+<div class="panel" data-t="t3">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 1</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Wujud Benda dan Perubahannya</div>
+      <div><b>Alokasi Waktu</b>3 x pertemuan (3 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Mengenal benda-benda di sekitar</div>
+      <div><b>Profil Pelajar Pancasila</b>Bernalar kritis</div>
+      <div><b>Sarana</b>Es batu, air, balon, kompor/pemanas air (didampingi guru)</div>
+      <div><b>Model</b>Demonstrasi & eksperimen sederhana</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat mengelompokkan benda berdasarkan wujudnya (padat, cair, gas).</li>
+      <li>Peserta didik dapat menjelaskan ciri-ciri masing-masing wujud benda.</li>
+      <li>Peserta didik dapat menjelaskan contoh perubahan wujud benda sederhana (mencair, membeku, menguap).</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Memahami wujud benda membantu kita menjelaskan berbagai fenomena sehari-hari, seperti mengapa es mencair atau mengapa air bisa menjadi uap.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>🧊 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Lakukan demonstrasi sederhana:</b> es batu mencair, air dipanaskan menguap, air dimasukkan freezer membeku — siswa mengamati langsung, bukan hanya membaca teori.</li>
+        <li><b>Miskonsepsi umum:</b> siswa mengira gas tidak nyata karena tidak terlihat. Tunjukkan dengan balon yang ditiup atau uap air yang mendidih agar mereka menyadari gas juga benda nyata.</li>
+        <li><b>Bedakan ciri utama tiap wujud:</b> padat (bentuk & volume tetap), cair (bentuk mengikuti wadah, volume tetap), gas (bentuk & volume mengikuti ruang).</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah lancar menjelaskan proses perubahan wujud dua arah (menguap-mengembun); siswa lain fokus mengelompokkan benda ke 3 wujud dasar.</li>
+        <li><b>Asesmen formatif:</b> siswa membawa atau menyebutkan 3 benda dari rumah dan mengelompokkan wujudnya masing-masing.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>🧊 Ayo Kenali Wujud Benda!</h4>
+      <div class="isi">
+        <div class="contoh-visual">
+          <div class="kartu"><span class="emoji">🪨</span>Padat: bentuk tetap (batu, kayu, meja)</div>
+          <div class="kartu"><span class="emoji">💧</span>Cair: mengikuti wadah (air, minyak, susu)</div>
+          <div class="kartu"><span class="emoji">💨</span>Gas: memenuhi ruang (udara, uap air)</div>
+        </div>
+        <p><b>Perubahan wujud:</b> es (padat) dipanaskan menjadi air (cair) disebut <b>mencair</b>; air dipanaskan terus menjadi uap (gas) disebut <b>menguap</b>; air didinginkan menjadi es disebut <b>membeku</b>.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">7 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Contoh benda cair adalah ...</div>
+      <ul class="pilihan"><li><b>a.</b> batu</li><li><b>b.</b> air</li><li><b>c.</b> kayu</li><li><b>d.</b> udara</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: b. air</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Sebutkan ciri utama benda padat!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> bentuk dan volumenya tetap, tidak berubah mengikuti wadah.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Proses es berubah menjadi air disebut ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: mencair</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Proses air berubah menjadi uap disebut ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: menguap</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Mengapa balon bisa mengembang saat ditiup?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> karena balon terisi udara (gas) yang memenuhi ruang di dalamnya.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">6</span>Awan di langit termasuk wujud benda ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: gas (uap air)</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">7</span>Sebutkan 3 benda di rumahmu beserta wujudnya!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> meja (padat), minyak goreng (cair), udara dalam ban sepeda (gas).</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 4 ============ -->
+<div class="panel" data-t="t4">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 2</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Gaya dan Gerak Benda Sederhana</div>
+      <div><b>Alokasi Waktu</b>3 x pertemuan (3 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Mengenal aktivitas mendorong dan menarik sehari-hari</div>
+      <div><b>Profil Pelajar Pancasila</b>Bernalar kritis</div>
+      <div><b>Sarana</b>Bola, magnet, benda logam & non-logam, meja/kursi untuk demonstrasi</div>
+      <div><b>Model</b>Eksperimen langsung & demonstrasi</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat menjelaskan pengertian gaya sebagai tarikan atau dorongan.</li>
+      <li>Peserta didik dapat mengidentifikasi pengaruh gaya terhadap gerak benda.</li>
+      <li>Peserta didik dapat memberi contoh gaya dalam kehidupan sehari-hari (gaya otot, gravitasi, magnet, gesek).</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Gaya ada di sekitar kita setiap hari, dari menendang bola hingga buah yang jatuh dari pohon. Memahami gaya membantu kita menjelaskan mengapa benda bergerak, berhenti, atau berubah bentuk.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>⚽ Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Praktikkan langsung:</b> dorong meja, tarik kursi, jatuhkan bola untuk menunjukkan gaya secara nyata di depan kelas.</li>
+        <li><b>Miskonsepsi umum:</b> siswa mengira gaya hanya berarti "kekuatan otot manusia". Perkenalkan juga gaya gravitasi dan gaya magnet sebagai gaya yang tidak terlihat langsung.</li>
+        <li><b>Gunakan magnet dan benda logam/non-logam</b> untuk eksperimen sederhana gaya magnet, agar siswa menemukan sendiri benda mana yang tertarik dan tidak.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah lancar membedakan berbagai jenis gaya (otot, gravitasi, magnet, gesek); siswa lain fokus pada konsep dasar tarikan-dorongan.</li>
+        <li><b>Asesmen formatif:</b> siswa mendemonstrasikan satu contoh gaya di depan kelas dan menjelaskan efeknya terhadap benda.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>⚽ Ayo Kenali Gaya!</h4>
+      <div class="isi">
+        <p><b>Gaya</b> adalah tarikan atau dorongan yang membuat benda bergerak, berhenti, atau berubah bentuk/arah.</p>
+        <div class="contoh-visual">
+          <div class="kartu"><span class="emoji">⚽</span>Menendang bola = dorongan</div>
+          <div class="kartu"><span class="emoji">🍎</span>Buah jatuh = gaya gravitasi</div>
+          <div class="kartu"><span class="emoji">🧲</span>Magnet menarik paku = gaya magnet</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">7 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Gaya adalah ...</div>
+      <ul class="pilihan"><li><b>a.</b> warna suatu benda</li><li><b>b.</b> tarikan atau dorongan</li><li><b>c.</b> bentuk benda</li><li><b>d.</b> berat benda</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: b</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Sebutkan contoh gaya tarikan dalam kehidupan sehari-hari!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> menarik gerobak, menarik tali timba, membuka laci.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Mengapa buah jatuh ke bawah, bukan ke atas?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> karena adanya gaya gravitasi yang menarik benda ke arah bumi.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Benda apa yang bisa ditarik oleh magnet?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> benda logam/besi, seperti paku dan peniti.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Rina mendorong sepeda yang mogok. Gaya apa yang dilakukan Rina?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: dorongan</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">6</span>Apa akibat gaya pada bola yang ditendang?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> bola bergerak atau berubah arah.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">7</span>Sebutkan 2 jenis gaya yang kamu ketahui!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> gaya otot dan gaya gravitasi (atau gaya magnet, gaya gesek).</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 5 ============ -->
+<div class="panel" data-t="t5">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 2</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Keluarga, Lingkungan Sosial, dan Denah</div>
+      <div><b>Alokasi Waktu</b>3 x pertemuan (3 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Mengenal anggota keluarga dan lingkungan rumah</div>
+      <div><b>Profil Pelajar Pancasila</b>Gotong royong, berkebinekaan global</div>
+      <div><b>Sarana</b>Kertas gambar untuk denah, kompas sederhana/petunjuk arah matahari</div>
+      <div><b>Model</b>Proyek menggambar denah & diskusi</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat menjelaskan peran anggota keluarga dan pentingnya kerja sama di rumah.</li>
+      <li>Peserta didik dapat membaca dan membuat denah sederhana rumah/lingkungan sekitar.</li>
+      <li>Peserta didik dapat mengidentifikasi kenampakan alam dan buatan di lingkungan sekitar.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Memahami peran keluarga dan lingkungan sekitar membantu anak menyadari pentingnya kerja sama, serta melatih kemampuan membaca ruang dan arah dalam kehidupan sehari-hari.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>🏠 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Ajak siswa menggambar denah rumah masing-masing</b> sebagai bahan diskusi otentik dan personal, bukan hanya contoh dari buku.</li>
+        <li><b>Miskonsepsi umum:</b> siswa sering bingung menentukan arah mata angin pada denah. Latih dengan orientasi nyata di lapangan sekolah (matahari terbit di timur) sebelum masuk ke gambar.</li>
+        <li><b>Diskusikan pembagian tugas rumah</b> sebagai bentuk kerja sama keluarga, kaitkan dengan Profil Pelajar Pancasila gotong royong.</li>
+        <li><b>Bedakan kenampakan alam</b> (gunung, sungai, laut) <b>dan buatan</b> (jalan, jembatan, gedung) dengan contoh lokal di sekitar sekolah agar lebih konkret.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah lancar membuat denah dengan skala sederhana dan arah mata angin lengkap; siswa lain cukup denah sederhana tanpa skala.</li>
+        <li><b>Asesmen formatif:</b> siswa mempresentasikan denah buatannya ke teman sebangku.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>🗺️ Ayo Kenali Lingkungan Sekitar!</h4>
+      <div class="isi">
+        <p><b>Keluarga</b> saling membantu — ayah, ibu, kakak, adik punya peran dan tugas masing-masing di rumah.</p>
+        <p><b>Denah</b> adalah gambar sederhana yang menunjukkan letak suatu tempat dilihat dari atas. Arah mata angin ada 4: utara, selatan, timur, barat.</p>
+        <div class="contoh-visual">
+          <div class="kartu"><span class="emoji">🏔️</span>Kenampakan alam: gunung, sungai, laut</div>
+          <div class="kartu"><span class="emoji">🌉</span>Kenampakan buatan: jalan, jembatan, gedung</div>
+          <div class="kartu"><span class="emoji">🧭</span>4 arah mata angin</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">7 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Sebutkan 2 contoh kerja sama dalam keluarga!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> membersihkan rumah bersama, memasak bersama, membagi tugas piket.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Gambar yang menunjukkan letak suatu tempat dilihat dari atas disebut ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: denah</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Sebutkan 4 arah mata angin!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> utara, selatan, timur, barat.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Gunung termasuk kenampakan ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: alam</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Jembatan termasuk kenampakan ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: buatan</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">6</span>Matahari terbit dari arah ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: timur</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">7</span>Sebutkan 1 contoh kenampakan alam dan 1 kenampakan buatan di sekitar rumahmu!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> sungai (alam), jalan raya (buatan).</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 6 ============ -->
+<div class="panel" data-t="t6">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 2</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Cuaca, Musim, serta Bumi dan Benda Langit</div>
+      <div><b>Alokasi Waktu</b>3 x pertemuan (3 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Mengenal kondisi cuaca sehari-hari secara umum</div>
+      <div><b>Profil Pelajar Pancasila</b>Bernalar kritis</div>
+      <div><b>Sarana</b>Jurnal cuaca mingguan, gambar matahari-bulan-bintang</div>
+      <div><b>Model</b>Observasi harian & diskusi</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat mengidentifikasi jenis-jenis cuaca dan ciri-cirinya (cerah, berawan, hujan).</li>
+      <li>Peserta didik dapat menjelaskan perbedaan musim kemarau dan musim hujan di Indonesia.</li>
+      <li>Peserta didik dapat mengenal benda langit (matahari, bulan, bintang) dan perannya bagi kehidupan.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Memahami cuaca dan musim membantu kita mempersiapkan diri dalam beraktivitas sehari-hari, sementara mengenal benda langit menumbuhkan rasa ingin tahu tentang alam semesta.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>☀️ Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Ajak siswa mengamati kondisi cuaca hari itu</b> sebagai titik awal pembelajaran sebelum masuk ke teori.</li>
+        <li><b>Miskonsepsi umum:</b> siswa mengira cuaca dan musim adalah hal yang sama. Tekankan bahwa cuaca berubah setiap hari, sedangkan musim berlangsung dalam waktu yang jauh lebih lama (berbulan-bulan).</li>
+        <li><b>Diskusikan dampak cuaca</b> terhadap aktivitas sehari-hari (memakai payung, menjemur pakaian, dst.) agar konsep terasa relevan.</li>
+        <li><b>Perkenalkan benda langit secara sederhana:</b> matahari sebagai sumber cahaya & panas utama bumi, bulan memantulkan cahaya matahari, bintang memancarkan cahayanya sendiri.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah lancar menjelaskan penyebab pergantian siang-malam; siswa lain fokus mengenal ciri cuaca & musim.</li>
+        <li><b>Asesmen formatif:</b> siswa membuat jurnal cuaca sederhana selama satu minggu.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>☀️ Ayo Kenali Cuaca dan Langit!</h4>
+      <div class="isi">
+        <div class="contoh-visual">
+          <div class="kartu"><span class="emoji">☀️</span>Cerah: matahari terang</div>
+          <div class="kartu"><span class="emoji">☁️</span>Berawan: langit tertutup awan</div>
+          <div class="kartu"><span class="emoji">🌧️</span>Hujan: turun air dari langit</div>
+        </div>
+        <p><b>Musim di Indonesia</b> ada 2: kemarau (panas, jarang hujan) dan hujan (sering hujan).</p>
+        <p><b>Benda langit:</b> matahari (sumber cahaya di siang hari), bulan (terlihat di malam hari), bintang (berkelip-kelip di langit malam).</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">7 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Cuaca saat langit cerah dan matahari bersinar terang disebut cuaca ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: cerah</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Sebutkan 2 musim yang ada di Indonesia!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> musim kemarau dan musim hujan.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Benda langit yang menjadi sumber cahaya utama bumi adalah ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: matahari</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Mengapa kita perlu membawa payung saat cuaca mendung?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> karena cuaca mendung menandakan kemungkinan akan turun hujan.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Pada malam hari, benda langit apa yang terlihat bersinar terang selain bintang?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: bulan</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">6</span>Musim yang ditandai dengan udara panas dan jarang hujan disebut musim ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: kemarau</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">7</span>Sebutkan 1 dampak cuaca hujan terhadap aktivitas sehari-hari!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> pakaian yang dijemur sulit kering, jalan menjadi becek, perlu membawa payung.</div></details></div>
+  </div>
+</div>
+
+</div><!-- /panelwrap -->
+
+<footer>Modul IPAS Kelas 3 · Kurikulum Merdeka Fase B · Dapat dicetak (Ctrl/Cmd + P) untuk dibagikan ke siswa</footer>
+
+<script>
+  const btns = document.querySelectorAll('.topic-btn');
+  const panels = document.querySelectorAll('.panel');
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const t = btn.getAttribute('data-t');
+      btns.forEach(b => b.classList.toggle('active', b === btn));
+      panels.forEach(p => p.classList.toggle('active', p.getAttribute('data-t') === t));
+      window.scrollTo({top: 0, behavior:'smooth'});
+    });
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modul IPAS Kelas 5 — Kurikulum Merdeka</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F7F1E1; --paper-line:#E4D9BE;
+    --ink:#2B2B27; --ink-soft:#5B5648;
+    --accent:#4F7A3D; --tint:#EBF1E4;
+    --chalk:#2E3430;
+    --card-shadow: 3px 3px 0 rgba(43,43,39,0.10);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:repeating-linear-gradient(to bottom, transparent 0px, transparent 34px, var(--paper-line) 35px), var(--paper);
+    color:var(--ink); font-family:'Atkinson Hyperlegible', sans-serif; font-size:17px; line-height:1.65; padding-bottom:60px;
+  }
+  h1,h2,h3,h4{font-family:'Baloo 2', sans-serif; margin:0 0 .4em 0;}
+
+  .cover{position:relative; padding:38px 24px 30px; max-width:920px; margin:0 auto; border-bottom:3px solid var(--ink);}
+  .cover .stamp{position:absolute; top:28px; right:24px; width:88px; height:88px; border-radius:50%; border:3px dashed var(--ink);
+    display:flex; align-items:center; justify-content:center; transform:rotate(-8deg); font-family:'Baloo 2',sans-serif; font-weight:700;
+    font-size:12px; text-align:center; line-height:1.2; color:var(--ink-soft); padding:6px;}
+  .cover h1{font-size:2.1rem; max-width:600px; color:var(--accent);}
+  .cover p.sub{margin:0; color:var(--ink-soft); font-size:1.02rem; max-width:600px;}
+  .cover .meta{margin-top:18px; display:flex; flex-wrap:wrap; gap:10px 26px; font-size:.92rem; color:var(--ink-soft);}
+  .cover .meta span b{color:var(--ink); font-weight:700;}
+
+  .topicbar{
+    max-width:920px; margin:8px auto 0; padding:0 24px 6px;
+    display:flex; gap:8px; flex-wrap:wrap; position:sticky; top:0; background:var(--paper); z-index:20; padding-top:10px;
+  }
+  .topic-btn{
+    appearance:none; cursor:pointer; border:2.5px solid var(--ink); background:#fff; color:var(--ink-soft);
+    font-family:'Baloo 2',sans-serif; font-weight:700; font-size:.82rem; padding:8px 14px; border-radius:20px;
+  }
+  .topic-btn.active{background:var(--accent); border-color:var(--accent); color:#fff;}
+
+  .panelwrap{max-width:920px; margin:0 auto; border:3px solid var(--ink); border-top:none; background:#fffdf8; padding:6px;}
+  .panel{display:none; padding:26px 26px 10px;}
+  .panel.active{display:block;}
+
+  .section{margin:0 0 34px;}
+  .section-head{display:flex; align-items:baseline; gap:10px; border-bottom:2.5px solid var(--accent); padding-bottom:6px; margin-bottom:14px;}
+  .section-head h2{font-size:1.35rem; color:var(--ink);}
+  .section-head .tag{font-family:'Baloo 2',sans-serif; font-weight:700; font-size:.72rem; padding:3px 10px; border-radius:20px; background:var(--accent); color:#fff;}
+
+  .info-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px 24px; background:#fff; border:2px solid var(--paper-line); border-radius:10px; padding:16px 18px; font-size:.94rem;}
+  .info-grid div b{display:block; color:var(--ink-soft); font-size:.78rem; font-weight:700; margin-bottom:2px;}
+  @media(max-width:600px){.info-grid{grid-template-columns:1fr;}}
+
+  ul.tp-list{margin:0; padding-left:22px;}
+  ul.tp-list li{margin-bottom:6px;}
+
+  .callout{border-radius:10px; padding:18px 20px; margin:16px 0;}
+  .callout h4{font-size:1.02rem; display:flex; align-items:center; gap:8px; color:var(--accent);}
+  .pemahaman{border:2px dashed var(--accent); background:var(--tint);}
+  .pemahaman h4{color:var(--accent);}
+
+  .guru{background:var(--chalk); color:#EDEAE2; border:2px solid var(--chalk);}
+  .guru h4{color:#fff;} .guru b{color:#fff;}
+  .guru ul{padding-left:20px; margin:8px 0 0;} .guru li{margin-bottom:6px;}
+
+  .murid{border:2.5px solid var(--accent); background:#fff;}
+  .murid .isi{color:var(--ink);}
+
+  .contoh-visual{display:flex; flex-wrap:wrap; gap:14px; margin:14px 0;}
+  .contoh-visual .kartu{flex:1 1 150px; background:#fff; border:2px solid var(--paper-line); border-radius:10px; padding:12px 14px; text-align:center; font-size:.92rem;}
+  .contoh-visual .kartu .emoji{font-size:1.6rem; display:block; margin-bottom:6px; letter-spacing:2px;}
+
+  .soal-card{background:#fff; border:2px solid var(--ink); border-radius:2px 14px 2px 14px; padding:16px 18px; margin-bottom:14px; box-shadow:var(--card-shadow);}
+  .soal-card .no{font-family:'Baloo 2',sans-serif; font-weight:800; font-size:.85rem; color:#fff; background:var(--ink);
+    display:inline-flex; align-items:center; justify-content:center; width:26px; height:26px; border-radius:50%; margin-right:8px; flex-shrink:0;}
+  .soal-card .pertanyaan{display:flex; align-items:flex-start; gap:4px; font-weight:600;}
+  .soal-card .pilihan{list-style:none; padding:0; margin:10px 0 0 34px; font-size:.95rem;}
+  .soal-card .pilihan li{margin-bottom:4px;} .soal-card .pilihan li b{margin-right:6px;}
+  details.jawaban{margin:10px 0 0 34px;}
+  details.jawaban summary{cursor:pointer; font-family:'Baloo 2',sans-serif; font-weight:700; font-size:.85rem; color:var(--ink-soft); display:inline-block; padding:4px 0;}
+  details.jawaban[open] summary{color:var(--ink);}
+  details.jawaban .kotak-jawab{margin-top:8px; padding:10px 14px; border-radius:8px; font-size:.92rem; background:var(--tint);}
+
+  footer{max-width:920px; margin:24px auto 0; padding:0 26px; color:var(--ink-soft); font-size:.85rem; text-align:center;}
+  @media print{.topicbar{display:none;} .panel{display:block !important; page-break-after:always;}}
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="stamp">KURIKULUM<br>MERDEKA<br>FASE C</div>
+  <h1>Modul Ajar IPAS</h1>
+  <p class="sub">Kelas 5 SD — 6 topik lengkap untuk 2 semester, memasuki Fase C dengan materi tubuh manusia, ekosistem, dan keragaman geografis Indonesia, dilengkapi catatan pedagogis untuk guru, penjelasan untuk murid, dan latihan soal beserta kunci jawaban.</p>
+  <div class="meta">
+    <span>Kelas: <b>5 (Lima)</b></span>
+    <span>Elemen CP: <b>Pemahaman IPAS & Keterampilan Proses</b></span>
+    <span>Total Alokasi: <b>±21 pertemuan</b></span>
+  </div>
+</div>
+
+<div class="topicbar" id="topicbar">
+  <button class="topic-btn active" data-t="t1">1. Sistem Pernapasan</button>
+  <button class="topic-btn" data-t="t2">2. Pencernaan & Peredaran Darah</button>
+  <button class="topic-btn" data-t="t3">3. Ekosistem</button>
+  <button class="topic-btn" data-t="t4">4. Peta & Geografis</button>
+  <button class="topic-btn" data-t="t5">5. Keanekaragaman Hayati</button>
+  <button class="topic-btn" data-t="t6">6. Kegiatan Ekonomi</button>
+</div>
+
+<div class="panelwrap">
+
+<!-- ============ TOPIK 1 ============ -->
+<div class="panel active" data-t="t1">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 1</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Organ Tubuh dan Sistem Pernapasan Manusia</div>
+      <div><b>Alokasi Waktu</b>3 x pertemuan (3 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Mengenal panca indra dan bagian tubuh dasar (materi kelas 3-4)</div>
+      <div><b>Profil Pelajar Pancasila</b>Bernalar kritis, mandiri</div>
+      <div><b>Sarana</b>Gambar organ pernapasan berlabel, sedotan untuk demonstrasi</div>
+      <div><b>Model</b>Pengamatan gambar & eksperimen sederhana</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat menyebutkan organ-organ pernapasan manusia dan fungsinya.</li>
+      <li>Peserta didik dapat menjelaskan proses pernapasan pada manusia secara sederhana.</li>
+      <li>Peserta didik dapat menjelaskan cara menjaga kesehatan organ pernapasan.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Memahami cara kerja sistem pernapasan membantu kita menyadari pentingnya menjaga kesehatan paru-paru, misalnya dengan menghindari asap rokok dan polusi udara.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>🫁 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Gunakan gambar organ pernapasan berlabel</b> (hidung, tenggorokan, paru-paru) sebagai alat peraga utama, disertai model sederhana jika memungkinkan.</li>
+        <li><b>Miskonsepsi umum:</b> siswa mengira udara langsung masuk ke perut/lambung saat bernapas. Jelaskan jalur udara yang benar: hidung → tenggorokan → paru-paru.</li>
+        <li><b>Lakukan demonstrasi sederhana</b> menghirup dan mengembuskan napas sambil merasakan gerakan dada/perut untuk menunjukkan proses pernapasan secara konkret.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah mahir menjelaskan pertukaran oksigen-karbon dioksida di paru-paru; siswa lain fokus mengenal organ dan urutan jalur udara.</li>
+        <li><b>Asesmen formatif:</b> siswa melabeli gambar organ pernapasan secara mandiri.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>🫁 Ayo Kenali Sistem Pernapasan!</h4>
+      <div class="isi">
+        <p>Jalur udara saat bernapas: <b>hidung → tenggorokan → paru-paru</b>. Di paru-paru, oksigen diserap ke darah dan karbon dioksida dikeluarkan.</p>
+        <div class="contoh-visual">
+          <div class="kartu"><span class="emoji">👃</span>Hidung: menyaring udara</div>
+          <div class="kartu"><span class="emoji">🫁</span>Paru-paru: pertukaran oksigen</div>
+        </div>
+        <p>Jaga kesehatan paru-paru dengan menghindari asap rokok dan udara yang berpolusi.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">6 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Sebutkan urutan jalur udara saat bernapas!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> hidung - tenggorokan - paru-paru.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Organ yang berfungsi menyaring udara yang masuk adalah ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: hidung</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Di organ manakah pertukaran oksigen dan karbon dioksida terjadi?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: paru-paru</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Sebutkan 1 cara menjaga kesehatan organ pernapasan!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> menghindari asap rokok, berolahraga teratur, menggunakan masker di tempat berpolusi.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Mengapa merokok berbahaya bagi sistem pernapasan?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> asap rokok mengandung zat berbahaya yang dapat merusak paru-paru.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">6</span>Gas apa yang kita hirup dan gas apa yang kita keluarkan saat bernapas?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> menghirup oksigen, mengeluarkan karbon dioksida.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 2 ============ -->
+<div class="panel" data-t="t2">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 1</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Sistem Pencernaan dan Peredaran Darah Manusia</div>
+      <div><b>Alokasi Waktu</b>4 x pertemuan (4 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Memahami sistem pernapasan (topik sebelumnya)</div>
+      <div><b>Profil Pelajar Pancasila</b>Bernalar kritis, mandiri</div>
+      <div><b>Sarana</b>Gambar organ pencernaan dan jantung berlabel</div>
+      <div><b>Model</b>Pengamatan gambar & diskusi</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat menyebutkan organ-organ pencernaan manusia dan fungsinya secara berurutan.</li>
+      <li>Peserta didik dapat menjelaskan fungsi jantung dan pembuluh darah dalam sistem peredaran darah.</li>
+      <li>Peserta didik dapat menjelaskan cara menjaga kesehatan sistem pencernaan dan peredaran darah.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Memahami cara kerja tubuh sendiri membantu kita membuat pilihan makanan dan gaya hidup yang lebih sehat.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>❤️ Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Gunakan gambar organ pencernaan berurutan</b> (mulut - kerongkongan - lambung - usus halus - usus besar - anus) agar siswa memahami perjalanan makanan secara sistematis.</li>
+        <li><b>Miskonsepsi umum:</b> siswa mengira jantung hanya "berdetak" tanpa memahami fungsinya memompa darah ke seluruh tubuh. Gunakan analogi pompa air untuk menjelaskan fungsi jantung.</li>
+        <li><b>Bedakan pembuluh darah</b> (arteri membawa darah dari jantung, vena membawa darah kembali ke jantung) secara sederhana tanpa istilah yang terlalu rumit.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah mahir menjelaskan proses pencernaan secara detail per organ; siswa lain fokus mengenal urutan organ secara umum.</li>
+        <li><b>Asesmen formatif:</b> siswa mengurutkan kartu bergambar organ pencernaan sesuai jalur makanan.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>❤️ Ayo Kenali Pencernaan dan Peredaran Darah!</h4>
+      <div class="isi">
+        <p>Perjalanan makanan: <b>mulut → kerongkongan → lambung → usus halus → usus besar → anus</b>.</p>
+        <p>Jantung bekerja seperti pompa yang mengalirkan darah ke seluruh tubuh melalui pembuluh darah, membawa oksigen dan sari makanan ke sel-sel tubuh.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">6 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Sebutkan urutan organ pencernaan dari mulut sampai anus!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> mulut - kerongkongan - lambung - usus halus - usus besar - anus.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Organ yang berfungsi memompa darah ke seluruh tubuh adalah ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: jantung</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Di organ manakah penyerapan sari-sari makanan sebagian besar terjadi?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: usus halus</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Sebutkan 1 cara menjaga kesehatan sistem pencernaan!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> makan teratur, cukup serat, minum air putih yang cukup.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Sebutkan 1 cara menjaga kesehatan jantung!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> berolahraga teratur, menghindari makanan berlemak berlebihan.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">6</span>Pembuluh darah yang membawa darah dari jantung ke seluruh tubuh disebut ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: arteri (pembuluh nadi)</b></div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 3 ============ -->
+<div class="panel" data-t="t3">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 1</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Ekosistem dan Interaksi Makhluk Hidup</div>
+      <div><b>Alokasi Waktu</b>4 x pertemuan (4 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Memahami ciri-ciri makhluk hidup dan daur hidup (materi kelas 3-4)</div>
+      <div><b>Profil Pelajar Pancasila</b>Peduli lingkungan, bernalar kritis</div>
+      <div><b>Sarana</b>Gambar rantai makanan, ekosistem lokal (kebun/kolam sekolah)</div>
+      <div><b>Model</b>Observasi lingkungan & diskusi</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat menjelaskan komponen biotik dan abiotik dalam suatu ekosistem.</li>
+      <li>Peserta didik dapat menjelaskan rantai makanan dan peran setiap makhluk hidup di dalamnya.</li>
+      <li>Peserta didik dapat menjelaskan dampak perubahan salah satu komponen ekosistem terhadap keseluruhan sistem.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Semua makhluk hidup dalam suatu ekosistem saling bergantung — jika satu bagian terganggu, seluruh ekosistem bisa terpengaruh, sehingga menjaga keseimbangannya sangat penting.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>🌿 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Ajak siswa mengamati ekosistem nyata di sekitar sekolah</b> (kebun, kolam, halaman) untuk mengidentifikasi komponen biotik (makhluk hidup) dan abiotik (benda tak hidup seperti air, tanah, udara).</li>
+        <li><b>Miskonsepsi umum:</b> siswa mengira rantai makanan selalu linear tanpa hubungan lain; perkenalkan konsep jaring-jaring makanan sebagai gambaran lebih realistis setelah rantai makanan sederhana dipahami.</li>
+        <li><b>Gunakan simulasi sederhana</b> (misalnya permainan peran produsen-konsumen) untuk menunjukkan dampak jika satu makhluk hidup dalam rantai makanan berkurang jumlahnya.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah mahir menganalisis dampak berantai dari gangguan ekosistem; siswa lain fokus mengidentifikasi komponen dan rantai makanan sederhana.</li>
+        <li><b>Asesmen formatif:</b> siswa membuat diagram rantai makanan sederhana dari ekosistem yang mereka amati.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>🌿 Ayo Kenali Ekosistem!</h4>
+      <div class="isi">
+        <p><b>Komponen biotik</b> = makhluk hidup (tumbuhan, hewan, manusia). <b>Komponen abiotik</b> = benda tak hidup (air, tanah, udara, cahaya matahari).</p>
+        <div class="contoh-visual">
+          <div class="kartu"><span class="emoji">🌾➡️🐛➡️🐸➡️🐍</span>Contoh rantai makanan</div>
+        </div>
+        <p>Jika salah satu makhluk hidup dalam rantai makanan berkurang, seluruh ekosistem bisa terganggu.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">6 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Sebutkan 2 contoh komponen biotik dalam ekosistem sawah!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> padi, katak, ular, burung.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Sebutkan 2 contoh komponen abiotik dalam suatu ekosistem!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> air, tanah, udara, cahaya matahari.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Pada rantai makanan padi → tikus → ular, tikus berperan sebagai ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: konsumen tingkat pertama</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Apa yang terjadi jika populasi tikus pada rantai makanan di atas berkurang drastis?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> ular kekurangan makanan, sementara populasi padi bisa meningkat karena berkurangnya pemakan padi.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Tumbuhan hijau dalam rantai makanan berperan sebagai ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: produsen</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">6</span>Mengapa menjaga keseimbangan ekosistem itu penting?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> agar semua makhluk hidup dalam ekosistem tetap dapat bertahan hidup dan lingkungan tetap stabil.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 4 ============ -->
+<div class="panel" data-t="t4">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 2</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Peta, Letak Geografis, dan Indonesia sebagai Negara Maritim & Agraris</div>
+      <div><b>Alokasi Waktu</b>3 x pertemuan (3 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Mengenal kenampakan alam Indonesia (materi kelas 4)</div>
+      <div><b>Profil Pelajar Pancasila</b>Berkebinekaan global, bernalar kritis</div>
+      <div><b>Sarana</b>Peta/atlas Indonesia, gambar aktivitas nelayan dan petani</div>
+      <div><b>Model</b>Membaca peta & diskusi</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat membaca peta dan menjelaskan letak geografis Indonesia.</li>
+      <li>Peserta didik dapat menjelaskan makna Indonesia sebagai negara maritim dan agraris.</li>
+      <li>Peserta didik dapat menjelaskan potensi kekayaan laut dan pertanian Indonesia.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Letak geografis Indonesia sebagai negara kepulauan yang subur memberikan potensi besar di bidang kelautan dan pertanian, yang menjadi sumber kehidupan banyak masyarakat.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>🗺️ Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Gunakan peta/atlas Indonesia</b> untuk menunjukkan posisi Indonesia di antara dua benua dan dua samudra secara visual.</li>
+        <li><b>Miskonsepsi umum:</b> siswa mengira "negara maritim" hanya berarti "punya laut", padahal maknanya lebih luas mencakup potensi ekonomi dan budaya yang berkaitan dengan laut.</li>
+        <li><b>Jelaskan istilah agraris</b> sebagai negara dengan sebagian besar penduduk bermata pencaharian di bidang pertanian, dikaitkan dengan kesuburan tanah Indonesia.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah mahir menjelaskan hubungan letak geografis dengan potensi ekonomi; siswa lain fokus mengenal istilah maritim dan agraris.</li>
+        <li><b>Asesmen formatif:</b> siswa menunjukkan letak Indonesia pada peta dan menyebutkan batas-batasnya (benua dan samudra).</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>🗺️ Ayo Kenali Letak Geografis Indonesia!</h4>
+      <div class="isi">
+        <p>Indonesia terletak di antara <b>2 benua</b> (Asia dan Australia) dan <b>2 samudra</b> (Hindia dan Pasifik).</p>
+        <p><b>Negara maritim</b> = negara dengan wilayah laut luas dan kaya sumber daya laut. <b>Negara agraris</b> = negara dengan sebagian besar penduduk bermata pencaharian di bidang pertanian.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">6 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Indonesia terletak di antara 2 benua, yaitu ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: Asia dan Australia</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Indonesia terletak di antara 2 samudra, yaitu ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: Samudra Hindia dan Samudra Pasifik</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Negara maritim adalah negara yang ...</div>
+      <ul class="pilihan"><li><b>a.</b> memiliki wilayah laut luas dan kaya sumber daya laut</li><li><b>b.</b> tidak memiliki laut sama sekali</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: a</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Negara agraris adalah negara yang ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> sebagian besar penduduknya bermata pencaharian di bidang pertanian.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Sebutkan 1 potensi kekayaan laut Indonesia!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> ikan, terumbu karang, rumput laut, mutiara.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">6</span>Mengapa tanah di Indonesia banyak yang subur untuk pertanian?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> karena Indonesia memiliki banyak gunung berapi yang menghasilkan tanah vulkanik subur, serta iklim tropis yang mendukung pertanian.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 5 ============ -->
+<div class="panel" data-t="t5">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 2</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Keanekaragaman Hayati Indonesia</div>
+      <div><b>Alokasi Waktu</b>3 x pertemuan (3 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Mengenal berbagai flora fauna umum (materi kelas sebelumnya)</div>
+      <div><b>Profil Pelajar Pancasila</b>Peduli lingkungan, berkebinekaan global</div>
+      <div><b>Sarana</b>Gambar flora fauna khas Indonesia (endemik)</div>
+      <div><b>Model</b>Pengamatan gambar & diskusi pelestarian</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat menyebutkan contoh flora dan fauna khas (endemik) Indonesia.</li>
+      <li>Peserta didik dapat menjelaskan mengapa Indonesia memiliki keanekaragaman hayati yang tinggi.</li>
+      <li>Peserta didik dapat menjelaskan upaya pelestarian flora dan fauna langka di Indonesia.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Indonesia adalah salah satu negara dengan keanekaragaman hayati tertinggi di dunia, sehingga menjaga kelestariannya adalah tanggung jawab besar bagi generasi muda.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>🦜 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Gunakan gambar flora fauna endemik</b> (Komodo, Orangutan, Bunga Rafflesia, Cendrawasih) yang unik dan menarik perhatian siswa.</li>
+        <li><b>Miskonsepsi umum:</b> siswa mengira semua hewan/tumbuhan di Indonesia adalah endemik. Jelaskan bahwa endemik berarti hanya ditemukan di wilayah tertentu dan tidak ada di tempat lain.</li>
+        <li><b>Kaitkan keanekaragaman hayati dengan letak geografis dan iklim tropis Indonesia</b> sebagai penyebab utamanya.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah mahir menjelaskan status konservasi (langka/terancam punah) beberapa spesies; siswa lain fokus mengenal contoh flora fauna endemik.</li>
+        <li><b>Asesmen formatif:</b> siswa membuat kartu informasi sederhana tentang salah satu flora/fauna endemik pilihannya.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>🦜 Ayo Kenali Keanekaragaman Hayati Indonesia!</h4>
+      <div class="isi">
+        <div class="contoh-visual">
+          <div class="kartu"><span class="emoji">🦎</span>Komodo (Nusa Tenggara)</div>
+          <div class="kartu"><span class="emoji">🦧</span>Orangutan (Kalimantan-Sumatra)</div>
+          <div class="kartu"><span class="emoji">🌸</span>Bunga Rafflesia</div>
+        </div>
+        <p><b>Endemik</b> artinya hanya ditemukan di daerah tertentu dan tidak ada di tempat lain di dunia.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">6 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Sebutkan 2 contoh hewan endemik Indonesia!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> Komodo, Orangutan, Anoa, Cendrawasih.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Apa arti hewan/tumbuhan endemik?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> hewan/tumbuhan yang hanya ditemukan di daerah tertentu.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Komodo merupakan hewan khas dari daerah ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: Pulau Komodo, Nusa Tenggara Timur</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Mengapa Indonesia memiliki keanekaragaman hayati yang tinggi?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> karena letaknya di daerah tropis dengan iklim dan kondisi alam yang mendukung berbagai jenis makhluk hidup.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Sebutkan 1 upaya pelestarian flora/fauna langka di Indonesia!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> membuat taman nasional/suaka margasatwa, melarang perburuan liar.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">6</span>Mengapa kita perlu menjaga kelestarian flora dan fauna endemik?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> karena jika punah, flora/fauna tersebut tidak akan ditemukan lagi di dunia.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 6 ============ -->
+<div class="panel" data-t="t6">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 2</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Kegiatan Ekonomi dan Jenis Pekerjaan Masyarakat</div>
+      <div><b>Alokasi Waktu</b>3 x pertemuan (3 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Memahami hubungan geografis dengan mata pencaharian (topik sebelumnya)</div>
+      <div><b>Profil Pelajar Pancasila</b>Bernalar kritis, gotong royong</div>
+      <div><b>Sarana</b>Gambar berbagai jenis pekerjaan dan kegiatan ekonomi</div>
+      <div><b>Model</b>Diskusi & wawancara sederhana</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat mengidentifikasi jenis-jenis kegiatan ekonomi (produksi, distribusi, konsumsi).</li>
+      <li>Peserta didik dapat menyebutkan berbagai jenis pekerjaan dan menjelaskan perannya bagi masyarakat.</li>
+      <li>Peserta didik dapat menjelaskan pentingnya saling menghargai antarjenis pekerjaan.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Semua jenis pekerjaan penting dan saling melengkapi dalam memenuhi kebutuhan masyarakat, sehingga tidak ada pekerjaan yang boleh dipandang rendah.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>💼 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Gunakan contoh kegiatan ekonomi nyata</b> di sekitar siswa (petani menghasilkan padi, pedagang menjual di pasar, keluarga mengonsumsi makanan) untuk menjelaskan produksi-distribusi-konsumsi.</li>
+        <li><b>Miskonsepsi umum:</b> siswa mengira sebagian pekerjaan "lebih rendah" dari yang lain. Tekankan bahwa semua pekerjaan penting dan saling melengkapi dalam rantai ekonomi.</li>
+        <li><b>Ajak siswa mewawancarai anggota keluarga</b> tentang pekerjaannya sebagai proyek sederhana untuk mengaitkan materi dengan kehidupan nyata.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah mahir menjelaskan keterkaitan antara produksi-distribusi-konsumsi dalam satu rantai; siswa lain fokus mengenal jenis-jenis pekerjaan.</li>
+        <li><b>Asesmen formatif:</b> siswa mempresentasikan hasil wawancara sederhana tentang pekerjaan anggota keluarganya.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>💼 Ayo Kenali Kegiatan Ekonomi!</h4>
+      <div class="isi">
+        <div class="contoh-visual">
+          <div class="kartu"><span class="emoji">🌾</span>Produksi: petani menanam padi</div>
+          <div class="kartu"><span class="emoji">🚚</span>Distribusi: pedagang menjual hasil panen</div>
+          <div class="kartu"><span class="emoji">🍚</span>Konsumsi: keluarga memakan nasi</div>
+        </div>
+        <p>Semua pekerjaan itu penting — tidak ada pekerjaan yang lebih rendah dari yang lain, karena semuanya saling melengkapi.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">6 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Sebutkan 3 jenis kegiatan ekonomi!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> produksi, distribusi, konsumsi.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Kegiatan petani menanam padi termasuk kegiatan ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: produksi</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Kegiatan pedagang menjual hasil panen ke pasar termasuk kegiatan ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: distribusi</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Kegiatan keluarga memakan nasi termasuk kegiatan ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: konsumsi</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Mengapa kita harus menghargai semua jenis pekerjaan?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> karena setiap pekerjaan memiliki peran penting dan saling melengkapi dalam memenuhi kebutuhan masyarakat.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">6</span>Tanyakan kepada anggota keluargamu tentang pekerjaannya, lalu jelaskan perannya bagi masyarakat!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban bebas</b> sesuai hasil wawancara masing-masing siswa.</div></details></div>
+  </div>
+</div>
+
+</div><!-- /panelwrap -->
+
+<footer>Modul IPAS Kelas 5 · Kurikulum Merdeka Fase C · Dapat dicetak (Ctrl/Cmd + P) untuk dibagikan ke siswa</footer>
+
+<script>
+  const btns = document.querySelectorAll('.topic-btn');
+  const panels = document.querySelectorAll('.panel');
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const t = btn.getAttribute('data-t');
+      btns.forEach(b => b.classList.toggle('active', b === btn));
+      panels.forEach(p => p.classList.toggle('active', p.getAttribute('data-t') === t));
+      window.scrollTo({top: 0, behavior:'smooth'});
+    });
+  });
+</script>
+
+</body>
+</html>

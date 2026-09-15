@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modul Matematika Kelas 5 — Kurikulum Merdeka</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F7F1E1; --paper-line:#E4D9BE;
+    --ink:#2B2B27; --ink-soft:#5B5648;
+    --accent:#2F6F6B; --tint:#E4F0EE;
+    --chalk:#2E3430;
+    --card-shadow: 3px 3px 0 rgba(43,43,39,0.10);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:repeating-linear-gradient(to bottom, transparent 0px, transparent 34px, var(--paper-line) 35px), var(--paper);
+    color:var(--ink); font-family:'Atkinson Hyperlegible', sans-serif; font-size:17px; line-height:1.65; padding-bottom:60px;
+  }
+  h1,h2,h3,h4{font-family:'Baloo 2', sans-serif; margin:0 0 .4em 0;}
+
+  .cover{position:relative; padding:38px 24px 30px; max-width:920px; margin:0 auto; border-bottom:3px solid var(--ink);}
+  .cover .stamp{position:absolute; top:28px; right:24px; width:88px; height:88px; border-radius:50%; border:3px dashed var(--ink);
+    display:flex; align-items:center; justify-content:center; transform:rotate(-8deg); font-family:'Baloo 2',sans-serif; font-weight:700;
+    font-size:12px; text-align:center; line-height:1.2; color:var(--ink-soft); padding:6px;}
+  .cover h1{font-size:2.1rem; max-width:600px; color:var(--accent);}
+  .cover p.sub{margin:0; color:var(--ink-soft); font-size:1.02rem; max-width:600px;}
+  .cover .meta{margin-top:18px; display:flex; flex-wrap:wrap; gap:10px 26px; font-size:.92rem; color:var(--ink-soft);}
+  .cover .meta span b{color:var(--ink); font-weight:700;}
+
+  .topicbar{
+    max-width:920px; margin:8px auto 0; padding:0 24px 6px;
+    display:flex; gap:8px; flex-wrap:wrap; position:sticky; top:0; background:var(--paper); z-index:20; padding-top:10px;
+  }
+  .topic-btn{
+    appearance:none; cursor:pointer; border:2.5px solid var(--ink); background:#fff; color:var(--ink-soft);
+    font-family:'Baloo 2',sans-serif; font-weight:700; font-size:.82rem; padding:8px 14px; border-radius:20px;
+  }
+  .topic-btn.active{background:var(--accent); border-color:var(--accent); color:#fff;}
+
+  .panelwrap{max-width:920px; margin:0 auto; border:3px solid var(--ink); border-top:none; background:#fffdf8; padding:6px;}
+  .panel{display:none; padding:26px 26px 10px;}
+  .panel.active{display:block;}
+
+  .section{margin:0 0 34px;}
+  .section-head{display:flex; align-items:baseline; gap:10px; border-bottom:2.5px solid var(--accent); padding-bottom:6px; margin-bottom:14px;}
+  .section-head h2{font-size:1.35rem; color:var(--ink);}
+  .section-head .tag{font-family:'Baloo 2',sans-serif; font-weight:700; font-size:.72rem; padding:3px 10px; border-radius:20px; background:var(--accent); color:#fff;}
+
+  .info-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px 24px; background:#fff; border:2px solid var(--paper-line); border-radius:10px; padding:16px 18px; font-size:.94rem;}
+  .info-grid div b{display:block; color:var(--ink-soft); font-size:.78rem; font-weight:700; margin-bottom:2px;}
+  @media(max-width:600px){.info-grid{grid-template-columns:1fr;}}
+
+  ul.tp-list{margin:0; padding-left:22px;}
+  ul.tp-list li{margin-bottom:6px;}
+
+  .callout{border-radius:10px; padding:18px 20px; margin:16px 0;}
+  .callout h4{font-size:1.02rem; display:flex; align-items:center; gap:8px; color:var(--accent);}
+  .pemahaman{border:2px dashed var(--accent); background:var(--tint);}
+  .pemahaman h4{color:var(--accent);}
+
+  .guru{background:var(--chalk); color:#EDEAE2; border:2px solid var(--chalk);}
+  .guru h4{color:#fff;} .guru b{color:#fff;}
+  .guru ul{padding-left:20px; margin:8px 0 0;} .guru li{margin-bottom:6px;}
+
+  .murid{border:2.5px solid var(--accent); background:#fff;}
+  .murid .isi{color:var(--ink);}
+
+  .contoh-visual{display:flex; flex-wrap:wrap; gap:14px; margin:14px 0;}
+  .contoh-visual .kartu{flex:1 1 150px; background:#fff; border:2px solid var(--paper-line); border-radius:10px; padding:12px 14px; text-align:center; font-size:.92rem;}
+  .contoh-visual .kartu .emoji{font-size:1.6rem; display:block; margin-bottom:6px; letter-spacing:2px;}
+
+  .soal-card{background:#fff; border:2px solid var(--ink); border-radius:2px 14px 2px 14px; padding:16px 18px; margin-bottom:14px; box-shadow:var(--card-shadow);}
+  .soal-card .no{font-family:'Baloo 2',sans-serif; font-weight:800; font-size:.85rem; color:#fff; background:var(--ink);
+    display:inline-flex; align-items:center; justify-content:center; width:26px; height:26px; border-radius:50%; margin-right:8px; flex-shrink:0;}
+  .soal-card .pertanyaan{display:flex; align-items:flex-start; gap:4px; font-weight:600;}
+  .soal-card .pilihan{list-style:none; padding:0; margin:10px 0 0 34px; font-size:.95rem;}
+  .soal-card .pilihan li{margin-bottom:4px;} .soal-card .pilihan li b{margin-right:6px;}
+  details.jawaban{margin:10px 0 0 34px;}
+  details.jawaban summary{cursor:pointer; font-family:'Baloo 2',sans-serif; font-weight:700; font-size:.85rem; color:var(--ink-soft); display:inline-block; padding:4px 0;}
+  details.jawaban[open] summary{color:var(--ink);}
+  details.jawaban .kotak-jawab{margin-top:8px; padding:10px 14px; border-radius:8px; font-size:.92rem; background:var(--tint);}
+
+  footer{max-width:920px; margin:24px auto 0; padding:0 26px; color:var(--ink-soft); font-size:.85rem; text-align:center;}
+  @media print{.topicbar{display:none;} .panel{display:block !important; page-break-after:always;}}
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="stamp">KURIKULUM<br>MERDEKA<br>FASE C</div>
+  <h1>Modul Ajar Matematika</h1>
+  <p class="sub">Kelas 5 SD — 6 topik lengkap untuk 2 semester, memasuki Fase C dengan konsep yang lebih kompleks dan abstrak, dilengkapi catatan pedagogis untuk guru, penjelasan untuk murid, dan latihan soal beserta kunci jawaban.</p>
+  <div class="meta">
+    <span>Kelas: <b>5 (Lima)</b></span>
+    <span>Elemen CP: <b>Bilangan, Aljabar, Pengukuran, Geometri, Analisis Data & Peluang</b></span>
+    <span>Total Alokasi: <b>±24 pertemuan</b></span>
+  </div>
+</div>
+
+<div class="topicbar" id="topicbar">
+  <button class="topic-btn active" data-t="t1">1. Bilangan sampai 1.000.000</button>
+  <button class="topic-btn" data-t="t2">2. Pecahan, Desimal & Persen</button>
+  <button class="topic-btn" data-t="t3">3. Luas Bangun Datar</button>
+  <button class="topic-btn" data-t="t4">4. Volume Bangun Ruang</button>
+  <button class="topic-btn" data-t="t5">5. Skala & Perbandingan</button>
+  <button class="topic-btn" data-t="t6">6. Rata-rata & Data</button>
+</div>
+
+<div class="panelwrap">
+
+<!-- ============ TOPIK 1 ============ -->
+<div class="panel active" data-t="t1">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 1</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Bilangan Cacah sampai 1.000.000</div>
+      <div><b>Alokasi Waktu</b>4 x pertemuan (4 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Memahami bilangan sampai 100.000 (materi kelas 4)</div>
+      <div><b>Profil Pelajar Pancasila</b>Bernalar kritis, mandiri</div>
+      <div><b>Sarana</b>Blok nilai tempat, kartu bilangan, contoh nota belanja</div>
+      <div><b>Model</b>Tatap muka dengan konteks nyata (uang, populasi)</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat membaca, menulis, dan menentukan nilai tempat bilangan cacah sampai 1.000.000.</li>
+      <li>Peserta didik dapat membandingkan dan mengurutkan bilangan cacah sampai 1.000.000.</li>
+      <li>Peserta didik dapat menyelesaikan masalah sehari-hari yang berkaitan dengan uang menggunakan bilangan besar.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Memahami bilangan jutaan membantu kita membaca informasi nyata seperti jumlah penduduk suatu kota atau total transaksi keuangan yang melibatkan angka besar.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>🍎 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Lanjutkan dari bilangan sampai 100.000</b> (kelas 4) ke jutaan, gunakan blok nilai tempat yang diperluas hingga ratusan ribu dan jutaan.</li>
+        <li><b>Miskonsepsi umum:</b> siswa kesulitan membaca bilangan dengan banyak angka nol berurutan. Latih membaca per kelompok tiga digit dari kanan (satuan, ribuan, jutaan).</li>
+        <li><b>Gunakan konteks uang</b> (harga rumah, kendaraan, atau total tabungan dalam jutaan rupiah) agar bilangan besar terasa relevan dan nyata.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah mahir mengerjakan operasi dengan bilangan 6-7 digit; siswa lain fokus pada 5 digit terlebih dahulu.</li>
+        <li><b>Asesmen formatif:</b> siswa menyusun bilangan terbesar/terkecil dari kartu angka yang diberikan guru.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>🔢 Ayo Kenali Bilangan Jutaan!</h4>
+      <div class="isi">
+        <p>Bilangan 1.250.400 terdiri dari: 1 jutaan, 2 ratusan ribu, 5 puluhan ribu, 0 ribuan, 4 ratusan, 0 puluhan, 0 satuan.</p>
+        <p>Contoh nyata: harga sebuah sepeda motor sekitar Rp15.000.000 (lima belas juta rupiah).</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">6 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Tulis lambang bilangan dari "satu juta dua ratus lima puluh ribu empat ratus".</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: 1.250.400</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Nilai tempat angka 2 pada bilangan 1.250.400 adalah ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: ratusan ribu</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Manakah yang lebih besar, 850.000 atau 805.000?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: 850.000</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Urutkan dari yang terkecil: 1.200.000, 120.000, 12.000.000</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: 120.000, 1.200.000, 12.000.000</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Sebuah desa memiliki 250.000 penduduk, bertambah 15.750 penduduk baru dalam setahun. Berapa jumlah penduduk sekarang?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: 265.750 penduduk</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">6</span>Ayah menabung Rp750.000 setiap bulan. Berapa jumlah tabungan Ayah setelah 4 bulan?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: Rp3.000.000</b></div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 2 ============ -->
+<div class="panel" data-t="t2">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 1</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Pecahan Campuran, Desimal, dan Persen</div>
+      <div><b>Alokasi Waktu</b>5 x pertemuan (5 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Memahami pecahan sederhana dan operasinya (materi kelas 4)</div>
+      <div><b>Profil Pelajar Pancasila</b>Bernalar kritis</div>
+      <div><b>Sarana</b>Garis bilangan gabungan, contoh diskon toko</div>
+      <div><b>Model</b>Menghubungkan 3 representasi (pecahan-desimal-persen)</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat membandingkan dan mengurutkan berbagai pecahan, termasuk pecahan campuran.</li>
+      <li>Peserta didik dapat mengubah pecahan menjadi desimal dan persen, serta sebaliknya.</li>
+      <li>Peserta didik dapat menyelesaikan soal cerita sederhana yang melibatkan pecahan, desimal, dan persen.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Pecahan, desimal, dan persen adalah tiga cara berbeda untuk menyatakan hal yang sama — memahami hubungannya membantu kita membaca diskon toko, nilai rapor, atau data statistik sehari-hari.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>🍕 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Gunakan garis bilangan gabungan</b> yang menunjukkan pecahan, desimal, dan persen pada posisi yang sama untuk memperkuat pemahaman bahwa ketiganya setara.</li>
+        <li><b>Miskonsepsi umum:</b> siswa mengira persen adalah angka biasa tanpa nilai "per 100". Tekankan makna kata "persen" = per seratus.</li>
+        <li><b>Ajarkan hubungan kunci</b> 1/2 = 0,5 = 50% sebagai jangkar pemahaman sebelum ke pecahan lain yang lebih rumit.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah mahir mengonversi pecahan campuran ke desimal/persen; siswa lain fokus pada pecahan biasa sederhana dahulu.</li>
+        <li><b>Asesmen formatif:</b> siswa mengisi tabel konversi pecahan-desimal-persen untuk beberapa nilai yang diberikan guru.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>🍕 Ayo Hubungkan Pecahan, Desimal, dan Persen!</h4>
+      <div class="isi">
+        <div class="contoh-visual">
+          <div class="kartu"><span class="emoji">½</span>= 0,5 = 50%</div>
+          <div class="kartu"><span class="emoji">¼</span>= 0,25 = 25%</div>
+          <div class="kartu"><span class="emoji">¾</span>= 0,75 = 75%</div>
+        </div>
+        <p>Pecahan campuran seperti 2 1/2 artinya 2 utuh ditambah 1/2, sama dengan 2,5 dalam bentuk desimal.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">6 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Ubahlah 3/4 menjadi bentuk desimal dan persen!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: 0,75 dan 75%</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Ubahlah 0,6 menjadi bentuk pecahan dan persen!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: 6/10 (atau 3/5) dan 60%</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Manakah yang lebih besar, 2 1/4 atau 2,1?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: 2 1/4 (= 2,25)</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Sebuah baju berharga Rp100.000 mendapat diskon 20%. Berapa besar potongan harganya?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: Rp20.000</b><br>Pembahasan: 20% dari 100.000 = 20/100 × 100.000 = 20.000.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Urutkan dari yang terkecil: 1/2, 0,3, 75%</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: 0,3, 1/2, 75%</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">6</span>1 3/5 + 2 1/5 = ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: 3 4/5</b></div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 3 ============ -->
+<div class="panel" data-t="t3">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 1</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Luas Bangun Datar (Segitiga, Jajar Genjang, Trapesium)</div>
+      <div><b>Alokasi Waktu</b>4 x pertemuan (4 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Memahami keliling dan luas persegi/persegi panjang (materi kelas 4)</div>
+      <div><b>Profil Pelajar Pancasila</b>Bernalar kritis</div>
+      <div><b>Sarana</b>Kertas berpetak, gunting, model bangun datar untuk dipotong-tempel</div>
+      <div><b>Model</b>Menurunkan rumus lewat potong-tempel bangun</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat menghitung luas segitiga menggunakan rumus.</li>
+      <li>Peserta didik dapat menghitung luas jajar genjang dan trapesium menggunakan rumus.</li>
+      <li>Peserta didik dapat menyelesaikan soal cerita yang melibatkan luas bangun datar.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Rumus luas berbagai bangun datar sebenarnya berasal dari bangun yang sudah kita kenal (persegi panjang), sehingga memahami asal-usulnya membuat rumus lebih mudah diingat, bukan sekadar dihafal.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>📐 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Turunkan rumus luas segitiga secara visual</b> — potong persegi panjang menjadi dua segitiga sama besar, sehingga siswa melihat sendiri mengapa luas segitiga = 1/2 × alas × tinggi.</li>
+        <li><b>Miskonsepsi umum:</b> siswa menghitung luas segitiga dengan alas × tinggi tanpa dibagi 2. Tekankan selalu langkah "dibagi 2" sebagai bagian tak terpisahkan dari rumus.</li>
+        <li><b>Gunakan potong-tempel jajar genjang</b> menjadi persegi panjang untuk menunjukkan rumus luas jajar genjang = alas × tinggi.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah mahir menghitung luas trapesium dan bangun gabungan; siswa lain fokus pada luas segitiga terlebih dahulu.</li>
+        <li><b>Asesmen formatif:</b> siswa mendemonstrasikan potong-tempel bangun untuk membuktikan rumus luas yang dipelajari.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>📐 Ayo Menghitung Luas!</h4>
+      <div class="isi">
+        <div class="contoh-visual">
+          <div class="kartu"><span class="emoji">🔺</span>Luas segitiga = 1/2 × alas × tinggi</div>
+          <div class="kartu"><span class="emoji">▱</span>Luas jajar genjang = alas × tinggi</div>
+          <div class="kartu"><span class="emoji">⏢</span>Luas trapesium = 1/2 × (sisi sejajar 1 + sisi sejajar 2) × tinggi</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">6 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Luas segitiga dengan alas 10 cm dan tinggi 6 cm adalah ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: 30 cm²</b><br>Pembahasan: 1/2 × 10 × 6 = 30.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Luas jajar genjang dengan alas 12 cm dan tinggi 5 cm adalah ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: 60 cm²</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Luas trapesium dengan sisi sejajar 8 cm dan 12 cm, tinggi 6 cm adalah ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: 60 cm²</b><br>Pembahasan: 1/2 × (8+12) × 6 = 60.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Sebuah taman berbentuk segitiga dengan alas 14 m dan tinggi 8 m. Berapa luas taman tersebut?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: 56 m²</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Jika luas segitiga 40 cm² dan alasnya 8 cm, berapa tingginya?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: 10 cm</b><br>Pembahasan: tinggi = (2 × luas) ÷ alas = 80 ÷ 8 = 10.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">6</span>Mengapa rumus luas segitiga dibagi 2 dari alas × tinggi?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> karena segitiga adalah setengah dari persegi panjang/jajar genjang dengan alas dan tinggi yang sama.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 4 ============ -->
+<div class="panel" data-t="t4">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 2</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Volume Bangun Ruang (Kubus dan Balok)</div>
+      <div><b>Alokasi Waktu</b>4 x pertemuan (4 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Mengenal bangun ruang kubus dan balok (materi kelas sebelumnya)</div>
+      <div><b>Profil Pelajar Pancasila</b>Bernalar kritis</div>
+      <div><b>Sarana</b>Kubus satuan (unit cubes), kotak nyata untuk diisi</div>
+      <div><b>Model</b>Mengisi ruang dengan kubus satuan sebelum rumus</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat menjelaskan konsep volume sebagai banyaknya ruang yang ditempati suatu bangun.</li>
+      <li>Peserta didik dapat menghitung volume kubus dan balok menggunakan rumus.</li>
+      <li>Peserta didik dapat menyelesaikan soal cerita yang melibatkan volume.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Menghitung volume berguna dalam kehidupan nyata, misalnya menentukan kapasitas kotak penyimpanan atau jumlah air yang bisa ditampung sebuah wadah.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>📦 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Gunakan kubus satuan (unit cubes)</b> untuk mengisi sebuah kotak, sehingga siswa melihat langsung bahwa volume = banyaknya kubus satuan yang muat di dalamnya.</li>
+        <li><b>Miskonsepsi umum:</b> siswa menyamakan konsep volume dengan luas, menggunakan satuan persegi (cm²) alih-alih satuan kubik (cm³). Tekankan bahwa volume mengukur ruang tiga dimensi.</li>
+        <li><b>Ajarkan rumus volume balok</b> (panjang × lebar × tinggi) sebagai perluasan dari rumus luas (panjang × lebar), dengan menambahkan dimensi tinggi.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah mahir mengerjakan soal volume gabungan atau mencari salah satu sisi jika volume diketahui; siswa lain fokus pada rumus dasar.</li>
+        <li><b>Asesmen formatif:</b> siswa mengisi kotak nyata dengan kubus satuan dan membandingkan hasilnya dengan perhitungan rumus.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>📦 Ayo Menghitung Volume!</h4>
+      <div class="isi">
+        <p><b>Volume kubus</b> = sisi × sisi × sisi. <b>Volume balok</b> = panjang × lebar × tinggi.</p>
+        <p>Ingat: satuan volume memakai tanda kubik, misalnya cm³ atau m³, karena volume mengukur ruang tiga arah (panjang, lebar, tinggi).</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">6 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Volume kubus dengan sisi 5 cm adalah ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: 125 cm³</b><br>Pembahasan: 5 × 5 × 5 = 125.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Volume balok dengan panjang 8 cm, lebar 4 cm, dan tinggi 5 cm adalah ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: 160 cm³</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Sebuah kotak kado berbentuk kubus dengan sisi 10 cm. Berapa volume kotak tersebut?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: 1.000 cm³</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Sebuah bak air berbentuk balok berukuran panjang 2 m, lebar 1 m, tinggi 1,5 m. Berapa volumenya?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: 3 m³</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Satuan yang tepat untuk menyatakan volume adalah ...</div>
+      <ul class="pilihan"><li><b>a.</b> cm²</li><li><b>b.</b> cm³</li><li><b>c.</b> cm</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: b. cm³</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">6</span>Jika volume balok 240 cm³, panjang 8 cm, dan lebar 6 cm, berapa tingginya?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: 5 cm</b><br>Pembahasan: tinggi = 240 ÷ (8 × 6) = 240 ÷ 48 = 5.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 5 ============ -->
+<div class="panel" data-t="t5">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 2</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Skala dan Perbandingan</div>
+      <div><b>Alokasi Waktu</b>3 x pertemuan (3 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Memahami konsep pecahan dan perkalian/pembagian</div>
+      <div><b>Profil Pelajar Pancasila</b>Bernalar kritis</div>
+      <div><b>Sarana</b>Peta/denah sekolah, penggaris</div>
+      <div><b>Model</b>Eksplorasi peta/denah nyata</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat menjelaskan konsep skala pada peta/denah.</li>
+      <li>Peserta didik dapat menghitung jarak sebenarnya menggunakan skala.</li>
+      <li>Peserta didik dapat menyelesaikan masalah perbandingan senilai sederhana.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Skala membantu kita memahami ukuran sebenarnya dari suatu tempat hanya dengan melihat gambar kecilnya di peta, sesuatu yang sangat berguna saat bepergian atau membaca denah.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>🗺️ Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Gunakan peta atau denah sekolah yang nyata</b> untuk pengenalan skala, biarkan siswa mengukur jarak pada denah dan menghitung jarak sebenarnya.</li>
+        <li><b>Miskonsepsi umum:</b> siswa mengira skala selalu memperbesar ukuran, padahal skala pada peta biasanya memperkecil ukuran sebenarnya. Jelaskan makna skala 1:100 sebagai "1 cm pada gambar mewakili 100 cm sebenarnya".</li>
+        <li><b>Ajarkan perbandingan senilai</b> dengan konteks resep masakan atau campuran warna sebagai contoh yang mudah dipahami.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah mahir menghitung skala dari dua ukuran yang diketahui; siswa lain fokus menerapkan skala yang sudah diketahui.</li>
+        <li><b>Asesmen formatif:</b> siswa mengukur jarak pada denah sekolah dan menghitung jarak sebenarnya menggunakan skala yang diberikan.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>🗺️ Ayo Kenali Skala!</h4>
+      <div class="isi">
+        <p>Skala 1:100 artinya setiap 1 cm pada peta/gambar mewakili 100 cm (1 meter) jarak sebenarnya.</p>
+        <p>Contoh: jika jarak pada peta 5 cm dengan skala 1:1.000, maka jarak sebenarnya = 5 × 1.000 = 5.000 cm = 50 meter.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">6 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Jarak pada peta 4 cm dengan skala 1:500.000. Berapa jarak sebenarnya dalam km?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: 20 km</b><br>Pembahasan: 4 × 500.000 = 2.000.000 cm = 20 km.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Skala 1:100 artinya ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> 1 cm pada gambar mewakili 100 cm jarak sebenarnya.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Jika jarak sebenarnya 30 km dan digambar sepanjang 3 cm di peta, berapa skala yang digunakan?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: 1:1.000.000</b><br>Pembahasan: 30 km = 3.000.000 cm, dibagi 3 cm = 1.000.000.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Sebuah resep membutuhkan 2 gelas tepung untuk 4 orang. Jika ingin membuat untuk 8 orang, berapa gelas tepung yang dibutuhkan?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: 4 gelas</b><br>Pembahasan: perbandingan senilai, 8 orang adalah 2 kali dari 4 orang.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Denah rumah digambar dengan skala 1:50. Jika panjang kamar pada denah 4 cm, berapa panjang kamar sebenarnya?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: 200 cm (2 meter)</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">6</span>Mengapa skala pada peta biasanya berupa perbandingan yang memperkecil, bukan memperbesar?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> karena ukuran sebenarnya (misalnya jarak antarkota) terlalu besar untuk digambar seukuran aslinya di atas kertas.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 6 ============ -->
+<div class="panel" data-t="t6">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 2</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Rata-rata (Mean) dan Penyajian Data</div>
+      <div><b>Alokasi Waktu</b>3 x pertemuan (3 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Mengenal diagram batang dan piktogram (materi kelas 4)</div>
+      <div><b>Profil Pelajar Pancasila</b>Bernalar kritis</div>
+      <div><b>Sarana</b>Data nilai ulangan siswa, kertas untuk membuat diagram</div>
+      <div><b>Model</b>Menggunakan data otentik kelas</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat menghitung rata-rata (mean) dari sekumpulan data.</li>
+      <li>Peserta didik dapat menyajikan data dalam bentuk diagram batang dan diagram garis.</li>
+      <li>Peserta didik dapat menafsirkan informasi dari data yang disajikan.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Rata-rata membantu kita meringkas sekumpulan data menjadi satu angka yang mewakili, seperti nilai rata-rata ulangan atau suhu rata-rata dalam seminggu.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>📊 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Gunakan data nilai ulangan siswa sendiri (dengan izin)</b> sebagai konteks otentik untuk menghitung rata-rata.</li>
+        <li><b>Miskonsepsi umum:</b> siswa mengira rata-rata sama dengan nilai tengah (median) dari data yang diurutkan. Tekankan bahwa rata-rata dihitung dari jumlah semua data dibagi banyaknya data.</li>
+        <li><b>Ajarkan langkah menghitung rata-rata secara eksplisit:</b> jumlahkan semua data, lalu bagi dengan banyaknya data.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah mahir menafsirkan makna rata-rata dalam konteks nyata; siswa lain fokus pada langkah perhitungan.</li>
+        <li><b>Asesmen formatif:</b> siswa menghitung rata-rata dari data yang mereka kumpulkan sendiri (misalnya tinggi badan teman sekelompok).</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>📊 Ayo Hitung Rata-rata!</h4>
+      <div class="isi">
+        <p><b>Rata-rata (mean)</b> = jumlah semua data ÷ banyaknya data.</p>
+        <p>Contoh: nilai ulangan Ani 80, 90, 70. Jumlah = 240, dibagi 3 data = rata-rata 80.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">6 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Hitung rata-rata dari data: 70, 80, 90, 100</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: 85</b><br>Pembahasan: (70+80+90+100) ÷ 4 = 340 ÷ 4 = 85.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Nilai ulangan Budi adalah 75, 85, 80, 90, 70. Berapa rata-ratanya?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: 80</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Cara menghitung rata-rata adalah ...</div>
+      <ul class="pilihan"><li><b>a.</b> jumlah data dibagi banyaknya data</li><li><b>b.</b> data terbesar dikurangi data terkecil</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: a</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Suhu selama 5 hari adalah 28°C, 30°C, 29°C, 31°C, 27°C. Berapa suhu rata-ratanya?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: 29°C</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Jika rata-rata 4 bilangan adalah 20, berapa jumlah keempat bilangan tersebut?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: 80</b><br>Pembahasan: jumlah = rata-rata × banyak data = 20 × 4 = 80.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">6</span>Sebutkan 1 contoh penggunaan rata-rata dalam kehidupan sehari-hari!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> rata-rata nilai ulangan, rata-rata curah hujan bulanan, rata-rata kecepatan kendaraan.</div></details></div>
+  </div>
+</div>
+
+</div><!-- /panelwrap -->
+
+<footer>Modul Matematika Kelas 5 · Kurikulum Merdeka Fase C · Dapat dicetak (Ctrl/Cmd + P) untuk dibagikan ke siswa</footer>
+
+<script>
+  const btns = document.querySelectorAll('.topic-btn');
+  const panels = document.querySelectorAll('.panel');
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const t = btn.getAttribute('data-t');
+      btns.forEach(b => b.classList.toggle('active', b === btn));
+      panels.forEach(p => p.classList.toggle('active', p.getAttribute('data-t') === t));
+      window.scrollTo({top: 0, behavior:'smooth'});
+    });
+  });
+</script>
+
+</body>
+</html>

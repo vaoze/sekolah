@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modul Pendidikan Pancasila Kelas 1 — Kurikulum Merdeka</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F7F1E1; --paper-line:#E4D9BE;
+    --ink:#2B2B27; --ink-soft:#5B5648;
+    --accent:#8C2F39; --tint:#F3E3E1;
+    --chalk:#2E3430;
+    --card-shadow: 3px 3px 0 rgba(43,43,39,0.10);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:repeating-linear-gradient(to bottom, transparent 0px, transparent 34px, var(--paper-line) 35px), var(--paper);
+    color:var(--ink); font-family:'Atkinson Hyperlegible', sans-serif; font-size:17px; line-height:1.65; padding-bottom:60px;
+  }
+  h1,h2,h3,h4{font-family:'Baloo 2', sans-serif; margin:0 0 .4em 0;}
+
+  .cover{position:relative; padding:38px 24px 30px; max-width:920px; margin:0 auto; border-bottom:3px solid var(--ink);}
+  .cover .stamp{position:absolute; top:28px; right:24px; width:88px; height:88px; border-radius:50%; border:3px dashed var(--ink);
+    display:flex; align-items:center; justify-content:center; transform:rotate(-8deg); font-family:'Baloo 2',sans-serif; font-weight:700;
+    font-size:12px; text-align:center; line-height:1.2; color:var(--ink-soft); padding:6px;}
+  .cover h1{font-size:2.1rem; max-width:600px; color:var(--accent);}
+  .cover p.sub{margin:0; color:var(--ink-soft); font-size:1.02rem; max-width:600px;}
+  .cover .meta{margin-top:18px; display:flex; flex-wrap:wrap; gap:10px 26px; font-size:.92rem; color:var(--ink-soft);}
+  .cover .meta span b{color:var(--ink); font-weight:700;}
+
+  .topicbar{
+    max-width:920px; margin:8px auto 0; padding:0 24px 6px;
+    display:flex; gap:8px; flex-wrap:wrap; position:sticky; top:0; background:var(--paper); z-index:20; padding-top:10px;
+  }
+  .topic-btn{
+    appearance:none; cursor:pointer; border:2.5px solid var(--ink); background:#fff; color:var(--ink-soft);
+    font-family:'Baloo 2',sans-serif; font-weight:700; font-size:.82rem; padding:8px 14px; border-radius:20px;
+  }
+  .topic-btn.active{background:var(--accent); border-color:var(--accent); color:#fff;}
+
+  .panelwrap{max-width:920px; margin:0 auto; border:3px solid var(--ink); border-top:none; background:#fffdf8; padding:6px;}
+  .panel{display:none; padding:26px 26px 10px;}
+  .panel.active{display:block;}
+
+  .section{margin:0 0 34px;}
+  .section-head{display:flex; align-items:baseline; gap:10px; border-bottom:2.5px solid var(--accent); padding-bottom:6px; margin-bottom:14px;}
+  .section-head h2{font-size:1.35rem; color:var(--ink);}
+  .section-head .tag{font-family:'Baloo 2',sans-serif; font-weight:700; font-size:.72rem; padding:3px 10px; border-radius:20px; background:var(--accent); color:#fff;}
+
+  .info-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px 24px; background:#fff; border:2px solid var(--paper-line); border-radius:10px; padding:16px 18px; font-size:.94rem;}
+  .info-grid div b{display:block; color:var(--ink-soft); font-size:.78rem; font-weight:700; margin-bottom:2px;}
+  @media(max-width:600px){.info-grid{grid-template-columns:1fr;}}
+
+  ul.tp-list{margin:0; padding-left:22px;}
+  ul.tp-list li{margin-bottom:6px;}
+
+  .callout{border-radius:10px; padding:18px 20px; margin:16px 0;}
+  .callout h4{font-size:1.02rem; display:flex; align-items:center; gap:8px; color:var(--accent);}
+  .pemahaman{border:2px dashed var(--accent); background:var(--tint);}
+  .pemahaman h4{color:var(--accent);}
+
+  .guru{background:var(--chalk); color:#EDEAE2; border:2px solid var(--chalk);}
+  .guru h4{color:#fff;} .guru b{color:#fff;}
+  .guru ul{padding-left:20px; margin:8px 0 0;} .guru li{margin-bottom:6px;}
+
+  .murid{border:2.5px solid var(--accent); background:#fff;}
+  .murid .isi{color:var(--ink);}
+
+  .contoh-visual{display:flex; flex-wrap:wrap; gap:14px; margin:14px 0;}
+  .contoh-visual .kartu{flex:1 1 150px; background:#fff; border:2px solid var(--paper-line); border-radius:10px; padding:12px 14px; text-align:center; font-size:.92rem;}
+  .contoh-visual .kartu .emoji{font-size:1.6rem; display:block; margin-bottom:6px; letter-spacing:2px;}
+
+  .soal-card{background:#fff; border:2px solid var(--ink); border-radius:2px 14px 2px 14px; padding:16px 18px; margin-bottom:14px; box-shadow:var(--card-shadow);}
+  .soal-card .no{font-family:'Baloo 2',sans-serif; font-weight:800; font-size:.85rem; color:#fff; background:var(--ink);
+    display:inline-flex; align-items:center; justify-content:center; width:26px; height:26px; border-radius:50%; margin-right:8px; flex-shrink:0;}
+  .soal-card .pertanyaan{display:flex; align-items:flex-start; gap:4px; font-weight:600;}
+  .soal-card .pilihan{list-style:none; padding:0; margin:10px 0 0 34px; font-size:.95rem;}
+  .soal-card .pilihan li{margin-bottom:4px;} .soal-card .pilihan li b{margin-right:6px;}
+  details.jawaban{margin:10px 0 0 34px;}
+  details.jawaban summary{cursor:pointer; font-family:'Baloo 2',sans-serif; font-weight:700; font-size:.85rem; color:var(--ink-soft); display:inline-block; padding:4px 0;}
+  details.jawaban[open] summary{color:var(--ink);}
+  details.jawaban .kotak-jawab{margin-top:8px; padding:10px 14px; border-radius:8px; font-size:.92rem; background:var(--tint);}
+
+  footer{max-width:920px; margin:24px auto 0; padding:0 26px; color:var(--ink-soft); font-size:.85rem; text-align:center;}
+  @media print{.topicbar{display:none;} .panel{display:block !important; page-break-after:always;}}
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="stamp">KURIKULUM<br>MERDEKA<br>FASE A</div>
+  <h1>Modul Ajar Pendidikan Pancasila</h1>
+  <p class="sub">Kelas 1 SD — 6 topik lengkap untuk 2 semester, disusun dengan catatan pedagogis untuk guru, penjelasan ramah-anak untuk murid, dan latihan soal beserta kunci jawaban.</p>
+  <div class="meta">
+    <span>Kelas: <b>1 (Satu)</b></span>
+    <span>Elemen CP: <b>Pancasila, UUD NRI 1945, Bhinneka Tunggal Ika, NKRI</b></span>
+    <span>Total Alokasi: <b>±15 pertemuan</b></span>
+  </div>
+</div>
+
+<div class="topicbar" id="topicbar">
+  <button class="topic-btn active" data-t="t1">1. Lambang Negara</button>
+  <button class="topic-btn" data-t="t2">2. Aturan di Rumah</button>
+  <button class="topic-btn" data-t="t3">3. Aturan di Sekolah</button>
+  <button class="topic-btn" data-t="t4">4. Keberagaman Teman</button>
+  <button class="topic-btn" data-t="t5">5. Saling Membantu</button>
+  <button class="topic-btn" data-t="t6">6. Kebersihan</button>
+</div>
+
+<div class="panelwrap">
+
+<!-- ============ TOPIK 1 ============ -->
+<div class="panel active" data-t="t1">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 1</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Mengenal Lambang Negara dan Sila Pancasila (Pengenalan Awal)</div>
+      <div><b>Alokasi Waktu</b>3 x pertemuan (3 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Belum tentu mengenal Pancasila secara detail</div>
+      <div><b>Profil Pelajar Pancasila</b>Beriman & bertakwa, berkebinekaan global</div>
+      <div><b>Sarana</b>Gambar burung Garuda ukuran besar, lagu "Garuda Pancasila"</div>
+      <div><b>Model</b>Menyanyi bersama & mewarnai gambar</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat mengenal gambar burung Garuda sebagai lambang negara Indonesia.</li>
+      <li>Peserta didik dapat menyebutkan bahwa Pancasila memiliki 5 sila.</li>
+      <li>Peserta didik dapat menirukan bunyi sila pertama Pancasila (Ketuhanan Yang Maha Esa).</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Mengenal lambang negara sejak dini menumbuhkan rasa cinta dan bangga terhadap Indonesia sebagai bangsa kita.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>🦅 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Fokus pada pengenalan visual dan menyenangkan</b> (gambar Garuda besar, warna-warni) tanpa terlalu menekan hafalan penuh 5 sila di kelas 1 — cukup pengenalan awal.</li>
+        <li><b>Miskonsepsi umum:</b> siswa mengira burung Garuda adalah burung sungguhan yang bisa ditemui. Jelaskan bahwa itu adalah simbol/lambang, bukan burung biasa.</li>
+        <li><b>Ajak menyanyikan lagu "Garuda Pancasila"</b> bersama untuk pengenalan yang menyenangkan dan mudah diingat.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah mahir mulai mengenal seluruh 5 sila; siswa lain cukup mengenal sila pertama dan gambar Garuda.</li>
+        <li><b>Asesmen formatif:</b> siswa mewarnai gambar Garuda Pancasila sambil diajak bercerita maknanya secara sederhana.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>🦅 Ayo Kenali Garuda Pancasila!</h4>
+      <div class="isi">
+        <p>Burung <b>Garuda</b> adalah lambang negara Indonesia. Pancasila punya <b>5 sila</b>.</p>
+        <div class="contoh-visual">
+          <div class="kartu"><span class="emoji">⭐</span>Sila pertama: Ketuhanan Yang Maha Esa</div>
+          <div class="kartu"><span class="emoji">🦅</span>Garuda = lambang negara kita</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">5 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Apa nama lambang negara Indonesia?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: burung Garuda</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Pancasila memiliki berapa sila?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: 5 (lima)</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Sila pertama Pancasila berbunyi ...</div>
+      <ul class="pilihan"><li><b>a.</b> Ketuhanan Yang Maha Esa</li><li><b>b.</b> Persatuan Indonesia</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: a</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Warna apa saja yang ada pada gambar Garuda Pancasila?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban bebas</b> sesuai pengamatan siswa terhadap gambar (emas, merah, putih, hijau).</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Burung Garuda adalah ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: lambang negara Indonesia</b></div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 2 ============ -->
+<div class="panel" data-t="t2">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 1</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Aturan Sederhana di Rumah</div>
+      <div><b>Alokasi Waktu</b>2 x pertemuan (2 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Mengenal kebiasaan sehari-hari di rumah</div>
+      <div><b>Profil Pelajar Pancasila</b>Mandiri</div>
+      <div><b>Sarana</b>Cerita bergambar sederhana tentang anak patuh</div>
+      <div><b>Model</b>Diskusi & bercerita bergambar</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat menyebutkan aturan sederhana yang berlaku di rumah.</li>
+      <li>Peserta didik dapat mempraktikkan sikap patuh terhadap aturan di rumah.</li>
+      <li>Peserta didik dapat menjelaskan pentingnya mendengarkan orang tua.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Aturan di rumah dibuat untuk menjaga kita tetap aman dan membuat rumah menjadi tempat yang nyaman untuk semua anggota keluarga.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>🏠 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Gunakan contoh aturan yang sangat konkret dan dekat</b> dengan keseharian anak kelas 1 (merapikan mainan, cuci tangan sebelum makan).</li>
+        <li><b>Miskonsepsi umum:</b> siswa mengira aturan hanya berlaku saat ada orang tua yang mengawasi. Tekankan bahwa aturan tetap berlaku meskipun tidak diawasi.</li>
+        <li><b>Gunakan cerita bergambar sederhana</b> tentang anak yang patuh dan tidak patuh untuk memicu diskusi yang menarik.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah mahir menjelaskan alasan di balik suatu aturan; siswa lain cukup menyebutkan aturan yang ada.</li>
+        <li><b>Asesmen formatif:</b> siswa menceritakan 1 aturan di rumahnya masing-masing.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>🏠 Ayo Patuhi Aturan Rumah!</h4>
+      <div class="isi">
+        <div class="contoh-visual">
+          <div class="kartu"><span class="emoji">🧸</span>Merapikan mainan</div>
+          <div class="kartu"><span class="emoji">🧼</span>Cuci tangan sebelum makan</div>
+          <div class="kartu"><span class="emoji">🙋</span>Minta izin sebelum pergi</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">5 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Sebutkan 1 aturan di rumahmu!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban bebas</b> sesuai kondisi rumah masing-masing siswa.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Sebelum makan, sebaiknya kita ...</div>
+      <ul class="pilihan"><li><b>a.</b> mencuci tangan</li><li><b>b.</b> langsung makan</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: a</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Mengapa kita harus mendengarkan orang tua?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> karena orang tua ingin menjaga dan melindungi kita.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Contoh sikap patuh di rumah adalah ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> merapikan mainan setelah bermain.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Apa yang sebaiknya dilakukan sebelum keluar rumah?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: minta izin orang tua</b></div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 3 ============ -->
+<div class="panel" data-t="t3">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 1</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Aturan Sederhana di Sekolah</div>
+      <div><b>Alokasi Waktu</b>2 x pertemuan (2 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Baru mulai mengenal lingkungan sekolah</div>
+      <div><b>Profil Pelajar Pancasila</b>Mandiri, gotong royong</div>
+      <div><b>Sarana</b>Poster aturan kelas</div>
+      <div><b>Model</b>Menyusun kesepakatan kelas bersama</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat menyebutkan aturan sederhana yang berlaku di sekolah.</li>
+      <li>Peserta didik dapat mempraktikkan sikap patuh terhadap aturan di sekolah.</li>
+      <li>Peserta didik dapat menjelaskan manfaat mematuhi aturan sekolah.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Aturan sekolah membantu semua siswa belajar dengan nyaman dan aman bersama-sama.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>🏫 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Buat aturan kelas bersama-sama dengan siswa</b> di awal tahun ajaran agar mereka lebih memahami dan mematuhinya.</li>
+        <li><b>Miskonsepsi umum:</b> siswa mengira aturan sekolah sama persis dengan aturan rumah. Jelaskan bahwa tiap tempat punya aturan masing-masing yang perlu dipahami.</li>
+        <li><b>Gunakan gambar/poster aturan kelas</b> yang ditempel di dinding sebagai pengingat visual sehari-hari.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah mahir membantu mengingatkan teman tentang aturan; siswa lain cukup mengikuti aturan yang ada.</li>
+        <li><b>Asesmen formatif:</b> amati kepatuhan siswa terhadap aturan kelas dalam kegiatan sehari-hari.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>🏫 Ayo Patuhi Aturan Sekolah!</h4>
+      <div class="isi">
+        <div class="contoh-visual">
+          <div class="kartu"><span class="emoji">⏰</span>Datang tepat waktu</div>
+          <div class="kartu"><span class="emoji">🙋</span>Angkat tangan sebelum bicara</div>
+          <div class="kartu"><span class="emoji">🚶</span>Antre dengan tertib</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">5 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Sebutkan 1 aturan di sekolahmu!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban bebas</b>, contoh: datang tepat waktu.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Sebelum berbicara di kelas, kita sebaiknya ...</div>
+      <ul class="pilihan"><li><b>a.</b> mengangkat tangan</li><li><b>b.</b> berteriak</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: a</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Mengapa kita harus antre dengan tertib?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> agar semua orang mendapat giliran secara adil dan tidak berdesakan.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Contoh sikap patuh di sekolah adalah ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> duduk rapi saat belajar.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Apa yang terjadi jika semua siswa tidak mematuhi aturan sekolah?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> kelas menjadi tidak tertib dan kegiatan belajar terganggu.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 4 ============ -->
+<div class="panel" data-t="t4">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 2</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Mengenal Keberagaman Teman di Kelas</div>
+      <div><b>Alokasi Waktu</b>2 x pertemuan (2 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Mengenal teman-teman sekelas</div>
+      <div><b>Profil Pelajar Pancasila</b>Berkebinekaan global</div>
+      <div><b>Sarana</b>Kertas gambar, cerita bergambar tentang pertemanan</div>
+      <div><b>Model</b>Permainan mencari kesamaan & perbedaan</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat menyebutkan ciri-ciri fisik dan kesukaan yang berbeda antarteman.</li>
+      <li>Peserta didik dapat menjelaskan bahwa setiap orang itu unik dan berbeda.</li>
+      <li>Peserta didik dapat mempraktikkan sikap menghargai teman yang berbeda.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Setiap teman kita unik dan berbeda, dan itu adalah hal yang wajar serta membuat pertemanan menjadi lebih menyenangkan.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>🌈 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Gunakan aktivitas sederhana</b> "cari temanmu yang suka warna yang sama/berbeda" untuk mengenalkan konsep keberagaman secara menyenangkan.</li>
+        <li><b>Miskonsepsi umum:</b> siswa kelas 1 kadang menganggap perbedaan sebagai alasan untuk tidak berteman. Ajarkan sejak dini bahwa perbedaan itu wajar dan menarik.</li>
+        <li><b>Gunakan cerita bergambar sederhana</b> tentang pertemanan yang beragam untuk memicu diskusi.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah mahir menyebutkan beberapa perbedaan sekaligus; siswa lain cukup menyebutkan 1 perbedaan.</li>
+        <li><b>Asesmen formatif:</b> siswa menggambar dirinya dan temannya lalu menceritakan perbedaannya.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>🌈 Ayo Kenali Teman-temanmu!</h4>
+      <div class="isi">
+        <p>Setiap teman itu <b>unik</b>: ada yang suka warna merah, ada yang suka biru; ada yang tinggi, ada yang pendek. Semua perbedaan itu boleh dan tidak masalah!</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">5 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Sebutkan 1 hal yang berbeda antara kamu dan temanmu!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban bebas</b> sesuai pengamatan siswa.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Jika temanmu suka warna yang berbeda denganmu, sikap yang tepat adalah ...</div>
+      <ul class="pilihan"><li><b>a.</b> tetap berteman baik</li><li><b>b.</b> menjauhinya</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: a</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Sebutkan 1 hal yang sama antara kamu dan temanmu!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban bebas</b> sesuai pengamatan siswa.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Setiap orang itu ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: unik dan berbeda-beda</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Mengapa kita tidak boleh mengejek teman yang berbeda?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> karena perbedaan itu wajar dan mengejek dapat menyakiti perasaan teman.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 5 ============ -->
+<div class="panel" data-t="t5">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 2</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Saling Membantu dan Berbagi</div>
+      <div><b>Alokasi Waktu</b>2 x pertemuan (2 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Pernah bermain bersama teman</div>
+      <div><b>Profil Pelajar Pancasila</b>Gotong royong</div>
+      <div><b>Sarana</b>Cerita bergambar tentang berbagi, alat tulis untuk praktik berbagi</div>
+      <div><b>Model</b>Praktik langsung berbagi di kelas</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat menjelaskan pentingnya membantu teman yang kesulitan.</li>
+      <li>Peserta didik dapat mempraktikkan sikap berbagi dengan teman.</li>
+      <li>Peserta didik dapat menyebutkan contoh perbuatan saling membantu di sekolah.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Membantu dan berbagi dengan teman membuat suasana sekolah menjadi lebih hangat dan menyenangkan bagi semua orang.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>🤝 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Rancang kegiatan sederhana yang melibatkan berbagi</b> alat tulis atau bekal sebagai praktik langsung, bukan hanya teori.</li>
+        <li><b>Miskonsepsi umum:</b> siswa kelas 1 sering masih egosentris dan sulit berbagi. Gunakan pendekatan bertahap dan pujian positif saat mereka berhasil berbagi, bukan paksaan.</li>
+        <li><b>Gunakan cerita bergambar sederhana</b> tentang berbagi untuk memicu diskusi yang relevan bagi anak.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah mahir berinisiatif membantu tanpa diminta; siswa lain dibimbing dengan contoh dan ajakan langsung.</li>
+        <li><b>Asesmen formatif:</b> amati sikap berbagi dan membantu siswa dalam kegiatan sehari-hari di kelas.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>🤝 Ayo Saling Membantu!</h4>
+      <div class="isi">
+        <div class="contoh-visual">
+          <div class="kartu"><span class="emoji">🤕</span>Membantu teman yang jatuh</div>
+          <div class="kartu"><span class="emoji">✏️</span>Meminjamkan pensil</div>
+          <div class="kartu"><span class="emoji">🍱</span>Berbagi bekal</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">5 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Sebutkan 1 contoh sikap saling membantu di sekolah!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> membantu teman yang jatuh, meminjamkan alat tulis.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Jika temanmu tidak membawa pensil, sebaiknya kamu ...</div>
+      <ul class="pilihan"><li><b>a.</b> meminjamkan pensilmu</li><li><b>b.</b> mengejeknya</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: a</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Mengapa kita harus membantu teman yang kesulitan?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> agar teman merasa senang dan kita bisa saling menyayangi.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Contoh sikap berbagi adalah ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> membagi bekal dengan teman.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Bagaimana perasaanmu jika dibantu oleh teman?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban bebas</b>, contoh: senang dan berterima kasih.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 6 ============ -->
+<div class="panel" data-t="t6">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 2</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Menjaga Kebersihan Diri dan Lingkungan</div>
+      <div><b>Alokasi Waktu</b>2 x pertemuan (2 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Mengenal kebiasaan mandi dan cuci tangan</div>
+      <div><b>Profil Pelajar Pancasila</b>Mandiri</div>
+      <div><b>Sarana</b>Sabun/tempat cuci tangan, lagu tentang cuci tangan</div>
+      <div><b>Model</b>Praktik langsung di kelas</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat menyebutkan cara menjaga kebersihan diri sendiri.</li>
+      <li>Peserta didik dapat menyebutkan cara menjaga kebersihan lingkungan sekitar.</li>
+      <li>Peserta didik dapat mempraktikkan kebiasaan hidup bersih sehari-hari.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Menjaga kebersihan diri dan lingkungan membuat kita tetap sehat dan lingkungan sekitar menjadi nyaman untuk ditinggali bersama.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>🧼 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Praktikkan langsung kebiasaan seperti cuci tangan yang benar</b> di kelas, bukan hanya dijelaskan secara lisan.</li>
+        <li><b>Miskonsepsi umum:</b> siswa mengira kebersihan hanya tanggung jawab petugas kebersihan, bukan tanggung jawab bersama. Tekankan bahwa semua orang berperan menjaga kebersihan.</li>
+        <li><b>Gunakan lagu/senandung tentang cuci tangan</b> untuk membuat kebiasaan ini menyenangkan dan mudah diingat.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah mahir mengingatkan teman untuk menjaga kebersihan; siswa lain fokus mempraktikkan kebiasaan dasar.</li>
+        <li><b>Asesmen formatif:</b> amati praktik kebersihan diri siswa (cuci tangan, membuang sampah) dalam kegiatan sehari-hari.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>🧼 Ayo Jaga Kebersihan!</h4>
+      <div class="isi">
+        <div class="contoh-visual">
+          <div class="kartu"><span class="emoji">🚿</span>Mandi setiap hari</div>
+          <div class="kartu"><span class="emoji">🦷</span>Gosok gigi</div>
+          <div class="kartu"><span class="emoji">🗑️</span>Buang sampah pada tempatnya</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">5 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Sebutkan 1 cara menjaga kebersihan dirimu!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> mandi, gosok gigi, cuci tangan.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Sebelum makan, kita sebaiknya ...</div>
+      <ul class="pilihan"><li><b>a.</b> mencuci tangan</li><li><b>b.</b> langsung makan</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: a</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Sebutkan 1 cara menjaga kebersihan lingkungan sekolah!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> membuang sampah pada tempatnya.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Sampah sebaiknya dibuang ke ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: tempat sampah</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Mengapa kita perlu menjaga kebersihan diri dan lingkungan?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> agar kita tetap sehat dan lingkungan menjadi nyaman untuk semua orang.</div></details></div>
+  </div>
+</div>
+
+</div><!-- /panelwrap -->
+
+<footer>Modul Pendidikan Pancasila Kelas 1 · Kurikulum Merdeka Fase A · Dapat dicetak (Ctrl/Cmd + P) untuk dibagikan ke siswa</footer>
+
+<script>
+  const btns = document.querySelectorAll('.topic-btn');
+  const panels = document.querySelectorAll('.panel');
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const t = btn.getAttribute('data-t');
+      btns.forEach(b => b.classList.toggle('active', b === btn));
+      panels.forEach(p => p.classList.toggle('active', p.getAttribute('data-t') === t));
+      window.scrollTo({top: 0, behavior:'smooth'});
+    });
+  });
+</script>
+
+</body>
+</html>

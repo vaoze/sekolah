@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modul Bahasa Indonesia Kelas 3 — Kurikulum Merdeka</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F7F1E1; --paper-line:#E4D9BE;
+    --ink:#2B2B27; --ink-soft:#5B5648;
+    --accent:#C1502E; --tint:#FBE9E1;
+    --chalk:#2E3430;
+    --card-shadow: 3px 3px 0 rgba(43,43,39,0.10);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:repeating-linear-gradient(to bottom, transparent 0px, transparent 34px, var(--paper-line) 35px), var(--paper);
+    color:var(--ink); font-family:'Atkinson Hyperlegible', sans-serif; font-size:17px; line-height:1.65; padding-bottom:60px;
+  }
+  h1,h2,h3,h4{font-family:'Baloo 2', sans-serif; margin:0 0 .4em 0;}
+
+  .cover{position:relative; padding:38px 24px 30px; max-width:920px; margin:0 auto; border-bottom:3px solid var(--ink);}
+  .cover .stamp{position:absolute; top:28px; right:24px; width:88px; height:88px; border-radius:50%; border:3px dashed var(--ink);
+    display:flex; align-items:center; justify-content:center; transform:rotate(-8deg); font-family:'Baloo 2',sans-serif; font-weight:700;
+    font-size:12px; text-align:center; line-height:1.2; color:var(--ink-soft); padding:6px;}
+  .cover h1{font-size:2.1rem; max-width:600px; color:var(--accent);}
+  .cover p.sub{margin:0; color:var(--ink-soft); font-size:1.02rem; max-width:600px;}
+  .cover .meta{margin-top:18px; display:flex; flex-wrap:wrap; gap:10px 26px; font-size:.92rem; color:var(--ink-soft);}
+  .cover .meta span b{color:var(--ink); font-weight:700;}
+
+  .topicbar{
+    max-width:920px; margin:8px auto 0; padding:0 24px 6px;
+    display:flex; gap:8px; flex-wrap:wrap; position:sticky; top:0; background:var(--paper); z-index:20; padding-top:10px;
+  }
+  .topic-btn{
+    appearance:none; cursor:pointer; border:2.5px solid var(--ink); background:#fff; color:var(--ink-soft);
+    font-family:'Baloo 2',sans-serif; font-weight:700; font-size:.82rem; padding:8px 14px; border-radius:20px;
+  }
+  .topic-btn.active{background:var(--accent); border-color:var(--accent); color:#fff;}
+
+  .panelwrap{max-width:920px; margin:0 auto; border:3px solid var(--ink); border-top:none; background:#fffdf8; padding:6px;}
+  .panel{display:none; padding:26px 26px 10px;}
+  .panel.active{display:block;}
+
+  .section{margin:0 0 34px;}
+  .section-head{display:flex; align-items:baseline; gap:10px; border-bottom:2.5px solid var(--accent); padding-bottom:6px; margin-bottom:14px;}
+  .section-head h2{font-size:1.35rem; color:var(--ink);}
+  .section-head .tag{font-family:'Baloo 2',sans-serif; font-weight:700; font-size:.72rem; padding:3px 10px; border-radius:20px; background:var(--accent); color:#fff;}
+
+  .info-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px 24px; background:#fff; border:2px solid var(--paper-line); border-radius:10px; padding:16px 18px; font-size:.94rem;}
+  .info-grid div b{display:block; color:var(--ink-soft); font-size:.78rem; font-weight:700; margin-bottom:2px;}
+  @media(max-width:600px){.info-grid{grid-template-columns:1fr;}}
+
+  ul.tp-list{margin:0; padding-left:22px;}
+  ul.tp-list li{margin-bottom:6px;}
+
+  .callout{border-radius:10px; padding:18px 20px; margin:16px 0;}
+  .callout h4{font-size:1.02rem; display:flex; align-items:center; gap:8px; color:var(--accent);}
+  .pemahaman{border:2px dashed var(--accent); background:var(--tint);}
+  .pemahaman h4{color:var(--accent);}
+
+  .guru{background:var(--chalk); color:#EDEAE2; border:2px solid var(--chalk);}
+  .guru h4{color:#fff;} .guru b{color:#fff;}
+  .guru ul{padding-left:20px; margin:8px 0 0;} .guru li{margin-bottom:6px;}
+
+  .murid{border:2.5px solid var(--accent); background:#fff;}
+  .murid .isi{color:var(--ink);}
+
+  .contoh-visual{display:flex; flex-wrap:wrap; gap:14px; margin:14px 0;}
+  .contoh-visual .kartu{flex:1 1 150px; background:#fff; border:2px solid var(--paper-line); border-radius:10px; padding:12px 14px; text-align:center; font-size:.92rem;}
+  .contoh-visual .kartu .emoji{font-size:1.6rem; display:block; margin-bottom:6px; letter-spacing:2px;}
+
+  .cerita-box{background:#fff; border:2px dashed var(--accent); border-radius:10px; padding:14px 18px; margin:14px 0; font-style:italic;}
+
+  .soal-card{background:#fff; border:2px solid var(--ink); border-radius:2px 14px 2px 14px; padding:16px 18px; margin-bottom:14px; box-shadow:var(--card-shadow);}
+  .soal-card .no{font-family:'Baloo 2',sans-serif; font-weight:800; font-size:.85rem; color:#fff; background:var(--ink);
+    display:inline-flex; align-items:center; justify-content:center; width:26px; height:26px; border-radius:50%; margin-right:8px; flex-shrink:0;}
+  .soal-card .pertanyaan{display:flex; align-items:flex-start; gap:4px; font-weight:600;}
+  .soal-card .pilihan{list-style:none; padding:0; margin:10px 0 0 34px; font-size:.95rem;}
+  .soal-card .pilihan li{margin-bottom:4px;} .soal-card .pilihan li b{margin-right:6px;}
+  details.jawaban{margin:10px 0 0 34px;}
+  details.jawaban summary{cursor:pointer; font-family:'Baloo 2',sans-serif; font-weight:700; font-size:.85rem; color:var(--ink-soft); display:inline-block; padding:4px 0;}
+  details.jawaban[open] summary{color:var(--ink);}
+  details.jawaban .kotak-jawab{margin-top:8px; padding:10px 14px; border-radius:8px; font-size:.92rem; background:var(--tint);}
+
+  footer{max-width:920px; margin:24px auto 0; padding:0 26px; color:var(--ink-soft); font-size:.85rem; text-align:center;}
+  @media print{.topicbar{display:none;} .panel{display:block !important; page-break-after:always;}}
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="stamp">KURIKULUM<br>MERDEKA<br>FASE B</div>
+  <h1>Modul Ajar Bahasa Indonesia</h1>
+  <p class="sub">Kelas 3 SD — 6 topik lengkap untuk 2 semester, disusun dengan catatan pedagogis untuk guru, penjelasan ramah-anak untuk murid, dan latihan soal beserta kunci jawaban.</p>
+  <div class="meta">
+    <span>Kelas: <b>3 (Tiga)</b></span>
+    <span>Elemen CP: <b>Menyimak, Membaca-Memirsa, Berbicara, Menulis</b></span>
+    <span>Total Alokasi: <b>±20 pertemuan</b></span>
+  </div>
+</div>
+
+<div class="topicbar" id="topicbar">
+  <button class="topic-btn active" data-t="t1">1. Menyimak Cerita/Instruksi</button>
+  <button class="topic-btn" data-t="t2">2. Teks Deskripsi</button>
+  <button class="topic-btn" data-t="t3">3. Membaca Teks Narasi</button>
+  <button class="topic-btn" data-t="t4">4. Menulis Pengalaman Pribadi</button>
+  <button class="topic-btn" data-t="t5">5. Bercerita & Presentasi</button>
+  <button class="topic-btn" data-t="t6">6. Puisi & Pantun</button>
+</div>
+
+<div class="panelwrap">
+
+<!-- ============ TOPIK 1 ============ -->
+<div class="panel active" data-t="t1">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 1</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Menyimak dan Memahami Cerita/Instruksi Lisan</div>
+      <div><b>Alokasi Waktu</b>3 x pertemuan (3 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Dapat mendengarkan dan merespons kalimat sederhana</div>
+      <div><b>Profil Pelajar Pancasila</b>Bernalar kritis, mandiri</div>
+      <div><b>Sarana</b>Teks cerita pendek untuk dibacakan, kartu instruksi</div>
+      <div><b>Model</b>Bercerita langsung & permainan instruksi</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat memahami isi cerita yang dibacakan/didengar.</li>
+      <li>Peserta didik dapat melaksanakan instruksi lisan yang terdiri dari 2–3 langkah.</li>
+      <li>Peserta didik dapat menjawab pertanyaan sederhana tentang isi simakan.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Menyimak dengan baik membantu kita memahami informasi dan instruksi secara tepat, baik di sekolah, di rumah, maupun dalam kehidupan sehari-hari.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>👂 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Bacakan cerita dengan intonasi jelas</b> dan jangan terlalu cepat; ulangi bagian penting agar informasi tersimpan dengan baik.</li>
+        <li><b>Miskonsepsi umum:</b> siswa mengira menyimak sama dengan sekadar mendengar secara pasif. Tekankan bahwa menyimak aktif berarti mencatat atau mengingat poin-poin penting sambil mendengarkan.</li>
+        <li><b>Latih instruksi secara bertahap</b> — mulai dari 1 langkah, lalu 2 langkah, lalu 3 langkah (misalnya "ambil pensil, letakkan di meja, lalu duduk kembali").</li>
+        <li><b>Gunakan permainan instruksi</b> (versi bahasa Indonesia dari "Simon Says") untuk melatih siswa mendengarkan dan bereaksi cepat sambil bermain.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah lancar diberi instruksi 3–4 langkah yang lebih kompleks; siswa yang masih kesulitan cukup diberi instruksi 1–2 langkah sederhana.</li>
+        <li><b>Asesmen formatif:</b> amati langsung ketepatan siswa saat mengikuti instruksi lisan di kelas — ini lebih akurat daripada tes tertulis untuk topik menyimak.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>👂 Ayo Belajar Menyimak!</h4>
+      <div class="isi">
+        <p><b>Menyimak</b> artinya mendengarkan dengan penuh perhatian sambil memahami apa yang disampaikan, bukan hanya mendengar saja.</p>
+        <p>Contoh instruksi: <i>"Berdiri, ambil buku di rak, lalu duduk kembali."</i> Kita harus melakukannya sesuai urutan: berdiri dulu, baru ambil buku, baru duduk lagi.</p>
+        <div class="cerita-box">
+          <b>Cerita Pendek: "Kelinci yang Rajin"</b><br>
+          Di sebuah kebun, ada seekor kelinci bernama Kiki. Setiap pagi, Kiki bangun lebih awal untuk menyiram tanaman wortel miliknya. Karena rajin merawat kebun, wortel Kiki tumbuh besar dan manis. Teman-temannya pun senang membantu Kiki di kebun.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">6 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Berdasarkan cerita "Kelinci yang Rajin", siapa tokoh utama dalam cerita?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: Kiki, si kelinci</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Apa yang dilakukan Kiki setiap pagi?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: Kiki bangun lebih awal untuk menyiram tanaman wortelnya.</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Urutan yang benar untuk instruksi "Tepuk tangan 2 kali, lalu angkat tangan kanan" adalah ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> tepuk tangan dulu 2 kali, baru angkat tangan kanan.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Menyimak yang baik berarti ...</div>
+      <ul class="pilihan"><li><b>a.</b> mendengarkan sambil bermain sendiri</li><li><b>b.</b> mendengarkan dengan penuh perhatian dan memahami isinya</li><li><b>c.</b> mendengarkan sambil berbicara dengan teman</li><li><b>d.</b> tidak perlu mendengarkan sampai selesai</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: b</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Sebutkan 1 hal penting yang harus dilakukan saat menyimak!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> memperhatikan pembicara, tidak bicara sendiri, mengingat poin penting.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">6</span>Mengapa wortel milik Kiki bisa tumbuh besar dan manis?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> karena Kiki rajin merawat dan menyiram tanamannya setiap pagi.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 2 (existing) ============ -->
+<div class="panel" data-t="t2">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 1</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Menulis dan Membaca Teks Deskripsi Sederhana</div>
+      <div><b>Alokasi Waktu</b>3 x pertemuan (3 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Dapat membaca dan menulis kalimat sederhana</div>
+      <div><b>Profil Pelajar Pancasila</b>Kreatif, bernalar kritis</div>
+      <div><b>Sarana</b>Gambar/benda nyata, buku tulis, kartu kata sifat</div>
+      <div><b>Model</b>Tatap muka dengan objek nyata</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat mengidentifikasi ciri-ciri teks deskripsi.</li>
+      <li>Peserta didik dapat menyebutkan detail suatu benda/hewan/orang menggunakan panca indera.</li>
+      <li>Peserta didik dapat menyusun paragraf deskripsi sederhana (3–5 kalimat) dengan runtut.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Menulis deskripsi melatih anak mengamati dengan teliti dan menyampaikannya dengan kata-kata, sehingga pembaca seolah bisa melihat, mendengar, atau merasakan apa yang digambarkan.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>📝 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Bedakan deskripsi dari daftar ciri.</b> Kesalahan paling umum: siswa hanya menulis daftar kata sifat ("kucingku putih, lucu, kecil") tanpa kalimat utuh. Latih mengubah kata sifat menjadi kalimat lengkap.</li>
+        <li><b>Gunakan kerangka 5 indra</b> — apa yang terlihat, terdengar, tercium, terasa, dan teraba — untuk membantu siswa yang kesulitan menemukan ide.</li>
+        <li><b>Mulai dari objek yang mereka kenal</b> (hewan peliharaan, mainan favorit, anggota keluarga) supaya detail yang ditulis lebih kaya dan personal.</li>
+        <li><b>Kerangka paragraf:</b> kalimat pertama memperkenalkan objek, kalimat tengah menjelaskan ciri fisik/sifat, kalimat penutup berupa kesan atau perasaan penulis.</li>
+        <li><b>Asesmen formatif:</b> minta teman sekelas menebak objek yang dideskripsikan tanpa disebutkan namanya — jika berhasil ditebak, deskripsinya cukup jelas dan detail.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>🐱 Apa itu Teks Deskripsi?</h4>
+      <div class="isi">
+        <p>Teks deskripsi adalah tulisan yang <b>menggambarkan sesuatu dengan kata-kata</b>, seolah pembaca bisa melihat, mendengar, atau merasakannya sendiri.</p>
+        <div class="contoh-visual">
+          <div class="kartu"><span class="emoji">👀</span>Terlihat: bulunya putih bersih</div>
+          <div class="kartu"><span class="emoji">👂</span>Terdengar: suaranya "meong" pelan</div>
+          <div class="kartu"><span class="emoji">✋</span>Teraba: bulunya lembut sekali</div>
+        </div>
+        <div class="cerita-box">"Kucingku bernama Molly. Bulunya putih bersih dan sangat lembut jika disentuh. Setiap pagi ia mengeong pelan di depan pintu meminta makan. Aku sangat menyayanginya."</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">7 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Teks yang menggambarkan suatu benda, orang, atau tempat secara rinci disebut teks ...</div>
+      <ul class="pilihan"><li><b>a.</b> narasi</li><li><b>b.</b> deskripsi</li><li><b>c.</b> puisi</li><li><b>d.</b> surat</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: b. deskripsi</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Kalimat manakah yang termasuk kalimat deskripsi yang baik?</div>
+      <ul class="pilihan"><li><b>a.</b> Ani pergi ke pasar kemarin.</li><li><b>b.</b> Bunga mawar itu berwarna merah menyala dan harum semerbak.</li><li><b>c.</b> Aku suka makan bakso.</li><li><b>d.</b> Besok kita ujian matematika.</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: b</b><br>Pembahasan: kalimat b menggambarkan ciri (warna dan aroma) secara rinci.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Sebutkan 3 dari 5 panca indra yang bisa digunakan untuk membuat deskripsi!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> penglihatan, pendengaran, penciuman, perabaan, atau pengecapan (sebutkan 3 saja).</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Lengkapi kalimat: "Roti itu terasa ... dan aromanya ..."</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> "Roti itu terasa manis dan aromanya harum."</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Susunlah menjadi paragraf runtut: (1) Ia berwarna oranye dengan sirip panjang. (2) Ikan cupang milikku sangat cantik. (3) Aku senang memandanginya berenang setiap sore.</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: (2)–(1)–(3)</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">6</span>"Rumahku berwarna biru muda. Halamannya luas dan ditanami banyak bunga berwarna-warni." Deskripsi ini menggunakan indra ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: penglihatan</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">7</span>Tulislah 3 kalimat deskripsi tentang benda kesayanganmu!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Panduan penilaian guru:</b> periksa minimal 2 ciri (warna/bentuk/ukuran/tekstur) dan kalimat lengkap, bukan hanya daftar kata sifat.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 3 ============ -->
+<div class="panel" data-t="t3">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 1</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Membaca Pemahaman Teks Narasi (Cerita Anak)</div>
+      <div><b>Alokasi Waktu</b>3 x pertemuan (3 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Dapat membaca lancar kalimat sederhana</div>
+      <div><b>Profil Pelajar Pancasila</b>Bernalar kritis, kreatif</div>
+      <div><b>Sarana</b>Teks cerita pendek, gambar seri/storyboard</div>
+      <div><b>Model</b>Membaca bersama & diskusi kelompok</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat membaca teks cerita pendek dengan lancar.</li>
+      <li>Peserta didik dapat mengidentifikasi tokoh, latar, dan alur sederhana dalam cerita.</li>
+      <li>Peserta didik dapat menceritakan kembali isi cerita dengan kata-kata sendiri.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Memahami cerita melatih anak mengenali struktur awal-tengah-akhir, yang berguna untuk memahami berbagai jenis bacaan lain di kemudian hari.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>📖 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Pilih cerita pendek dengan tema dekat kehidupan anak</b> — persahabatan, keluarga, hewan — agar lebih mudah dipahami dan dikaitkan dengan pengalaman mereka.</li>
+        <li><b>Miskonsepsi umum:</b> siswa sering hanya mengingat detail kecil, bukan alur keseluruhan. Latih dengan pertanyaan "apa yang terjadi di awal, tengah, dan akhir cerita?"</li>
+        <li><b>Ajarkan istilah unsur cerita secara terpisah</b> dulu: tokoh (siapa), latar (dimana/kapan), alur (urutan kejadian), sebelum meminta siswa menganalisis ketiganya sekaligus.</li>
+        <li><b>Gunakan gambar seri/storyboard</b> untuk membantu siswa menceritakan kembali cerita secara berurutan.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah lancar menceritakan kembali secara lisan/tulisan dengan kalimat sendiri; siswa yang masih kesulitan cukup menjawab pertanyaan pilihan ganda tentang isi cerita.</li>
+        <li><b>Asesmen formatif:</b> minta siswa menggambar salah satu adegan cerita dan menjelaskan alasan memilih adegan tersebut.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>📚 Ayo Memahami Cerita!</h4>
+      <div class="isi">
+        <p>Setiap cerita punya 3 unsur penting: <b>tokoh</b> (siapa saja di cerita), <b>latar</b> (tempat dan waktu kejadian), dan <b>alur</b> (urutan kejadian dari awal sampai akhir).</p>
+        <div class="cerita-box">
+          <b>Cerita Pendek: "Dua Sahabat di Hutan"</b><br>
+          Di sebuah hutan, hiduplah Tupai dan Landak yang bersahabat. Suatu hari, Tupai terjebak di lubang dalam. Landak segera memanggil teman-teman lain untuk membantu menarik Tupai keluar dengan tali dari akar pohon. Sejak saat itu, Tupai dan Landak semakin akrab dan saling menjaga.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">7 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Siapa saja tokoh dalam cerita "Dua Sahabat di Hutan"?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: Tupai dan Landak</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Di mana latar tempat cerita tersebut terjadi?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: di hutan</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Apa yang terjadi di awal cerita?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> Tupai terjebak di lubang dalam.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Apa yang terjadi di akhir cerita?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> Tupai dan Landak menjadi semakin akrab dan saling menjaga.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Alur cerita adalah ...</div>
+      <ul class="pilihan"><li><b>a.</b> nama tokoh dalam cerita</li><li><b>b.</b> urutan kejadian dari awal sampai akhir</li><li><b>c.</b> tempat terjadinya cerita</li><li><b>d.</b> judul cerita</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: b</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">6</span>Ceritakan kembali isi cerita di atas dengan 2–3 kalimatmu sendiri!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Panduan penilaian guru:</b> periksa apakah siswa menyebutkan tokoh, kejadian utama, dan penyelesaiannya dengan kalimat sendiri (bukan menyalin persis).</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">7</span>Apa pesan/amanat yang bisa kita ambil dari cerita ini?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> pentingnya saling membantu dan menjaga persahabatan.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 4 ============ -->
+<div class="panel" data-t="t4">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 2</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Menulis Teks Narasi Pengalaman Pribadi</div>
+      <div><b>Alokasi Waktu</b>3 x pertemuan (3 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Dapat menulis kalimat sederhana dengan huruf kapital dan tanda titik</div>
+      <div><b>Profil Pelajar Pancasila</b>Kreatif, mandiri</div>
+      <div><b>Sarana</b>Buku tulis, kartu kata hubung waktu</div>
+      <div><b>Model</b>Bercerita lisan lalu menulis</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat menulis pengalaman pribadi dengan urutan waktu yang runtut.</li>
+      <li>Peserta didik dapat menggunakan kata penghubung waktu (mula-mula, lalu, kemudian, akhirnya).</li>
+      <li>Peserta didik dapat menyunting tulisan sederhana (huruf kapital, tanda baca).</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Menuliskan pengalaman melatih anak menyusun ide secara runtut dan mengekspresikan diri secara tertulis dengan jelas.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>✍️ Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Mulai dengan bercerita lisan</b> sebelum menulis, agar ide mengalir lebih mudah dan siswa tidak terbebani memikirkan tulisan sejak awal.</li>
+        <li><b>Miskonsepsi umum:</b> siswa sering menulis daftar kejadian tanpa kata penghubung waktu sehingga tulisannya terasa terputus-putus. Ajarkan kata hubung waktu sebagai "jembatan" antar kalimat.</li>
+        <li><b>Latih menyunting sederhana:</b> cek huruf kapital di awal kalimat dan nama orang/tempat, serta tanda titik di akhir kalimat.</li>
+        <li><b>Berikan kerangka menulis:</b> pembuka (kapan & di mana), isi (kejadian utama), penutup (perasaan/kesan).</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah lancar menulis 5–6 kalimat dengan variasi kata hubung; siswa yang masih kesulitan cukup 3 kalimat dengan bantuan kerangka.</li>
+        <li><b>Asesmen formatif:</b> siswa saling bertukar tulisan dan mencari kata hubung waktu yang digunakan temannya.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>✏️ Ayo Menulis Pengalaman!</h4>
+      <div class="isi">
+        <p>Kata penghubung waktu membantu ceritamu terasa runtut: <b>mula-mula, lalu, kemudian, setelah itu, akhirnya</b>.</p>
+        <div class="cerita-box">"Mula-mula aku bangun pagi. Lalu aku sarapan. Kemudian aku berangkat sekolah. Akhirnya aku sampai di sekolah dengan senang."</div>
+        <p>Jangan lupa gunakan huruf kapital di awal kalimat dan nama orang, serta tanda titik di akhir kalimat!</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">6 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Lengkapi kalimat berikut dengan kata hubung waktu yang tepat: "... aku mandi, ... aku memakai seragam sekolah."</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> "Mula-mula aku mandi, lalu aku memakai seragam sekolah."</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Kata hubung yang menunjukkan urutan waktu adalah ...</div>
+      <ul class="pilihan"><li><b>a.</b> karena, tetapi</li><li><b>b.</b> mula-mula, kemudian, akhirnya</li><li><b>c.</b> dan, atau</li><li><b>d.</b> jika, meskipun</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: b</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Susun kalimat acak berikut menjadi cerita runtut: (1) Akhirnya kami pulang dengan gembira. (2) Mula-mula kami pergi ke pantai. (3) Lalu kami bermain pasir dan berenang.</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: (2)–(3)–(1)</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Tulislah pengalamanmu saat liburan dalam 4 kalimat menggunakan kata hubung waktu!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Panduan penilaian guru:</b> periksa penggunaan minimal 2 kata hubung waktu dan urutan kejadian yang logis.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Manakah kalimat yang diawali huruf kapital dengan benar?</div>
+      <ul class="pilihan"><li><b>a.</b> budi pergi ke sekolah.</li><li><b>b.</b> Budi pergi ke sekolah.</li><li><b>c.</b> budi Pergi ke Sekolah.</li><li><b>d.</b> BUDI pergi ke sekolah.</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: b</b><br>Pembahasan: huruf kapital digunakan di awal kalimat dan nama orang saja.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">6</span>Perbaiki kalimat berikut agar tanda bacanya benar: "aku pergi ke perpustakaan"</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: "Aku pergi ke perpustakaan."</b><br>Pembahasan: huruf kapital di awal kalimat dan tanda titik di akhir kalimat.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 5 ============ -->
+<div class="panel" data-t="t5">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 2</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Bercerita dan Presentasi Lisan di Depan Kelas</div>
+      <div><b>Alokasi Waktu</b>2 x pertemuan (2 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Dapat menyampaikan kalimat sederhana secara lisan</div>
+      <div><b>Profil Pelajar Pancasila</b>Mandiri, bernalar kritis</div>
+      <div><b>Sarana</b>Rubrik penilaian sederhana, kertas catatan kecil</div>
+      <div><b>Model</b>Praktik langsung dengan modelling dari guru</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat menyampaikan cerita/informasi secara lisan dengan lafal dan intonasi yang jelas.</li>
+      <li>Peserta didik dapat menggunakan bahasa tubuh dan volume suara yang sesuai saat bercerita.</li>
+      <li>Peserta didik dapat menanggapi cerita/presentasi teman dengan santun.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Kemampuan berbicara di depan umum melatih rasa percaya diri dan kemampuan menyampaikan ide secara jelas kepada orang lain.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>🎤 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Berikan contoh model dari guru terlebih dahulu (modelling)</b> sebelum siswa praktik, agar siswa punya gambaran nyata cara bercerita yang baik.</li>
+        <li><b>Miskonsepsi umum:</b> siswa mengira bercerita berarti menghafal kata demi kata. Tekankan bahwa lebih penting memahami ide pokok lalu menyampaikannya dengan kata sendiri.</li>
+        <li><b>Latih volume suara dan kontak mata secara bertahap</b> — mulai dari bercerita ke pasangan atau kelompok kecil sebelum tampil di depan kelas besar.</li>
+        <li><b>Buat rubrik sederhana</b> (lafal, intonasi, kepercayaan diri) yang bisa dipahami murid sendiri, agar mereka tahu apa yang dinilai.</li>
+        <li><b>Diferensiasi:</b> siswa pemalu bisa bercerita ke pasangan/kelompok kecil dulu; siswa yang sudah percaya diri bisa langsung tampil di depan kelas.</li>
+        <li><b>Asesmen formatif:</b> gunakan penilaian teman sebaya (peer assessment) yang sederhana untuk melatih siswa memberi tanggapan yang membangun.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>🎤 Ayo Percaya Diri Bercerita!</h4>
+      <div class="isi">
+        <p>Saat bercerita di depan kelas: berdiri tegak, suara jelas (tidak terlalu pelan), pandang teman-temanmu, dan gunakan gerakan tangan secukupnya.</p>
+        <p>Saat menanggapi cerita teman, gunakan kalimat sopan, misalnya: <i>"Aku suka ceritamu tentang liburan, karena kamu menjelaskannya dengan sangat seru!"</i></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">6 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Sikap yang tepat saat bercerita di depan kelas adalah ...</div>
+      <ul class="pilihan"><li><b>a.</b> menunduk dan berbicara sangat pelan</li><li><b>b.</b> berdiri tegak, suara jelas, dan memandang teman-teman</li><li><b>c.</b> membaca teks tanpa henti tanpa melihat ke depan</li><li><b>d.</b> berbicara sambil bermain-main</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: b</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Sebutkan 2 hal yang perlu diperhatikan saat bercerita di depan kelas!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> volume suara yang jelas dan kontak mata dengan pendengar.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Contoh tanggapan yang santun terhadap cerita teman adalah ...</div>
+      <ul class="pilihan"><li><b>a.</b> "Ceritamu jelek sekali."</li><li><b>b.</b> "Aku suka ceritamu, sangat menarik!"</li><li><b>c.</b> Diam saja tanpa menanggapi.</li><li><b>d.</b> Menertawakan teman.</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: b</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Praktikkan: ceritakan pengalaman favoritmu di depan kelas atau keluarga selama 2-3 menit.</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Panduan penilaian guru:</b> nilai berdasarkan kejelasan lafal, intonasi, dan kepercayaan diri, bukan hafalan kata per kata.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Mengapa kontak mata penting saat bercerita?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> agar pendengar merasa diperhatikan dan cerita terasa lebih meyakinkan dan menarik.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">6</span>Berikut ini yang BUKAN termasuk sikap baik dalam presentasi adalah ...</div>
+      <ul class="pilihan"><li><b>a.</b> berbicara jelas</li><li><b>b.</b> memandang pendengar</li><li><b>c.</b> membelakangi pendengar terus-menerus</li><li><b>d.</b> berdiri tegak</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: c</b></div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 6 ============ -->
+<div class="panel" data-t="t6">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 2</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Mengenal Puisi Anak dan Pantun Sederhana</div>
+      <div><b>Alokasi Waktu</b>3 x pertemuan (3 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Dapat membaca dan menulis kalimat sederhana</div>
+      <div><b>Profil Pelajar Pancasila</b>Kreatif</div>
+      <div><b>Sarana</b>Contoh puisi/pantun anak, kartu kata berima</div>
+      <div><b>Model</b>Membaca berirama & praktik menulis kreatif</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat mengenali ciri-ciri puisi anak (rima, baris, bait).</li>
+      <li>Peserta didik dapat mengenali struktur pantun (sampiran dan isi, bersajak a-b-a-b).</li>
+      <li>Peserta didik dapat membuat pantun/puisi sederhana sesuai tema.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Puisi dan pantun melatih anak bermain dengan kata dan bunyi bahasa, serta menuangkan perasaan secara kreatif.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>🎵 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Bacakan puisi/pantun dengan irama</b> agar siswa merasakan keindahan bunyinya, jangan hanya dibaca datar seperti kalimat biasa.</li>
+        <li><b>Miskonsepsi umum:</b> siswa mengira pantun dan puisi itu sama. Tekankan ciri khas pantun — 4 baris, sampiran-isi, bersajak a-b-a-b — yang berbeda dari puisi bebas.</li>
+        <li><b>Latih mencari kata berima terlebih dahulu</b> sebagai latihan sebelum menyusun bait lengkap (misalnya kata berima dengan "makan" → "taman", "malam").</li>
+        <li><b>Berikan tema yang dekat dengan siswa</b> (sekolah, hewan, alam) supaya mereka lebih mudah berimajinasi.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah lancar membuat pantun 2 bait; siswa yang masih kesulitan cukup melengkapi pantun rumpang yang sudah disediakan.</li>
+        <li><b>Asesmen formatif:</b> minta siswa membacakan pantun buatannya dengan irama sebagai bentuk unjuk kerja.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>🎵 Ayo Bermain Kata!</h4>
+      <div class="isi">
+        <p>Pantun terdiri dari 4 baris: baris 1–2 disebut <b>sampiran</b> (biasanya bercerita tentang alam), baris 3–4 disebut <b>isi</b> (pesan utama). Pantun bersajak <b>a-b-a-b</b> (baris 1 dan 3 berima, baris 2 dan 4 berima).</p>
+        <div class="cerita-box">
+          Pergi ke pasar membeli jagung,<br>
+          Jagung dibawa naik sepeda.<br>
+          Rajin belajar jangan sampai bingung,<br>
+          Supaya cita-cita segera nyata.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">6 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Pantun terdiri dari berapa baris?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: 4 baris</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Baris ke berapa yang disebut sampiran pada pantun?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: baris 1 dan 2</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Pola sajak pada pantun adalah ...</div>
+      <ul class="pilihan"><li><b>a.</b> a-a-a-a</li><li><b>b.</b> a-b-a-b</li><li><b>c.</b> a-b-b-a</li><li><b>d.</b> a-a-b-b</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: b. a-b-a-b</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Lengkapi pantun berikut dengan baris isi yang bersajak tepat: "Pergi ke sawah membawa cangkul, / Cangkul dibawa si Paman Yono, / ..."</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> "Rajin membaca sejak kecil, / Supaya pintar dan tidak bimbang." (baris terakhir sebaiknya bersajak dengan baris kedua)</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Apa perbedaan pantun dan puisi bebas?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> pantun memiliki aturan baku (4 baris, sampiran-isi, sajak a-b-a-b), sedangkan puisi bebas tidak terikat aturan baris atau sajak tertentu.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">6</span>Buatlah 1 pantun sederhana bertema sekolah!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Panduan penilaian guru:</b> periksa apakah terdiri dari 4 baris, ada sampiran dan isi, serta mendekati pola sajak a-b-a-b.</div></details></div>
+  </div>
+</div>
+
+</div><!-- /panelwrap -->
+
+<footer>Modul Bahasa Indonesia Kelas 3 · Kurikulum Merdeka Fase B · Dapat dicetak (Ctrl/Cmd + P) untuk dibagikan ke siswa</footer>
+
+<script>
+  const btns = document.querySelectorAll('.topic-btn');
+  const panels = document.querySelectorAll('.panel');
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const t = btn.getAttribute('data-t');
+      btns.forEach(b => b.classList.toggle('active', b === btn));
+      panels.forEach(p => p.classList.toggle('active', p.getAttribute('data-t') === t));
+      window.scrollTo({top: 0, behavior:'smooth'});
+    });
+  });
+</script>
+
+</body>
+</html>

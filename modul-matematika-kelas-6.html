@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modul Matematika Kelas 6 — Kurikulum Merdeka</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F7F1E1; --paper-line:#E4D9BE;
+    --ink:#2B2B27; --ink-soft:#5B5648;
+    --accent:#2F6F6B; --tint:#E4F0EE;
+    --chalk:#2E3430;
+    --card-shadow: 3px 3px 0 rgba(43,43,39,0.10);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:repeating-linear-gradient(to bottom, transparent 0px, transparent 34px, var(--paper-line) 35px), var(--paper);
+    color:var(--ink); font-family:'Atkinson Hyperlegible', sans-serif; font-size:17px; line-height:1.65; padding-bottom:60px;
+  }
+  h1,h2,h3,h4{font-family:'Baloo 2', sans-serif; margin:0 0 .4em 0;}
+
+  .cover{position:relative; padding:38px 24px 30px; max-width:920px; margin:0 auto; border-bottom:3px solid var(--ink);}
+  .cover .stamp{position:absolute; top:28px; right:24px; width:88px; height:88px; border-radius:50%; border:3px dashed var(--ink);
+    display:flex; align-items:center; justify-content:center; transform:rotate(-8deg); font-family:'Baloo 2',sans-serif; font-weight:700;
+    font-size:12px; text-align:center; line-height:1.2; color:var(--ink-soft); padding:6px;}
+  .cover h1{font-size:2.1rem; max-width:600px; color:var(--accent);}
+  .cover p.sub{margin:0; color:var(--ink-soft); font-size:1.02rem; max-width:600px;}
+  .cover .meta{margin-top:18px; display:flex; flex-wrap:wrap; gap:10px 26px; font-size:.92rem; color:var(--ink-soft);}
+  .cover .meta span b{color:var(--ink); font-weight:700;}
+
+  .topicbar{
+    max-width:920px; margin:8px auto 0; padding:0 24px 6px;
+    display:flex; gap:8px; flex-wrap:wrap; position:sticky; top:0; background:var(--paper); z-index:20; padding-top:10px;
+  }
+  .topic-btn{
+    appearance:none; cursor:pointer; border:2.5px solid var(--ink); background:#fff; color:var(--ink-soft);
+    font-family:'Baloo 2',sans-serif; font-weight:700; font-size:.82rem; padding:8px 14px; border-radius:20px;
+  }
+  .topic-btn.active{background:var(--accent); border-color:var(--accent); color:#fff;}
+
+  .panelwrap{max-width:920px; margin:0 auto; border:3px solid var(--ink); border-top:none; background:#fffdf8; padding:6px;}
+  .panel{display:none; padding:26px 26px 10px;}
+  .panel.active{display:block;}
+
+  .section{margin:0 0 34px;}
+  .section-head{display:flex; align-items:baseline; gap:10px; border-bottom:2.5px solid var(--accent); padding-bottom:6px; margin-bottom:14px;}
+  .section-head h2{font-size:1.35rem; color:var(--ink);}
+  .section-head .tag{font-family:'Baloo 2',sans-serif; font-weight:700; font-size:.72rem; padding:3px 10px; border-radius:20px; background:var(--accent); color:#fff;}
+
+  .info-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px 24px; background:#fff; border:2px solid var(--paper-line); border-radius:10px; padding:16px 18px; font-size:.94rem;}
+  .info-grid div b{display:block; color:var(--ink-soft); font-size:.78rem; font-weight:700; margin-bottom:2px;}
+  @media(max-width:600px){.info-grid{grid-template-columns:1fr;}}
+
+  ul.tp-list{margin:0; padding-left:22px;}
+  ul.tp-list li{margin-bottom:6px;}
+
+  .callout{border-radius:10px; padding:18px 20px; margin:16px 0;}
+  .callout h4{font-size:1.02rem; display:flex; align-items:center; gap:8px; color:var(--accent);}
+  .pemahaman{border:2px dashed var(--accent); background:var(--tint);}
+  .pemahaman h4{color:var(--accent);}
+
+  .guru{background:var(--chalk); color:#EDEAE2; border:2px solid var(--chalk);}
+  .guru h4{color:#fff;} .guru b{color:#fff;}
+  .guru ul{padding-left:20px; margin:8px 0 0;} .guru li{margin-bottom:6px;}
+
+  .murid{border:2.5px solid var(--accent); background:#fff;}
+  .murid .isi{color:var(--ink);}
+
+  .contoh-visual{display:flex; flex-wrap:wrap; gap:14px; margin:14px 0;}
+  .contoh-visual .kartu{flex:1 1 150px; background:#fff; border:2px solid var(--paper-line); border-radius:10px; padding:12px 14px; text-align:center; font-size:.92rem;}
+  .contoh-visual .kartu .emoji{font-size:1.6rem; display:block; margin-bottom:6px; letter-spacing:2px;}
+
+  .soal-card{background:#fff; border:2px solid var(--ink); border-radius:2px 14px 2px 14px; padding:16px 18px; margin-bottom:14px; box-shadow:var(--card-shadow);}
+  .soal-card .no{font-family:'Baloo 2',sans-serif; font-weight:800; font-size:.85rem; color:#fff; background:var(--ink);
+    display:inline-flex; align-items:center; justify-content:center; width:26px; height:26px; border-radius:50%; margin-right:8px; flex-shrink:0;}
+  .soal-card .pertanyaan{display:flex; align-items:flex-start; gap:4px; font-weight:600;}
+  .soal-card .pilihan{list-style:none; padding:0; margin:10px 0 0 34px; font-size:.95rem;}
+  .soal-card .pilihan li{margin-bottom:4px;} .soal-card .pilihan li b{margin-right:6px;}
+  details.jawaban{margin:10px 0 0 34px;}
+  details.jawaban summary{cursor:pointer; font-family:'Baloo 2',sans-serif; font-weight:700; font-size:.85rem; color:var(--ink-soft); display:inline-block; padding:4px 0;}
+  details.jawaban[open] summary{color:var(--ink);}
+  details.jawaban .kotak-jawab{margin-top:8px; padding:10px 14px; border-radius:8px; font-size:.92rem; background:var(--tint);}
+
+  footer{max-width:920px; margin:24px auto 0; padding:0 26px; color:var(--ink-soft); font-size:.85rem; text-align:center;}
+  @media print{.topicbar{display:none;} .panel{display:block !important; page-break-after:always;}}
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="stamp">KURIKULUM<br>MERDEKA<br>FASE C</div>
+  <h1>Modul Ajar Matematika</h1>
+  <p class="sub">Kelas 6 SD — 6 topik lengkap untuk 2 semester, menuntaskan kompetensi Fase C sebagai persiapan menuju SMP, dilengkapi catatan pedagogis untuk guru, penjelasan untuk murid, dan latihan soal beserta kunci jawaban.</p>
+  <div class="meta">
+    <span>Kelas: <b>6 (Enam)</b></span>
+    <span>Elemen CP: <b>Bilangan, Aljabar, Pengukuran, Geometri, Analisis Data & Peluang</b></span>
+    <span>Total Alokasi: <b>±24 pertemuan</b></span>
+  </div>
+</div>
+
+<div class="topicbar" id="topicbar">
+  <button class="topic-btn active" data-t="t1">1. Bilangan Bulat</button>
+  <button class="topic-btn" data-t="t2">2. Perkalian & Pembagian Pecahan</button>
+  <button class="topic-btn" data-t="t3">3. Keliling & Luas Lingkaran</button>
+  <button class="topic-btn" data-t="t4">4. Volume Bangun Ruang</button>
+  <button class="topic-btn" data-t="t5">5. Koordinat Kartesius</button>
+  <button class="topic-btn" data-t="t6">6. Statistika</button>
+</div>
+
+<div class="panelwrap">
+
+<!-- ============ TOPIK 1 ============ -->
+<div class="panel active" data-t="t1">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 1</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Bilangan Bulat dan Operasinya</div>
+      <div><b>Alokasi Waktu</b>4 x pertemuan (4 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Lancar operasi hitung bilangan cacah (materi kelas 5)</div>
+      <div><b>Profil Pelajar Pancasila</b>Bernalar kritis</div>
+      <div><b>Sarana</b>Garis bilangan, termometer, chip dua warna (positif-negatif)</div>
+      <div><b>Model</b>Konteks nyata suhu dan ketinggian</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat mengenal bilangan bulat positif, negatif, dan nol.</li>
+      <li>Peserta didik dapat melakukan operasi penjumlahan dan pengurangan bilangan bulat.</li>
+      <li>Peserta didik dapat menyelesaikan soal cerita yang berkaitan dengan bilangan bulat (suhu, ketinggian, hutang).</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Bilangan negatif membantu kita menggambarkan hal-hal di bawah titik acuan, seperti suhu di bawah nol derajat atau kedalaman di bawah permukaan laut.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>🌡️ Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Gunakan garis bilangan dan termometer</b> sebagai konteks nyata untuk memperkenalkan bilangan negatif secara konkret.</li>
+        <li><b>Miskonsepsi umum:</b> siswa bingung dengan tanda minus ganda, misalnya 5 − (−3) dianggap sama dengan 5 − 3. Jelaskan bahwa mengurangi bilangan negatif sama dengan menambah.</li>
+        <li><b>Gunakan chip/koin dua warna</b> (satu warna mewakili positif, warna lain negatif) sebagai alat peraga untuk operasi penjumlahan dan pengurangan bilangan bulat.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah mahir mengerjakan operasi campuran (+/−) dengan banyak bilangan; siswa lain fokus pada operasi dua bilangan dahulu.</li>
+        <li><b>Asesmen formatif:</b> siswa menyelesaikan soal cerita suhu/ketinggian menggunakan garis bilangan sebagai alat bantu.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>🌡️ Ayo Kenali Bilangan Bulat!</h4>
+      <div class="isi">
+        <p>Suhu di bawah 0°C ditulis dengan tanda negatif, misalnya -5°C artinya 5 derajat di bawah nol.</p>
+        <p>Mengurangi bilangan negatif = menambah. Contoh: 5 − (−3) = 5 + 3 = 8.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">6 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>-8 + 5 = ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: -3</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>7 - 10 = ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: -3</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>5 - (-3) = ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: 8</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Suhu di kota A adalah -2°C, sedangkan di kota B adalah 5°C. Berapa selisih suhu kedua kota?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: 7°C</b><br>Pembahasan: 5 − (−2) = 7.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Seekor ikan berenang 15 m di bawah permukaan laut, lalu naik 6 m. Berapa posisi ikan sekarang?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: -9 m (9 m di bawah permukaan laut)</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">6</span>Urutkan dari yang terkecil: -5, 3, -1, 0</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: -5, -1, 0, 3</b></div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 2 ============ -->
+<div class="panel" data-t="t2">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 1</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Perkalian dan Pembagian Pecahan</div>
+      <div><b>Alokasi Waktu</b>4 x pertemuan (4 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Memahami penjumlahan-pengurangan pecahan (materi kelas 5)</div>
+      <div><b>Profil Pelajar Pancasila</b>Bernalar kritis</div>
+      <div><b>Sarana</b>Kertas berpetak untuk visual perkalian pecahan</div>
+      <div><b>Model</b>Visualisasi luas sebelum algoritma</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat mengalikan pecahan dengan pecahan.</li>
+      <li>Peserta didik dapat membagi pecahan dengan pecahan.</li>
+      <li>Peserta didik dapat menyelesaikan soal cerita yang melibatkan perkalian dan pembagian pecahan.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Perkalian dan pembagian pecahan membantu kita menghitung bagian dari bagian, seperti membagi 1/2 loyang kue menjadi beberapa potongan lagi.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>🍰 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Gunakan visual luas persegi</b> (kertas berpetak dibagi dua arah) untuk menunjukkan makna perkalian pecahan sebagai "bagian dari bagian".</li>
+        <li><b>Miskonsepsi umum:</b> siswa menghafal aturan pembagian pecahan ("dibalik lalu dikali") tanpa memahami maknanya. Jelaskan dengan pertanyaan "berapa kali 1/4 muat dalam 1/2?" untuk memperkuat pemahaman konsep.</li>
+        <li><b>Ajarkan perkalian pecahan lebih dulu</b> (pembilang × pembilang, penyebut × penyebut) sebelum pembagian, karena pembagian pecahan pada dasarnya diubah menjadi perkalian.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah mahir mengerjakan pecahan campuran; siswa lain fokus pada pecahan biasa dahulu.</li>
+        <li><b>Asesmen formatif:</b> siswa menggambar model luas untuk membuktikan hasil perkalian pecahan sederhana.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>🍰 Ayo Mengalikan dan Membagi Pecahan!</h4>
+      <div class="isi">
+        <p><b>Perkalian pecahan:</b> kalikan pembilang dengan pembilang, penyebut dengan penyebut. Contoh: 1/2 × 1/3 = 1/6.</p>
+        <p><b>Pembagian pecahan:</b> balik pecahan kedua, lalu kalikan. Contoh: 1/2 ÷ 1/4 = 1/2 × 4/1 = 2 (artinya 1/4 muat 2 kali dalam 1/2).</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">6 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>1/2 × 1/3 = ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: 1/6</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>2/3 × 3/4 = ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: 6/12 (atau 1/2)</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>1/2 ÷ 1/4 = ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: 2</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>3/5 ÷ 2/5 = ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: 3/2 (atau 1 1/2)</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Ibu memiliki 1/2 loyang kue, akan dibagi rata untuk 3 anak. Berapa bagian kue yang diterima tiap anak?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: 1/6 loyang</b><br>Pembahasan: 1/2 ÷ 3 = 1/2 × 1/3 = 1/6.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">6</span>Sebuah tali panjangnya 3/4 meter dipotong menjadi bagian-bagian sepanjang 1/8 meter. Berapa banyak potongan yang dihasilkan?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: 6 potongan</b><br>Pembahasan: 3/4 ÷ 1/8 = 3/4 × 8/1 = 6.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 3 ============ -->
+<div class="panel" data-t="t3">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 1</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Keliling dan Luas Lingkaran</div>
+      <div><b>Alokasi Waktu</b>4 x pertemuan (4 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Memahami luas bangun datar lain (materi kelas 5)</div>
+      <div><b>Profil Pelajar Pancasila</b>Bernalar kritis</div>
+      <div><b>Sarana</b>Benda bundar (tutup botol, piring), tali, penggaris</div>
+      <div><b>Model</b>Eksperimen menemukan nilai pi</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat menjelaskan hubungan antara keliling dan diameter lingkaran (nilai pi).</li>
+      <li>Peserta didik dapat menghitung keliling lingkaran.</li>
+      <li>Peserta didik dapat menghitung luas lingkaran.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Nilai pi bukan angka yang dihafal begitu saja — ia muncul dari perbandingan tetap antara keliling dan diameter setiap lingkaran, yang bisa kita temukan sendiri lewat eksperimen sederhana.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>⭕ Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Lakukan eksperimen menemukan nilai pi:</b> ukur keliling benda bundar dengan tali, ukur diameternya dengan penggaris, lalu bagi keliling dengan diameter — hasilnya akan mendekati 3,14.</li>
+        <li><b>Miskonsepsi umum:</b> siswa tertukar rumus keliling (π × diameter) dan luas (π × r × r), atau lupa bahwa jari-jari adalah setengah diameter.</li>
+        <li><b>Latih konversi diameter-jari-jari</b> secara eksplisit sebelum masuk ke rumus luas, karena kesalahan umum terjadi di sini.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah mahir mengerjakan soal gabungan keliling dan luas; siswa lain fokus pada satu jenis soal dahulu.</li>
+        <li><b>Asesmen formatif:</b> siswa melakukan sendiri eksperimen mengukur benda bundar dan menghitung nilai pi hasil temuannya.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>⭕ Ayo Kenali Lingkaran!</h4>
+      <div class="isi">
+        <p><b>Keliling lingkaran</b> = π × diameter (atau 2 × π × jari-jari). <b>Luas lingkaran</b> = π × jari-jari × jari-jari.</p>
+        <p>Nilai π (pi) yang biasa digunakan adalah 3,14 atau 22/7.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">6 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Keliling lingkaran dengan diameter 14 cm (gunakan π = 22/7) adalah ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: 44 cm</b><br>Pembahasan: 22/7 × 14 = 44.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Luas lingkaran dengan jari-jari 7 cm (gunakan π = 22/7) adalah ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: 154 cm²</b><br>Pembahasan: 22/7 × 7 × 7 = 154.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Sebuah roda sepeda memiliki diameter 70 cm. Berapa keliling roda tersebut? (π = 22/7)</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: 220 cm</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Jika keliling lingkaran 62,8 cm (π = 3,14), berapa diameternya?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: 20 cm</b><br>Pembahasan: diameter = keliling ÷ π = 62,8 ÷ 3,14 = 20.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Sebuah taman berbentuk lingkaran dengan jari-jari 10 m. Berapa luas taman tersebut? (π = 3,14)</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: 314 m²</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">6</span>Mengapa nilai pi selalu sama untuk semua lingkaran, besar maupun kecil?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> karena perbandingan antara keliling dan diameter selalu tetap untuk lingkaran berapa pun ukurannya.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 4 ============ -->
+<div class="panel" data-t="t4">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 2</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Volume Bangun Ruang (Tabung dan Prisma)</div>
+      <div><b>Alokasi Waktu</b>4 x pertemuan (4 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Memahami volume kubus dan balok (materi kelas 5)</div>
+      <div><b>Profil Pelajar Pancasila</b>Bernalar kritis</div>
+      <div><b>Sarana</b>Benda nyata (kaleng, tenda/atap segitiga)</div>
+      <div><b>Model</b>Eksplorasi benda nyata & rumus luas alas × tinggi</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat mengenal ciri-ciri bangun ruang prisma, limas, dan tabung.</li>
+      <li>Peserta didik dapat menghitung volume tabung menggunakan rumus.</li>
+      <li>Peserta didik dapat menghitung volume prisma segitiga sederhana.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Volume berbagai bangun ruang sebenarnya mengikuti pola yang sama: luas alas dikalikan tinggi, sehingga memahami satu pola ini membantu kita menghitung volume berbagai bentuk.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>🥫 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Gunakan benda nyata</b> (kaleng untuk tabung, atap rumah/tenda untuk prisma segitiga) untuk mengenalkan bentuk sebelum masuk ke rumus.</li>
+        <li><b>Miskonsepsi umum:</b> siswa tertukar antara limas (punya 1 titik puncak) dan prisma (punya dua sisi sejajar yang kongruen sebagai alas dan tutup).</li>
+        <li><b>Tekankan pola umum</b> volume = luas alas × tinggi, yang berlaku untuk tabung maupun prisma, hanya bentuk alasnya yang berbeda (lingkaran untuk tabung, segitiga untuk prisma segitiga).</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah mahir menghitung volume prisma dengan alas segi banyak lain; siswa lain fokus pada tabung dan prisma segitiga.</li>
+        <li><b>Asesmen formatif:</b> siswa mengukur benda nyata berbentuk tabung/prisma di sekitarnya dan menghitung volumenya.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>🥫 Ayo Menghitung Volume Tabung dan Prisma!</h4>
+      <div class="isi">
+        <p><b>Volume tabung</b> = luas alas (lingkaran) × tinggi = π × r × r × tinggi.</p>
+        <p><b>Volume prisma segitiga</b> = luas alas (segitiga) × tinggi prisma.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">6 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Volume tabung dengan jari-jari alas 7 cm dan tinggi 10 cm adalah ... (π = 22/7)</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: 1.540 cm³</b><br>Pembahasan: 22/7 × 7 × 7 × 10 = 1.540.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Sebuah prisma segitiga memiliki luas alas 24 cm² dan tinggi prisma 15 cm. Berapa volumenya?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: 360 cm³</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Ciri khas yang membedakan limas dari prisma adalah ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> limas memiliki satu titik puncak, sedangkan prisma memiliki dua sisi sejajar yang kongruen (alas dan tutup).</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Sebuah kaleng susu berbentuk tabung dengan diameter 14 cm dan tinggi 20 cm. Berapa volumenya? (π = 22/7)</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: 3.080 cm³</b><br>Pembahasan: jari-jari = 7 cm, volume = 22/7 × 7 × 7 × 20 = 3.080.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Rumus umum yang berlaku untuk menghitung volume tabung maupun prisma adalah ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: volume = luas alas × tinggi</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">6</span>Sebutkan 1 contoh benda di sekitarmu yang berbentuk tabung dan 1 yang berbentuk prisma!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> kaleng (tabung), atap rumah/tenda (prisma segitiga).</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 5 ============ -->
+<div class="panel" data-t="t5">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 2</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Koordinat Kartesius</div>
+      <div><b>Alokasi Waktu</b>3 x pertemuan (3 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Memahami bilangan bulat dan garis bilangan</div>
+      <div><b>Profil Pelajar Pancasila</b>Bernalar kritis</div>
+      <div><b>Sarana</b>Kertas berpetak, papan permainan/peta kota sebagai analogi</div>
+      <div><b>Model</b>Analogi peta dan permainan koordinat</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat menentukan posisi suatu titik pada bidang koordinat kartesius.</li>
+      <li>Peserta didik dapat menggambar titik-titik pada koordinat kartesius sesuai pasangan (x,y) yang diberikan.</li>
+      <li>Peserta didik dapat menghubungkan titik-titik pada koordinat untuk membentuk bangun datar sederhana.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Koordinat kartesius digunakan secara luas dalam kehidupan nyata, misalnya pada peta, GPS, dan permainan video, untuk menentukan lokasi secara tepat.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>📍 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Gunakan analogi peta kota atau papan permainan</b> (seperti catur/battleship) untuk memperkenalkan konsep sumbu-x dan sumbu-y secara intuitif.</li>
+        <li><b>Miskonsepsi umum:</b> siswa tertukar urutan menuliskan koordinat (x,y), sering menukar mana yang mewakili gerakan mendatar dan mana yang vertikal. Tekankan urutan "kanan/kiri dulu, baru atas/bawah".</li>
+        <li><b>Latih membaca dan menulis koordinat</b> dari kuadran pertama (bilangan positif) dulu sebelum masuk ke kuadran dengan bilangan negatif.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah mahir menggambar bangun datar dari beberapa titik koordinat termasuk yang bernilai negatif; siswa lain fokus pada kuadran pertama saja.</li>
+        <li><b>Asesmen formatif:</b> siswa memainkan permainan sederhana menebak koordinat teman di kertas berpetak.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>📍 Ayo Kenali Koordinat!</h4>
+      <div class="isi">
+        <p>Titik (3,2) artinya bergerak 3 langkah ke kanan (sumbu-x), lalu 2 langkah ke atas (sumbu-y) dari titik pusat (0,0).</p>
+        <p>Angka pertama selalu menunjukkan gerakan mendatar, angka kedua menunjukkan gerakan vertikal.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">6 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Gambarkan titik (4,3) pada kertas berpetak!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Panduan penilaian guru:</b> titik berada 4 satuan ke kanan dan 3 satuan ke atas dari titik pusat.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Sebutkan koordinat titik pusat pada bidang kartesius!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: (0,0)</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Titik A berada 5 langkah ke kanan dan 2 langkah ke bawah dari titik pusat. Bagaimana koordinat titik A?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: (5,-2)</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Hubungkan titik (1,1), (4,1), dan (4,4) lalu (1,4). Bangun apa yang terbentuk?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: persegi</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Sebutkan angka mana yang menunjukkan gerakan mendatar pada pasangan koordinat (x,y)!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: angka x (yang pertama)</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">6</span>Sebutkan 1 contoh penggunaan koordinat dalam kehidupan sehari-hari!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> GPS pada peta, permainan catur/battleship.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 6 ============ -->
+<div class="panel" data-t="t6">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 2</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Statistika (Mean, Median, dan Modus)</div>
+      <div><b>Alokasi Waktu</b>3 x pertemuan (3 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Memahami cara menghitung rata-rata (materi kelas 5)</div>
+      <div><b>Profil Pelajar Pancasila</b>Bernalar kritis</div>
+      <div><b>Sarana</b>Data nilai ulangan/tinggi badan siswa</div>
+      <div><b>Model</b>Menggunakan data otentik kelas</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat menghitung mean, median, dan modus dari sekumpulan data.</li>
+      <li>Peserta didik dapat menjelaskan perbedaan ketiga ukuran pemusatan data tersebut.</li>
+      <li>Peserta didik dapat menafsirkan data yang disajikan menggunakan ketiga ukuran tersebut.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Mean, median, dan modus adalah tiga cara berbeda untuk meringkas data, dan masing-masing lebih cocok digunakan pada situasi yang berbeda pula.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>📊 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Gunakan data nyata kelas</b> (tinggi badan, nilai ulangan) untuk menghitung ketiga ukuran pemusatan data sekaligus, agar terlihat perbedaannya secara langsung.</li>
+        <li><b>Miskonsepsi umum:</b> siswa menganggap mean, median, dan modus selalu menghasilkan nilai yang sama. Tunjukkan dengan data yang sengaja dibuat berbeda hasil ketiganya untuk membuktikan bahwa ketiganya adalah konsep berbeda.</li>
+        <li><b>Ajarkan langkah median secara eksplisit:</b> data harus diurutkan terlebih dahulu sebelum mencari nilai tengahnya.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah mahir menafsirkan kapan sebaiknya menggunakan median dibanding mean (misalnya saat ada data ekstrem); siswa lain fokus pada langkah menghitung ketiganya.</li>
+        <li><b>Asesmen formatif:</b> siswa menghitung mean, median, dan modus dari data yang mereka kumpulkan sendiri di kelas.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>📊 Ayo Kenali Mean, Median, dan Modus!</h4>
+      <div class="isi">
+        <p><b>Mean (rata-rata)</b> = jumlah semua data ÷ banyak data.</p>
+        <p><b>Median (nilai tengah)</b> = data yang berada di tengah setelah diurutkan.</p>
+        <p><b>Modus</b> = data yang paling sering muncul.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">6 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Data: 5, 7, 7, 8, 9. Berapa mean-nya?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: 7,2</b><br>Pembahasan: (5+7+7+8+9) ÷ 5 = 36 ÷ 5 = 7,2.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Berapa median dari data pada soal nomor 1?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: 7</b><br>Pembahasan: data sudah terurut, nilai tengah adalah 7.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Berapa modus dari data pada soal nomor 1?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: 7</b><br>Pembahasan: angka 7 muncul paling banyak (2 kali).</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Data ukuran sepatu yang terjual: 38, 39, 39, 40, 39, 41. Berapa modusnya?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: 39</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Data: 4, 6, 8, 10. Berapa median-nya?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: 7</b><br>Pembahasan: karena data genap, median = (6+8) ÷ 2 = 7.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">6</span>Sebutkan perbedaan mean, median, dan modus!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> mean adalah rata-rata hitung, median adalah nilai tengah data terurut, modus adalah data yang paling sering muncul.</div></details></div>
+  </div>
+</div>
+
+</div><!-- /panelwrap -->
+
+<footer>Modul Matematika Kelas 6 · Kurikulum Merdeka Fase C · Dapat dicetak (Ctrl/Cmd + P) untuk dibagikan ke siswa</footer>
+
+<script>
+  const btns = document.querySelectorAll('.topic-btn');
+  const panels = document.querySelectorAll('.panel');
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const t = btn.getAttribute('data-t');
+      btns.forEach(b => b.classList.toggle('active', b === btn));
+      panels.forEach(p => p.classList.toggle('active', p.getAttribute('data-t') === t));
+      window.scrollTo({top: 0, behavior:'smooth'});
+    });
+  });
+</script>
+
+</body>
+</html>

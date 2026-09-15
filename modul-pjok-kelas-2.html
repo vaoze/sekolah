@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modul PJOK Kelas 2 — Kurikulum Merdeka</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F7F1E1; --paper-line:#E4D9BE;
+    --ink:#2B2B27; --ink-soft:#5B5648;
+    --accent:#2E6FA3; --tint:#E3EEF6;
+    --chalk:#2E3430;
+    --card-shadow: 3px 3px 0 rgba(43,43,39,0.10);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:repeating-linear-gradient(to bottom, transparent 0px, transparent 34px, var(--paper-line) 35px), var(--paper);
+    color:var(--ink); font-family:'Atkinson Hyperlegible', sans-serif; font-size:17px; line-height:1.65; padding-bottom:60px;
+  }
+  h1,h2,h3,h4{font-family:'Baloo 2', sans-serif; margin:0 0 .4em 0;}
+
+  .cover{position:relative; padding:38px 24px 30px; max-width:920px; margin:0 auto; border-bottom:3px solid var(--ink);}
+  .cover .stamp{position:absolute; top:28px; right:24px; width:88px; height:88px; border-radius:50%; border:3px dashed var(--ink);
+    display:flex; align-items:center; justify-content:center; transform:rotate(-8deg); font-family:'Baloo 2',sans-serif; font-weight:700;
+    font-size:12px; text-align:center; line-height:1.2; color:var(--ink-soft); padding:6px;}
+  .cover h1{font-size:2.1rem; max-width:600px; color:var(--accent);}
+  .cover p.sub{margin:0; color:var(--ink-soft); font-size:1.02rem; max-width:600px;}
+  .cover .meta{margin-top:18px; display:flex; flex-wrap:wrap; gap:10px 26px; font-size:.92rem; color:var(--ink-soft);}
+  .cover .meta span b{color:var(--ink); font-weight:700;}
+
+  .topicbar{
+    max-width:920px; margin:8px auto 0; padding:0 24px 6px;
+    display:flex; gap:8px; flex-wrap:wrap; position:sticky; top:0; background:var(--paper); z-index:20; padding-top:10px;
+  }
+  .topic-btn{
+    appearance:none; cursor:pointer; border:2.5px solid var(--ink); background:#fff; color:var(--ink-soft);
+    font-family:'Baloo 2',sans-serif; font-weight:700; font-size:.82rem; padding:8px 14px; border-radius:20px;
+  }
+  .topic-btn.active{background:var(--accent); border-color:var(--accent); color:#fff;}
+
+  .panelwrap{max-width:920px; margin:0 auto; border:3px solid var(--ink); border-top:none; background:#fffdf8; padding:6px;}
+  .panel{display:none; padding:26px 26px 10px;}
+  .panel.active{display:block;}
+
+  .section{margin:0 0 34px;}
+  .section-head{display:flex; align-items:baseline; gap:10px; border-bottom:2.5px solid var(--accent); padding-bottom:6px; margin-bottom:14px;}
+  .section-head h2{font-size:1.35rem; color:var(--ink);}
+  .section-head .tag{font-family:'Baloo 2',sans-serif; font-weight:700; font-size:.72rem; padding:3px 10px; border-radius:20px; background:var(--accent); color:#fff;}
+
+  .info-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px 24px; background:#fff; border:2px solid var(--paper-line); border-radius:10px; padding:16px 18px; font-size:.94rem;}
+  .info-grid div b{display:block; color:var(--ink-soft); font-size:.78rem; font-weight:700; margin-bottom:2px;}
+  @media(max-width:600px){.info-grid{grid-template-columns:1fr;}}
+
+  ul.tp-list{margin:0; padding-left:22px;}
+  ul.tp-list li{margin-bottom:6px;}
+
+  .callout{border-radius:10px; padding:18px 20px; margin:16px 0;}
+  .callout h4{font-size:1.02rem; display:flex; align-items:center; gap:8px; color:var(--accent);}
+  .pemahaman{border:2px dashed var(--accent); background:var(--tint);}
+  .pemahaman h4{color:var(--accent);}
+
+  .guru{background:var(--chalk); color:#EDEAE2; border:2px solid var(--chalk);}
+  .guru h4{color:#fff;} .guru b{color:#fff;}
+  .guru ul{padding-left:20px; margin:8px 0 0;} .guru li{margin-bottom:6px;}
+
+  .murid{border:2.5px solid var(--accent); background:#fff;}
+  .murid .isi{color:var(--ink);}
+
+  .contoh-visual{display:flex; flex-wrap:wrap; gap:14px; margin:14px 0;}
+  .contoh-visual .kartu{flex:1 1 150px; background:#fff; border:2px solid var(--paper-line); border-radius:10px; padding:12px 14px; text-align:center; font-size:.92rem;}
+  .contoh-visual .kartu .emoji{font-size:1.6rem; display:block; margin-bottom:6px; letter-spacing:2px;}
+
+  .soal-card{background:#fff; border:2px solid var(--ink); border-radius:2px 14px 2px 14px; padding:16px 18px; margin-bottom:14px; box-shadow:var(--card-shadow);}
+  .soal-card .no{font-family:'Baloo 2',sans-serif; font-weight:800; font-size:.85rem; color:#fff; background:var(--ink);
+    display:inline-flex; align-items:center; justify-content:center; width:26px; height:26px; border-radius:50%; margin-right:8px; flex-shrink:0;}
+  .soal-card .pertanyaan{display:flex; align-items:flex-start; gap:4px; font-weight:600;}
+  .soal-card .pilihan{list-style:none; padding:0; margin:10px 0 0 34px; font-size:.95rem;}
+  .soal-card .pilihan li{margin-bottom:4px;} .soal-card .pilihan li b{margin-right:6px;}
+  details.jawaban{margin:10px 0 0 34px;}
+  details.jawaban summary{cursor:pointer; font-family:'Baloo 2',sans-serif; font-weight:700; font-size:.85rem; color:var(--ink-soft); display:inline-block; padding:4px 0;}
+  details.jawaban[open] summary{color:var(--ink);}
+  details.jawaban .kotak-jawab{margin-top:8px; padding:10px 14px; border-radius:8px; font-size:.92rem; background:var(--tint);}
+
+  footer{max-width:920px; margin:24px auto 0; padding:0 26px; color:var(--ink-soft); font-size:.85rem; text-align:center;}
+  @media print{.topicbar{display:none;} .panel{display:block !important; page-break-after:always;}}
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="stamp">KURIKULUM<br>MERDEKA<br>FASE A</div>
+  <h1>Modul Ajar PJOK</h1>
+  <p class="sub">Kelas 2 SD — 6 topik lengkap untuk 2 semester, melanjutkan dan memperkaya gerak dasar dari kelas 1, dilengkapi catatan pedagogis untuk guru, penjelasan untuk murid, dan latihan soal pengetahuan gerak beserta kunci jawaban.</p>
+  <div class="meta">
+    <span>Kelas: <b>2 (Dua)</b></span>
+    <span>Elemen CP: <b>Keterampilan Gerak, Pengetahuan Gerak, Pengembangan Karakter</b></span>
+    <span>Total Alokasi: <b>±18 pertemuan</b></span>
+  </div>
+</div>
+
+<div class="topicbar" id="topicbar">
+  <button class="topic-btn active" data-t="t1">1. Variasi Gerak Lokomotor</button>
+  <button class="topic-btn" data-t="t2">2. Gerak Non-Lokomotor</button>
+  <button class="topic-btn" data-t="t3">3. Menendang & Menggiring</button>
+  <button class="topic-btn" data-t="t4">4. Senam Lantai Dasar</button>
+  <button class="topic-btn" data-t="t5">5. Rangkaian Gerak Berirama</button>
+  <button class="topic-btn" data-t="t6">6. Kebugaran & Pola Hidup Sehat</button>
+</div>
+
+<div class="panelwrap">
+
+<!-- ============ TOPIK 1 ============ -->
+<div class="panel active" data-t="t1">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 1</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Variasi Gerak Lokomotor dalam Permainan Sederhana</div>
+      <div><b>Alokasi Waktu</b>3 x pertemuan (3 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Dapat berjalan, berlari, dan melompat (materi kelas 1)</div>
+      <div><b>Profil Pelajar Pancasila</b>Gotong royong, mandiri</div>
+      <div><b>Sarana</b>Lapangan/halaman, cone, peluit</div>
+      <div><b>Model</b>Permainan tradisional (kucing-kucingan, hitam-hijau)</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat mempraktikkan variasi gerak lokomotor (berjalan zig-zag, berlari berbelok, melompat berbagai pola) dalam permainan.</li>
+      <li>Peserta didik dapat bekerja sama dan bermain sesuai aturan dalam permainan kelompok.</li>
+      <li>Peserta didik dapat menunjukkan sikap sportif saat menang maupun kalah.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Variasi gerak lokomotor melatih anak beradaptasi dengan situasi yang berubah-ubah, seperti saat bermain dan menghindari lawan dalam permainan.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>🏃 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Gunakan permainan tradisional</b> (kucing-kucingan, hitam-hijau) untuk melatih variasi gerak lokomotor secara alami sambil bermain.</li>
+        <li><b>Miskonsepsi umum:</b> siswa hanya fokus ingin menang tanpa memahami dan mengikuti aturan main. Latih pemahaman aturan sebelum permainan dimulai, dan tekankan pentingnya sportivitas.</li>
+        <li><b>Variasikan pola gerak</b> (zig-zag, berbelok, melompat dengan jarak berbeda) agar siswa terbiasa beradaptasi dengan cepat.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah lincah diberi variasi permainan lebih kompleks; siswa lain berlatih dengan pola gerak yang lebih sederhana.</li>
+        <li><b>Asesmen formatif:</b> amati kemampuan siswa beradaptasi dengan variasi gerak serta sikap sportifnya selama bermain.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>🏃 Ayo Bermain dan Bergerak!</h4>
+      <div class="isi">
+        <div class="contoh-visual">
+          <div class="kartu"><span class="emoji">↩️</span>Berjalan zig-zag</div>
+          <div class="kartu"><span class="emoji">🔄</span>Berlari berbelok</div>
+          <div class="kartu"><span class="emoji">🦘</span>Melompat berbagai pola</div>
+        </div>
+        <p>Saat bermain, ikuti aturan dengan baik dan tetap bersikap sportif, baik saat menang maupun kalah.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">5 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Sebutkan 1 contoh permainan yang melatih variasi gerak lokomotor!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> kucing-kucingan, hitam-hijau, lomba lari zig-zag.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Sikap yang tepat saat kalah dalam permainan adalah ...</div>
+      <ul class="pilihan"><li><b>a.</b> marah dan menyalahkan teman</li><li><b>b.</b> menerima dengan lapang dada</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: b</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Mengapa kita perlu mengikuti aturan saat bermain?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> agar permainan berjalan adil dan menyenangkan untuk semua pemain.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Sebutkan 1 contoh gerak lokomotor dengan pola berbelok!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> berlari mengelilingi cone/tanda batas.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Praktik: mainkan permainan kucing-kucingan bersama teman-temanmu sesuai aturan yang dijelaskan guru!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Panduan penilaian guru:</b> amati kelincahan gerak dan sikap sportif siswa.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 2 ============ -->
+<div class="panel" data-t="t2">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 1</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Variasi Gerak Non-Lokomotor dan Kelenturan Tubuh</div>
+      <div><b>Alokasi Waktu</b>3 x pertemuan (3 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Dapat menekuk, meregang, dan memutar (materi kelas 1)</div>
+      <div><b>Profil Pelajar Pancasila</b>Mandiri</div>
+      <div><b>Sarana</b>Halaman/ruang cukup luas</div>
+      <div><b>Model</b>Permainan menirukan gerak (mirip "Simon Says")</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat mempraktikkan kombinasi gerak menekuk, meregang, dan memutar.</li>
+      <li>Peserta didik dapat menjelaskan manfaat kelenturan tubuh bagi aktivitas sehari-hari.</li>
+      <li>Peserta didik dapat memimpin gerakan pemanasan sederhana secara bergiliran.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Tubuh yang lentur membantu kita bergerak lebih leluasa dan mengurangi risiko cedera saat beraktivitas fisik.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>🤸 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Gunakan permainan menirukan gerak</b> (mirip "Simon Says") untuk melatih kombinasi gerak non-lokomotor secara menyenangkan.</li>
+        <li><b>Miskonsepsi umum:</b> siswa mengira kelenturan tubuh (misalnya bisa melakukan split) harus dicapai langsung tanpa latihan bertahap. Jelaskan bahwa kelenturan berkembang perlahan lewat latihan rutin.</li>
+        <li><b>Latih kombinasi gerak</b> (misalnya menekuk sambil memutar) secara bertahap, mulai dari gerakan tunggal ke kombinasi dua gerakan.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah percaya diri bisa memimpin gerakan pemanasan di depan kelas secara bergiliran; siswa lain mengikuti dengan bimbingan.</li>
+        <li><b>Asesmen formatif:</b> amati kelenturan dan kombinasi gerak siswa saat melakukan pemanasan.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>🤸 Ayo Lentur dan Sehat!</h4>
+      <div class="isi">
+        <p>Cobalah kombinasi gerak: menekuk lutut sambil memutar pinggang, atau meregangkan tangan sambil memutar kepala perlahan.</p>
+        <p>Kelenturan tubuh tidak didapat sekaligus — semakin sering berlatih, tubuhmu akan semakin lentur!</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">5 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Sebutkan 1 manfaat kelenturan tubuh!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> tubuh lebih leluasa bergerak, mengurangi risiko cedera.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Kelenturan tubuh didapat melalui ...</div>
+      <ul class="pilihan"><li><b>a.</b> latihan rutin dan bertahap</li><li><b>b.</b> latihan sekali saja</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: a</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Sebutkan 1 contoh kombinasi gerak non-lokomotor!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> menekuk lutut sambil memutar pinggang.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Mengapa kita tidak boleh memaksakan tubuh agar langsung sangat lentur?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> karena bisa menyebabkan cedera; kelenturan perlu dilatih perlahan dan bertahap.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Praktik: pimpin gerakan pemanasan sederhana di depan kelas secara bergiliran!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Panduan penilaian guru:</b> amati kepercayaan diri dan ketepatan gerakan yang dipimpin siswa.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 3 ============ -->
+<div class="panel" data-t="t3">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 1</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Gerak Manipulatif Menendang dan Menggiring Bola</div>
+      <div><b>Alokasi Waktu</b>3 x pertemuan (3 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Dapat melempar dan menangkap bola (materi kelas 1)</div>
+      <div><b>Profil Pelajar Pancasila</b>Mandiri, gotong royong</div>
+      <div><b>Sarana</b>Bola kaki ukuran anak, cone sebagai sasaran</div>
+      <div><b>Model</b>Latihan sasaran & permainan sederhana</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat mempraktikkan gerak menendang bola ke arah sasaran.</li>
+      <li>Peserta didik dapat mempraktikkan gerak menggiring bola dengan kaki secara sederhana.</li>
+      <li>Peserta didik dapat bermain permainan sederhana menggunakan gerak menendang dan menggiring bola.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Menendang dan menggiring bola dengan terarah lebih penting daripada sekadar menendang sekuat tenaga, sebuah pelajaran tentang kontrol dan ketepatan.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>⚽ Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Gunakan bola berukuran sesuai anak</b> dan sasaran yang jelas (cone/gawang kecil) untuk latihan menendang terarah.</li>
+        <li><b>Miskonsepsi umum:</b> siswa mengira menendang sekuat tenaga selalu lebih baik daripada tendangan terarah. Latih dengan sasaran dekat dulu untuk membangun ketepatan sebelum kekuatan.</li>
+        <li><b>Latih menggiring bola dengan langkah kecil dan bola dekat kaki</b>, bukan menendang bola jauh-jauh yang sulit dikontrol.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah mahir berlatih dengan sasaran lebih jauh atau rintangan; siswa lain fokus pada sasaran dekat dan sederhana.</li>
+        <li><b>Asesmen formatif:</b> amati ketepatan tendangan ke sasaran dan kontrol bola saat menggiring.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>⚽ Ayo Menendang dan Menggiring!</h4>
+      <div class="isi">
+        <p>Saat menendang ke sasaran, fokus pada <b>ketepatan</b>, bukan hanya kekuatan. Saat menggiring bola, jaga bola tetap dekat dengan kakimu agar mudah dikontrol.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">5 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Menendang dan menggiring bola termasuk gerak ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: manipulatif</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Saat menendang ke sasaran, yang lebih penting adalah ...</div>
+      <ul class="pilihan"><li><b>a.</b> kekuatan tendangan</li><li><b>b.</b> ketepatan arah tendangan</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: b</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Saat menggiring bola, sebaiknya bola berada ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: dekat dengan kaki</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Mengapa bola perlu dijaga dekat kaki saat menggiring?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> agar bola mudah dikontrol dan tidak mudah direbut lawan.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Praktik: berlatihlah menendang bola ke arah cone dan menggiringnya melewati beberapa rintangan!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Panduan penilaian guru:</b> amati ketepatan dan kontrol bola siswa.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 4 ============ -->
+<div class="panel" data-t="t4">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 2</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Senam Lantai Dasar (Sikap Lilin dan Guling Depan)</div>
+      <div><b>Alokasi Waktu</b>3 x pertemuan (3 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Dapat melakukan guling depan dasar dengan bantuan (materi kelas 1)</div>
+      <div><b>Profil Pelajar Pancasila</b>Mandiri, bernalar kritis</div>
+      <div><b>Sarana</b>Matras, ruang yang aman dan cukup luas</div>
+      <div><b>Model</b>Demonstrasi bertahap dengan pengawasan ketat</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat mempraktikkan sikap lilin dengan bantuan guru.</li>
+      <li>Peserta didik dapat mempraktikkan guling depan dengan teknik yang lebih baik dari kelas sebelumnya.</li>
+      <li>Peserta didik dapat menjelaskan pentingnya pemanasan sebelum senam lantai.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Senam lantai melatih kekuatan otot inti dan keseimbangan, sekaligus mengajarkan keberanian yang disertai kehati-hatian.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>🤸‍♀️ Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Selalu gunakan matras</b> dan awasi/dampingi langsung setiap siswa, terutama saat mempraktikkan sikap lilin yang membutuhkan bantuan menopang punggung.</li>
+        <li><b>Miskonsepsi umum:</b> siswa mengira sikap lilin harus langsung sempurna (kaki lurus tegak) sejak awal. Jelaskan bahwa ini dicapai bertahap, mulai dari bantuan penuh hingga mandiri.</li>
+        <li><b>Wajibkan pemanasan</b> sebelum senam lantai untuk mengurangi risiko cedera otot.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah percaya diri dan kuat dapat mencoba sikap lilin dengan bantuan minimal; siswa lain tetap dengan bantuan penuh dari guru.</li>
+        <li><b>Asesmen formatif:</b> amati kekuatan otot inti dan keberanian siswa, dengan keselamatan sebagai prioritas utama.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>🤸‍♀️ Ayo Berlatih Senam Lantai!</h4>
+      <div class="isi">
+        <p><b>Sikap lilin</b>: berbaring lalu angkat kedua kaki lurus ke atas dengan bantuan tangan menopang pinggang, dibantu oleh gurumu.</p>
+        <p>Selalu lakukan pemanasan dulu sebelum senam lantai agar otot siap bergerak dan terhindar dari cedera.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">5 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Pada sikap lilin, bagian tubuh yang diangkat ke atas adalah ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: kedua kaki</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Sebelum senam lantai, kita perlu melakukan ...</div>
+      <ul class="pilihan"><li><b>a.</b> pemanasan</li><li><b>b.</b> langsung latihan tanpa persiapan</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: a</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Mengapa sikap lilin sebaiknya dilatih dengan bantuan guru terlebih dahulu?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> agar siswa aman dan tidak cedera saat masih belajar keseimbangan.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Sebutkan 1 manfaat berlatih senam lantai!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> melatih kekuatan otot, melatih keseimbangan, melatih keberanian.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Praktik: cobalah sikap lilin dengan bantuan gurumu, lalu ulangi guling depan dengan teknik yang benar!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Panduan penilaian guru:</b> utamakan keselamatan dan berikan bantuan sesuai kebutuhan siswa.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 5 ============ -->
+<div class="panel" data-t="t5">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 2</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Gerak Berirama dengan Rangkaian Sederhana</div>
+      <div><b>Alokasi Waktu</b>3 x pertemuan (3 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Dapat bergerak mengikuti irama musik (materi kelas 1)</div>
+      <div><b>Profil Pelajar Pancasila</b>Kreatif, mandiri</div>
+      <div><b>Sarana</b>Musik/lagu anak, ruang yang cukup luas</div>
+      <div><b>Model</b>Menyusun dan menampilkan rangkaian gerak</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat merangkai 2-3 gerakan sederhana mengikuti irama musik.</li>
+      <li>Peserta didik dapat menampilkan rangkaian gerak berirama di depan kelas.</li>
+      <li>Peserta didik dapat memberi apresiasi kepada penampilan teman secara santun.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Menyusun rangkaian gerak melatih kreativitas dan kepercayaan diri anak dalam mengekspresikan diri melalui gerak.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>🎶 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Mulai dari rangkaian 2 gerakan sederhana</b> (misalnya tepuk tangan lalu melangkah) sebelum menambah menjadi 3 gerakan.</li>
+        <li><b>Miskonsepsi umum:</b> siswa mengira rangkaian gerak harus sama persis dengan contoh guru. Beri kebebasan variasi selama gerakannya tetap mengikuti irama.</li>
+        <li><b>Beri waktu berlatih berkelompok</b> sebelum tampil di depan kelas, agar siswa lebih percaya diri.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah percaya diri bisa menambahkan gerakan kreasi sendiri; siswa lain cukup mengikuti rangkaian dasar yang dicontohkan.</li>
+        <li><b>Asesmen formatif:</b> amati kekompakan rangkaian gerak dan kepercayaan diri siswa saat tampil.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>🎶 Ayo Rangkai Gerakan!</h4>
+      <div class="isi">
+        <p>Cobalah menggabungkan 2-3 gerakan, misalnya: tepuk tangan → melangkah ke samping → mengayunkan tangan, sesuai irama musik.</p>
+        <p>Boleh menambahkan gerakan kreasimu sendiri, yang penting tetap mengikuti irama!</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">5 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Berapa jumlah gerakan yang sebaiknya dirangkai untuk pemula?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: 2-3 gerakan</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Rangkaian gerak berirama boleh ...</div>
+      <ul class="pilihan"><li><b>a.</b> divariasikan sesuai kreativitas sendiri</li><li><b>b.</b> harus sama persis dengan contoh guru</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: a</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Sebutkan 1 contoh rangkaian 2 gerakan sederhana!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> tepuk tangan lalu melangkah ke samping.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Bagaimana sikap yang tepat saat teman menampilkan rangkaian geraknya?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> memberi tepuk tangan dan apresiasi yang santun.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Praktik: susun rangkaian 2-3 gerakan mengikuti musik bersama kelompokmu, lalu tampilkan di depan kelas!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Panduan penilaian guru:</b> amati kekompakan dan kepercayaan diri saat tampil.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 6 ============ -->
+<div class="panel" data-t="t6">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 2</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Kebugaran Jasmani dan Pola Hidup Sehat</div>
+      <div><b>Alokasi Waktu</b>3 x pertemuan (3 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Memahami manfaat olahraga secara umum (materi kelas 1)</div>
+      <div><b>Profil Pelajar Pancasila</b>Mandiri</div>
+      <div><b>Sarana</b>Tangga kecil/anak tangga, area lari sederhana</div>
+      <div><b>Model</b>Tes kebugaran sederhana yang menyenangkan</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat melakukan latihan kebugaran sederhana (lari di tempat, naik-turun anak tangga).</li>
+      <li>Peserta didik dapat menjelaskan pola hidup sehat (istirahat cukup, makan bergizi, olahraga teratur).</li>
+      <li>Peserta didik dapat menerapkan minimal 1 kebiasaan hidup sehat dalam kesehariannya.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Kebugaran jasmani yang baik didukung oleh tiga pilar: olahraga teratur, istirahat cukup, dan makan makanan bergizi — ketiganya harus berjalan bersama.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>💪 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Gunakan tes kebugaran sederhana yang menyenangkan</b> (lari di tempat sambil bernyanyi, naik-turun anak tangga kecil) agar tidak terasa seperti tes yang menakutkan.</li>
+        <li><b>Miskonsepsi umum:</b> siswa mengira tidur larut malam tidak masalah asal tetap berolahraga. Jelaskan bahwa istirahat cukup sama pentingnya dengan olahraga untuk kebugaran tubuh.</li>
+        <li><b>Diskusikan pola hidup sehat secara menyeluruh:</b> olahraga, istirahat, dan makanan bergizi sebagai tiga pilar yang saling melengkapi.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah mahir menjelaskan hubungan ketiga pilar kebugaran; siswa lain fokus mempraktikkan latihan kebugaran sederhana.</li>
+        <li><b>Asesmen formatif:</b> siswa membuat komitmen sederhana 1 kebiasaan hidup sehat yang akan mereka terapkan.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>💪 Ayo Hidup Sehat!</h4>
+      <div class="isi">
+        <div class="contoh-visual">
+          <div class="kartu"><span class="emoji">🏃</span>Olahraga teratur</div>
+          <div class="kartu"><span class="emoji">😴</span>Istirahat cukup (tidur 8-10 jam)</div>
+          <div class="kartu"><span class="emoji">🥗</span>Makan makanan bergizi</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">5 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Sebutkan 3 pilar pola hidup sehat!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> olahraga teratur, istirahat cukup, makan bergizi.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Tidur larut malam meski rajin berolahraga tetap ...</div>
+      <ul class="pilihan"><li><b>a.</b> baik untuk kesehatan</li><li><b>b.</b> tidak baik untuk kesehatan</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: b</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Sebutkan 1 contoh latihan kebugaran sederhana!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> lari di tempat, naik-turun anak tangga.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Mengapa istirahat cukup sama pentingnya dengan olahraga?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> karena tubuh membutuhkan waktu untuk memulihkan diri setelah beraktivitas.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Tuliskan 1 kebiasaan hidup sehat yang akan kamu terapkan mulai hari ini!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban bebas</b> sesuai komitmen masing-masing siswa.</div></details></div>
+  </div>
+</div>
+
+</div><!-- /panelwrap -->
+
+<footer>Modul PJOK Kelas 2 · Kurikulum Merdeka Fase A · Dapat dicetak (Ctrl/Cmd + P) untuk dibagikan ke siswa</footer>
+
+<script>
+  const btns = document.querySelectorAll('.topic-btn');
+  const panels = document.querySelectorAll('.panel');
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const t = btn.getAttribute('data-t');
+      btns.forEach(b => b.classList.toggle('active', b === btn));
+      panels.forEach(p => p.classList.toggle('active', p.getAttribute('data-t') === t));
+      window.scrollTo({top: 0, behavior:'smooth'});
+    });
+  });
+</script>
+
+</body>
+</html>

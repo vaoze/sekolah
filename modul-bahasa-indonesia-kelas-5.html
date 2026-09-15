@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modul Bahasa Indonesia Kelas 5 — Kurikulum Merdeka</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F7F1E1; --paper-line:#E4D9BE;
+    --ink:#2B2B27; --ink-soft:#5B5648;
+    --accent:#C1502E; --tint:#FBE9E1;
+    --chalk:#2E3430;
+    --card-shadow: 3px 3px 0 rgba(43,43,39,0.10);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:repeating-linear-gradient(to bottom, transparent 0px, transparent 34px, var(--paper-line) 35px), var(--paper);
+    color:var(--ink); font-family:'Atkinson Hyperlegible', sans-serif; font-size:17px; line-height:1.65; padding-bottom:60px;
+  }
+  h1,h2,h3,h4{font-family:'Baloo 2', sans-serif; margin:0 0 .4em 0;}
+
+  .cover{position:relative; padding:38px 24px 30px; max-width:920px; margin:0 auto; border-bottom:3px solid var(--ink);}
+  .cover .stamp{position:absolute; top:28px; right:24px; width:88px; height:88px; border-radius:50%; border:3px dashed var(--ink);
+    display:flex; align-items:center; justify-content:center; transform:rotate(-8deg); font-family:'Baloo 2',sans-serif; font-weight:700;
+    font-size:12px; text-align:center; line-height:1.2; color:var(--ink-soft); padding:6px;}
+  .cover h1{font-size:2.1rem; max-width:600px; color:var(--accent);}
+  .cover p.sub{margin:0; color:var(--ink-soft); font-size:1.02rem; max-width:600px;}
+  .cover .meta{margin-top:18px; display:flex; flex-wrap:wrap; gap:10px 26px; font-size:.92rem; color:var(--ink-soft);}
+  .cover .meta span b{color:var(--ink); font-weight:700;}
+
+  .topicbar{
+    max-width:920px; margin:8px auto 0; padding:0 24px 6px;
+    display:flex; gap:8px; flex-wrap:wrap; position:sticky; top:0; background:var(--paper); z-index:20; padding-top:10px;
+  }
+  .topic-btn{
+    appearance:none; cursor:pointer; border:2.5px solid var(--ink); background:#fff; color:var(--ink-soft);
+    font-family:'Baloo 2',sans-serif; font-weight:700; font-size:.82rem; padding:8px 14px; border-radius:20px;
+  }
+  .topic-btn.active{background:var(--accent); border-color:var(--accent); color:#fff;}
+
+  .panelwrap{max-width:920px; margin:0 auto; border:3px solid var(--ink); border-top:none; background:#fffdf8; padding:6px;}
+  .panel{display:none; padding:26px 26px 10px;}
+  .panel.active{display:block;}
+
+  .section{margin:0 0 34px;}
+  .section-head{display:flex; align-items:baseline; gap:10px; border-bottom:2.5px solid var(--accent); padding-bottom:6px; margin-bottom:14px;}
+  .section-head h2{font-size:1.35rem; color:var(--ink);}
+  .section-head .tag{font-family:'Baloo 2',sans-serif; font-weight:700; font-size:.72rem; padding:3px 10px; border-radius:20px; background:var(--accent); color:#fff;}
+
+  .info-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px 24px; background:#fff; border:2px solid var(--paper-line); border-radius:10px; padding:16px 18px; font-size:.94rem;}
+  .info-grid div b{display:block; color:var(--ink-soft); font-size:.78rem; font-weight:700; margin-bottom:2px;}
+  @media(max-width:600px){.info-grid{grid-template-columns:1fr;}}
+
+  ul.tp-list{margin:0; padding-left:22px;}
+  ul.tp-list li{margin-bottom:6px;}
+
+  .callout{border-radius:10px; padding:18px 20px; margin:16px 0;}
+  .callout h4{font-size:1.02rem; display:flex; align-items:center; gap:8px; color:var(--accent);}
+  .pemahaman{border:2px dashed var(--accent); background:var(--tint);}
+  .pemahaman h4{color:var(--accent);}
+
+  .guru{background:var(--chalk); color:#EDEAE2; border:2px solid var(--chalk);}
+  .guru h4{color:#fff;} .guru b{color:#fff;}
+  .guru ul{padding-left:20px; margin:8px 0 0;} .guru li{margin-bottom:6px;}
+
+  .murid{border:2.5px solid var(--accent); background:#fff;}
+  .murid .isi{color:var(--ink);}
+
+  .contoh-visual{display:flex; flex-wrap:wrap; gap:14px; margin:14px 0;}
+  .contoh-visual .kartu{flex:1 1 150px; background:#fff; border:2px solid var(--paper-line); border-radius:10px; padding:12px 14px; text-align:center; font-size:.92rem;}
+  .contoh-visual .kartu .emoji{font-size:1.6rem; display:block; margin-bottom:6px; letter-spacing:2px;}
+
+  .cerita-box{background:#fff; border:2px dashed var(--accent); border-radius:10px; padding:14px 18px; margin:14px 0; font-style:italic;}
+
+  .soal-card{background:#fff; border:2px solid var(--ink); border-radius:2px 14px 2px 14px; padding:16px 18px; margin-bottom:14px; box-shadow:var(--card-shadow);}
+  .soal-card .no{font-family:'Baloo 2',sans-serif; font-weight:800; font-size:.85rem; color:#fff; background:var(--ink);
+    display:inline-flex; align-items:center; justify-content:center; width:26px; height:26px; border-radius:50%; margin-right:8px; flex-shrink:0;}
+  .soal-card .pertanyaan{display:flex; align-items:flex-start; gap:4px; font-weight:600;}
+  .soal-card .pilihan{list-style:none; padding:0; margin:10px 0 0 34px; font-size:.95rem;}
+  .soal-card .pilihan li{margin-bottom:4px;} .soal-card .pilihan li b{margin-right:6px;}
+  details.jawaban{margin:10px 0 0 34px;}
+  details.jawaban summary{cursor:pointer; font-family:'Baloo 2',sans-serif; font-weight:700; font-size:.85rem; color:var(--ink-soft); display:inline-block; padding:4px 0;}
+  details.jawaban[open] summary{color:var(--ink);}
+  details.jawaban .kotak-jawab{margin-top:8px; padding:10px 14px; border-radius:8px; font-size:.92rem; background:var(--tint);}
+
+  footer{max-width:920px; margin:24px auto 0; padding:0 26px; color:var(--ink-soft); font-size:.85rem; text-align:center;}
+  @media print{.topicbar{display:none;} .panel{display:block !important; page-break-after:always;}}
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="stamp">KURIKULUM<br>MERDEKA<br>FASE C</div>
+  <h1>Modul Ajar Bahasa Indonesia</h1>
+  <p class="sub">Kelas 5 SD — 6 topik lengkap untuk 2 semester, memasuki Fase C dengan analisis teks yang lebih mendalam, dilengkapi catatan pedagogis untuk guru, penjelasan untuk murid, dan latihan soal beserta kunci jawaban.</p>
+  <div class="meta">
+    <span>Kelas: <b>5 (Lima)</b></span>
+    <span>Elemen CP: <b>Menyimak, Membaca-Memirsa, Berbicara, Menulis</b></span>
+    <span>Total Alokasi: <b>±19 pertemuan</b></span>
+  </div>
+</div>
+
+<div class="topicbar" id="topicbar">
+  <button class="topic-btn active" data-t="t1">1. Teks Laporan (LHO)</button>
+  <button class="topic-btn" data-t="t2">2. Menulis LHO</button>
+  <button class="topic-btn" data-t="t3">3. Teks Prosedur</button>
+  <button class="topic-btn" data-t="t4">4. Teks Persuasi</button>
+  <button class="topic-btn" data-t="t5">5. Puisi & Majas</button>
+  <button class="topic-btn" data-t="t6">6. Diskusi Kelompok</button>
+</div>
+
+<div class="panelwrap">
+
+<!-- ============ TOPIK 1 ============ -->
+<div class="panel active" data-t="t1">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 1</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Membaca dan Menganalisis Teks Laporan Hasil Observasi (LHO)</div>
+      <div><b>Alokasi Waktu</b>3 x pertemuan (3 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Dapat membaca dan memahami teks informasi sederhana (materi kelas 4)</div>
+      <div><b>Profil Pelajar Pancasila</b>Bernalar kritis</div>
+      <div><b>Sarana</b>Contoh teks LHO tentang hewan/tumbuhan</div>
+      <div><b>Model</b>Membaca & mengidentifikasi struktur teks</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat mengidentifikasi struktur teks laporan hasil observasi (pernyataan umum, deskripsi bagian, simpulan).</li>
+      <li>Peserta didik dapat membedakan fakta dan opini dalam sebuah teks.</li>
+      <li>Peserta didik dapat menjawab pertanyaan berdasarkan isi teks laporan.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Teks laporan hasil observasi melatih kita menyampaikan hasil pengamatan secara objektif dan sistematis, keterampilan penting dalam sains dan penelitian sederhana.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>🔍 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Gunakan teks LHO tentang objek yang dikenal siswa</b> (hewan atau tumbuhan di sekitar sekolah) agar lebih mudah dipahami.</li>
+        <li><b>Miskonsepsi umum:</b> siswa menganggap semua kalimat dalam teks laporan adalah fakta. Latih membedakan kalimat fakta (dapat dibuktikan) dan opini (pendapat pribadi) dengan contoh berdampingan.</li>
+        <li><b>Ajarkan struktur LHO secara eksplisit:</b> pernyataan umum (klasifikasi objek) — deskripsi bagian (rincian ciri) — simpulan.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah mahir menganalisis struktur lengkap dan membedakan fakta-opini; siswa lain fokus memahami isi teks secara umum.</li>
+        <li><b>Asesmen formatif:</b> siswa menggarisbawahi kalimat fakta dan opini dengan warna berbeda pada teks yang diberikan.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>🔍 Ayo Menganalisis Teks Laporan!</h4>
+      <div class="isi">
+        <p><b>Fakta</b> adalah pernyataan yang bisa dibuktikan kebenarannya. <b>Opini</b> adalah pendapat atau perasaan seseorang.</p>
+        <div class="cerita-box">
+          "Kelinci adalah hewan mamalia yang memiliki telinga panjang. (fakta)<br>
+          Kelinci adalah hewan peliharaan paling lucu di dunia. (opini)"
+        </div>
+        <p>Struktur teks laporan: pernyataan umum → deskripsi bagian → simpulan.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">6 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Sebutkan 3 bagian struktur teks laporan hasil observasi!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> pernyataan umum, deskripsi bagian, simpulan.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Manakah kalimat berikut yang merupakan fakta? "Kucing memiliki empat kaki." atau "Kucing adalah hewan paling menggemaskan."</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: "Kucing memiliki empat kaki."</b><br>Pembahasan: dapat dibuktikan kebenarannya, sedangkan kalimat kedua adalah pendapat pribadi.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Opini adalah ...</div>
+      <ul class="pilihan"><li><b>a.</b> pernyataan yang dapat dibuktikan</li><li><b>b.</b> pendapat atau perasaan seseorang</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: b</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Bagian yang berisi rincian ciri-ciri objek dalam teks laporan disebut ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: deskripsi bagian</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Bacalah sebuah teks laporan pendek, lalu tuliskan 1 kalimat fakta dan 1 kalimat opini yang kamu temukan!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Panduan penilaian guru:</b> sesuaikan dengan teks yang diberikan, periksa ketepatan identifikasi fakta/opini.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">6</span>Mengapa teks laporan hasil observasi harus objektif?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> agar informasi yang disampaikan akurat dan dapat dipercaya, tidak dipengaruhi opini pribadi penulis.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 2 ============ -->
+<div class="panel" data-t="t2">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 1</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Menulis Teks Laporan Hasil Observasi Sederhana</div>
+      <div><b>Alokasi Waktu</b>3 x pertemuan (3 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Memahami struktur teks LHO (topik sebelumnya)</div>
+      <div><b>Profil Pelajar Pancasila</b>Bernalar kritis, mandiri</div>
+      <div><b>Sarana</b>Objek nyata untuk diamati (tumbuhan/hewan di sekolah)</div>
+      <div><b>Model</b>Observasi langsung lalu menulis laporan</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat melakukan observasi sederhana terhadap suatu objek.</li>
+      <li>Peserta didik dapat menulis teks laporan hasil observasi dengan struktur yang tepat.</li>
+      <li>Peserta didik dapat menggunakan bahasa yang objektif dan sistematis dalam laporan.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Menulis laporan hasil observasi melatih kita mengamati sesuatu secara teliti dan menyampaikan hasilnya secara terstruktur, seperti yang dilakukan ilmuwan.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>📝 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Ajak siswa mengamati objek nyata</b> di lingkungan sekolah (tanaman, hewan peliharaan sekolah) sebelum menulis laporannya.</li>
+        <li><b>Miskonsepsi umum:</b> siswa memasukkan opini atau cerita imajinatif ke dalam laporan. Tekankan bahwa laporan harus berisi fakta hasil pengamatan langsung.</li>
+        <li><b>Sediakan lembar pengamatan sederhana</b> (ciri fisik, tingkah laku, habitat) untuk membantu siswa mengumpulkan data sebelum menulis.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah mahir menulis laporan 3 paragraf lengkap; siswa lain menulis laporan pendek dengan bantuan lembar pengamatan.</li>
+        <li><b>Asesmen formatif:</b> siswa saling menukar laporan untuk memeriksa apakah isinya berupa fakta, bukan opini.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>📝 Ayo Menulis Laporan!</h4>
+      <div class="isi">
+        <p>Amati objek dengan teliti, catat cirinya, lalu tuliskan dalam struktur: pernyataan umum → deskripsi bagian → simpulan.</p>
+        <div class="cerita-box">
+          "Pohon mangga adalah tumbuhan berbuah yang banyak ditemukan di halaman sekolah. Daunnya berwarna hijau dan berbentuk lonjong. Buahnya berwarna hijau saat muda dan kuning saat matang. Pohon mangga bermanfaat sebagai peneduh dan penghasil buah."
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">6 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Sebelum menulis laporan, kita perlu melakukan ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: observasi/pengamatan terhadap objek</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Amati sebuah tumbuhan atau hewan di sekitarmu, lalu tuliskan 3 ciri fisiknya!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban bebas</b> sesuai objek yang diamati siswa.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Laporan hasil observasi sebaiknya berisi ...</div>
+      <ul class="pilihan"><li><b>a.</b> fakta hasil pengamatan</li><li><b>b.</b> cerita khayalan penulis</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: a</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Tulislah pernyataan umum tentang objek yang kamu amati!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Panduan penilaian guru:</b> periksa apakah kalimat bersifat klasifikasi umum objek.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Tulislah laporan hasil observasi lengkap tentang objek pilihanmu!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Panduan penilaian guru:</b> periksa kelengkapan struktur dan objektivitas isi laporan.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">6</span>Mengapa laporan hasil observasi harus ditulis berdasarkan pengamatan langsung?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> agar informasi yang disampaikan akurat dan sesuai kenyataan.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 3 ============ -->
+<div class="panel" data-t="t3">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 1</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Menyimak dan Menganalisis Informasi dari Teks Prosedur</div>
+      <div><b>Alokasi Waktu</b>2 x pertemuan (2 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Dapat mengikuti instruksi lisan sederhana</div>
+      <div><b>Profil Pelajar Pancasila</b>Bernalar kritis, mandiri</div>
+      <div><b>Sarana</b>Contoh teks prosedur (cara membuat/melakukan sesuatu)</div>
+      <div><b>Model</b>Menyimak & praktik langsung</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat menyimak teks prosedur yang dibacakan dengan saksama.</li>
+      <li>Peserta didik dapat mengidentifikasi urutan langkah dalam teks prosedur.</li>
+      <li>Peserta didik dapat mempraktikkan langkah-langkah sesuai teks prosedur yang disimak.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Memahami teks prosedur dengan tepat penting agar kita bisa melakukan sesuatu dengan benar dan aman, seperti mengikuti resep atau petunjuk penggunaan alat.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>📋 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Gunakan teks prosedur yang bisa langsung dipraktikkan</b> (cara membuat kerajinan sederhana, cara menanam biji) agar siswa termotivasi menyimak dengan saksama.</li>
+        <li><b>Miskonsepsi umum:</b> siswa melewatkan urutan langkah karena tidak menyimak sampai selesai. Latih dengan menghentikan pembacaan di tiap langkah untuk memastikan semua siswa mengikuti.</li>
+        <li><b>Perhatikan kata penghubung urutan</b> (pertama, kedua, selanjutnya, terakhir) sebagai penanda struktur teks prosedur.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah mahir menyimpulkan tujuan dari prosedur yang disimak; siswa lain fokus mengurutkan langkah dengan benar.</li>
+        <li><b>Asesmen formatif:</b> siswa mempraktikkan langkah-langkah yang disimak dan membandingkan hasilnya dengan instruksi asli.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>📋 Ayo Ikuti Prosedur!</h4>
+      <div class="isi">
+        <p>Teks prosedur berisi langkah-langkah yang harus diikuti secara urut. Perhatikan kata penghubung seperti <b>pertama, kedua, selanjutnya, terakhir</b> untuk mengetahui urutannya.</p>
+        <div class="cerita-box">
+          "Pertama, siapkan biji kacang hijau dan kapas basah. Kedua, letakkan kapas dalam wadah. Selanjutnya, taburkan biji di atas kapas. Terakhir, siram sedikit air setiap hari."
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">6 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Berdasarkan teks di atas, apa yang harus disiapkan pertama kali?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: biji kacang hijau dan kapas basah</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Apa langkah terakhir dalam teks prosedur tersebut?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: menyiram sedikit air setiap hari</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Kata penghubung yang menunjukkan urutan langkah adalah ...</div>
+      <ul class="pilihan"><li><b>a.</b> pertama, kedua, terakhir</li><li><b>b.</b> dan, atau, tetapi</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: a</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Mengapa urutan langkah dalam teks prosedur penting untuk diikuti dengan tepat?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> agar hasil yang didapat sesuai dengan yang diharapkan dan proses berjalan aman/benar.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Praktikkan langkah-langkah dari teks prosedur di atas!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Panduan penilaian guru:</b> amati apakah siswa mengikuti urutan dengan benar.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">6</span>Apa tujuan dari teks prosedur yang telah kamu simak?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> menanam biji kacang hijau menggunakan kapas basah.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 4 ============ -->
+<div class="panel" data-t="t4">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 2</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Menulis Teks Persuasi Sederhana</div>
+      <div><b>Alokasi Waktu</b>3 x pertemuan (3 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Dapat menulis teks eksposisi sederhana (materi kelas 4)</div>
+      <div><b>Profil Pelajar Pancasila</b>Bernalar kritis, kreatif</div>
+      <div><b>Sarana</b>Contoh poster ajakan, teks persuasi sederhana</div>
+      <div><b>Model</b>Menulis berbasis kerangka argumen</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat menjelaskan ciri-ciri teks persuasi (ajakan, alasan, penutup).</li>
+      <li>Peserta didik dapat menulis teks persuasi sederhana tentang suatu isu yang dikenal.</li>
+      <li>Peserta didik dapat menggunakan kalimat ajakan yang meyakinkan dalam tulisannya.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Menulis teks persuasi melatih kita menyampaikan gagasan disertai alasan yang kuat untuk memengaruhi orang lain secara positif, seperti mengajak teman menjaga kebersihan.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>📢 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Tunjukkan contoh poster ajakan</b> (hemat air, jaga kebersihan) sebagai model teks persuasi yang sudah dikenal siswa dalam bentuk visual.</li>
+        <li><b>Miskonsepsi umum:</b> siswa hanya menulis ajakan tanpa memberikan alasan pendukung. Tekankan bahwa persuasi yang baik selalu disertai alasan yang masuk akal.</li>
+        <li><b>Ajarkan struktur:</b> pengenalan isu — rangkaian argumen/alasan — ajakan — penegasan kembali.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah mahir menulis dengan beberapa alasan pendukung; siswa lain menulis dengan 1 alasan sederhana.</li>
+        <li><b>Asesmen formatif:</b> siswa saling menilai apakah teks persuasi temannya cukup meyakinkan dan disertai alasan.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>📢 Ayo Menulis Ajakan yang Meyakinkan!</h4>
+      <div class="isi">
+        <p>Teks persuasi mengajak pembaca melakukan sesuatu, disertai <b>alasan</b> yang membuatnya masuk akal.</p>
+        <div class="cerita-box">
+          "Ayo hemat air! Air bersih semakin sulit didapat. Jika kita menghemat air sejak sekarang, generasi mendatang akan tetap memiliki air bersih untuk digunakan. Mulailah dari hal kecil seperti mematikan keran saat tidak digunakan."
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">6 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Sebutkan ciri-ciri teks persuasi!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> berisi ajakan, disertai alasan yang meyakinkan, dan bertujuan memengaruhi pembaca.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Teks persuasi bertujuan untuk ...</div>
+      <ul class="pilihan"><li><b>a.</b> menceritakan pengalaman pribadi</li><li><b>b.</b> mengajak dan memengaruhi pembaca</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: b</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Mengapa teks persuasi harus disertai alasan?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> agar ajakan terasa masuk akal dan lebih meyakinkan pembaca.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Tulislah 1 kalimat ajakan tentang topik "Menjaga Kebersihan Kelas"!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> "Ayo jaga kebersihan kelas kita bersama!"</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Tulislah teks persuasi pendek tentang topik pilihanmu!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Panduan penilaian guru:</b> periksa apakah ada ajakan yang jelas disertai alasan pendukung.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">6</span>Bagian penutup teks persuasi biasanya berisi ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> penegasan kembali ajakan atau simpulan.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 5 ============ -->
+<div class="panel" data-t="t5">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 2</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Membaca dan Memahami Puisi serta Majas Sederhana</div>
+      <div><b>Alokasi Waktu</b>3 x pertemuan (3 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Mengenal ciri puisi dan pantun (materi kelas 3)</div>
+      <div><b>Profil Pelajar Pancasila</b>Kreatif, bernalar kritis</div>
+      <div><b>Sarana</b>Contoh puisi anak dengan majas sederhana</div>
+      <div><b>Model</b>Membaca ekspresif & diskusi makna</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat memahami makna tersirat dalam puisi.</li>
+      <li>Peserta didik dapat mengenali majas sederhana (personifikasi, perumpamaan) dalam puisi.</li>
+      <li>Peserta didik dapat menulis puisi pendek menggunakan majas sederhana.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Memahami majas membantu kita menikmati keindahan bahasa dan memahami cara penulis mengungkapkan perasaan secara kreatif, bukan hanya makna harfiah kata-kata.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>🎨 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Bacakan puisi dengan penuh ekspresi</b> agar siswa merasakan suasana dan emosinya, bukan hanya membaca kata demi kata.</li>
+        <li><b>Miskonsepsi umum:</b> siswa memaknai majas secara harfiah (misalnya "hatinya membatu" dikira benar-benar berubah jadi batu). Jelaskan bahwa majas adalah cara memperindah ungkapan, bukan kejadian nyata.</li>
+        <li><b>Kenalkan 2 majas sederhana dulu:</b> personifikasi (benda mati seolah hidup) dan perumpamaan (menggunakan kata "seperti"/"bagai") sebelum majas yang lebih rumit.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah mahir menulis puisi dengan 2 majas sekaligus; siswa lain cukup 1 majas sederhana.</li>
+        <li><b>Asesmen formatif:</b> siswa menandai baris puisi yang mengandung majas dan menjelaskan maknanya.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>🎨 Ayo Nikmati Keindahan Puisi!</h4>
+      <div class="isi">
+        <p><b>Personifikasi</b>: benda mati digambarkan seperti hidup. Contoh: "Angin berbisik lembut di telingaku."</p>
+        <p><b>Perumpamaan</b>: membandingkan dua hal menggunakan kata "seperti"/"bagai". Contoh: "Senyumnya seperti mentari pagi."</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">6 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Kalimat "Daun-daun menari ditiup angin" menggunakan majas ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: personifikasi</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Kalimat "Wajahnya pucat bagai kertas" menggunakan majas ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: perumpamaan</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Personifikasi adalah majas yang ...</div>
+      <ul class="pilihan"><li><b>a.</b> menggambarkan benda mati seperti hidup</li><li><b>b.</b> membandingkan dua hal dengan "seperti"</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: a</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Buatlah 1 kalimat bermajas personifikasi tentang matahari!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> "Matahari tersenyum menyambut pagi."</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Buatlah 1 kalimat bermajas perumpamaan tentang kecepatan!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> "Larinya cepat bagai kilat."</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">6</span>Tulislah sebuah puisi pendek (4 baris) menggunakan minimal 1 majas!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Panduan penilaian guru:</b> periksa penggunaan majas dan keindahan pemilihan kata.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 6 ============ -->
+<div class="panel" data-t="t6">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 2</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Berdiskusi dan Menyampaikan Pendapat dalam Diskusi Kelompok</div>
+      <div><b>Alokasi Waktu</b>2 x pertemuan (2 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Dapat berpidato/presentasi sederhana (materi kelas 4)</div>
+      <div><b>Profil Pelajar Pancasila</b>Bernalar kritis, gotong royong</div>
+      <div><b>Sarana</b>Topik diskusi sederhana, rubrik penilaian diskusi</div>
+      <div><b>Model</b>Diskusi kelompok kecil</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat menyampaikan pendapat dengan alasan yang jelas dalam diskusi.</li>
+      <li>Peserta didik dapat menanggapi pendapat teman secara santun.</li>
+      <li>Peserta didik dapat menyimpulkan hasil diskusi kelompok.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Berdiskusi melatih kita mendengarkan sudut pandang orang lain, menyampaikan pendapat dengan sopan, dan mencapai kesepakatan bersama.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>🗣️ Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Pilih topik diskusi yang dekat dengan kehidupan siswa</b> (misalnya "aturan piket yang adil") agar semua siswa punya pendapat untuk disampaikan.</li>
+        <li><b>Miskonsepsi umum:</b> siswa mengira diskusi berarti harus menang berdebat. Tekankan bahwa tujuan diskusi adalah saling memahami dan mencari solusi bersama, bukan mengalahkan pendapat orang lain.</li>
+        <li><b>Ajarkan kalimat penanggap santun</b> seperti "Saya setuju, tetapi..." atau "Menurut saya ada pendapat lain..." sebagai model berdiskusi yang baik.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah mahir memimpin jalannya diskusi kelompok; siswa lain berlatih menyampaikan 1 pendapat sederhana.</li>
+        <li><b>Asesmen formatif:</b> gunakan rubrik sederhana untuk menilai partisipasi dan kesantunan siswa selama diskusi.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>🗣️ Ayo Berdiskusi dengan Baik!</h4>
+      <div class="isi">
+        <p>Saat berdiskusi: sampaikan pendapat dengan alasan, dengarkan pendapat teman, dan tanggapi dengan sopan.</p>
+        <p>Contoh menanggapi: <i>"Saya setuju dengan pendapatmu, tetapi menurut saya kita juga perlu mempertimbangkan..."</i></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">6 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Tujuan utama diskusi adalah ...</div>
+      <ul class="pilihan"><li><b>a.</b> memenangkan perdebatan</li><li><b>b.</b> saling memahami dan mencari solusi bersama</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: b</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Contoh kalimat menanggapi pendapat yang santun adalah ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> "Saya setuju, tetapi menurut saya ada hal lain yang perlu dipertimbangkan."</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Sebutkan 1 sikap yang perlu dimiliki saat berdiskusi!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> mendengarkan pendapat orang lain, tidak memotong pembicaraan.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Praktikkan diskusi kelompok tentang topik "Aturan Piket yang Adil"!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Panduan penilaian guru:</b> gunakan rubrik partisipasi dan kesantunan.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Mengapa kita perlu menyimpulkan hasil diskusi di akhir kegiatan?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> agar semua peserta memahami kesepakatan atau hasil akhir yang dicapai bersama.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">6</span>Sikap yang BUKAN mencerminkan diskusi yang baik adalah ...</div>
+      <ul class="pilihan"><li><b>a.</b> memotong pembicaraan orang lain</li><li><b>b.</b> menyampaikan pendapat dengan alasan</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: a</b></div></details></div>
+  </div>
+</div>
+
+</div><!-- /panelwrap -->
+
+<footer>Modul Bahasa Indonesia Kelas 5 · Kurikulum Merdeka Fase C · Dapat dicetak (Ctrl/Cmd + P) untuk dibagikan ke siswa</footer>
+
+<script>
+  const btns = document.querySelectorAll('.topic-btn');
+  const panels = document.querySelectorAll('.panel');
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const t = btn.getAttribute('data-t');
+      btns.forEach(b => b.classList.toggle('active', b === btn));
+      panels.forEach(p => p.classList.toggle('active', p.getAttribute('data-t') === t));
+      window.scrollTo({top: 0, behavior:'smooth'});
+    });
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modul Bahasa Indonesia Kelas 2 — Kurikulum Merdeka</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F7F1E1; --paper-line:#E4D9BE;
+    --ink:#2B2B27; --ink-soft:#5B5648;
+    --accent:#C1502E; --tint:#FBE9E1;
+    --chalk:#2E3430;
+    --card-shadow: 3px 3px 0 rgba(43,43,39,0.10);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:repeating-linear-gradient(to bottom, transparent 0px, transparent 34px, var(--paper-line) 35px), var(--paper);
+    color:var(--ink); font-family:'Atkinson Hyperlegible', sans-serif; font-size:17px; line-height:1.65; padding-bottom:60px;
+  }
+  h1,h2,h3,h4{font-family:'Baloo 2', sans-serif; margin:0 0 .4em 0;}
+
+  .cover{position:relative; padding:38px 24px 30px; max-width:920px; margin:0 auto; border-bottom:3px solid var(--ink);}
+  .cover .stamp{position:absolute; top:28px; right:24px; width:88px; height:88px; border-radius:50%; border:3px dashed var(--ink);
+    display:flex; align-items:center; justify-content:center; transform:rotate(-8deg); font-family:'Baloo 2',sans-serif; font-weight:700;
+    font-size:12px; text-align:center; line-height:1.2; color:var(--ink-soft); padding:6px;}
+  .cover h1{font-size:2.1rem; max-width:600px; color:var(--accent);}
+  .cover p.sub{margin:0; color:var(--ink-soft); font-size:1.02rem; max-width:600px;}
+  .cover .meta{margin-top:18px; display:flex; flex-wrap:wrap; gap:10px 26px; font-size:.92rem; color:var(--ink-soft);}
+  .cover .meta span b{color:var(--ink); font-weight:700;}
+
+  .topicbar{
+    max-width:920px; margin:8px auto 0; padding:0 24px 6px;
+    display:flex; gap:8px; flex-wrap:wrap; position:sticky; top:0; background:var(--paper); z-index:20; padding-top:10px;
+  }
+  .topic-btn{
+    appearance:none; cursor:pointer; border:2.5px solid var(--ink); background:#fff; color:var(--ink-soft);
+    font-family:'Baloo 2',sans-serif; font-weight:700; font-size:.82rem; padding:8px 14px; border-radius:20px;
+  }
+  .topic-btn.active{background:var(--accent); border-color:var(--accent); color:#fff;}
+
+  .panelwrap{max-width:920px; margin:0 auto; border:3px solid var(--ink); border-top:none; background:#fffdf8; padding:6px;}
+  .panel{display:none; padding:26px 26px 10px;}
+  .panel.active{display:block;}
+
+  .section{margin:0 0 34px;}
+  .section-head{display:flex; align-items:baseline; gap:10px; border-bottom:2.5px solid var(--accent); padding-bottom:6px; margin-bottom:14px;}
+  .section-head h2{font-size:1.35rem; color:var(--ink);}
+  .section-head .tag{font-family:'Baloo 2',sans-serif; font-weight:700; font-size:.72rem; padding:3px 10px; border-radius:20px; background:var(--accent); color:#fff;}
+
+  .info-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px 24px; background:#fff; border:2px solid var(--paper-line); border-radius:10px; padding:16px 18px; font-size:.94rem;}
+  .info-grid div b{display:block; color:var(--ink-soft); font-size:.78rem; font-weight:700; margin-bottom:2px;}
+  @media(max-width:600px){.info-grid{grid-template-columns:1fr;}}
+
+  ul.tp-list{margin:0; padding-left:22px;}
+  ul.tp-list li{margin-bottom:6px;}
+
+  .callout{border-radius:10px; padding:18px 20px; margin:16px 0;}
+  .callout h4{font-size:1.02rem; display:flex; align-items:center; gap:8px; color:var(--accent);}
+  .pemahaman{border:2px dashed var(--accent); background:var(--tint);}
+  .pemahaman h4{color:var(--accent);}
+
+  .guru{background:var(--chalk); color:#EDEAE2; border:2px solid var(--chalk);}
+  .guru h4{color:#fff;} .guru b{color:#fff;}
+  .guru ul{padding-left:20px; margin:8px 0 0;} .guru li{margin-bottom:6px;}
+
+  .murid{border:2.5px solid var(--accent); background:#fff;}
+  .murid .isi{color:var(--ink);}
+
+  .contoh-visual{display:flex; flex-wrap:wrap; gap:14px; margin:14px 0;}
+  .contoh-visual .kartu{flex:1 1 150px; background:#fff; border:2px solid var(--paper-line); border-radius:10px; padding:12px 14px; text-align:center; font-size:.92rem;}
+  .contoh-visual .kartu .emoji{font-size:1.6rem; display:block; margin-bottom:6px; letter-spacing:2px;}
+
+  .cerita-box{background:#fff; border:2px dashed var(--accent); border-radius:10px; padding:14px 18px; margin:14px 0; font-style:italic;}
+
+  .soal-card{background:#fff; border:2px solid var(--ink); border-radius:2px 14px 2px 14px; padding:16px 18px; margin-bottom:14px; box-shadow:var(--card-shadow);}
+  .soal-card .no{font-family:'Baloo 2',sans-serif; font-weight:800; font-size:.85rem; color:#fff; background:var(--ink);
+    display:inline-flex; align-items:center; justify-content:center; width:26px; height:26px; border-radius:50%; margin-right:8px; flex-shrink:0;}
+  .soal-card .pertanyaan{display:flex; align-items:flex-start; gap:4px; font-weight:600;}
+  .soal-card .pilihan{list-style:none; padding:0; margin:10px 0 0 34px; font-size:.95rem;}
+  .soal-card .pilihan li{margin-bottom:4px;} .soal-card .pilihan li b{margin-right:6px;}
+  details.jawaban{margin:10px 0 0 34px;}
+  details.jawaban summary{cursor:pointer; font-family:'Baloo 2',sans-serif; font-weight:700; font-size:.85rem; color:var(--ink-soft); display:inline-block; padding:4px 0;}
+  details.jawaban[open] summary{color:var(--ink);}
+  details.jawaban .kotak-jawab{margin-top:8px; padding:10px 14px; border-radius:8px; font-size:.92rem; background:var(--tint);}
+
+  footer{max-width:920px; margin:24px auto 0; padding:0 26px; color:var(--ink-soft); font-size:.85rem; text-align:center;}
+  @media print{.topicbar{display:none;} .panel{display:block !important; page-break-after:always;}}
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="stamp">KURIKULUM<br>MERDEKA<br>FASE A</div>
+  <h1>Modul Ajar Bahasa Indonesia</h1>
+  <p class="sub">Kelas 2 SD — 6 topik lengkap untuk 2 semester, disusun dengan catatan pedagogis untuk guru, penjelasan ramah-anak untuk murid, dan latihan soal beserta kunci jawaban.</p>
+  <div class="meta">
+    <span>Kelas: <b>2 (Dua)</b></span>
+    <span>Elemen CP: <b>Menyimak, Membaca-Memirsa, Berbicara, Menulis</b></span>
+    <span>Total Alokasi: <b>±18 pertemuan</b></span>
+  </div>
+</div>
+
+<div class="topicbar" id="topicbar">
+  <button class="topic-btn active" data-t="t1">1. Membaca Lancar</button>
+  <button class="topic-btn" data-t="t2">2. Menulis Kalimat</button>
+  <button class="topic-btn" data-t="t3">3. Menyimak Cerita</button>
+  <button class="topic-btn" data-t="t4">4. Bercerita tentang Diri</button>
+  <button class="topic-btn" data-t="t5">5. Kosakata Baru</button>
+  <button class="topic-btn" data-t="t6">6. Syair & Puisi</button>
+</div>
+
+<div class="panelwrap">
+
+<!-- ============ TOPIK 1 ============ -->
+<div class="panel active" data-t="t1">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 1</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Membaca Lancar Kata dan Kalimat Sederhana</div>
+      <div><b>Alokasi Waktu</b>3 x pertemuan (3 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Mengenal huruf dan mengeja kata sederhana (materi kelas 1)</div>
+      <div><b>Profil Pelajar Pancasila</b>Mandiri, bernalar kritis</div>
+      <div><b>Sarana</b>Kartu kata bergambar, buku bacaan bergambar</div>
+      <div><b>Model</b>Membaca nyaring bergantian</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat membaca kata-kata yang sering ditemui dengan lancar.</li>
+      <li>Peserta didik dapat membaca kalimat sederhana dengan pelafalan yang jelas.</li>
+      <li>Peserta didik dapat memahami makna kata dan kalimat sederhana yang dibaca.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Membaca lancar adalah kunci untuk memahami semua pelajaran lain — semakin lancar membaca, semakin mudah pula memahami buku, soal, dan informasi di sekitar kita.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>📖 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Latih membaca nyaring secara bergantian</b> agar guru bisa memantau kelancaran dan pelafalan tiap siswa secara individual.</li>
+        <li><b>Miskonsepsi umum:</b> siswa mengeja huruf demi huruf terlalu lama sehingga kehilangan makna kalimat. Latih membaca kata utuh (whole word reading) untuk kata-kata yang sering muncul.</li>
+        <li><b>Gunakan kartu kata bergambar</b> untuk memperkaya kosakata sambil melatih kelancaran membaca.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah lancar membaca paragraf pendek; siswa yang masih mengeja fokus pada kata dan kalimat pendek terlebih dahulu.</li>
+        <li><b>Asesmen formatif:</b> catat kelancaran membaca tiap siswa secara individual (running record sederhana) untuk memantau perkembangan dari waktu ke waktu.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>📖 Ayo Membaca Lancar!</h4>
+      <div class="isi">
+        <p>Cobalah membaca kata-kata ini secara utuh, tanpa mengeja huruf per huruf: <b>aku, ibu, sekolah, bermain, teman</b>.</p>
+        <div class="cerita-box">"Aku pergi ke sekolah bersama teman."</div>
+        <p>Semakin sering berlatih membaca, kamu akan semakin lancar dan cepat memahami cerita!</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">6 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Bacalah kalimat berikut lalu jawab: "Ani bermain bola di halaman." Di mana Ani bermain?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: di halaman</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Susunlah kata berikut menjadi kalimat yang benar: "sekolah - ke - pergi - aku"</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: Aku pergi ke sekolah.</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Kata yang tepat untuk melengkapi kalimat "Kucing itu ... di atas meja" adalah ...</div>
+      <ul class="pilihan"><li><b>a.</b> tidur</li><li><b>b.</b> berenang</li><li><b>c.</b> terbang</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: a. tidur</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Bacalah kata "buku" lalu buatlah 1 kalimat menggunakan kata tersebut!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> "Aku membaca buku cerita."</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Manakah kalimat yang susunannya benar?</div>
+      <ul class="pilihan"><li><b>a.</b> makan aku nasi</li><li><b>b.</b> Aku makan nasi.</li><li><b>c.</b> nasi makan aku</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: b. Aku makan nasi.</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">6</span>Apa arti kalimat "Ibu memasak nasi goreng"?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> Ibu sedang membuat/memasak nasi goreng.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 2 ============ -->
+<div class="panel" data-t="t2">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 1</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Menulis Kalimat Sederhana dengan Huruf Kapital dan Tanda Titik</div>
+      <div><b>Alokasi Waktu</b>3 x pertemuan (3 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Dapat menulis huruf dan kata sederhana</div>
+      <div><b>Profil Pelajar Pancasila</b>Mandiri, kreatif</div>
+      <div><b>Sarana</b>Buku tulis, kartu contoh kalimat</div>
+      <div><b>Model</b>Menyalin lalu menulis mandiri</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat menulis kalimat sederhana menggunakan kosakata yang sudah dikenal.</li>
+      <li>Peserta didik dapat menggunakan huruf kapital di awal kalimat dan nama orang.</li>
+      <li>Peserta didik dapat menggunakan tanda titik di akhir kalimat.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Menulis kalimat dengan aturan yang benar membuat tulisan kita mudah dibaca dan dipahami oleh orang lain.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>✍️ Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Latih menulis kalimat pendek</b> (subjek-predikat-objek sederhana) sebelum masuk ke kalimat yang lebih panjang.</li>
+        <li><b>Miskonsepsi umum:</b> siswa menulis huruf kapital di tengah kalimat secara acak, atau lupa memberi tanda titik. Berikan checklist sederhana "Huruf besar di awal? Titik di akhir?" agar siswa bisa memeriksa tulisannya sendiri.</li>
+        <li><b>Gunakan latihan menyalin kalimat dengan benar</b> terlebih dahulu sebelum meminta siswa menulis kalimat sendiri.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah lancar menulis 3–4 kalimat berangkai; siswa yang masih kesulitan cukup 1–2 kalimat.</li>
+        <li><b>Asesmen formatif:</b> siswa saling menukar tulisan untuk memeriksa huruf kapital dan tanda titik pada tulisan temannya.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>✏️ Ayo Menulis dengan Benar!</h4>
+      <div class="isi">
+        <p>Aturan menulis kalimat: gunakan <b>huruf kapital</b> di awal kalimat dan nama orang/tempat, dan tutup dengan <b>tanda titik (.)</b> di akhir kalimat.</p>
+        <div class="cerita-box">"Budi bermain di taman."</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">6 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Perbaiki kalimat berikut: "budi bermain di taman"</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: "Budi bermain di taman."</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Tulislah 1 kalimat tentang kegiatanmu pagi ini, ingat huruf kapital dan tanda titik!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Panduan penilaian guru:</b> periksa huruf kapital di awal kalimat dan tanda titik di akhir.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Huruf kapital digunakan pada ...</div>
+      <ul class="pilihan"><li><b>a.</b> awal kalimat dan nama orang</li><li><b>b.</b> tengah kalimat saja</li><li><b>c.</b> akhir kalimat</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: a</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Tanda apa yang digunakan di akhir kalimat berita?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: titik (.)</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Perbaiki kalimat berikut: "ibu pergi ke pasar"</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: "Ibu pergi ke pasar."</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">6</span>Tulis nama lengkapmu dengan huruf kapital yang benar di awal setiap kata nama!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Panduan penilaian guru:</b> periksa setiap kata dalam nama diawali huruf kapital.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 3 ============ -->
+<div class="panel" data-t="t3">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 1</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Menyimak dan Menjawab Pertanyaan tentang Cerita Pendek</div>
+      <div><b>Alokasi Waktu</b>3 x pertemuan (3 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Dapat mendengarkan dan merespons kalimat sederhana</div>
+      <div><b>Profil Pelajar Pancasila</b>Bernalar kritis</div>
+      <div><b>Sarana</b>Teks cerita pendek untuk dibacakan, gambar pendukung cerita</div>
+      <div><b>Model</b>Mendengarkan bersama & diskusi</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat menyimak cerita pendek yang dibacakan guru.</li>
+      <li>Peserta didik dapat menjawab pertanyaan sederhana tentang isi cerita.</li>
+      <li>Peserta didik dapat menceritakan kembali bagian yang disukai dari cerita.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Menyimak cerita dengan baik melatih daya ingat dan pemahaman anak, serta menumbuhkan kecintaan pada dunia cerita dan buku.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>👂 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Bacakan cerita dengan ekspresi dan intonasi</b> agar menarik perhatian siswa dan membantu mereka memahami suasana cerita.</li>
+        <li><b>Miskonsepsi umum:</b> siswa sering hanya mengingat bagian akhir cerita karena baru didengar. Ajak mengulang bagian awal-tengah dengan pertanyaan pancingan sebelum masuk ke akhir cerita.</li>
+        <li><b>Gunakan gambar pendukung</b> saat membacakan cerita untuk membantu pemahaman visual siswa.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah lancar menjawab pertanyaan "mengapa" yang membutuhkan penalaran; siswa lain cukup pertanyaan "siapa/apa/di mana".</li>
+        <li><b>Asesmen formatif:</b> minta siswa menggambar tokoh favorit dari cerita dan menyebutkan alasannya.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>👂 Ayo Menyimak Cerita!</h4>
+      <div class="isi">
+        <div class="cerita-box">
+          <b>Cerita Pendek: "Semut dan Roti Besar"</b><br>
+          Semut kecil bernama Ito sedang mencari makanan. Ia menemukan sepotong roti yang besar. Karena terlalu berat, Ito memanggil teman-temannya untuk membawa roti itu bersama-sama ke sarang.
+        </div>
+        <p>Menyimak artinya mendengarkan dengan penuh perhatian, sambil mengingat siapa saja tokohnya dan apa yang terjadi.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">6 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Siapa nama semut dalam cerita?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: Ito</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Apa yang ditemukan Ito?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: sepotong roti besar</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Mengapa Ito memanggil teman-temannya?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> karena roti itu terlalu berat untuk dibawa sendiri.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Ceritakan kembali cerita di atas dengan kalimatmu sendiri!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Panduan penilaian guru:</b> periksa apakah siswa menyebutkan tokoh dan kejadian utama dengan kalimat sendiri.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Pesan yang bisa diambil dari cerita ini adalah ...</div>
+      <ul class="pilihan"><li><b>a.</b> pentingnya kerja sama</li><li><b>b.</b> pentingnya bermain sendiri</li><li><b>c.</b> pentingnya tidur siang</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: a</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">6</span>Bagian mana dari cerita yang paling kamu suka? Jelaskan alasannya!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Panduan penilaian guru:</b> jawaban bebas selama disertai alasan yang masuk akal.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 4 ============ -->
+<div class="panel" data-t="t4">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 2</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Bercerita tentang Diri Sendiri dan Keluarga</div>
+      <div><b>Alokasi Waktu</b>2 x pertemuan (2 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Dapat menyampaikan kalimat sederhana secara lisan</div>
+      <div><b>Profil Pelajar Pancasila</b>Mandiri, berkebinekaan global</div>
+      <div><b>Sarana</b>Foto/gambar keluarga, kartu panduan pertanyaan</div>
+      <div><b>Model</b>Praktik bercerita berpasangan</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat menyebutkan identitas diri (nama, usia, alamat sederhana).</li>
+      <li>Peserta didik dapat bercerita tentang anggota keluarga dan kegiatan bersama keluarga.</li>
+      <li>Peserta didik dapat berpartisipasi dalam percakapan sederhana dengan teman.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Bercerita tentang diri sendiri melatih rasa percaya diri anak dan membantu mereka mengenal serta menghargai keluarganya.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>👨‍👩‍👧 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Beri contoh model bercerita tentang diri sendiri terlebih dahulu (modelling)</b> dari guru, sebelum meminta siswa mencoba.</li>
+        <li><b>Miskonsepsi umum:</b> siswa cenderung menjawab sangat singkat (1 kata) saat diminta bercerita. Pancing dengan pertanyaan lanjutan seperti "lalu apa lagi?" untuk memperpanjang ceritanya.</li>
+        <li><b>Gunakan foto atau gambar keluarga</b> sebagai alat bantu bercerita agar lebih konkret dan personal.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah lancar bercerita 4–5 kalimat runtut; siswa lain cukup menjawab pertanyaan panduan sederhana.</li>
+        <li><b>Asesmen formatif:</b> siswa bercerita berpasangan lalu saling memperkenalkan keluarga temannya ke kelas.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>👋 Ayo Kenalan!</h4>
+      <div class="isi">
+        <div class="cerita-box">"Namaku Sari. Aku berusia 8 tahun. Aku tinggal bersama Ayah, Ibu, dan adikku."</div>
+        <p>Saat bercerita, jangan lupa sebutkan namamu, usiamu, dan siapa saja yang tinggal bersamamu di rumah.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">6 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Tulis namamu dan usiamu dalam sebuah kalimat perkenalan!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> "Namaku Dito. Aku berusia 8 tahun."</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Sebutkan nama-nama anggota keluargamu!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban bebas</b> sesuai keluarga masing-masing siswa.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Manakah kalimat perkenalan yang tepat?</div>
+      <ul class="pilihan"><li><b>a.</b> "nama aku budi umur delapan"</li><li><b>b.</b> "Namaku Budi. Aku berusia 8 tahun."</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: b</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Ceritakan 1 kegiatan yang sering kamu lakukan bersama keluargamu!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban bebas</b>, contoh: makan malam bersama, jalan-jalan di akhir pekan.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Saat berkenalan dengan teman baru, sikap yang tepat adalah ...</div>
+      <ul class="pilihan"><li><b>a.</b> diam saja</li><li><b>b.</b> ramah dan menyapa</li><li><b>c.</b> pergi menjauh</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: b</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">6</span>Sebutkan 1 hal yang kamu suka dari keluargamu!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban bebas</b> sesuai pengalaman masing-masing siswa.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 5 ============ -->
+<div class="panel" data-t="t5">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 2</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Mengenal Kosakata Baru dan Menyusun Kalimat</div>
+      <div><b>Alokasi Waktu</b>3 x pertemuan (3 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Dapat membaca dan menulis kalimat sederhana</div>
+      <div><b>Profil Pelajar Pancasila</b>Bernalar kritis, kreatif</div>
+      <div><b>Sarana</b>Cerita pendek berisi kosakata baru, kamus kecil buatan siswa</div>
+      <div><b>Model</b>Belajar kata dalam konteks kalimat</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat memahami arti kosakata baru dari konteks bacaan/percakapan.</li>
+      <li>Peserta didik dapat menggunakan kosakata baru dalam kalimat sendiri.</li>
+      <li>Peserta didik dapat memperluas kosakata melalui kegiatan membaca dan menyimak.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Semakin banyak kosakata yang kita kenal, semakin mudah kita memahami bacaan dan menyampaikan pikiran kita kepada orang lain.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>📚 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Perkenalkan kosakata baru dalam konteks kalimat</b>, bukan daftar kata terpisah, agar maknanya lebih mudah dipahami.</li>
+        <li><b>Miskonsepsi umum:</b> siswa menghafal arti kata tanpa memahami penggunaannya dalam kalimat. Selalu minta siswa membuat kalimat sendiri dengan kata baru tersebut.</li>
+        <li><b>Gunakan gambar</b> untuk kata-kata benda konkret, dan cerita pendek untuk kata-kata yang lebih abstrak seperti perasaan.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah lancar membuat kalimat dengan 2 kata baru sekaligus; siswa lain cukup 1 kata baru per kalimat.</li>
+        <li><b>Asesmen formatif:</b> siswa membuat "kamus kecil" pribadi berisi kata baru beserta gambarnya.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>📖 Ayo Kenal Kata Baru!</h4>
+      <div class="isi">
+        <p>Belajar kata baru dari cerita, contoh: <b>rajin, gembira, lelah</b>.</p>
+        <div class="cerita-box">"Adik terlihat gembira saat bermain."</div>
+        <p>Cobalah membuat kalimatmu sendiri dengan kata-kata baru yang kamu pelajari!</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">6 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Buatlah kalimat menggunakan kata "rajin"!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> "Kakak rajin belajar setiap malam."</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Arti kata "gembira" adalah ...</div>
+      <ul class="pilihan"><li><b>a.</b> sedih</li><li><b>b.</b> senang</li><li><b>c.</b> marah</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: b. senang</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Cari kata dalam cerita yang artinya "sangat lelah setelah bekerja"!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: lelah</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Lawan kata dari "rajin" adalah ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: malas</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Buatlah kalimat menggunakan kata "lelah"!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> "Aku merasa lelah setelah bermain seharian."</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">6</span>Kata "besar" bisa diganti dengan kata yang mirip artinya, yaitu ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> raksasa, luas (sesuai konteks kalimat).</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 6 ============ -->
+<div class="panel" data-t="t6">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 2</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Membaca dan Melagukan Syair/Puisi Anak Sederhana</div>
+      <div><b>Alokasi Waktu</b>3 x pertemuan (3 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Dapat membaca kalimat sederhana dengan lafal jelas</div>
+      <div><b>Profil Pelajar Pancasila</b>Kreatif</div>
+      <div><b>Sarana</b>Contoh syair/puisi anak, kartu kata berima</div>
+      <div><b>Model</b>Membaca berirama & permainan kata</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat membaca syair/puisi anak sederhana dengan lafal yang jelas.</li>
+      <li>Peserta didik dapat mengenali kata-kata berima dalam puisi/syair.</li>
+      <li>Peserta didik dapat menciptakan baris sederhana dengan kata berima.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Bermain dengan kata dan bunyi bahasa lewat puisi membuat anak semakin cinta membaca dan lebih peka terhadap keindahan bahasa.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>🎵 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Nyanyikan atau lagukan syair anak</b> yang sudah dikenal untuk menunjukkan keindahan bunyi bahasa secara menyenangkan.</li>
+        <li><b>Miskonsepsi umum:</b> siswa membaca puisi seperti kalimat biasa tanpa jeda/irama. Latih membaca dengan jeda di akhir baris agar terdengar seperti puisi.</li>
+        <li><b>Kenalkan konsep rima secara sederhana</b> lewat permainan tebak kata berima sebelum meminta siswa menulis baris sendiri.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah lancar membuat 2 baris kalimat berima sendiri; siswa lain cukup melengkapi baris rumpang dengan kata berima yang disediakan.</li>
+        <li><b>Asesmen formatif:</b> siswa membacakan puisi pendek pilihannya di depan kelas dengan lafal yang jelas.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>🎵 Ayo Bermain Kata!</h4>
+      <div class="isi">
+        <div class="cerita-box">
+          Kelinci kecil melompat riang,<br>
+          Di taman hijau nan terang.<br>
+          Bermain-main sepanjang siang,<br>
+          Hatinya gembira dan senang.
+        </div>
+        <p>Kata "riang" dan "terang" berima karena bunyi akhirnya sama, yaitu "-ang".</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">6 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Cari 2 kata dalam puisi di atas yang berima (berbunyi akhir sama)!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> riang-terang, atau siang-senang.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Puisi biasanya dibaca dengan ...</div>
+      <ul class="pilihan"><li><b>a.</b> sangat cepat tanpa jeda</li><li><b>b.</b> irama dan jeda yang jelas</li><li><b>c.</b> suara sangat pelan</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: b</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Lengkapi baris berikut dengan kata berima yang tepat: "Kucingku suka bermain tali, / Ekornya panjang dan ber..."</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> "...berduri" atau kata lain yang berima dengan "tali".</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Kata yang berima dengan "senang" adalah ...</div>
+      <ul class="pilihan"><li><b>a.</b> riang</li><li><b>b.</b> sedih</li><li><b>c.</b> lapar</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: a. riang</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Buatlah 1 baris kalimat yang berima dengan "bermain"!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> "Aku senang setiap hari bermain" (kata akhir berima dengan "bermain").</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">6</span>Bacakan puisi pilihanmu di depan kelas dengan suara jelas!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Panduan penilaian guru:</b> nilai berdasarkan lafal, irama, dan kepercayaan diri saat membaca.</div></details></div>
+  </div>
+</div>
+
+</div><!-- /panelwrap -->
+
+<footer>Modul Bahasa Indonesia Kelas 2 · Kurikulum Merdeka Fase A · Dapat dicetak (Ctrl/Cmd + P) untuk dibagikan ke siswa</footer>
+
+<script>
+  const btns = document.querySelectorAll('.topic-btn');
+  const panels = document.querySelectorAll('.panel');
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const t = btn.getAttribute('data-t');
+      btns.forEach(b => b.classList.toggle('active', b === btn));
+      panels.forEach(p => p.classList.toggle('active', p.getAttribute('data-t') === t));
+      window.scrollTo({top: 0, behavior:'smooth'});
+    });
+  });
+</script>
+
+</body>
+</html>

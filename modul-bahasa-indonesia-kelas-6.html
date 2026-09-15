@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modul Bahasa Indonesia Kelas 6 — Kurikulum Merdeka</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F7F1E1; --paper-line:#E4D9BE;
+    --ink:#2B2B27; --ink-soft:#5B5648;
+    --accent:#C1502E; --tint:#FBE9E1;
+    --chalk:#2E3430;
+    --card-shadow: 3px 3px 0 rgba(43,43,39,0.10);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:repeating-linear-gradient(to bottom, transparent 0px, transparent 34px, var(--paper-line) 35px), var(--paper);
+    color:var(--ink); font-family:'Atkinson Hyperlegible', sans-serif; font-size:17px; line-height:1.65; padding-bottom:60px;
+  }
+  h1,h2,h3,h4{font-family:'Baloo 2', sans-serif; margin:0 0 .4em 0;}
+
+  .cover{position:relative; padding:38px 24px 30px; max-width:920px; margin:0 auto; border-bottom:3px solid var(--ink);}
+  .cover .stamp{position:absolute; top:28px; right:24px; width:88px; height:88px; border-radius:50%; border:3px dashed var(--ink);
+    display:flex; align-items:center; justify-content:center; transform:rotate(-8deg); font-family:'Baloo 2',sans-serif; font-weight:700;
+    font-size:12px; text-align:center; line-height:1.2; color:var(--ink-soft); padding:6px;}
+  .cover h1{font-size:2.1rem; max-width:600px; color:var(--accent);}
+  .cover p.sub{margin:0; color:var(--ink-soft); font-size:1.02rem; max-width:600px;}
+  .cover .meta{margin-top:18px; display:flex; flex-wrap:wrap; gap:10px 26px; font-size:.92rem; color:var(--ink-soft);}
+  .cover .meta span b{color:var(--ink); font-weight:700;}
+
+  .topicbar{
+    max-width:920px; margin:8px auto 0; padding:0 24px 6px;
+    display:flex; gap:8px; flex-wrap:wrap; position:sticky; top:0; background:var(--paper); z-index:20; padding-top:10px;
+  }
+  .topic-btn{
+    appearance:none; cursor:pointer; border:2.5px solid var(--ink); background:#fff; color:var(--ink-soft);
+    font-family:'Baloo 2',sans-serif; font-weight:700; font-size:.82rem; padding:8px 14px; border-radius:20px;
+  }
+  .topic-btn.active{background:var(--accent); border-color:var(--accent); color:#fff;}
+
+  .panelwrap{max-width:920px; margin:0 auto; border:3px solid var(--ink); border-top:none; background:#fffdf8; padding:6px;}
+  .panel{display:none; padding:26px 26px 10px;}
+  .panel.active{display:block;}
+
+  .section{margin:0 0 34px;}
+  .section-head{display:flex; align-items:baseline; gap:10px; border-bottom:2.5px solid var(--accent); padding-bottom:6px; margin-bottom:14px;}
+  .section-head h2{font-size:1.35rem; color:var(--ink);}
+  .section-head .tag{font-family:'Baloo 2',sans-serif; font-weight:700; font-size:.72rem; padding:3px 10px; border-radius:20px; background:var(--accent); color:#fff;}
+
+  .info-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px 24px; background:#fff; border:2px solid var(--paper-line); border-radius:10px; padding:16px 18px; font-size:.94rem;}
+  .info-grid div b{display:block; color:var(--ink-soft); font-size:.78rem; font-weight:700; margin-bottom:2px;}
+  @media(max-width:600px){.info-grid{grid-template-columns:1fr;}}
+
+  ul.tp-list{margin:0; padding-left:22px;}
+  ul.tp-list li{margin-bottom:6px;}
+
+  .callout{border-radius:10px; padding:18px 20px; margin:16px 0;}
+  .callout h4{font-size:1.02rem; display:flex; align-items:center; gap:8px; color:var(--accent);}
+  .pemahaman{border:2px dashed var(--accent); background:var(--tint);}
+  .pemahaman h4{color:var(--accent);}
+
+  .guru{background:var(--chalk); color:#EDEAE2; border:2px solid var(--chalk);}
+  .guru h4{color:#fff;} .guru b{color:#fff;}
+  .guru ul{padding-left:20px; margin:8px 0 0;} .guru li{margin-bottom:6px;}
+
+  .murid{border:2.5px solid var(--accent); background:#fff;}
+  .murid .isi{color:var(--ink);}
+
+  .contoh-visual{display:flex; flex-wrap:wrap; gap:14px; margin:14px 0;}
+  .contoh-visual .kartu{flex:1 1 150px; background:#fff; border:2px solid var(--paper-line); border-radius:10px; padding:12px 14px; text-align:center; font-size:.92rem;}
+  .contoh-visual .kartu .emoji{font-size:1.6rem; display:block; margin-bottom:6px; letter-spacing:2px;}
+
+  .cerita-box{background:#fff; border:2px dashed var(--accent); border-radius:10px; padding:14px 18px; margin:14px 0; font-style:italic;}
+
+  .soal-card{background:#fff; border:2px solid var(--ink); border-radius:2px 14px 2px 14px; padding:16px 18px; margin-bottom:14px; box-shadow:var(--card-shadow);}
+  .soal-card .no{font-family:'Baloo 2',sans-serif; font-weight:800; font-size:.85rem; color:#fff; background:var(--ink);
+    display:inline-flex; align-items:center; justify-content:center; width:26px; height:26px; border-radius:50%; margin-right:8px; flex-shrink:0;}
+  .soal-card .pertanyaan{display:flex; align-items:flex-start; gap:4px; font-weight:600;}
+  .soal-card .pilihan{list-style:none; padding:0; margin:10px 0 0 34px; font-size:.95rem;}
+  .soal-card .pilihan li{margin-bottom:4px;} .soal-card .pilihan li b{margin-right:6px;}
+  details.jawaban{margin:10px 0 0 34px;}
+  details.jawaban summary{cursor:pointer; font-family:'Baloo 2',sans-serif; font-weight:700; font-size:.85rem; color:var(--ink-soft); display:inline-block; padding:4px 0;}
+  details.jawaban[open] summary{color:var(--ink);}
+  details.jawaban .kotak-jawab{margin-top:8px; padding:10px 14px; border-radius:8px; font-size:.92rem; background:var(--tint);}
+
+  footer{max-width:920px; margin:24px auto 0; padding:0 26px; color:var(--ink-soft); font-size:.85rem; text-align:center;}
+  @media print{.topicbar{display:none;} .panel{display:block !important; page-break-after:always;}}
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="stamp">KURIKULUM<br>MERDEKA<br>FASE C</div>
+  <h1>Modul Ajar Bahasa Indonesia</h1>
+  <p class="sub">Kelas 6 SD — 6 topik lengkap untuk 2 semester, menuntaskan kompetensi Fase C sebagai persiapan menuju SMP, dilengkapi catatan pedagogis untuk guru, penjelasan untuk murid, dan latihan soal beserta kunci jawaban.</p>
+  <div class="meta">
+    <span>Kelas: <b>6 (Enam)</b></span>
+    <span>Elemen CP: <b>Menyimak, Membaca-Memirsa, Berbicara, Menulis</b></span>
+    <span>Total Alokasi: <b>±19 pertemuan</b></span>
+  </div>
+</div>
+
+<div class="topicbar" id="topicbar">
+  <button class="topic-btn active" data-t="t1">1. Teks Eksplanasi</button>
+  <button class="topic-btn" data-t="t2">2. Menulis Eksplanasi</button>
+  <button class="topic-btn" data-t="t3">3. Wawancara</button>
+  <button class="topic-btn" data-t="t4">4. Cerita Fiksi (Cerpen)</button>
+  <button class="topic-btn" data-t="t5">5. Membandingkan Teks</button>
+  <button class="topic-btn" data-t="t6">6. Debat Sederhana</button>
+</div>
+
+<div class="panelwrap">
+
+<!-- ============ TOPIK 1 ============ -->
+<div class="panel active" data-t="t1">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 1</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Membaca dan Memahami Teks Eksplanasi</div>
+      <div><b>Alokasi Waktu</b>3 x pertemuan (3 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Dapat membaca teks laporan hasil observasi (materi kelas 5)</div>
+      <div><b>Profil Pelajar Pancasila</b>Bernalar kritis</div>
+      <div><b>Sarana</b>Teks fenomena alam sederhana (banjir, pelangi, gempa)</div>
+      <div><b>Model</b>Membaca & memetakan struktur teks</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat mengidentifikasi struktur teks eksplanasi (pernyataan umum, deret penjelas, interpretasi).</li>
+      <li>Peserta didik dapat menjelaskan hubungan sebab-akibat dalam sebuah fenomena.</li>
+      <li>Peserta didik dapat menjawab pertanyaan berdasarkan isi teks eksplanasi.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Teks eksplanasi membantu kita memahami mengapa dan bagaimana suatu fenomena bisa terjadi, sebuah keterampilan berpikir sebab-akibat yang berguna dalam sains dan kehidupan sehari-hari.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>🌧️ Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Pilih fenomena alam yang menarik</b> (banjir, pelangi, gempa bumi) agar siswa penasaran mengetahui proses terjadinya.</li>
+        <li><b>Miskonsepsi umum:</b> siswa menyamakan struktur teks eksplanasi dengan teks eksposisi. Tekankan bahwa eksplanasi berfokus pada proses "mengapa dan bagaimana" suatu fenomena terjadi, bukan sekadar penjelasan umum.</li>
+        <li><b>Ajarkan struktur secara eksplisit:</b> pernyataan umum (definisi fenomena) — deret penjelas (proses sebab-akibat) — interpretasi (simpulan/pandangan penulis).</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah mahir menjelaskan rangkaian sebab-akibat secara berurutan; siswa lain fokus mengidentifikasi fenomena yang dibahas.</li>
+        <li><b>Asesmen formatif:</b> siswa membuat diagram alur sebab-akibat dari teks yang dibaca.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>🌧️ Ayo Pahami Sebab-Akibat!</h4>
+      <div class="isi">
+        <p>Teks eksplanasi menjelaskan <b>mengapa</b> dan <b>bagaimana</b> suatu fenomena terjadi, disusun dalam urutan sebab-akibat yang jelas.</p>
+        <div class="cerita-box">
+          "Pelangi terjadi ketika cahaya matahari mengenai tetesan air hujan di udara. Cahaya matahari yang sebenarnya terdiri dari banyak warna dibiaskan oleh tetesan air, sehingga terurai menjadi warna-warni yang kita lihat sebagai pelangi."
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">6 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Sebutkan 3 bagian struktur teks eksplanasi!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> pernyataan umum, deret penjelas, interpretasi.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Berdasarkan teks pelangi di atas, apa penyebab munculnya pelangi?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> cahaya matahari yang dibiaskan oleh tetesan air hujan.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Teks eksplanasi berfokus pada ...</div>
+      <ul class="pilihan"><li><b>a.</b> proses mengapa dan bagaimana sesuatu terjadi</li><li><b>b.</b> cerita rekaan penulis</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: a</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Mengapa cahaya matahari bisa terurai menjadi warna-warni?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> karena cahaya matahari sebenarnya terdiri dari banyak warna yang dibiaskan oleh tetesan air.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Bacalah sebuah teks eksplanasi tentang fenomena alam lain, lalu buat diagram sebab-akibatnya!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Panduan penilaian guru:</b> sesuaikan dengan teks yang diberikan.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">6</span>Apa perbedaan utama teks eksplanasi dengan teks laporan hasil observasi?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> teks eksplanasi fokus pada proses sebab-akibat suatu fenomena, sedangkan LHO fokus pada deskripsi ciri-ciri suatu objek.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 2 ============ -->
+<div class="panel" data-t="t2">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 1</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Menulis Teks Eksplanasi Sederhana</div>
+      <div><b>Alokasi Waktu</b>3 x pertemuan (3 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Memahami struktur teks eksplanasi (topik sebelumnya)</div>
+      <div><b>Profil Pelajar Pancasila</b>Bernalar kritis, kreatif</div>
+      <div><b>Sarana</b>Fenomena sehari-hari sederhana untuk dijelaskan</div>
+      <div><b>Model</b>Menulis berbasis kerangka sebab-akibat</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat menyusun kerangka teks eksplanasi tentang suatu fenomena.</li>
+      <li>Peserta didik dapat menulis teks eksplanasi dengan urutan sebab-akibat yang runtut.</li>
+      <li>Peserta didik dapat menggunakan kata penghubung sebab-akibat dengan tepat.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Menulis teks eksplanasi melatih kita menyusun penjelasan logis dan runtut, keterampilan yang sangat berguna saat menjelaskan proses sains atau kejadian apa pun kepada orang lain.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>📝 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Mulai dari fenomena sehari-hari sederhana</b> (mengapa air mendidih, mengapa besi berkarat) yang mudah dijelaskan dengan pengetahuan siswa sendiri.</li>
+        <li><b>Miskonsepsi umum:</b> siswa mencampur opini pribadi ke dalam teks eksplanasi. Tekankan bahwa teks eksplanasi harus berisi penjelasan berdasarkan fakta/pengetahuan umum, bukan pendapat pribadi.</li>
+        <li><b>Ajarkan kata penghubung sebab-akibat</b> (karena, sehingga, akibatnya, oleh sebab itu) sebagai alat untuk menyusun kalimat yang runtut.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah mahir menulis 3 paragraf lengkap dengan struktur utuh; siswa lain menulis 1-2 paragraf dengan bantuan kerangka.</li>
+        <li><b>Asesmen formatif:</b> siswa saling menukar tulisan untuk memeriksa apakah alur sebab-akibatnya jelas dan logis.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>📝 Ayo Menulis Penjelasan Fenomena!</h4>
+      <div class="isi">
+        <p>Gunakan kata penghubung sebab-akibat: <b>karena, sehingga, akibatnya, oleh sebab itu</b> untuk membuat tulisanmu runtut.</p>
+        <div class="cerita-box">
+          "Air akan mendidih karena dipanaskan hingga mencapai suhu 100°C. Panas yang terus diberikan menyebabkan partikel air bergerak semakin cepat, sehingga air berubah menjadi uap. Oleh sebab itu, kita melihat gelembung-gelembung udara saat air mendidih."
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">6 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Sebutkan 3 kata penghubung sebab-akibat!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> karena, sehingga, akibatnya (atau oleh sebab itu).</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Teks eksplanasi sebaiknya berisi ...</div>
+      <ul class="pilihan"><li><b>a.</b> penjelasan berdasarkan fakta/pengetahuan umum</li><li><b>b.</b> pendapat pribadi penulis</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: a</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Tulislah 1 kalimat pernyataan umum tentang fenomena "mengapa besi berkarat"!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> "Karat adalah proses kerusakan pada besi akibat reaksi dengan udara dan air."</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Tulislah teks eksplanasi pendek tentang fenomena pilihanmu!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Panduan penilaian guru:</b> periksa struktur dan penggunaan kata penghubung sebab-akibat.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Bagian interpretasi pada teks eksplanasi berisi ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> simpulan atau pandangan penulis tentang fenomena yang dibahas.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">6</span>Mengapa penggunaan kata penghubung sebab-akibat penting dalam teks eksplanasi?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> agar hubungan antara sebab dan akibat dalam fenomena tersampaikan dengan jelas dan runtut.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 3 ============ -->
+<div class="panel" data-t="t3">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 1</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Wawancara dan Menulis Laporan Hasil Wawancara</div>
+      <div><b>Alokasi Waktu</b>3 x pertemuan (3 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Dapat menyusun pertanyaan sederhana</div>
+      <div><b>Profil Pelajar Pancasila</b>Mandiri, bernalar kritis</div>
+      <div><b>Sarana</b>Narasumber (guru, orang tua, tokoh masyarakat), daftar pertanyaan</div>
+      <div><b>Model</b>Praktik wawancara langsung</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat menyusun daftar pertanyaan wawancara yang efektif.</li>
+      <li>Peserta didik dapat melakukan wawancara sederhana dengan narasumber.</li>
+      <li>Peserta didik dapat menulis laporan hasil wawancara secara ringkas dan jelas.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Wawancara melatih kita menggali informasi langsung dari sumbernya dan menyampaikannya kembali secara akurat, keterampilan penting dalam jurnalistik dan penelitian.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>🎙️ Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Latih siswa membuat pertanyaan terbuka</b> (diawali "bagaimana", "mengapa") yang menghasilkan jawaban lebih kaya, bukan pertanyaan tertutup yang hanya dijawab "ya/tidak".</li>
+        <li><b>Miskonsepsi umum:</b> siswa hanya mencatat jawaban narasumber kata per kata tanpa merangkumnya menjadi laporan yang runtut. Latih teknik merangkum inti jawaban dengan kalimat sendiri.</li>
+        <li><b>Ajarkan etika wawancara:</b> meminta izin, berterima kasih, dan bersikap sopan kepada narasumber.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah mahir menyusun laporan wawancara lengkap dengan simpulan; siswa lain cukup mencatat poin-poin jawaban penting.</li>
+        <li><b>Asesmen formatif:</b> siswa mempraktikkan wawancara berpasangan sebelum wawancara sungguhan dengan narasumber.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>🎙️ Ayo Belajar Wawancara!</h4>
+      <div class="isi">
+        <p>Buat pertanyaan terbuka, contoh: <i>"Bagaimana pengalaman Ibu/Bapak bekerja sebagai...?"</i> bukan <i>"Apakah pekerjaan ini menyenangkan?"</i></p>
+        <p>Setelah wawancara, rangkum jawaban narasumber dengan kalimatmu sendiri dalam laporan.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">6 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Sebutkan perbedaan pertanyaan terbuka dan tertutup!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> pertanyaan terbuka menghasilkan jawaban panjang dan mendalam, pertanyaan tertutup hanya dijawab "ya/tidak" atau singkat.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Susunlah 3 pertanyaan terbuka untuk mewawancarai seorang petani!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> "Bagaimana cara Bapak merawat tanaman padi?", "Mengapa Bapak memilih menjadi petani?", "Apa tantangan terbesar dalam bertani?"</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Sikap yang tepat saat mewawancarai narasumber adalah ...</div>
+      <ul class="pilihan"><li><b>a.</b> sopan dan menghargai waktu narasumber</li><li><b>b.</b> memotong jawaban narasumber</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: a</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Lakukan wawancara sederhana dengan salah satu anggota keluargamu, lalu tulis laporannya!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Panduan penilaian guru:</b> periksa kejelasan rangkuman dan kelengkapan laporan.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Mengapa kita perlu merangkum jawaban narasumber, bukan menyalinnya kata per kata?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> agar laporan lebih ringkas, jelas, dan mudah dipahami pembaca.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">6</span>Sebutkan 1 hal yang perlu dilakukan sebelum mengakhiri sesi wawancara!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> mengucapkan terima kasih kepada narasumber.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 4 ============ -->
+<div class="panel" data-t="t4">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 2</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Menulis Cerita Fiksi (Cerpen Sederhana)</div>
+      <div><b>Alokasi Waktu</b>4 x pertemuan (4 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Memahami unsur intrinsik cerita (materi kelas 4)</div>
+      <div><b>Profil Pelajar Pancasila</b>Kreatif, bernalar kritis</div>
+      <div><b>Sarana</b>Contoh cerpen anak pendek, kerangka cerita</div>
+      <div><b>Model</b>Menulis kreatif berbasis kerangka</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat menyusun kerangka cerita (orientasi, komplikasi, resolusi).</li>
+      <li>Peserta didik dapat menulis cerpen pendek dengan tokoh dan konflik sederhana.</li>
+      <li>Peserta didik dapat menggunakan dialog untuk menghidupkan cerita.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Menulis cerita fiksi melatih imajinasi dan kemampuan menyusun alur yang menarik, sekaligus melatih empati dengan memahami sudut pandang tokoh yang kita ciptakan.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>✍️ Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Gunakan model cerpen anak pendek</b> untuk menunjukkan struktur orientasi (pengenalan)-komplikasi (masalah)-resolusi (penyelesaian) secara konkret.</li>
+        <li><b>Miskonsepsi umum:</b> siswa menulis cerita tanpa konflik sehingga terasa datar. Tekankan bahwa cerita menarik selalu memiliki masalah yang harus dipecahkan tokoh.</li>
+        <li><b>Ajarkan penggunaan dialog</b> dengan tanda petik yang benar untuk menghidupkan interaksi antartokoh.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah mahir menulis cerpen dengan alur lengkap dan dialog; siswa lain menulis cerita pendek dengan kerangka sederhana.</li>
+        <li><b>Asesmen formatif:</b> siswa saling membacakan cerpen dan memberi masukan tentang kejelasan konflik cerita.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>✍️ Ayo Menulis Cerita!</h4>
+      <div class="isi">
+        <p>Kerangka cerita: <b>orientasi</b> (perkenalan tokoh dan latar) → <b>komplikasi</b> (muncul masalah) → <b>resolusi</b> (masalah terselesaikan).</p>
+        <p>Cerita yang menarik selalu punya masalah atau tantangan yang harus dihadapi tokohnya!</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">6 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Sebutkan 3 bagian kerangka cerita!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> orientasi, komplikasi, resolusi.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Bagian yang memunculkan masalah dalam cerita disebut ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: komplikasi</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Mengapa cerita perlu memiliki konflik/masalah?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> agar cerita menjadi menarik dan pembaca penasaran dengan penyelesaiannya.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Tulislah kerangka cerita sederhana (orientasi-komplikasi-resolusi) dengan tema pilihanmu!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Panduan penilaian guru:</b> periksa kelengkapan ketiga bagian kerangka.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Tulislah sebuah cerpen pendek berdasarkan kerangka yang kamu buat!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Panduan penilaian guru:</b> periksa kejelasan tokoh, konflik, dan penyelesaian cerita.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">6</span>Mengapa dialog dapat menghidupkan sebuah cerita?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> dialog membuat interaksi antartokoh terasa lebih nyata dan membantu pembaca memahami watak tokoh.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 5 ============ -->
+<div class="panel" data-t="t5">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 2</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Membandingkan Informasi dari Dua Teks/Sumber</div>
+      <div><b>Alokasi Waktu</b>2 x pertemuan (2 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Dapat membedakan fakta dan opini (materi kelas 5)</div>
+      <div><b>Profil Pelajar Pancasila</b>Bernalar kritis</div>
+      <div><b>Sarana</b>Dua artikel pendek bertema sama dengan sudut pandang berbeda</div>
+      <div><b>Model</b>Membaca kritis & perbandingan</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat membandingkan persamaan dan perbedaan informasi dari dua teks bertema sama.</li>
+      <li>Peserta didik dapat menilai kredibilitas sumber informasi secara sederhana.</li>
+      <li>Peserta didik dapat menyimpulkan informasi yang paling akurat dari beberapa sumber.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Di era informasi yang berlimpah, kemampuan membandingkan sumber dan menilai kredibilitasnya sangat penting agar kita tidak mudah percaya pada informasi yang keliru.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>🔎 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Gunakan dua artikel pendek</b> dengan tema sama namun sudut pandang atau detail yang sedikit berbeda untuk dibandingkan siswa.</li>
+        <li><b>Miskonsepsi umum:</b> siswa menganggap semua sumber informasi sama kredibelnya. Diskusikan ciri sumber yang lebih dapat dipercaya (penulis jelas, ada data pendukung, bukan sekadar opini).</li>
+        <li><b>Gunakan tabel perbandingan sederhana</b> (persamaan-perbedaan) untuk membantu siswa mengorganisasi analisisnya.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah mahir menilai kredibilitas sumber secara kritis; siswa lain fokus mengidentifikasi persamaan dan perbedaan informasi.</li>
+        <li><b>Asesmen formatif:</b> siswa mengisi tabel perbandingan dari dua teks yang diberikan.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>🔎 Ayo Bandingkan Sumber Informasi!</h4>
+      <div class="isi">
+        <p>Saat membaca dua teks bertema sama, perhatikan: apa persamaannya, apa perbedaannya, dan mana yang informasinya lebih lengkap/dapat dipercaya.</p>
+        <p>Sumber yang lebih dapat dipercaya biasanya memiliki penulis yang jelas dan didukung data atau fakta, bukan hanya opini.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">6 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Bacalah dua teks bertema sama, lalu sebutkan 1 persamaan informasinya!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Panduan penilaian guru:</b> sesuaikan dengan teks yang diberikan.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Sebutkan 1 perbedaan informasi dari kedua teks tersebut!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Panduan penilaian guru:</b> sesuaikan dengan teks yang diberikan.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Sumber informasi yang lebih dapat dipercaya biasanya memiliki ciri ...</div>
+      <ul class="pilihan"><li><b>a.</b> penulis jelas dan didukung fakta</li><li><b>b.</b> hanya berisi opini tanpa data</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: a</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Mengapa kita perlu membandingkan beberapa sumber sebelum mempercayai suatu informasi?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> agar kita mendapatkan gambaran yang lebih lengkap dan akurat, serta terhindar dari informasi yang keliru.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Menurutmu, mana dari kedua teks yang kamu baca lebih kredibel? Jelaskan alasannya!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Panduan penilaian guru:</b> nilai berdasarkan kualitas alasan, bukan jawaban benar/salah mutlak.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">6</span>Sebutkan 1 dampak negatif jika kita mudah percaya pada informasi tanpa membandingkannya!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> mudah tertipu berita bohong (hoaks) atau salah mengambil keputusan.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 6 ============ -->
+<div class="panel" data-t="t6">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 2</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Berpidato dan Menyampaikan Pendapat dalam Forum (Debat Sederhana)</div>
+      <div><b>Alokasi Waktu</b>3 x pertemuan (3 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Dapat berdiskusi kelompok (materi kelas 5)</div>
+      <div><b>Profil Pelajar Pancasila</b>Bernalar kritis, gotong royong</div>
+      <div><b>Sarana</b>Topik debat ringan (misalnya seragam vs baju bebas)</div>
+      <div><b>Model</b>Simulasi debat sederhana</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat menyampaikan pendapat disertai alasan yang jelas dalam forum diskusi/debat sederhana.</li>
+      <li>Peserta didik dapat menanggapi pendapat yang berbeda secara santun dan berdasarkan alasan.</li>
+      <li>Peserta didik dapat menyimpulkan hasil debat/diskusi dengan menghargai berbagai sudut pandang.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Debat yang sehat melatih kita berpikir kritis, menyusun argumen dengan alasan yang kuat, dan tetap menghormati orang yang berbeda pendapat.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>⚖️ Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Pilih topik ringan dan dekat dengan siswa</b> untuk debat sederhana (misalnya "sebaiknya PR diberikan setiap hari atau tidak") agar semua siswa punya sudut pandang untuk disampaikan.</li>
+        <li><b>Miskonsepsi umum:</b> siswa mengira debat berarti menyerang pribadi lawan bicara. Tekankan bahwa debat yang baik menyerang argumen, bukan orangnya, dan tetap dilakukan dengan sopan.</li>
+        <li><b>Ajarkan struktur argumen sederhana:</b> pendapat — alasan — contoh/bukti pendukung.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah mahir menanggapi argumen lawan secara langsung; siswa lain berlatih menyampaikan 1 argumen sederhana terlebih dahulu.</li>
+        <li><b>Asesmen formatif:</b> gunakan rubrik sederhana untuk menilai kualitas argumen dan kesantunan siswa selama debat berlangsung.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>⚖️ Ayo Berargumen dengan Santun!</h4>
+      <div class="isi">
+        <p>Struktur argumen: <b>pendapat</b> → <b>alasan</b> → <b>contoh/bukti pendukung</b>.</p>
+        <p>Dalam debat, kita menanggapi <b>argumen</b> lawan bicara, bukan menyerang orangnya. Selalu sampaikan dengan sopan, misalnya: <i>"Saya kurang sependapat, karena..."</i></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">6 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Sebutkan 3 bagian struktur argumen yang baik!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> pendapat, alasan, contoh/bukti pendukung.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Dalam debat yang baik, kita menyerang ...</div>
+      <ul class="pilihan"><li><b>a.</b> argumen lawan bicara</li><li><b>b.</b> pribadi lawan bicara</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: a</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Tulislah 1 pendapat beserta alasannya tentang topik "PR setiap hari"!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> "Saya kurang setuju dengan PR setiap hari, karena siswa juga butuh waktu istirahat dan bermain."</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Praktikkan debat sederhana bersama kelompokmu tentang topik yang ditentukan guru!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Panduan penilaian guru:</b> gunakan rubrik kualitas argumen dan kesantunan.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Contoh kalimat menanggapi pendapat lawan bicara yang santun adalah ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> "Saya kurang sependapat, karena menurut saya..."</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">6</span>Mengapa kita perlu menghargai pendapat yang berbeda dalam sebuah debat?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> karena setiap orang berhak memiliki sudut pandang, dan menghargainya membuat diskusi tetap sehat dan produktif.</div></details></div>
+  </div>
+</div>
+
+</div><!-- /panelwrap -->
+
+<footer>Modul Bahasa Indonesia Kelas 6 · Kurikulum Merdeka Fase C · Dapat dicetak (Ctrl/Cmd + P) untuk dibagikan ke siswa</footer>
+
+<script>
+  const btns = document.querySelectorAll('.topic-btn');
+  const panels = document.querySelectorAll('.panel');
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const t = btn.getAttribute('data-t');
+      btns.forEach(b => b.classList.toggle('active', b === btn));
+      panels.forEach(p => p.classList.toggle('active', p.getAttribute('data-t') === t));
+      window.scrollTo({top: 0, behavior:'smooth'});
+    });
+  });
+</script>
+
+</body>
+</html>

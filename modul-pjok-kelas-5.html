@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modul PJOK Kelas 5 — Kurikulum Merdeka</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F7F1E1; --paper-line:#E4D9BE;
+    --ink:#2B2B27; --ink-soft:#5B5648;
+    --accent:#2E6FA3; --tint:#E3EEF6;
+    --chalk:#2E3430;
+    --card-shadow: 3px 3px 0 rgba(43,43,39,0.10);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:repeating-linear-gradient(to bottom, transparent 0px, transparent 34px, var(--paper-line) 35px), var(--paper);
+    color:var(--ink); font-family:'Atkinson Hyperlegible', sans-serif; font-size:17px; line-height:1.65; padding-bottom:60px;
+  }
+  h1,h2,h3,h4{font-family:'Baloo 2', sans-serif; margin:0 0 .4em 0;}
+
+  .cover{position:relative; padding:38px 24px 30px; max-width:920px; margin:0 auto; border-bottom:3px solid var(--ink);}
+  .cover .stamp{position:absolute; top:28px; right:24px; width:88px; height:88px; border-radius:50%; border:3px dashed var(--ink);
+    display:flex; align-items:center; justify-content:center; transform:rotate(-8deg); font-family:'Baloo 2',sans-serif; font-weight:700;
+    font-size:12px; text-align:center; line-height:1.2; color:var(--ink-soft); padding:6px;}
+  .cover h1{font-size:2.1rem; max-width:600px; color:var(--accent);}
+  .cover p.sub{margin:0; color:var(--ink-soft); font-size:1.02rem; max-width:600px;}
+  .cover .meta{margin-top:18px; display:flex; flex-wrap:wrap; gap:10px 26px; font-size:.92rem; color:var(--ink-soft);}
+  .cover .meta span b{color:var(--ink); font-weight:700;}
+
+  .topicbar{
+    max-width:920px; margin:8px auto 0; padding:0 24px 6px;
+    display:flex; gap:8px; flex-wrap:wrap; position:sticky; top:0; background:var(--paper); z-index:20; padding-top:10px;
+  }
+  .topic-btn{
+    appearance:none; cursor:pointer; border:2.5px solid var(--ink); background:#fff; color:var(--ink-soft);
+    font-family:'Baloo 2',sans-serif; font-weight:700; font-size:.82rem; padding:8px 14px; border-radius:20px;
+  }
+  .topic-btn.active{background:var(--accent); border-color:var(--accent); color:#fff;}
+
+  .panelwrap{max-width:920px; margin:0 auto; border:3px solid var(--ink); border-top:none; background:#fffdf8; padding:6px;}
+  .panel{display:none; padding:26px 26px 10px;}
+  .panel.active{display:block;}
+
+  .section{margin:0 0 34px;}
+  .section-head{display:flex; align-items:baseline; gap:10px; border-bottom:2.5px solid var(--accent); padding-bottom:6px; margin-bottom:14px;}
+  .section-head h2{font-size:1.35rem; color:var(--ink);}
+  .section-head .tag{font-family:'Baloo 2',sans-serif; font-weight:700; font-size:.72rem; padding:3px 10px; border-radius:20px; background:var(--accent); color:#fff;}
+
+  .info-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px 24px; background:#fff; border:2px solid var(--paper-line); border-radius:10px; padding:16px 18px; font-size:.94rem;}
+  .info-grid div b{display:block; color:var(--ink-soft); font-size:.78rem; font-weight:700; margin-bottom:2px;}
+  @media(max-width:600px){.info-grid{grid-template-columns:1fr;}}
+
+  ul.tp-list{margin:0; padding-left:22px;}
+  ul.tp-list li{margin-bottom:6px;}
+
+  .callout{border-radius:10px; padding:18px 20px; margin:16px 0;}
+  .callout h4{font-size:1.02rem; display:flex; align-items:center; gap:8px; color:var(--accent);}
+  .pemahaman{border:2px dashed var(--accent); background:var(--tint);}
+  .pemahaman h4{color:var(--accent);}
+
+  .guru{background:var(--chalk); color:#EDEAE2; border:2px solid var(--chalk);}
+  .guru h4{color:#fff;} .guru b{color:#fff;}
+  .guru ul{padding-left:20px; margin:8px 0 0;} .guru li{margin-bottom:6px;}
+
+  .murid{border:2.5px solid var(--accent); background:#fff;}
+  .murid .isi{color:var(--ink);}
+
+  .contoh-visual{display:flex; flex-wrap:wrap; gap:14px; margin:14px 0;}
+  .contoh-visual .kartu{flex:1 1 150px; background:#fff; border:2px solid var(--paper-line); border-radius:10px; padding:12px 14px; text-align:center; font-size:.92rem;}
+  .contoh-visual .kartu .emoji{font-size:1.6rem; display:block; margin-bottom:6px; letter-spacing:2px;}
+
+  .soal-card{background:#fff; border:2px solid var(--ink); border-radius:2px 14px 2px 14px; padding:16px 18px; margin-bottom:14px; box-shadow:var(--card-shadow);}
+  .soal-card .no{font-family:'Baloo 2',sans-serif; font-weight:800; font-size:.85rem; color:#fff; background:var(--ink);
+    display:inline-flex; align-items:center; justify-content:center; width:26px; height:26px; border-radius:50%; margin-right:8px; flex-shrink:0;}
+  .soal-card .pertanyaan{display:flex; align-items:flex-start; gap:4px; font-weight:600;}
+  .soal-card .pilihan{list-style:none; padding:0; margin:10px 0 0 34px; font-size:.95rem;}
+  .soal-card .pilihan li{margin-bottom:4px;} .soal-card .pilihan li b{margin-right:6px;}
+  details.jawaban{margin:10px 0 0 34px;}
+  details.jawaban summary{cursor:pointer; font-family:'Baloo 2',sans-serif; font-weight:700; font-size:.85rem; color:var(--ink-soft); display:inline-block; padding:4px 0;}
+  details.jawaban[open] summary{color:var(--ink);}
+  details.jawaban .kotak-jawab{margin-top:8px; padding:10px 14px; border-radius:8px; font-size:.92rem; background:var(--tint);}
+
+  footer{max-width:920px; margin:24px auto 0; padding:0 26px; color:var(--ink-soft); font-size:.85rem; text-align:center;}
+  @media print{.topicbar{display:none;} .panel{display:block !important; page-break-after:always;}}
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="stamp">KURIKULUM<br>MERDEKA<br>FASE C</div>
+  <h1>Modul Ajar PJOK</h1>
+  <p class="sub">Kelas 5 SD — 6 topik lengkap untuk 2 semester, memasuki Fase C dengan permainan dan atletik yang lebih kompleks, dilengkapi catatan pedagogis untuk guru, penjelasan untuk murid, dan latihan soal pengetahuan gerak beserta kunci jawaban.</p>
+  <div class="meta">
+    <span>Kelas: <b>5 (Lima)</b></span>
+    <span>Elemen CP: <b>Keterampilan Gerak, Pengetahuan Gerak, Pemanfaatan Gerak, Pengembangan Karakter</b></span>
+    <span>Total Alokasi: <b>±23 pertemuan</b></span>
+  </div>
+</div>
+
+<div class="topicbar" id="topicbar">
+  <button class="topic-btn active" data-t="t1">1. Bola Basket Mini</button>
+  <button class="topic-btn" data-t="t2">2. Bulu Tangkis Dasar</button>
+  <button class="topic-btn" data-t="t3">3. Lari & Lompat Tinggi</button>
+  <button class="topic-btn" data-t="t4">4. Senam Ketangkasan</button>
+  <button class="topic-btn" data-t="t5">5. Tes Kebugaran</button>
+  <button class="topic-btn" data-t="t6">6. Bahaya Rokok & Napza</button>
+</div>
+
+<div class="panelwrap">
+
+<!-- ============ TOPIK 1 ============ -->
+<div class="panel active" data-t="t1">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 1</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Permainan Bola Besar: Bola Basket Mini</div>
+      <div><b>Alokasi Waktu</b>4 x pertemuan (4 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Dapat bermain bola voli mini (materi kelas 4)</div>
+      <div><b>Profil Pelajar Pancasila</b>Gotong royong, mandiri</div>
+      <div><b>Sarana</b>Bola basket ukuran anak, ring rendah/modifikasi</div>
+      <div><b>Model</b>Latihan teknik dasar & bermain sederhana</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat mempraktikkan gerak dasar mengoper (chest pass, bounce pass) dalam bola basket.</li>
+      <li>Peserta didik dapat mempraktikkan gerak menggiring (dribbling) dan menembak bola ke ring sederhana.</li>
+      <li>Peserta didik dapat menerapkan kerja sama tim dalam permainan bola basket mini.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Bola basket melatih koordinasi tangan-mata dan pengambilan keputusan cepat, seperti kapan harus mengoper, menggiring, atau menembak.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>🏀 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Gunakan ring yang lebih rendah/dimodifikasi</b> agar siswa merasakan keberhasilan menembak dan tetap termotivasi berlatih.</li>
+        <li><b>Miskonsepsi umum:</b> siswa menggiring bola dengan menepuk menggunakan telapak tangan penuh. Ajarkan teknik dribbling yang benar menggunakan ujung jari agar kontrol bola lebih baik.</li>
+        <li><b>Latih chest pass dan bounce pass secara terpisah</b> sebelum digabung dalam permainan, agar siswa memahami kapan menggunakan masing-masing teknik.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah mahir bisa berlatih kombinasi dribbling-passing-shooting; siswa lain fokus pada satu teknik dalam satu waktu.</li>
+        <li><b>Asesmen formatif:</b> amati teknik dribbling, passing, dan pengambilan keputusan siswa selama bermain.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>🏀 Ayo Bermain Basket!</h4>
+      <div class="isi">
+        <p>Saat menggiring bola (dribbling), gunakan ujung jari, bukan telapak tangan penuh, agar bola lebih mudah dikontrol.</p>
+        <p><b>Chest pass</b>: operan lurus dari dada. <b>Bounce pass</b>: operan yang dipantulkan ke lantai dulu.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">6 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Saat menggiring bola basket, sebaiknya menggunakan ...</div>
+      <ul class="pilihan"><li><b>a.</b> ujung jari</li><li><b>b.</b> telapak tangan penuh</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: a</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Operan yang dipantulkan ke lantai terlebih dahulu disebut ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: bounce pass</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Operan lurus dari dada disebut ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: chest pass</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Mengapa penting memilih jenis operan yang tepat dalam permainan basket?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> agar bola tidak mudah direbut lawan dan bisa sampai dengan tepat ke teman satu tim.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Sebutkan 1 gerak dasar dalam bola basket selain mengoper!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> menggiring (dribbling), menembak (shooting).</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">6</span>Praktik: berlatihlah chest pass, bounce pass, dan dribbling, lalu coba bermain basket mini!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Panduan penilaian guru:</b> amati teknik dan kerja sama tim siswa.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 2 ============ -->
+<div class="panel" data-t="t2">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 1</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Permainan Bola Kecil: Bulu Tangkis Dasar</div>
+      <div><b>Alokasi Waktu</b>4 x pertemuan (4 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Dapat menggunakan alat sederhana dalam gerak berirama (materi kelas 3-4)</div>
+      <div><b>Profil Pelajar Pancasila</b>Mandiri, bernalar kritis</div>
+      <div><b>Sarana</b>Raket bulu tangkis, shuttlecock, net rendah/tali</div>
+      <div><b>Model</b>Latihan grip dan pukulan dasar</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat memegang raket dengan grip yang benar.</li>
+      <li>Peserta didik dapat mempraktikkan pukulan forehand dan backhand sederhana.</li>
+      <li>Peserta didik dapat bermain bulu tangkis dengan aturan yang dimodifikasi.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Bulu tangkis melatih kontrol dan ketepatan, karena memukul shuttlecock terlalu keras tanpa arah yang tepat justru mudah dikembalikan lawan.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>🏸 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Ajarkan grip raket yang benar</b> sejak awal (seperti berjabat tangan) karena ini fondasi semua teknik pukulan berikutnya.</li>
+        <li><b>Miskonsepsi umum:</b> siswa memukul shuttlecock sekuat tenaga tanpa kontrol arah. Latih ketepatan arah pukulan terlebih dahulu sebelum menambah kekuatan.</li>
+        <li><b>Latih forehand dan backhand secara terpisah</b> dengan shuttlecock yang dilambungkan sendiri sebelum bermain melawan lawan.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah mahir bisa bermain dengan aturan mendekati sesungguhnya; siswa lain berlatih dengan modifikasi (net lebih rendah, lapangan lebih kecil).</li>
+        <li><b>Asesmen formatif:</b> amati grip raket dan ketepatan arah pukulan siswa saat berlatih.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>🏸 Ayo Bermain Bulu Tangkis!</h4>
+      <div class="isi">
+        <p>Pegang raket seperti berjabat tangan (bukan menggenggam seperti memegang palu). <b>Forehand</b> dipukul dari sisi tangan yang memegang raket, <b>backhand</b> dari sisi berlawanan.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">6 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Cara memegang raket yang benar adalah seperti ...</div>
+      <ul class="pilihan"><li><b>a.</b> berjabat tangan</li><li><b>b.</b> menggenggam seperti memegang palu</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: a</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Pukulan yang dilakukan dari sisi tangan yang memegang raket disebut ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: forehand</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Mengapa ketepatan arah pukulan lebih penting daripada kekuatan semata?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> karena pukulan tanpa arah yang tepat mudah dikembalikan lawan meski kuat.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Alat yang digunakan untuk memukul dalam bulu tangkis adalah ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: raket</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Benda yang dipukul dalam permainan bulu tangkis disebut ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: shuttlecock</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">6</span>Praktik: berlatihlah forehand dan backhand, lalu coba bermain bulu tangkis dengan aturan sederhana!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Panduan penilaian guru:</b> amati grip dan ketepatan pukulan siswa.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 3 ============ -->
+<div class="panel" data-t="t3">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 1</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Atletik: Lari Jarak Menengah dan Lompat Tinggi Sederhana</div>
+      <div><b>Alokasi Waktu</b>4 x pertemuan (4 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Dapat lari estafet dan lempar sederhana (materi kelas 4)</div>
+      <div><b>Profil Pelajar Pancasila</b>Mandiri, bernalar kritis</div>
+      <div><b>Sarana</b>Lintasan lari, mistar lompat tinggi sederhana, matras</div>
+      <div><b>Model</b>Latihan pengaturan napas & teknik lompat</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat mempraktikkan teknik lari jarak menengah dengan pengaturan napas dan kecepatan yang tepat.</li>
+      <li>Peserta didik dapat mempraktikkan gerak lompat tinggi sederhana dengan teknik dasar.</li>
+      <li>Peserta didik dapat menjelaskan perbedaan strategi antara lari jarak pendek dan jarak menengah.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Lari jarak menengah mengajarkan pentingnya mengatur tenaga (pacing), berbeda dengan lari cepat jarak pendek yang mengandalkan kecepatan maksimal sejak awal.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>🏃‍♀️ Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Ajarkan pengaturan ritme napas</b> (misalnya menghirup lewat hidung, membuang lewat mulut secara berirama) untuk mendukung lari jarak menengah.</li>
+        <li><b>Miskonsepsi umum:</b> siswa berlari secepat mungkin sejak awal seperti sprint, sehingga kehabisan tenaga sebelum garis akhir. Latih strategi mengatur kecepatan (pacing) sepanjang jarak tempuh.</li>
+        <li><b>Perkenalkan lompat tinggi sederhana</b> (gaya jongkok/straddle dasar) dengan mistar rendah terlebih dahulu untuk membangun kepercayaan diri.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah mahir berlatih dengan jarak lari lebih panjang atau mistar lompat lebih tinggi; siswa lain tetap dengan jarak/tinggi yang lebih mudah dicapai.</li>
+        <li><b>Asesmen formatif:</b> amati kemampuan siswa mengatur ritme lari dan teknik dasar lompat tinggi.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>🏃‍♀️ Ayo Atur Napas dan Melompat!</h4>
+      <div class="isi">
+        <p>Untuk lari jarak menengah, jangan langsung berlari secepat mungkin — atur kecepatanmu (pacing) agar tenaga cukup sampai garis akhir.</p>
+        <p>Untuk lompat tinggi, ambil awalan dari samping, tolak dengan satu kaki, dan lewati mistar dengan badan sedikit dimiringkan.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">6 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Mengapa lari jarak menengah membutuhkan pengaturan kecepatan (pacing)?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> agar tenaga cukup dan tidak habis sebelum mencapai garis akhir.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Perbedaan lari jarak pendek dan jarak menengah adalah ...</div>
+      <ul class="pilihan"><li><b>a.</b> lari jarak pendek mengandalkan kecepatan maksimal sejak awal, jarak menengah perlu mengatur tenaga</li><li><b>b.</b> keduanya sama saja</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: a</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Sebutkan 3 tahap dalam lompat tinggi!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: awalan, tolakan, melewati mistar (dan mendarat)</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Mengapa pengaturan napas penting saat lari jarak menengah?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> agar tubuh mendapat cukup oksigen dan tidak cepat lelah.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Sebutkan 1 alat yang digunakan dalam lompat tinggi!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> mistar lompat, matras pendaratan.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">6</span>Praktik: berlatihlah lari jarak menengah dengan mengatur napas, lalu coba lompat tinggi sederhana!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Panduan penilaian guru:</b> amati pengaturan ritme lari dan teknik lompat siswa.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 4 ============ -->
+<div class="panel" data-t="t4">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 2</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Senam Ketangkasan (Kombinasi Gerakan Lanjutan)</div>
+      <div><b>Alokasi Waktu</b>4 x pertemuan (4 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Dapat melakukan kombinasi guling dan keseimbangan (materi kelas 4)</div>
+      <div><b>Profil Pelajar Pancasila</b>Mandiri, bernalar kritis</div>
+      <div><b>Sarana</b>Matras, ruang yang aman</div>
+      <div><b>Model</b>Demonstrasi bertahap dengan pengawasan ketat</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat mempraktikkan kombinasi gerakan senam ketangkasan (guling, keseimbangan, lompat) dengan lebih percaya diri.</li>
+      <li>Peserta didik dapat menunjukkan sikap disiplin dan hati-hati saat berlatih senam ketangkasan.</li>
+      <li>Peserta didik dapat memberi dan menerima umpan balik terhadap penampilan senam teman.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Senam ketangkasan lanjutan melatih kepercayaan diri yang berimbang dengan kedisiplinan mengikuti prosedur keselamatan.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>🤸 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Tingkatkan kompleksitas rangkaian secara bertahap</b> dari yang sudah dikuasai di kelas 4, jangan langsung meloncat ke gerakan yang jauh lebih sulit.</li>
+        <li><b>Miskonsepsi umum:</b> siswa yang sudah mahir mengabaikan pemanasan karena merasa sudah terbiasa. Tekankan bahwa pemanasan tetap wajib pada tingkat kemahiran apa pun.</li>
+        <li><b>Selalu gunakan matras</b> dan pastikan pengawasan penuh terutama untuk gerakan baru yang belum dikuasai siswa.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah percaya diri mencoba rangkaian yang lebih panjang/kompleks; siswa lain memantapkan rangkaian dasar terlebih dahulu.</li>
+        <li><b>Asesmen formatif:</b> amati kedisiplinan mengikuti prosedur keselamatan dan kepercayaan diri siswa.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>🤸 Ayo Tingkatkan Ketangkasanmu!</h4>
+      <div class="isi">
+        <p>Meski kamu sudah mahir, tetap lakukan pemanasan sebelum senam ketangkasan. Kepercayaan diri harus tetap disertai kehati-hatian!</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">5 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Meskipun sudah mahir, kita tetap perlu melakukan ...</div>
+      <ul class="pilihan"><li><b>a.</b> pemanasan sebelum senam</li><li><b>b.</b> langsung latihan tanpa persiapan</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: a</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Mengapa peningkatan kompleksitas rangkaian senam harus dilakukan bertahap?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> agar siswa membangun kepercayaan diri dan keterampilan secara aman, tanpa risiko cedera akibat lompatan tingkat kesulitan yang terlalu jauh.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Bagaimana cara memberi umpan balik yang membangun kepada teman?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> memuji hal yang sudah baik, lalu menyampaikan saran perbaikan dengan sopan.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Sebutkan 1 sikap penting yang perlu dimiliki saat berlatih senam ketangkasan!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> disiplin mengikuti prosedur, hati-hati, percaya diri.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Praktik: coba rangkaian gerakan senam ketangkasan yang lebih kompleks dengan bimbingan gurumu!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Panduan penilaian guru:</b> utamakan keselamatan dan kepatuhan prosedur.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 5 ============ -->
+<div class="panel" data-t="t5">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 2</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Aktivitas Kebugaran Jasmani Terukur</div>
+      <div><b>Alokasi Waktu</b>3 x pertemuan (3 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Dapat melakukan tes kebugaran sirkuit sederhana (materi kelas 4)</div>
+      <div><b>Profil Pelajar Pancasila</b>Mandiri, bernalar kritis</div>
+      <div><b>Sarana</b>Stopwatch, palang gantung sederhana, matras</div>
+      <div><b>Model</b>Rangkaian tes kebugaran terukur</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat melakukan rangkaian tes kebugaran jasmani terukur (lari, gantung siku, baring duduk, loncat tegak).</li>
+      <li>Peserta didik dapat mencatat hasil tes kebugarannya sendiri.</li>
+      <li>Peserta didik dapat menafsirkan hasil tes untuk mengetahui tingkat kebugaran dirinya secara umum.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Tes kebugaran terukur membantu kita memahami kondisi fisik secara objektif, sebagai dasar untuk menyusun rencana meningkatkan kebugaran, bukan untuk menghakimi diri sendiri.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>📏 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Gunakan norma tes kebugaran yang sesuai usia</b> sebagai acuan pemahaman, bukan sebagai alat untuk menghakimi siswa secara personal.</li>
+        <li><b>Miskonsepsi umum:</b> siswa/orang tua menganggap hasil tes yang rendah berarti anak "tidak sehat" secara mutlak. Jelaskan bahwa hasil tes hanyalah gambaran satu waktu yang bisa ditingkatkan lewat latihan rutin.</li>
+        <li><b>Jelaskan tiap komponen tes</b> (kekuatan otot lengan dari gantung siku, kekuatan otot perut dari baring duduk, daya ledak dari loncat tegak) agar siswa paham apa yang diukur.</li>
+        <li><b>Diferensiasi:</b> berikan target realistis sesuai kemampuan awal masing-masing siswa, fokus pada perbaikan personal.</li>
+        <li><b>Asesmen formatif:</b> siswa mencatat hasil tesnya dan membuat rencana sederhana untuk meningkatkan salah satu komponen kebugaran.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>📏 Ayo Ukur Kebugaranmu Secara Lengkap!</h4>
+      <div class="isi">
+        <div class="contoh-visual">
+          <div class="kartu"><span class="emoji">🏃</span>Lari: daya tahan</div>
+          <div class="kartu"><span class="emoji">💪</span>Gantung siku: kekuatan lengan</div>
+          <div class="kartu"><span class="emoji">🦵</span>Loncat tegak: daya ledak otot kaki</div>
+        </div>
+        <p>Hasil tes ini bukan untuk menilai baik-buruknya dirimu, tetapi untuk mengetahui bagian mana yang bisa terus ditingkatkan.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">6 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Tes gantung siku mengukur kekuatan otot ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: lengan</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Tes baring duduk (sit-up) mengukur kekuatan otot ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: perut</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Loncat tegak digunakan untuk mengukur ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: daya ledak otot kaki</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Hasil tes kebugaran yang belum optimal berarti ...</div>
+      <ul class="pilihan"><li><b>a.</b> anak tersebut tidak sehat selamanya</li><li><b>b.</b> ada bagian yang bisa terus ditingkatkan lewat latihan</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: b</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Mengapa kita perlu mencatat hasil tes kebugaran?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> untuk melihat perkembangan kebugaran diri sendiri dari waktu ke waktu.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">6</span>Praktik: lakukan rangkaian tes kebugaran (lari, gantung siku, baring duduk, loncat tegak) dan catat hasilmu!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Panduan penilaian guru:</b> catat sebagai data awal untuk perbandingan di masa depan.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 6 ============ -->
+<div class="panel" data-t="t6">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 2</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Pengenalan Bahaya Rokok dan Zat Berbahaya bagi Kesehatan</div>
+      <div><b>Alokasi Waktu</b>2 x pertemuan (2 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Memahami sistem pernapasan manusia (materi IPAS kelas 5)</div>
+      <div><b>Profil Pelajar Pancasila</b>Mandiri, bernalar kritis</div>
+      <div><b>Sarana</b>Gambar dampak rokok pada paru-paru, poster edukasi</div>
+      <div><b>Model</b>Diskusi & simulasi menolak ajakan</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat menjelaskan bahaya rokok bagi kesehatan tubuh, khususnya paru-paru dan jantung.</li>
+      <li>Peserta didik dapat menjelaskan bahaya zat berbahaya (napza) secara umum bagi kesehatan.</li>
+      <li>Peserta didik dapat menunjukkan sikap tegas menolak ajakan menggunakan zat berbahaya.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Mengenal bahaya rokok dan zat berbahaya sejak dini membantu anak membangun sikap menolak yang kuat sebelum menghadapi tekanan pergaulan di masa depan.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>🚭 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Gunakan bahasa yang sesuai usia</b> dan fokus pada dampak kesehatan fisik yang konkret (kerusakan paru-paru, gangguan jantung) yang mudah dipahami siswa.</li>
+        <li><b>Miskonsepsi umum:</b> siswa menganggap topik ini "urusan orang dewasa" yang tidak relevan bagi mereka. Jelaskan bahwa kebiasaan buruk sering dimulai sejak usia muda karena rasa penasaran atau ajakan teman.</li>
+        <li><b>Latih simulasi sederhana menolak ajakan</b> (role play) agar siswa punya "skrip" kalimat penolakan yang siap digunakan jika suatu saat menghadapi situasi serupa.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah mahir bisa menjelaskan dampak jangka panjang secara lebih rinci; siswa lain fokus mengenal dampak dasar dan sikap menolak.</li>
+        <li><b>Asesmen formatif:</b> amati kemampuan siswa mempraktikkan kalimat penolakan dalam simulasi sederhana.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>🚭 Ayo Jauhi Rokok dan Zat Berbahaya!</h4>
+      <div class="isi">
+        <p>Rokok dapat merusak paru-paru dan jantung. Zat berbahaya (napza) juga bisa merusak tubuh dan pikiran kita.</p>
+        <p>Jika ada yang mengajak mencoba, kamu boleh menolak dengan tegas: <i>"Tidak, terima kasih, aku tidak mau."</i></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">6 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Sebutkan 1 organ tubuh yang dapat rusak akibat rokok!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: paru-paru (atau jantung)</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Jika ada yang mengajakmu mencoba rokok, sikap yang tepat adalah ...</div>
+      <ul class="pilihan"><li><b>a.</b> menolak dengan tegas</li><li><b>b.</b> mencobanya agar tidak dianggap penakut</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: a</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Mengapa penting mengenal bahaya rokok sejak usia muda?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> agar kita siap dan tegas menolak jika suatu saat menghadapi ajakan atau tekanan pergaulan.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Sebutkan 1 contoh kalimat menolak ajakan yang tidak baik!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> "Tidak, terima kasih, aku tidak mau."</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Apa yang dimaksud dengan napza?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> zat-zat berbahaya yang dapat merusak kesehatan tubuh dan pikiran jika disalahgunakan.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">6</span>Praktik: latihlah kalimat menolak ajakan dengan pasanganmu dalam bentuk simulasi sederhana!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Panduan penilaian guru:</b> amati ketegasan dan kepercayaan diri siswa saat menolak.</div></details></div>
+  </div>
+</div>
+
+</div><!-- /panelwrap -->
+
+<footer>Modul PJOK Kelas 5 · Kurikulum Merdeka Fase C · Dapat dicetak (Ctrl/Cmd + P) untuk dibagikan ke siswa</footer>
+
+<script>
+  const btns = document.querySelectorAll('.topic-btn');
+  const panels = document.querySelectorAll('.panel');
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const t = btn.getAttribute('data-t');
+      btns.forEach(b => b.classList.toggle('active', b === btn));
+      panels.forEach(p => p.classList.toggle('active', p.getAttribute('data-t') === t));
+      window.scrollTo({top: 0, behavior:'smooth'});
+    });
+  });
+</script>
+
+</body>
+</html>
