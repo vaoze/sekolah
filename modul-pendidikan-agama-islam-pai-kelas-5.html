@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modul PAI Kelas 5 — Kurikulum Merdeka</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Atkinson+Hyperlegible:wght@400;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F7F1E1; --paper-line:#E4D9BE;
+    --ink:#2B2B27; --ink-soft:#5B5648;
+    --accent:#2F7A52; --tint:#E4F2E9;
+    --chalk:#243A2E;
+    --card-shadow: 3px 3px 0 rgba(43,43,39,0.10);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:repeating-linear-gradient(to bottom, transparent 0px, transparent 34px, var(--paper-line) 35px), var(--paper);
+    color:var(--ink); font-family:'Atkinson Hyperlegible', sans-serif; font-size:17px; line-height:1.65; padding-bottom:60px;
+  }
+  h1,h2,h3,h4{font-family:'Baloo 2', sans-serif; margin:0 0 .4em 0;}
+  .arab{font-family:'Amiri', serif; font-size:1.4rem; direction:rtl; display:inline-block;}
+
+  .cover{position:relative; padding:38px 24px 30px; max-width:920px; margin:0 auto; border-bottom:3px solid var(--ink);}
+  .cover .stamp{position:absolute; top:28px; right:24px; width:88px; height:88px; border-radius:50%; border:3px dashed var(--ink);
+    display:flex; align-items:center; justify-content:center; transform:rotate(-8deg); font-family:'Baloo 2',sans-serif; font-weight:700;
+    font-size:12px; text-align:center; line-height:1.2; color:var(--ink-soft); padding:6px;}
+  .cover h1{font-size:2.1rem; max-width:600px; color:var(--accent);}
+  .cover p.sub{margin:0; color:var(--ink-soft); font-size:1.02rem; max-width:600px;}
+  .cover .meta{margin-top:18px; display:flex; flex-wrap:wrap; gap:10px 26px; font-size:.92rem; color:var(--ink-soft);}
+  .cover .meta span b{color:var(--ink); font-weight:700;}
+
+  .topicbar{
+    max-width:920px; margin:8px auto 0; padding:0 24px 6px;
+    display:flex; gap:8px; flex-wrap:wrap; position:sticky; top:0; background:var(--paper); z-index:20; padding-top:10px;
+  }
+  .topic-btn{
+    appearance:none; cursor:pointer; border:2.5px solid var(--ink); background:#fff; color:var(--ink-soft);
+    font-family:'Baloo 2',sans-serif; font-weight:700; font-size:.82rem; padding:8px 14px; border-radius:20px;
+  }
+  .topic-btn.active{background:var(--accent); border-color:var(--accent); color:#fff;}
+
+  .panelwrap{max-width:920px; margin:0 auto; border:3px solid var(--ink); border-top:none; background:#fffdf8; padding:6px;}
+  .panel{display:none; padding:26px 26px 10px;}
+  .panel.active{display:block;}
+
+  .section{margin:0 0 34px;}
+  .section-head{display:flex; align-items:baseline; gap:10px; border-bottom:2.5px solid var(--accent); padding-bottom:6px; margin-bottom:14px;}
+  .section-head h2{font-size:1.35rem; color:var(--ink);}
+  .section-head .tag{font-family:'Baloo 2',sans-serif; font-weight:700; font-size:.72rem; padding:3px 10px; border-radius:20px; background:var(--accent); color:#fff;}
+
+  .info-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px 24px; background:#fff; border:2px solid var(--paper-line); border-radius:10px; padding:16px 18px; font-size:.94rem;}
+  .info-grid div b{display:block; color:var(--ink-soft); font-size:.78rem; font-weight:700; margin-bottom:2px;}
+  @media(max-width:600px){.info-grid{grid-template-columns:1fr;}}
+
+  ul.tp-list{margin:0; padding-left:22px;}
+  ul.tp-list li{margin-bottom:6px;}
+
+  .callout{border-radius:10px; padding:18px 20px; margin:16px 0;}
+  .callout h4{font-size:1.02rem; display:flex; align-items:center; gap:8px; color:var(--accent);}
+  .pemahaman{border:2px dashed var(--accent); background:var(--tint);}
+  .pemahaman h4{color:var(--accent);}
+
+  .guru{background:var(--chalk); color:#EDEAE2; border:2px solid var(--chalk);}
+  .guru h4{color:#fff;} .guru b{color:#fff;}
+  .guru ul{padding-left:20px; margin:8px 0 0;} .guru li{margin-bottom:6px;}
+
+  .murid{border:2.5px solid var(--accent); background:#fff;}
+  .murid .isi{color:var(--ink);}
+
+  .contoh-visual{display:flex; flex-wrap:wrap; gap:14px; margin:14px 0;}
+  .contoh-visual .kartu{flex:1 1 150px; background:#fff; border:2px solid var(--paper-line); border-radius:10px; padding:12px 14px; text-align:center; font-size:.92rem;}
+  .contoh-visual .kartu .emoji{font-size:1.6rem; display:block; margin-bottom:6px; letter-spacing:2px;}
+
+  .soal-card{background:#fff; border:2px solid var(--ink); border-radius:2px 14px 2px 14px; padding:16px 18px; margin-bottom:14px; box-shadow:var(--card-shadow);}
+  .soal-card .no{font-family:'Baloo 2',sans-serif; font-weight:800; font-size:.85rem; color:#fff; background:var(--ink);
+    display:inline-flex; align-items:center; justify-content:center; width:26px; height:26px; border-radius:50%; margin-right:8px; flex-shrink:0;}
+  .soal-card .pertanyaan{display:flex; align-items:flex-start; gap:4px; font-weight:600;}
+  .soal-card .pilihan{list-style:none; padding:0; margin:10px 0 0 34px; font-size:.95rem;}
+  .soal-card .pilihan li{margin-bottom:4px;} .soal-card .pilihan li b{margin-right:6px;}
+  details.jawaban{margin:10px 0 0 34px;}
+  details.jawaban summary{cursor:pointer; font-family:'Baloo 2',sans-serif; font-weight:700; font-size:.85rem; color:var(--ink-soft); display:inline-block; padding:4px 0;}
+  details.jawaban[open] summary{color:var(--ink);}
+  details.jawaban .kotak-jawab{margin-top:8px; padding:10px 14px; border-radius:8px; font-size:.92rem; background:var(--tint);}
+
+  footer{max-width:920px; margin:24px auto 0; padding:0 26px; color:var(--ink-soft); font-size:.85rem; text-align:center;}
+  @media print{.topicbar{display:none;} .panel{display:block !important; page-break-after:always;}}
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="stamp">KURIKULUM<br>MERDEKA<br>FASE C</div>
+  <h1>Modul Ajar Pendidikan Agama Islam & Budi Pekerti</h1>
+  <p class="sub">Kelas 5 SD — 6 topik lengkap untuk 2 semester, memasuki Fase C dengan surah pendek lanjutan, iman kepada kitab-kitab Allah, sejarah masa kecil Nabi Muhammad SAW, zakat-infak-sedekah, hadis, dan akhlak toleransi, dilengkapi catatan pedagogis untuk guru, penjelasan untuk murid, dan latihan soal beserta kunci jawaban.</p>
+  <div class="meta">
+    <span>Kelas: <b>5 (Lima)</b></span>
+    <span>Elemen CP: <b>Al-Qur'an Hadis, Akidah, Akhlak, Fikih, Sejarah Peradaban Islam</b></span>
+    <span>Total Alokasi: <b>±24 pertemuan</b></span>
+  </div>
+</div>
+
+<div class="topicbar" id="topicbar">
+  <button class="topic-btn active" data-t="t1">1. Al-Ma'un & Al-Fil</button>
+  <button class="topic-btn" data-t="t2">2. Iman kepada Kitab Allah</button>
+  <button class="topic-btn" data-t="t3">3. Masa Kecil Nabi Muhammad</button>
+  <button class="topic-btn" data-t="t4">4. Zakat, Infak, Sedekah</button>
+  <button class="topic-btn" data-t="t5">5. Hadis Kebersihan & Kasih Sayang</button>
+  <button class="topic-btn" data-t="t6">6. Toleransi</button>
+</div>
+
+<div class="panelwrap">
+
+<!-- ============ TOPIK 1 ============ -->
+<div class="panel active" data-t="t1">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 1</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Membaca dan Menghafal Surah Al-Ma'un dan Al-Fil</div>
+      <div><b>Alokasi Waktu</b>4 x pertemuan (4 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Dapat melafalkan surah Al-Ikhlas dan Al-Kautsar (materi kelas 4)</div>
+      <div><b>Profil Pelajar Pancasila</b>Beriman, bertakwa kepada Tuhan YME</div>
+      <div><b>Sarana</b>Mushaf/juz amma, kartu bacaan surah</div>
+      <div><b>Model</b>Talaqqi dan murajaah (pengulangan)</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat melafalkan surah Al-Ma'un dan Al-Fil dengan tartil.</li>
+      <li>Peserta didik dapat menjelaskan makna sederhana kedua surah tersebut.</li>
+      <li>Peserta didik dapat menyebutkan sikap yang dianjurkan dalam surah Al-Ma'un.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Surah Al-Ma'un mengajarkan kepedulian nyata terhadap anak yatim dan orang miskin, mengingatkan bahwa ibadah harus sejalan dengan kepedulian sosial.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>📿 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Jelaskan makna surah Al-Ma'un</b> — mengecam orang yang lalai terhadap anak yatim dan orang miskin meski rajin beribadah, menekankan bahwa ibadah harus disertai kepedulian sosial.</li>
+        <li><b>Jelaskan makna surah Al-Fil</b> — kisah peristiwa tentara bergajah yang gagal menghancurkan Ka'bah karena pertolongan Allah.</li>
+        <li><b>Lanjutkan metode talaqqi dan murajaah</b> secara konsisten seperti sebelumnya.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah hafal bisa mendalami makna dan kaitan dengan perilaku sehari-hari; siswa lain fokus pada kelancaran bacaan.</li>
+        <li><b>Asesmen formatif:</b> amati kelancaran bacaan dan pemahaman makna dasar kedua surah.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>📿 Ayo Hafalkan Surah Al-Ma'un!</h4>
+      <div class="isi">
+        <p>Surah <b>Al-Ma'un</b> mengajarkan kita untuk peduli kepada anak yatim dan orang miskin. Surah <b>Al-Fil</b> menceritakan peristiwa tentara bergajah yang gagal menghancurkan Ka'bah atas pertolongan Allah.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">5 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Surah Al-Ma'un mengajarkan kita untuk peduli kepada ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: anak yatim dan orang miskin</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Surah Al-Fil menceritakan tentang ...</div>
+      <ul class="pilihan"><li><b>a.</b> peristiwa tentara bergajah</li><li><b>b.</b> kisah Nabi Musa AS</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: a</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Apa pesan penting dari surah Al-Ma'un tentang ibadah?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> ibadah harus disertai kepedulian sosial, bukan hanya ritual semata.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Bangunan apa yang coba dihancurkan oleh tentara bergajah dalam kisah surah Al-Fil?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: Ka'bah</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Praktik: lafalkan surah Al-Ma'un dan Al-Fil dengan tartil bersama gurumu!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Panduan penilaian guru:</b> amati kelancaran dan ketepatan bacaan siswa.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 2 ============ -->
+<div class="panel" data-t="t2">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 1</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Beriman kepada Kitab-Kitab Allah</div>
+      <div><b>Alokasi Waktu</b>4 x pertemuan (4 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Mengenal 6 rukun iman (materi kelas 1)</div>
+      <div><b>Profil Pelajar Pancasila</b>Beriman, bertakwa kepada Tuhan YME, berkebinekaan global</div>
+      <div><b>Sarana</b>Kartu nama kitab Allah dan nabi penerimanya</div>
+      <div><b>Model</b>Diskusi & hafalan bertahap</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat menyebutkan nama-nama kitab Allah beserta nabi penerimanya.</li>
+      <li>Peserta didik dapat menjelaskan bahwa Al-Qur'an adalah kitab terakhir dan penyempurna kitab-kitab sebelumnya.</li>
+      <li>Peserta didik dapat menunjukkan sikap menghormati keyakinan agama lain tanpa mencampuradukkan akidah.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Beriman kepada kitab-kitab Allah mengajarkan kita untuk menghormati sejarah wahyu sebelumnya, sambil tetap meyakini Al-Qur'an sebagai kitab suci terakhir bagi umat Islam.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>📖 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Jelaskan dengan bahasa yang menghormati keyakinan agama lain</b> sambil tetap berada dalam kerangka akidah Islam — sampaikan sebagai fakta sejarah wahyu, bukan perbandingan yang merendahkan.</li>
+        <li><b>Miskonsepsi umum:</b> siswa menganggap remeh kitab-kitab sebelumnya. Jelaskan bahwa keempatnya (Taurat, Zabur, Injil, Al-Qur'an) adalah wahyu Allah, dan Al-Qur'an diyakini sebagai penyempurna dan kitab terakhir.</li>
+        <li><b>Gunakan kartu pasangan</b> nama kitab dan nabi penerimanya (Taurat-Musa, Zabur-Daud, Injil-Isa, Al-Qur'an-Muhammad) untuk membantu hafalan.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah lancar bisa menjelaskan alasan Al-Qur'an sebagai penyempurna; siswa lain fokus menghafal pasangan kitab dan nabi.</li>
+        <li><b>Asesmen formatif:</b> amati kemampuan siswa menyebutkan nama kitab dan nabi penerimanya secara tepat.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>📖 Ayo Kenali Kitab-Kitab Allah!</h4>
+      <div class="isi">
+        <div class="contoh-visual">
+          <div class="kartu"><span class="emoji">📜</span>Taurat — Nabi Musa AS</div>
+          <div class="kartu"><span class="emoji">📜</span>Zabur — Nabi Daud AS</div>
+          <div class="kartu"><span class="emoji">📜</span>Injil — Nabi Isa AS</div>
+          <div class="kartu"><span class="emoji">📖</span>Al-Qur'an — Nabi Muhammad SAW</div>
+        </div>
+        <p>Al-Qur'an adalah kitab suci terakhir yang menyempurnakan kitab-kitab sebelumnya.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">6 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Kitab Taurat diturunkan kepada Nabi ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: Musa AS</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Kitab Zabur diturunkan kepada Nabi ...</div>
+      <ul class="pilihan"><li><b>a.</b> Daud AS</li><li><b>b.</b> Isa AS</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: a</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Kitab Injil diturunkan kepada Nabi ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: Isa AS</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Al-Qur'an diturunkan kepada Nabi ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: Muhammad SAW</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Mengapa Al-Qur'an disebut sebagai kitab penyempurna?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> karena Al-Qur'an adalah kitab suci terakhir yang diyakini menyempurnakan ajaran kitab-kitab sebelumnya.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">6</span>Praktik: pasangkan 4 nama kitab Allah dengan nabi penerimanya yang telah kamu pelajari!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Panduan penilaian guru:</b> periksa ketepatan pasangan kitab dan nabi penerima.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 3 ============ -->
+<div class="panel" data-t="t3">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 1</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Kisah Kelahiran dan Masa Kecil Nabi Muhammad SAW</div>
+      <div><b>Alokasi Waktu</b>4 x pertemuan (4 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Mengenal kisah Nabi Musa AS (materi kelas 4)</div>
+      <div><b>Profil Pelajar Pancasila</b>Beriman, bertakwa kepada Tuhan YME, berakhlak mulia</div>
+      <div><b>Sarana</b>Gambar/ilustrasi kisah masa kecil Nabi Muhammad SAW</div>
+      <div><b>Model</b>Bercerita & diskusi teladan</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat menceritakan kisah kelahiran Nabi Muhammad SAW secara sederhana.</li>
+      <li>Peserta didik dapat menjelaskan sifat-sifat terpuji Nabi Muhammad SAW sejak kecil.</li>
+      <li>Peserta didik dapat menjelaskan makna gelar Al-Amin yang diberikan kepada Nabi Muhammad SAW.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Sejak kecil, Nabi Muhammad SAW dikenal jujur dan dapat dipercaya, menunjukkan bahwa akhlak mulia bisa dibangun sejak usia dini.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>🌙 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Fokus pada keteladanan sifat, bukan hanya urutan peristiwa</b> — tekankan kejujuran dan sifat dapat dipercaya Nabi Muhammad SAW sejak kecil.</li>
+        <li><b>Gunakan gelar Al-Amin</b> (yang dapat dipercaya) sebagai poin penting yang diberikan masyarakat Mekah kepada beliau sejak muda, karena kejujurannya yang dikenal luas.</li>
+        <li><b>Gunakan gambar/ilustrasi</b> untuk membantu siswa membayangkan latar belakang kelahiran dan masa kecil Nabi Muhammad SAW.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah lancar bercerita bisa menjelaskan makna Al-Amin lebih mendalam; siswa lain cukup memahami bahwa Nabi Muhammad SAW dikenal jujur sejak kecil.</li>
+        <li><b>Asesmen formatif:</b> amati pemahaman siswa terhadap sifat-sifat terpuji Nabi Muhammad SAW.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>🌙 Ayo Dengarkan Kisah Nabi Muhammad SAW!</h4>
+      <div class="isi">
+        <p>Nabi Muhammad SAW sejak kecil dikenal sangat jujur dan dapat dipercaya, sehingga masyarakat Mekah memberinya gelar <b>Al-Amin</b>, yang artinya "yang dapat dipercaya".</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">5 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Gelar yang diberikan kepada Nabi Muhammad SAW karena kejujurannya adalah ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: Al-Amin</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Al-Amin artinya ...</div>
+      <ul class="pilihan"><li><b>a.</b> yang dapat dipercaya</li><li><b>b.</b> yang pemberani</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: a</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Mengapa Nabi Muhammad SAW diberi gelar tersebut sejak muda?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> karena beliau dikenal sangat jujur dan dapat dipercaya oleh masyarakat sekitarnya.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Apa pelajaran yang bisa kita ambil dari sifat Nabi Muhammad SAW sejak kecil?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> akhlak mulia seperti kejujuran bisa dan perlu dibangun sejak usia dini.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Praktik: ceritakan mengapa kejujuran penting untuk kita praktikkan sejak sekarang, seperti Nabi Muhammad SAW!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban bebas</b> sesuai refleksi masing-masing siswa.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 4 ============ -->
+<div class="panel" data-t="t4">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 2</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Zakat, Infak, dan Sedekah</div>
+      <div><b>Alokasi Waktu</b>4 x pertemuan (4 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Memahami zakat fitrah (materi kelas 4)</div>
+      <div><b>Profil Pelajar Pancasila</b>Beriman, bertakwa kepada Tuhan YME, gotong royong</div>
+      <div><b>Sarana</b>Tabel perbandingan zakat, infak, sedekah</div>
+      <div><b>Model</b>Diskusi & perbandingan konsep</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat membedakan pengertian zakat, infak, dan sedekah.</li>
+      <li>Peserta didik dapat menjelaskan manfaat berbagi bagi kehidupan bermasyarakat.</li>
+      <li>Peserta didik dapat memberikan contoh praktik zakat, infak, dan sedekah dalam kehidupan sehari-hari.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Zakat, infak, dan sedekah semuanya mengajarkan pentingnya berbagi, meski memiliki ketentuan yang berbeda-beda — semuanya membangun kepedulian sosial dalam masyarakat.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>💝 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Gunakan tabel perbandingan sederhana</b> untuk menjelaskan perbedaan: zakat (wajib, ada ketentuan jumlah dan waktu), infak (sukarela untuk kebaikan), sedekah (sukarela, bisa berupa apa saja termasuk non-materi seperti senyum).</li>
+        <li><b>Miskonsepsi umum:</b> siswa menganggap ketiganya sama persis. Tekankan perbedaan sifat wajib/sukarela dan ketentuannya masing-masing.</li>
+        <li><b>Berikan contoh konkret</b> yang relevan dengan kehidupan siswa untuk masing-masing konsep.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah memahami bisa menjelaskan perbedaan ketiganya secara detail; siswa lain cukup memberikan 1 contoh dari masing-masing konsep.</li>
+        <li><b>Asesmen formatif:</b> amati kemampuan siswa membedakan zakat, infak, dan sedekah.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>💝 Ayo Belajar Berbagi!</h4>
+      <div class="isi">
+        <div class="contoh-visual">
+          <div class="kartu"><span class="emoji">🌾</span>Zakat: wajib, ada ketentuan jumlah dan waktu</div>
+          <div class="kartu"><span class="emoji">🤲</span>Infak: sukarela, untuk kebaikan</div>
+          <div class="kartu"><span class="emoji">😊</span>Sedekah: sukarela, bisa berupa apa saja termasuk senyum</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">6 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Apa perbedaan utama zakat dengan infak dan sedekah?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> zakat bersifat wajib dengan ketentuan tertentu, sedangkan infak dan sedekah bersifat sukarela.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Sedekah bisa berupa ...</div>
+      <ul class="pilihan"><li><b>a.</b> hanya uang saja</li><li><b>b.</b> apa saja, termasuk senyum dan bantuan tenaga</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: b</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Sebutkan 1 contoh infak!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> menyumbang untuk pembangunan masjid, membantu dana kegiatan sosial.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Mengapa zakat memiliki ketentuan yang lebih jelas dibanding infak dan sedekah?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> karena zakat bersifat wajib dan memiliki aturan jumlah serta waktu yang telah ditetapkan.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Apa manfaat berbagi bagi kehidupan bermasyarakat?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> mengurangi kesenjangan sosial dan membangun kepedulian antarsesama.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">6</span>Praktik: buatlah tabel perbandingan sederhana antara zakat, infak, dan sedekah!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Panduan penilaian guru:</b> periksa ketepatan perbedaan yang dijelaskan siswa.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 5 ============ -->
+<div class="panel" data-t="t5">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 2</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Mengenal Hadis tentang Kebersihan dan Kasih Sayang</div>
+      <div><b>Alokasi Waktu</b>3 x pertemuan (3 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Memahami hidup bersih (materi kelas 2)</div>
+      <div><b>Profil Pelajar Pancasila</b>Beriman, bertakwa kepada Tuhan YME</div>
+      <div><b>Sarana</b>Kartu hadis pendek dan artinya</div>
+      <div><b>Model</b>Hafalan bertahap & kaitkan dengan perilaku</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat menjelaskan makna hadis sederhana tentang kebersihan.</li>
+      <li>Peserta didik dapat menjelaskan makna hadis sederhana tentang kasih sayang sesama.</li>
+      <li>Peserta didik dapat mengaitkan makna kedua hadis tersebut dengan perilaku sehari-hari.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Hadis Nabi Muhammad SAW memberikan tuntunan konkret dalam kehidupan sehari-hari, termasuk pentingnya kebersihan dan kasih sayang terhadap sesama makhluk.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>📗 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Gunakan hadis pendek yang mudah dihafal</b>, misalnya "kebersihan sebagian dari iman" dan hadis tentang kasih sayang kepada sesama makhluk.</li>
+        <li><b>Kaitkan dengan perilaku sehari-hari</b> — tanyakan contoh nyata bagaimana siswa menjaga kebersihan dan menunjukkan kasih sayang di rumah/sekolah.</li>
+        <li><b>Jelaskan bahwa hadis adalah perkataan, perbuatan, atau ketetapan Nabi Muhammad SAW</b> yang menjadi sumber ajaran Islam selain Al-Qur'an.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah lancar bisa menjelaskan makna hadis dengan kata-katanya sendiri; siswa lain fokus pada hafalan singkat.</li>
+        <li><b>Asesmen formatif:</b> amati pemahaman siswa mengaitkan makna hadis dengan perilaku sehari-hari.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>📗 Ayo Kenali Hadis Nabi!</h4>
+      <div class="isi">
+        <p><b>Hadis</b> adalah perkataan, perbuatan, atau ketetapan Nabi Muhammad SAW. Salah satu hadis mengatakan bahwa <i>"kebersihan adalah sebagian dari iman"</i>, mengajarkan kita untuk selalu menjaga kebersihan.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">5 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Apa yang dimaksud dengan hadis?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> perkataan, perbuatan, atau ketetapan Nabi Muhammad SAW.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>"Kebersihan adalah sebagian dari ..."</div>
+      <ul class="pilihan"><li><b>a.</b> iman</li><li><b>b.</b> harta</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: a</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Sebutkan 1 contoh perilaku menjaga kebersihan sehari-hari!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> mencuci tangan, membuang sampah pada tempatnya.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Sebutkan 1 contoh perilaku kasih sayang kepada sesama!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> membantu teman yang kesulitan, menyayangi hewan peliharaan.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Praktik: ceritakan bagaimana kamu menerapkan hadis kebersihan atau kasih sayang di rumahmu!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban bebas</b> sesuai pengalaman masing-masing siswa.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 6 ============ -->
+<div class="panel" data-t="t6">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 2</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Akhlak Terpuji: Toleransi dan Menghargai Perbedaan</div>
+      <div><b>Alokasi Waktu</b>4 x pertemuan (4 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Memahami hormat kepada guru (materi kelas 4)</div>
+      <div><b>Profil Pelajar Pancasila</b>Beriman, bertakwa kepada Tuhan YME, berkebinekaan global</div>
+      <div><b>Sarana</b>Contoh keberagaman suku dan budaya Indonesia</div>
+      <div><b>Model</b>Diskusi & refleksi tentang keberagaman</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat menjelaskan pentingnya sikap toleransi dalam kehidupan beragama dan bermasyarakat.</li>
+      <li>Peserta didik dapat menunjukkan sikap menghargai perbedaan suku, budaya, dan agama.</li>
+      <li>Peserta didik dapat menjelaskan bahwa toleransi tidak berarti mencampuradukkan akidah.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Toleransi mengajarkan kita untuk hidup rukun dengan siapa pun yang berbeda, tanpa harus mengubah atau mencampuradukkan keyakinan kita sendiri.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>🤝 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Kaitkan dengan keberagaman Indonesia</b> — suku, budaya, dan agama yang beragam di sekitar siswa, agar materi terasa relevan.</li>
+        <li><b>Ajarkan bahwa toleransi bukan berarti mencampuradukkan akidah</b> — kita tetap meyakini agama kita sendiri sambil menghormati keyakinan orang lain.</li>
+        <li><b>Miskonsepsi umum:</b> siswa mengira toleransi berarti harus setuju dengan semua keyakinan orang lain. Jelaskan bahwa toleransi berarti menghormati dan hidup berdampingan secara damai, bukan menyamakan keyakinan.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah memahami bisa memberikan contoh sikap toleransi yang lebih kompleks; siswa lain cukup mengidentifikasi contoh sederhana dari kehidupan sehari-hari.</li>
+        <li><b>Asesmen formatif:</b> amati pemahaman siswa tentang makna toleransi dan batasannya.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>🤝 Ayo Bertoleransi!</h4>
+      <div class="isi">
+        <p>Indonesia memiliki banyak suku, budaya, dan agama. <b>Toleransi</b> berarti kita menghormati perbedaan tersebut dan hidup rukun bersama, sambil tetap teguh dengan keyakinan kita sendiri.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">6 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Apa yang dimaksud dengan toleransi?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> sikap menghormati dan hidup rukun dengan orang yang berbeda suku, budaya, atau agama.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Apakah toleransi berarti mencampuradukkan keyakinan agama kita dengan agama lain?</div>
+      <ul class="pilihan"><li><b>a.</b> ya</li><li><b>b.</b> tidak, kita tetap teguh dengan keyakinan sendiri</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: b</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Sebutkan 1 contoh sikap toleransi dalam kehidupan sehari-hari!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> menghormati teman yang berbeda agama saat beribadah, tidak mengejek budaya orang lain.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Mengapa Indonesia memerlukan sikap toleransi yang kuat?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> karena Indonesia memiliki keberagaman suku, budaya, dan agama yang perlu dijaga kerukunannya.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Bagaimana kita bisa menghormati teman yang berbeda keyakinan tanpa mengubah keyakinan kita sendiri?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> dengan tetap bersikap sopan dan menghargai, meski tetap teguh pada keyakinan masing-masing.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">6</span>Praktik: ceritakan 1 pengalamanmu menunjukkan sikap toleransi kepada teman yang berbeda!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban bebas</b> sesuai pengalaman masing-masing siswa.</div></details></div>
+  </div>
+</div>
+
+</div><!-- /panelwrap -->
+
+<footer>Modul PAI Kelas 5 · Kurikulum Merdeka Fase C · Dapat dicetak (Ctrl/Cmd + P) untuk dibagikan ke siswa</footer>
+
+<script>
+  const btns = document.querySelectorAll('.topic-btn');
+  const panels = document.querySelectorAll('.panel');
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const t = btn.getAttribute('data-t');
+      btns.forEach(b => b.classList.toggle('active', b === btn));
+      panels.forEach(p => p.classList.toggle('active', p.getAttribute('data-t') === t));
+      window.scrollTo({top: 0, behavior:'smooth'});
+    });
+  });
+</script>
+
+</body>
+</html>

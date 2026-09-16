@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modul Seni Rupa Kelas 6 — Kurikulum Merdeka</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F7F1E1; --paper-line:#E4D9BE;
+    --ink:#2B2B27; --ink-soft:#5B5648;
+    --accent:#B2588A; --tint:#F5E6EF;
+    --chalk:#2E3430;
+    --card-shadow: 3px 3px 0 rgba(43,43,39,0.10);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:repeating-linear-gradient(to bottom, transparent 0px, transparent 34px, var(--paper-line) 35px), var(--paper);
+    color:var(--ink); font-family:'Atkinson Hyperlegible', sans-serif; font-size:17px; line-height:1.65; padding-bottom:60px;
+  }
+  h1,h2,h3,h4{font-family:'Baloo 2', sans-serif; margin:0 0 .4em 0;}
+
+  .cover{position:relative; padding:38px 24px 30px; max-width:920px; margin:0 auto; border-bottom:3px solid var(--ink);}
+  .cover .stamp{position:absolute; top:28px; right:24px; width:88px; height:88px; border-radius:50%; border:3px dashed var(--ink);
+    display:flex; align-items:center; justify-content:center; transform:rotate(-8deg); font-family:'Baloo 2',sans-serif; font-weight:700;
+    font-size:12px; text-align:center; line-height:1.2; color:var(--ink-soft); padding:6px;}
+  .cover h1{font-size:2.1rem; max-width:600px; color:var(--accent);}
+  .cover p.sub{margin:0; color:var(--ink-soft); font-size:1.02rem; max-width:600px;}
+  .cover .meta{margin-top:18px; display:flex; flex-wrap:wrap; gap:10px 26px; font-size:.92rem; color:var(--ink-soft);}
+  .cover .meta span b{color:var(--ink); font-weight:700;}
+
+  .topicbar{
+    max-width:920px; margin:8px auto 0; padding:0 24px 6px;
+    display:flex; gap:8px; flex-wrap:wrap; position:sticky; top:0; background:var(--paper); z-index:20; padding-top:10px;
+  }
+  .topic-btn{
+    appearance:none; cursor:pointer; border:2.5px solid var(--ink); background:#fff; color:var(--ink-soft);
+    font-family:'Baloo 2',sans-serif; font-weight:700; font-size:.82rem; padding:8px 14px; border-radius:20px;
+  }
+  .topic-btn.active{background:var(--accent); border-color:var(--accent); color:#fff;}
+
+  .panelwrap{max-width:920px; margin:0 auto; border:3px solid var(--ink); border-top:none; background:#fffdf8; padding:6px;}
+  .panel{display:none; padding:26px 26px 10px;}
+  .panel.active{display:block;}
+
+  .section{margin:0 0 34px;}
+  .section-head{display:flex; align-items:baseline; gap:10px; border-bottom:2.5px solid var(--accent); padding-bottom:6px; margin-bottom:14px;}
+  .section-head h2{font-size:1.35rem; color:var(--ink);}
+  .section-head .tag{font-family:'Baloo 2',sans-serif; font-weight:700; font-size:.72rem; padding:3px 10px; border-radius:20px; background:var(--accent); color:#fff;}
+
+  .info-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px 24px; background:#fff; border:2px solid var(--paper-line); border-radius:10px; padding:16px 18px; font-size:.94rem;}
+  .info-grid div b{display:block; color:var(--ink-soft); font-size:.78rem; font-weight:700; margin-bottom:2px;}
+  @media(max-width:600px){.info-grid{grid-template-columns:1fr;}}
+
+  ul.tp-list{margin:0; padding-left:22px;}
+  ul.tp-list li{margin-bottom:6px;}
+
+  .callout{border-radius:10px; padding:18px 20px; margin:16px 0;}
+  .callout h4{font-size:1.02rem; display:flex; align-items:center; gap:8px; color:var(--accent);}
+  .pemahaman{border:2px dashed var(--accent); background:var(--tint);}
+  .pemahaman h4{color:var(--accent);}
+
+  .guru{background:var(--chalk); color:#EDEAE2; border:2px solid var(--chalk);}
+  .guru h4{color:#fff;} .guru b{color:#fff;}
+  .guru ul{padding-left:20px; margin:8px 0 0;} .guru li{margin-bottom:6px;}
+
+  .murid{border:2.5px solid var(--accent); background:#fff;}
+  .murid .isi{color:var(--ink);}
+
+  .contoh-visual{display:flex; flex-wrap:wrap; gap:14px; margin:14px 0;}
+  .contoh-visual .kartu{flex:1 1 150px; background:#fff; border:2px solid var(--paper-line); border-radius:10px; padding:12px 14px; text-align:center; font-size:.92rem;}
+  .contoh-visual .kartu .emoji{font-size:1.6rem; display:block; margin-bottom:6px; letter-spacing:2px;}
+
+  .soal-card{background:#fff; border:2px solid var(--ink); border-radius:2px 14px 2px 14px; padding:16px 18px; margin-bottom:14px; box-shadow:var(--card-shadow);}
+  .soal-card .no{font-family:'Baloo 2',sans-serif; font-weight:800; font-size:.85rem; color:#fff; background:var(--ink);
+    display:inline-flex; align-items:center; justify-content:center; width:26px; height:26px; border-radius:50%; margin-right:8px; flex-shrink:0;}
+  .soal-card .pertanyaan{display:flex; align-items:flex-start; gap:4px; font-weight:600;}
+  .soal-card .pilihan{list-style:none; padding:0; margin:10px 0 0 34px; font-size:.95rem;}
+  .soal-card .pilihan li{margin-bottom:4px;} .soal-card .pilihan li b{margin-right:6px;}
+  details.jawaban{margin:10px 0 0 34px;}
+  details.jawaban summary{cursor:pointer; font-family:'Baloo 2',sans-serif; font-weight:700; font-size:.85rem; color:var(--ink-soft); display:inline-block; padding:4px 0;}
+  details.jawaban[open] summary{color:var(--ink);}
+  details.jawaban .kotak-jawab{margin-top:8px; padding:10px 14px; border-radius:8px; font-size:.92rem; background:var(--tint);}
+
+  footer{max-width:920px; margin:24px auto 0; padding:0 26px; color:var(--ink-soft); font-size:.85rem; text-align:center;}
+  @media print{.topicbar{display:none;} .panel{display:block !important; page-break-after:always;}}
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="stamp">KURIKULUM<br>MERDEKA<br>FASE C</div>
+  <h1>Modul Ajar Seni Rupa</h1>
+  <p class="sub">Kelas 6 SD — 6 topik lengkap untuk 2 semester, menuntaskan perjalanan seni rupa 6 tahun dengan eksplorasi gaya pribadi, prinsip kesatuan, dan pameran akhir, dilengkapi catatan pedagogis untuk guru, penjelasan untuk murid, dan latihan soal apresiasi seni beserta kunci jawaban.</p>
+  <div class="meta">
+    <span>Kelas: <b>6 (Enam)</b></span>
+    <span>Elemen CP: <b>Mengalami, Menciptakan, Merefleksikan, Berpikir & Bekerja Artistik, Berdampak</b></span>
+    <span>Total Alokasi: <b>±19 pertemuan</b></span>
+  </div>
+</div>
+
+<div class="topicbar" id="topicbar">
+  <button class="topic-btn active" data-t="t1">1. Gaya Pribadi</button>
+  <button class="topic-btn" data-t="t2">2. Prinsip Kesatuan</button>
+  <button class="topic-btn" data-t="t3">3. Seni Instalasi Sederhana</button>
+  <button class="topic-btn" data-t="t4">4. Kriya Fungsional</button>
+  <button class="topic-btn" data-t="t5">5. Seni Rupa Mancanegara</button>
+  <button class="topic-btn" data-t="t6">6. Pameran Akhir & Refleksi</button>
+</div>
+
+<div class="panelwrap">
+
+<!-- ============ TOPIK 1 ============ -->
+<div class="panel active" data-t="t1">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 1</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Membuat Karya Seni dengan Gaya Pribadi</div>
+      <div><b>Alokasi Waktu</b>3 x pertemuan (3 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Dapat menggambar ekspresif (materi kelas 5)</div>
+      <div><b>Profil Pelajar Pancasila</b>Kreatif, mandiri</div>
+      <div><b>Sarana</b>Berbagai media (bebas dipilih siswa), kertas gambar</div>
+      <div><b>Model</b>Eksplorasi bebas berdasarkan minat pribadi</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat mengeksplorasi dan mengembangkan gaya pribadi dalam berkarya.</li>
+      <li>Peserta didik dapat menciptakan karya yang mencerminkan identitas dan minat dirinya sendiri.</li>
+      <li>Peserta didik dapat menjelaskan ciri khas yang membedakan karyanya dengan karya orang lain.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Gaya pribadi dalam berkarya berkembang dari waktu ke waktu melalui eksplorasi berulang, bukan sesuatu yang langsung muncul sempurna sejak awal.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>🖌️ Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Dorong siswa menemukan ciri khas mereka sendiri</b>, bukan meniru gaya orang lain — tanyakan apa yang mereka sukai (warna favorit, tema favorit, cara menggambar yang nyaman bagi mereka).</li>
+        <li><b>Miskonsepsi umum:</b> siswa mengira gaya pribadi harus langsung terlihat "unik" sejak percobaan pertama. Jelaskan bahwa gaya berkembang melalui proses eksplorasi berulang seiring waktu.</li>
+        <li><b>Beri kebebasan memilih tema dan media</b> yang sesuai dengan minat masing-masing siswa (hewan, alam, karakter fiksi, dsb).</li>
+        <li><b>Diferensiasi:</b> tidak perlu standar tunggal — setiap siswa mengeksplorasi gayanya masing-masing sesuai minat pribadi.</li>
+        <li><b>Asesmen formatif:</b> minta siswa menjelaskan ciri khas yang menurutnya membedakan karyanya dari karya teman.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>🖌️ Ayo Temukan Gayamu Sendiri!</h4>
+      <div class="isi">
+        <p>Apa yang paling kamu suka gambar? Warna apa yang sering kamu pilih? Gaya pribadimu akan berkembang seiring kamu terus berkarya — tidak perlu terburu-buru menemukannya!</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">5 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Apakah gaya pribadi dalam berkarya harus langsung muncul sempurna sejak awal?</div>
+      <ul class="pilihan"><li><b>a.</b> ya</li><li><b>b.</b> tidak, berkembang melalui eksplorasi berulang</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: b</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Sebutkan 1 hal yang bisa membentuk gaya pribadi seseorang dalam berkarya!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> warna favorit, tema favorit, cara menggambar yang nyaman baginya.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Mengapa penting mengembangkan gaya pribadi, bukan hanya meniru orang lain?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> agar karya kita mencerminkan identitas dan minat kita sendiri, bukan sekadar tiruan.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Ceritakan apa yang menurutmu menjadi ciri khas dalam gambar-gambarmu!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban bebas</b> sesuai refleksi masing-masing siswa.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Praktik: buatlah karya yang mencerminkan minat dan gaya pribadimu!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Panduan penilaian guru:</b> nilai keaslian ekspresi, bukan kesamaan dengan gaya tertentu.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 2 ============ -->
+<div class="panel" data-t="t2">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 1</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Mengenal dan Menerapkan Prinsip Kesatuan (Unity)</div>
+      <div><b>Alokasi Waktu</b>3 x pertemuan (3 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Mengenal prinsip keseimbangan dan irama (materi kelas 3 & 5)</div>
+      <div><b>Profil Pelajar Pancasila</b>Bernalar kritis, kreatif</div>
+      <div><b>Sarana</b>Contoh karya dengan unsur selaras/tidak selaras, kertas gambar</div>
+      <div><b>Model</b>Perbandingan visual & praktik komposisi</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat mengenal prinsip kesatuan (unity) sebagai keselarasan seluruh unsur dalam karya.</li>
+      <li>Peserta didik dapat menerapkan prinsip kesatuan dalam karyanya sendiri.</li>
+      <li>Peserta didik dapat membandingkan karya yang memiliki dan tidak memiliki kesatuan.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Kesatuan membuat sebuah karya terasa menyatu dan utuh, meski unsur-unsurnya bisa beragam — bukan berarti semua bagian harus identik.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>🧩 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Gunakan contoh karya yang unsur-unsurnya selaras vs tidak selaras</b> untuk perbandingan langsung, agar siswa memahami perbedaannya secara visual.</li>
+        <li><b>Miskonsepsi umum:</b> siswa mengira kesatuan berarti semua bagian dalam karya harus sama/identik. Jelaskan bahwa kesatuan tercapai ketika unsur-unsur yang beragam tetap terasa menyatu dan harmonis, misalnya lewat kesamaan warna atau gaya.</li>
+        <li><b>Kaitkan dengan prinsip yang sudah dipelajari</b> sebelumnya (keseimbangan, ritme) sebagai bagian dari cara mencapai kesatuan dalam sebuah karya.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah mahir bisa bereksperimen dengan unsur lebih beragam namun tetap satu kesatuan; siswa lain cukup menjaga kesatuan dengan unsur yang lebih sederhana.</li>
+        <li><b>Asesmen formatif:</b> amati penerapan prinsip kesatuan dalam karya siswa.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>🧩 Ayo Ciptakan Kesatuan!</h4>
+      <div class="isi">
+        <p><b>Kesatuan (unity)</b> membuat sebuah karya terasa menyatu, meski unsurnya beragam. Contohnya, meski bentuknya berbeda-beda, jika warnanya senada, karya tetap terasa harmonis.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">5 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Apa yang dimaksud dengan prinsip kesatuan (unity) dalam karya seni?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> keselarasan seluruh unsur dalam karya sehingga terasa menyatu dan utuh.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Apakah kesatuan berarti semua bagian karya harus identik?</div>
+      <ul class="pilihan"><li><b>a.</b> ya</li><li><b>b.</b> tidak, unsur beragam tetap bisa menyatu dan harmonis</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: b</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Sebutkan 1 cara mencapai kesatuan dalam sebuah karya!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> menggunakan warna senada, gaya yang konsisten.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Mengapa kesatuan penting dalam sebuah karya seni?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> agar karya terasa utuh dan enak dipandang, meski unsurnya beragam.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Praktik: buatlah karya dengan beberapa unsur berbeda namun tetap terasa menyatu (misalnya melalui warna senada)!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Panduan penilaian guru:</b> periksa penerapan prinsip kesatuan dalam karya siswa.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 3 ============ -->
+<div class="panel" data-t="t3">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 1</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Membuat Karya Instalasi/Seni Rupa Kontemporer Sederhana</div>
+      <div><b>Alokasi Waktu</b>3 x pertemuan (3 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Dapat membuat karya dari bahan daur ulang (materi kelas 3)</div>
+      <div><b>Profil Pelajar Pancasila</b>Kreatif, bernalar kritis</div>
+      <div><b>Sarana</b>Benda-benda bekas/sekitar, ruang untuk menata karya</div>
+      <div><b>Model</b>Eksplorasi penataan benda menjadi karya bermakna</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat menjelaskan konsep seni instalasi sebagai bentuk seni rupa kontemporer.</li>
+      <li>Peserta didik dapat mencoba membuat karya instalasi sederhana dari benda-benda di sekitar.</li>
+      <li>Peserta didik dapat menjelaskan makna atau pesan di balik susunan karya instalasinya.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Seni instalasi menunjukkan bahwa seni rupa bisa berupa penataan ruang dan benda, bukan hanya gambar di atas kertas atau kanvas — dan setiap susunan bisa memiliki makna.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>🏛️ Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Gunakan contoh sederhana</b> (misalnya susunan benda bekas yang ditata membentuk sebuah pesan atau kesan tertentu) untuk memperkenalkan konsep seni instalasi.</li>
+        <li><b>Miskonsepsi umum:</b> siswa mengira seni instalasi hanya "menumpuk barang" tanpa makna. Tekankan bahwa penataan dalam seni instalasi sengaja dirancang untuk menyampaikan pesan atau kesan tertentu.</li>
+        <li><b>Ajak siswa memikirkan pesan</b> yang ingin disampaikan sebelum menata benda-benda menjadi karya instalasi mereka.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah mahir bisa membuat instalasi dengan beberapa benda dan makna yang lebih kompleks; siswa lain cukup menata 2-3 benda dengan pesan sederhana.</li>
+        <li><b>Asesmen formatif:</b> minta siswa menjelaskan pesan/makna di balik susunan karya instalasinya.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>🏛️ Ayo Berkarya dengan Seni Instalasi!</h4>
+      <div class="isi">
+        <p><b>Seni instalasi</b> adalah karya seni yang dibuat dengan menata benda-benda dalam sebuah ruang untuk menyampaikan pesan atau kesan tertentu — bukan sekadar menumpuk barang sembarangan.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">5 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Apa yang dimaksud dengan seni instalasi?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> karya seni yang dibuat dengan menata benda-benda dalam sebuah ruang untuk menyampaikan pesan/kesan tertentu.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Apakah seni instalasi hanya berarti menumpuk barang tanpa makna?</div>
+      <ul class="pilihan"><li><b>a.</b> ya</li><li><b>b.</b> tidak, penataannya sengaja dirancang untuk menyampaikan pesan</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: b</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Sebutkan 1 contoh bahan yang bisa digunakan untuk membuat instalasi sederhana!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> botol bekas, kertas, barang-barang di sekitar kita.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Apa yang perlu dipikirkan sebelum menata benda menjadi karya instalasi?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> pesan atau kesan apa yang ingin disampaikan lewat susunan tersebut.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Praktik: buatlah karya instalasi sederhana dari benda-benda di sekitarmu, lalu jelaskan maknanya!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Panduan penilaian guru:</b> nilai kejelasan makna dan kreativitas penataan.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 4 ============ -->
+<div class="panel" data-t="t4">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 2</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Merancang dan Membuat Karya Kriya Fungsional Sederhana</div>
+      <div><b>Alokasi Waktu</b>3 x pertemuan (3 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Dapat membuat kerajinan dari bahan keras (materi kelas 5)</div>
+      <div><b>Profil Pelajar Pancasila</b>Kreatif, mandiri</div>
+      <div><b>Sarana</b>Bahan sesuai pilihan (kardus, kain flanel, dll), alat pendukung</div>
+      <div><b>Model</b>Proyek merancang & membuat kriya fungsional</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat merancang karya kriya yang memiliki fungsi praktis (tempat pensil, wadah kecil).</li>
+      <li>Peserta didik dapat membuat karya kriya tersebut dari bahan yang tersedia.</li>
+      <li>Peserta didik dapat menggabungkan unsur estetika dan fungsi dalam karyanya.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Karya kriya yang baik menggabungkan dua hal: keindahan (estetika) dan kegunaan (fungsi) — keduanya sama pentingnya, bukan salah satu saja.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>✂️ Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Tekankan keseimbangan antara fungsi dan keindahan</b> sejak tahap merancang — ajak siswa memikirkan keduanya, bukan hanya salah satu aspek.</li>
+        <li><b>Miskonsepsi umum:</b> siswa mengira karya fungsional tidak perlu indah, atau sebaliknya karya indah tidak perlu berfungsi baik. Jelaskan bahwa kriya yang baik menggabungkan keduanya.</li>
+        <li><b>Minta siswa membuat sketsa rancangan</b> terlebih dahulu sebelum mulai membuat karya, agar proses lebih terarah.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah terampil bisa membuat kriya dengan detail lebih rumit; siswa lain cukup membuat bentuk fungsional sederhana.</li>
+        <li><b>Asesmen formatif:</b> amati keseimbangan antara fungsi dan estetika dalam karya kriya siswa.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>✂️ Ayo Membuat Karya yang Berguna!</h4>
+      <div class="isi">
+        <p><b>Kriya fungsional</b> adalah karya seni yang tidak hanya indah, tapi juga bisa digunakan sehari-hari, misalnya tempat pensil yang dihias cantik.</p>
+        <p>Sebelum membuat, coba gambar dulu rancanganmu agar hasil akhirnya lebih terarah!</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">5 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Apa yang dimaksud dengan karya kriya fungsional?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> karya seni yang tidak hanya indah tetapi juga memiliki fungsi/kegunaan praktis.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Karya kriya yang baik menggabungkan unsur ...</div>
+      <ul class="pilihan"><li><b>a.</b> keindahan saja</li><li><b>b.</b> keindahan dan fungsi</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: b</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Sebutkan 1 contoh karya kriya fungsional!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> tempat pensil, wadah kecil, tas anyaman.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Mengapa sebaiknya membuat sketsa rancangan sebelum membuat karya kriya?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> agar proses pembuatan lebih terarah dan hasil akhirnya sesuai rencana.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Praktik: rancang dan buatlah karya kriya fungsional sederhana (misalnya tempat pensil) dari bahan yang tersedia!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Panduan penilaian guru:</b> nilai keseimbangan fungsi dan estetika karya.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 5 ============ -->
+<div class="panel" data-t="t5">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 2</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Mengenal Seni Rupa Mancanegara Secara Sederhana</div>
+      <div><b>Alokasi Waktu</b>3 x pertemuan (3 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Mengenal karya dan tokoh seni rupa Indonesia (materi kelas 4)</div>
+      <div><b>Profil Pelajar Pancasila</b>Berkebinekaan global, bernalar kritis</div>
+      <div><b>Sarana</b>Contoh reproduksi karya seni rupa mancanegara</div>
+      <div><b>Model</b>Observasi & diskusi perbandingan</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat mengenal 1-2 contoh karya/gaya seni rupa dari luar negeri secara sederhana.</li>
+      <li>Peserta didik dapat membandingkan karya seni rupa mancanegara dengan seni rupa Indonesia.</li>
+      <li>Peserta didik dapat menunjukkan sikap terbuka dan menghargai keberagaman seni dunia.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Mengenal seni rupa dari berbagai negara memperluas wawasan kita tentang keberagaman ekspresi seni di dunia, tanpa perlu menganggap satu lebih unggul dari yang lain.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>🌍 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Pilih contoh yang mudah dipahami</b> anak (misalnya pop art dengan warna-warna cerah, atau lukisan impresionis sederhana) sebagai pengantar.</li>
+        <li><b>Hindari kesan bahwa seni luar negeri "lebih baik"</b> dibanding seni rupa Indonesia. Posisikan keduanya sebagai kekayaan seni dunia yang setara nilainya.</li>
+        <li><b>Miskonsepsi umum:</b> siswa menganggap seni Barat sebagai "standar seni sesungguhnya". Ajak diskusi terbuka bahwa setiap budaya memiliki gaya dan nilai seni masing-masing.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah mahir bisa membandingkan lebih dari 1 gaya seni mancanegara; siswa lain cukup mengenal 1 contoh sederhana.</li>
+        <li><b>Asesmen formatif:</b> amati kemampuan siswa membandingkan dan menghargai keberagaman gaya seni rupa dunia.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>🌍 Ayo Kenali Seni Rupa Dunia!</h4>
+      <div class="isi">
+        <p>Setiap negara punya gaya seni rupa khasnya masing-masing. Tidak ada yang lebih baik atau lebih buruk — semuanya adalah kekayaan seni dunia yang bisa kita nikmati dan pelajari!</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">5 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Sebutkan 1 contoh gaya seni rupa dari luar negeri yang telah kamu pelajari!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban bebas</b> sesuai contoh yang diperkenalkan gurumu.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Apakah seni rupa dari luar negeri lebih baik daripada seni rupa Indonesia?</div>
+      <ul class="pilihan"><li><b>a.</b> ya</li><li><b>b.</b> tidak, keduanya adalah kekayaan seni dunia yang setara nilainya</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: b</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Mengapa penting mengenal seni rupa dari berbagai negara?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> untuk memperluas wawasan kita tentang keberagaman ekspresi seni di dunia.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Bandingkan 1 persamaan dan 1 perbedaan antara seni rupa mancanegara dan seni rupa Indonesia yang kamu ketahui!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban bebas</b> sesuai pemahaman masing-masing siswa.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Praktik: buatlah gambar terinspirasi dari salah satu gaya seni rupa mancanegara yang kamu pelajari!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Panduan penilaian guru:</b> nilai usaha mengambil inspirasi, bukan meniru persis.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 6 ============ -->
+<div class="panel" data-t="t6">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 2</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Proyek Akhir: Pameran Karya Seni Selama 6 Tahun & Refleksi Diri</div>
+      <div><b>Alokasi Waktu</b>4 x pertemuan (4 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Memiliki kumpulan karya dari kelas 1-6</div>
+      <div><b>Profil Pelajar Pancasila</b>Mandiri, bernalar kritis</div>
+      <div><b>Sarana</b>Kumpulan karya siswa dari berbagai tahun, ruang pameran</div>
+      <div><b>Model</b>Proyek pameran akhir & refleksi mendalam</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat memilih dan menata karya terbaik dari perjalanan belajar seni rupa selama 6 tahun.</li>
+      <li>Peserta didik dapat merefleksikan perkembangan dirinya dalam berkarya seni dari waktu ke waktu.</li>
+      <li>Peserta didik dapat mempersiapkan diri menghadapi pembelajaran seni rupa di jenjang SMP.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Merefleksikan perjalanan berkarya selama 6 tahun membantu siswa menyadari perkembangan dirinya, sekaligus menjadi penutup yang bermakna bagi pembelajaran seni rupa di SD.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>🎉 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Rancang pameran sebagai puncak perjalanan seni rupa SD</b>, mengundang orang tua/kelas lain jika memungkinkan, sebagai bentuk apresiasi atas perjalanan belajar siswa.</li>
+        <li><b>Ajak siswa membandingkan karya awal (kelas 1) dan karya terbaru (kelas 6)</b> untuk melihat dan merayakan perkembangan kemampuan mereka.</li>
+        <li><b>Miskonsepsi umum:</b> siswa mengira hanya karya "paling indah secara teknis" yang layak dipamerkan. Tekankan bahwa karya yang paling bermakna bagi mereka pribadi juga layak dipamerkan, apa pun bentuknya.</li>
+        <li><b>Diferensiasi:</b> berikan kebebasan siswa memilih jumlah dan jenis karya yang ingin dipamerkan sesuai kenyamanan masing-masing.</li>
+        <li><b>Asesmen sumatif:</b> nilai kedalaman refleksi siswa tentang perjalanan dan perkembangan dirinya dalam berkarya seni.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>🎉 Ayo Rayakan Perjalanan Berkaryamu!</h4>
+      <div class="isi">
+        <p>Selama 6 tahun kamu sudah belajar banyak hal tentang seni: garis, warna, tekstur, komposisi, dan masih banyak lagi. Pilih karya yang paling berkesan bagimu untuk dipamerkan, dan ceritakan perjalananmu!</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">6 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Sebutkan 1 hal tentang seni rupa yang sudah kamu pelajari sejak kelas 1!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban bebas</b> sesuai pengalaman belajar masing-masing siswa.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Apakah hanya karya yang paling indah secara teknis yang layak dipamerkan?</div>
+      <ul class="pilihan"><li><b>a.</b> ya</li><li><b>b.</b> tidak, karya yang paling bermakna bagi kita juga layak dipamerkan</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: b</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Bandingkan karya awalmu (kelas 1) dengan karya terbarumu — apa yang berbeda?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban bebas</b> sesuai refleksi masing-masing siswa.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Apa harapanmu terhadap pembelajaran seni rupa saat kamu melanjutkan ke SMP?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban bebas</b> sesuai refleksi masing-masing siswa.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Sebutkan 1 pelajaran hidup yang kamu dapatkan dari belajar seni rupa selama ini!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> kesabaran, kepercayaan diri, keberanian berekspresi.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">6</span>Praktik: pilih dan tata karya terbaikmu untuk pameran kelas, lalu ceritakan perjalanan berkaryamu kepada teman-teman!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Panduan penilaian guru:</b> nilai kedalaman refleksi dan kepercayaan diri siswa saat berbagi.</div></details></div>
+  </div>
+</div>
+
+</div><!-- /panelwrap -->
+
+<footer>Modul Seni Rupa Kelas 6 · Kurikulum Merdeka Fase C · Dapat dicetak (Ctrl/Cmd + P) untuk dibagikan ke siswa</footer>
+
+<script>
+  const btns = document.querySelectorAll('.topic-btn');
+  const panels = document.querySelectorAll('.panel');
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const t = btn.getAttribute('data-t');
+      btns.forEach(b => b.classList.toggle('active', b === btn));
+      panels.forEach(p => p.classList.toggle('active', p.getAttribute('data-t') === t));
+      window.scrollTo({top: 0, behavior:'smooth'});
+    });
+  });
+</script>
+
+</body>
+</html>

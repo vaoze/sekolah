@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modul Seni Rupa Kelas 5 — Kurikulum Merdeka</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F7F1E1; --paper-line:#E4D9BE;
+    --ink:#2B2B27; --ink-soft:#5B5648;
+    --accent:#B2588A; --tint:#F5E6EF;
+    --chalk:#2E3430;
+    --card-shadow: 3px 3px 0 rgba(43,43,39,0.10);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:repeating-linear-gradient(to bottom, transparent 0px, transparent 34px, var(--paper-line) 35px), var(--paper);
+    color:var(--ink); font-family:'Atkinson Hyperlegible', sans-serif; font-size:17px; line-height:1.65; padding-bottom:60px;
+  }
+  h1,h2,h3,h4{font-family:'Baloo 2', sans-serif; margin:0 0 .4em 0;}
+
+  .cover{position:relative; padding:38px 24px 30px; max-width:920px; margin:0 auto; border-bottom:3px solid var(--ink);}
+  .cover .stamp{position:absolute; top:28px; right:24px; width:88px; height:88px; border-radius:50%; border:3px dashed var(--ink);
+    display:flex; align-items:center; justify-content:center; transform:rotate(-8deg); font-family:'Baloo 2',sans-serif; font-weight:700;
+    font-size:12px; text-align:center; line-height:1.2; color:var(--ink-soft); padding:6px;}
+  .cover h1{font-size:2.1rem; max-width:600px; color:var(--accent);}
+  .cover p.sub{margin:0; color:var(--ink-soft); font-size:1.02rem; max-width:600px;}
+  .cover .meta{margin-top:18px; display:flex; flex-wrap:wrap; gap:10px 26px; font-size:.92rem; color:var(--ink-soft);}
+  .cover .meta span b{color:var(--ink); font-weight:700;}
+
+  .topicbar{
+    max-width:920px; margin:8px auto 0; padding:0 24px 6px;
+    display:flex; gap:8px; flex-wrap:wrap; position:sticky; top:0; background:var(--paper); z-index:20; padding-top:10px;
+  }
+  .topic-btn{
+    appearance:none; cursor:pointer; border:2.5px solid var(--ink); background:#fff; color:var(--ink-soft);
+    font-family:'Baloo 2',sans-serif; font-weight:700; font-size:.82rem; padding:8px 14px; border-radius:20px;
+  }
+  .topic-btn.active{background:var(--accent); border-color:var(--accent); color:#fff;}
+
+  .panelwrap{max-width:920px; margin:0 auto; border:3px solid var(--ink); border-top:none; background:#fffdf8; padding:6px;}
+  .panel{display:none; padding:26px 26px 10px;}
+  .panel.active{display:block;}
+
+  .section{margin:0 0 34px;}
+  .section-head{display:flex; align-items:baseline; gap:10px; border-bottom:2.5px solid var(--accent); padding-bottom:6px; margin-bottom:14px;}
+  .section-head h2{font-size:1.35rem; color:var(--ink);}
+  .section-head .tag{font-family:'Baloo 2',sans-serif; font-weight:700; font-size:.72rem; padding:3px 10px; border-radius:20px; background:var(--accent); color:#fff;}
+
+  .info-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px 24px; background:#fff; border:2px solid var(--paper-line); border-radius:10px; padding:16px 18px; font-size:.94rem;}
+  .info-grid div b{display:block; color:var(--ink-soft); font-size:.78rem; font-weight:700; margin-bottom:2px;}
+  @media(max-width:600px){.info-grid{grid-template-columns:1fr;}}
+
+  ul.tp-list{margin:0; padding-left:22px;}
+  ul.tp-list li{margin-bottom:6px;}
+
+  .callout{border-radius:10px; padding:18px 20px; margin:16px 0;}
+  .callout h4{font-size:1.02rem; display:flex; align-items:center; gap:8px; color:var(--accent);}
+  .pemahaman{border:2px dashed var(--accent); background:var(--tint);}
+  .pemahaman h4{color:var(--accent);}
+
+  .guru{background:var(--chalk); color:#EDEAE2; border:2px solid var(--chalk);}
+  .guru h4{color:#fff;} .guru b{color:#fff;}
+  .guru ul{padding-left:20px; margin:8px 0 0;} .guru li{margin-bottom:6px;}
+
+  .murid{border:2.5px solid var(--accent); background:#fff;}
+  .murid .isi{color:var(--ink);}
+
+  .contoh-visual{display:flex; flex-wrap:wrap; gap:14px; margin:14px 0;}
+  .contoh-visual .kartu{flex:1 1 150px; background:#fff; border:2px solid var(--paper-line); border-radius:10px; padding:12px 14px; text-align:center; font-size:.92rem;}
+  .contoh-visual .kartu .emoji{font-size:1.6rem; display:block; margin-bottom:6px; letter-spacing:2px;}
+
+  .soal-card{background:#fff; border:2px solid var(--ink); border-radius:2px 14px 2px 14px; padding:16px 18px; margin-bottom:14px; box-shadow:var(--card-shadow);}
+  .soal-card .no{font-family:'Baloo 2',sans-serif; font-weight:800; font-size:.85rem; color:#fff; background:var(--ink);
+    display:inline-flex; align-items:center; justify-content:center; width:26px; height:26px; border-radius:50%; margin-right:8px; flex-shrink:0;}
+  .soal-card .pertanyaan{display:flex; align-items:flex-start; gap:4px; font-weight:600;}
+  .soal-card .pilihan{list-style:none; padding:0; margin:10px 0 0 34px; font-size:.95rem;}
+  .soal-card .pilihan li{margin-bottom:4px;} .soal-card .pilihan li b{margin-right:6px;}
+  details.jawaban{margin:10px 0 0 34px;}
+  details.jawaban summary{cursor:pointer; font-family:'Baloo 2',sans-serif; font-weight:700; font-size:.85rem; color:var(--ink-soft); display:inline-block; padding:4px 0;}
+  details.jawaban[open] summary{color:var(--ink);}
+  details.jawaban .kotak-jawab{margin-top:8px; padding:10px 14px; border-radius:8px; font-size:.92rem; background:var(--tint);}
+
+  footer{max-width:920px; margin:24px auto 0; padding:0 26px; color:var(--ink-soft); font-size:.85rem; text-align:center;}
+  @media print{.topicbar{display:none;} .panel{display:block !important; page-break-after:always;}}
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="stamp">KURIKULUM<br>MERDEKA<br>FASE C</div>
+  <h1>Modul Ajar Seni Rupa</h1>
+  <p class="sub">Kelas 5 SD — 6 topik lengkap untuk 2 semester, memasuki Fase C dengan eksplorasi ekspresi, prinsip seni, dan kritik seni sederhana, dilengkapi catatan pedagogis untuk guru, penjelasan untuk murid, dan latihan soal apresiasi seni beserta kunci jawaban.</p>
+  <div class="meta">
+    <span>Kelas: <b>5 (Lima)</b></span>
+    <span>Elemen CP: <b>Mengalami, Menciptakan, Merefleksikan, Berpikir & Bekerja Artistik, Berdampak</b></span>
+    <span>Total Alokasi: <b>±19 pertemuan</b></span>
+  </div>
+</div>
+
+<div class="topicbar" id="topicbar">
+  <button class="topic-btn active" data-t="t1">1. Gambar Ekspresif</button>
+  <button class="topic-btn" data-t="t2">2. Lukis Tema Alam</button>
+  <button class="topic-btn" data-t="t3">3. Prinsip Irama</button>
+  <button class="topic-btn" data-t="t4">4. Kerajinan Bahan Keras</button>
+  <button class="topic-btn" data-t="t5">5. Seni Digital</button>
+  <button class="topic-btn" data-t="t6">6. Kritik Seni Sederhana</button>
+</div>
+
+<div class="panelwrap">
+
+<!-- ============ TOPIK 1 ============ -->
+<div class="panel active" data-t="t1">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 1</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Menggambar Ekspresif dengan Berbagai Media</div>
+      <div><b>Alokasi Waktu</b>3 x pertemuan (3 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Dapat menerapkan proporsi dan perspektif dasar (materi kelas 4)</div>
+      <div><b>Profil Pelajar Pancasila</b>Kreatif, mandiri</div>
+      <div><b>Sarana</b>Krayon, cat air, spidol, kertas gambar</div>
+      <div><b>Model</b>Eksplorasi media untuk mengekspresikan suasana hati</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat menggambar dengan mengekspresikan perasaan/suasana hati tertentu.</li>
+      <li>Peserta didik dapat memilih media (krayon, cat, spidol) yang sesuai dengan suasana yang ingin disampaikan.</li>
+      <li>Peserta didik dapat menjelaskan alasan pemilihan warna dan media dalam karyanya.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Seni ekspresif memungkinkan kita menyampaikan perasaan lewat pilihan warna, garis, dan media, bukan sekadar menggambarkan objek secara realistis.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>🎭 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Perkenalkan konsep seni ekspresif</b> sebagai cara menyampaikan perasaan lewat warna dan garis, berbeda dari seni realistis yang berusaha meniru objek persis.</li>
+        <li><b>Miskonsepsi umum:</b> siswa mengira ekspresif berarti asal-asalan tanpa pertimbangan. Jelaskan bahwa pemilihan warna dan garis dalam seni ekspresif tetap dipikirkan untuk menyampaikan suasana tertentu.</li>
+        <li><b>Beri tema suasana hati</b> (senang, sedih, marah, tenang) dan minta siswa memilih warna serta media yang menurutnya paling mewakili suasana tersebut.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah percaya diri bisa menggabungkan beberapa media; siswa lain cukup bereksplorasi dengan 1 media pilihan.</li>
+        <li><b>Asesmen formatif:</b> minta siswa menjelaskan alasan pemilihan warna/media yang menghubungkannya dengan suasana yang ingin disampaikan.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>🎭 Ayo Gambar Perasaanmu!</h4>
+      <div class="isi">
+        <p>Warna cerah bisa mewakili perasaan senang, sedangkan warna gelap bisa mewakili perasaan sedih. Pilih warna dan media yang menurutmu paling cocok untuk mengungkapkan suasana hatimu!</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">5 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Apa yang dimaksud dengan seni ekspresif?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> seni yang menyampaikan perasaan/suasana hati melalui pilihan warna, garis, dan media, bukan meniru objek secara persis.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Apakah seni ekspresif berarti dibuat asal-asalan tanpa pertimbangan?</div>
+      <ul class="pilihan"><li><b>a.</b> ya</li><li><b>b.</b> tidak, tetap dipikirkan untuk menyampaikan suasana tertentu</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: b</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Sebutkan 1 contoh warna yang bisa mewakili perasaan senang!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> kuning, oranye, warna-warna cerah.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Mengapa pemilihan media (krayon, cat, spidol) bisa memengaruhi kesan sebuah karya?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> karena setiap media memiliki karakter berbeda (misalnya cat air lebih lembut, spidol lebih tegas) yang menghasilkan kesan visual yang berbeda pula.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Praktik: gambarlah suasana hatimu saat ini menggunakan media dan warna pilihanmu!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Panduan penilaian guru:</b> minta siswa menjelaskan alasan pilihan warna/medianya.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 2 ============ -->
+<div class="panel" data-t="t2">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 1</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Membuat Karya Seni Lukis dengan Tema Alam Sekitar</div>
+      <div><b>Alokasi Waktu</b>3 x pertemuan (3 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Dapat mencampur warna dan menerapkan komposisi dasar (materi kelas 2-3)</div>
+      <div><b>Profil Pelajar Pancasila</b>Kreatif, bernalar kritis</div>
+      <div><b>Sarana</b>Cat air/poster, kuas, kertas lukis</div>
+      <div><b>Model</b>Observasi alam & praktik melukis</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat melukis pemandangan/objek alam sekitar dengan memperhatikan warna.</li>
+      <li>Peserta didik dapat menerapkan komposisi yang telah dipelajari sebelumnya dalam karyanya.</li>
+      <li>Peserta didik dapat menjelaskan bagian alam yang menjadi inspirasi karyanya.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Alam sekitar adalah sumber inspirasi yang tak terbatas bagi seni lukis — mengamati alam langsung membantu kita menangkap detail dan warna yang unik.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>🌳 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Ajak observasi alam secara langsung</b> jika memungkinkan (halaman sekolah, taman terdekat) agar siswa mendapat inspirasi nyata sebelum melukis.</li>
+        <li><b>Miskonsepsi umum:</b> siswa mengira melukis harus meniru foto/objek secara persis. Tekankan bahwa interpretasi pribadi terhadap alam yang diamati juga valid dan bernilai.</li>
+        <li><b>Ingatkan kembali prinsip warna dan komposisi</b> yang sudah dipelajari sebelumnya untuk diterapkan dalam karya lukis kali ini.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah mahir bisa melukis pemandangan dengan banyak elemen; siswa lain cukup fokus pada 1-2 objek alam sederhana.</li>
+        <li><b>Asesmen formatif:</b> amati penerapan warna dan komposisi dalam karya lukis siswa.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>🌳 Ayo Melukis Alam Sekitar!</h4>
+      <div class="isi">
+        <p>Amati pepohonan, langit, atau bunga di sekitarmu. Lukisanmu tidak harus mirip persis — yang penting kamu menangkap kesan dan warna yang kamu lihat!</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">5 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Mengapa mengamati alam secara langsung membantu proses melukis?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> karena kita bisa menangkap detail dan warna yang unik secara langsung, bukan hanya dari ingatan.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Apakah lukisan alam harus meniru objek secara persis?</div>
+      <ul class="pilihan"><li><b>a.</b> ya, harus sangat mirip</li><li><b>b.</b> tidak, interpretasi pribadi juga bernilai</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: b</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Sebutkan 1 contoh objek alam yang bisa dijadikan tema lukisan!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> pepohonan, gunung, sawah, bunga.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Sebutkan 1 prinsip yang sudah kamu pelajari sebelumnya yang bisa diterapkan saat melukis!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> keseimbangan komposisi, pencampuran warna.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Praktik: lukislah pemandangan alam di sekitarmu dengan memperhatikan warna dan komposisi!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Panduan penilaian guru:</b> nilai penerapan warna dan komposisi, bukan kemiripan sempurna.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 3 ============ -->
+<div class="panel" data-t="t3">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 1</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Mengenal Prinsip Irama (Ritme) dalam Karya Seni Rupa</div>
+      <div><b>Alokasi Waktu</b>3 x pertemuan (3 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Mengenal prinsip keseimbangan dalam komposisi (materi kelas 3)</div>
+      <div><b>Profil Pelajar Pancasila</b>Bernalar kritis, kreatif</div>
+      <div><b>Sarana</b>Contoh karya dengan pola berulang, kertas gambar</div>
+      <div><b>Model</b>Observasi pola & praktik menerapkan ritme</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat mengenal prinsip irama/ritme sebagai pengulangan unsur seni rupa (garis, bentuk, warna).</li>
+      <li>Peserta didik dapat menerapkan ritme sederhana dalam karyanya sendiri.</li>
+      <li>Peserta didik dapat menunjukkan contoh ritme pada karya seni maupun benda di sekitarnya.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Ritme dalam seni rupa, seperti dalam musik, tercipta dari pengulangan — pengulangan garis, bentuk, atau warna yang menciptakan pola dan gerak visual.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>🔁 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Gunakan contoh visual pola berulang</b> (motif kain, susunan genteng, pagar) untuk menunjukkan konsep ritme secara nyata.</li>
+        <li><b>Miskonsepsi umum:</b> siswa mengira ritme hanya berlaku dalam musik, bukan dalam seni rupa. Jelaskan bahwa ritme visual tercipta dari pengulangan unsur seni rupa seperti garis, bentuk, atau warna.</li>
+        <li><b>Latih siswa menciptakan pola berulang sederhana</b> (misalnya garis-titik-garis-titik) sebagai latihan awal menerapkan ritme.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah mahir bisa membuat ritme dengan variasi unsur lebih kompleks; siswa lain cukup mengulang 1 unsur sederhana.</li>
+        <li><b>Asesmen formatif:</b> amati penerapan pola berulang (ritme) dalam karya siswa.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>🔁 Ayo Kenali Ritme dalam Seni!</h4>
+      <div class="isi">
+        <p><b>Ritme</b> dalam seni rupa tercipta dari pengulangan garis, bentuk, atau warna — seperti motif pagar atau susunan genteng yang berulang.</p>
+        <p>Coba buat pola berulang sederhana, misalnya lingkaran-segitiga-lingkaran-segitiga!</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">5 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Apa yang dimaksud dengan ritme dalam seni rupa?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> pengulangan unsur seni rupa (garis, bentuk, warna) yang menciptakan pola.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Apakah ritme hanya berlaku dalam musik?</div>
+      <ul class="pilihan"><li><b>a.</b> ya</li><li><b>b.</b> tidak, ritme juga ada dalam seni rupa</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: b</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Sebutkan 1 contoh benda di sekitarmu yang menunjukkan ritme!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> pagar, susunan genteng, motif kain.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Unsur apa saja yang bisa diulang untuk menciptakan ritme?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: garis, bentuk, dan warna</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Praktik: buatlah pola berulang sederhana menggunakan minimal 2 unsur (bentuk/warna)!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Panduan penilaian guru:</b> periksa konsistensi pola berulang yang dibuat siswa.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 4 ============ -->
+<div class="panel" data-t="t4">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 2</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Membuat Karya Kerajinan dari Bahan Keras Sederhana</div>
+      <div><b>Alokasi Waktu</b>3 x pertemuan (3 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Dapat membentuk plastisin/tanah liat (materi kelas 2)</div>
+      <div><b>Profil Pelajar Pancasila</b>Kreatif, mandiri</div>
+      <div><b>Sarana</b>Sabun batangan, pisau plastik/tumpul, alas kerja</div>
+      <div><b>Model</b>Latihan memahat dasar dengan pengawasan</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat membuat kerajinan sederhana dari bahan keras yang aman (sabun batangan).</li>
+      <li>Peserta didik dapat menerapkan keterampilan memahat dasar dengan hati-hati.</li>
+      <li>Peserta didik dapat menjaga keselamatan diri dan teman selama proses berkarya.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Memahat bahan keras melatih ketelitian dan kesabaran ekstra, karena hasil yang sudah terpahat tidak bisa dikembalikan seperti semula, berbeda dengan plastisin.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>🧼 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Pastikan keamanan alat yang digunakan</b> — gunakan pisau plastik atau alat tumpul khusus untuk memahat sabun, hindari alat tajam untuk usia ini.</li>
+        <li><b>Lakukan pengawasan ketat</b> selama seluruh proses memahat berlangsung, karena melibatkan alat potong meski sederhana.</li>
+        <li><b>Miskonsepsi umum:</b> siswa/orang tua mengira memahat harus menggunakan alat tajam sejak awal. Tekankan bahwa pemula sebaiknya menggunakan alat yang lebih aman terlebih dahulu.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah terampil bisa mencoba bentuk lebih detail; siswa lain cukup membuat bentuk dasar sederhana.</li>
+        <li><b>Asesmen formatif:</b> amati kehati-hatian dan ketelitian siswa selama proses memahat.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>🧼 Ayo Berlatih Memahat!</h4>
+      <div class="isi">
+        <p>Berbeda dengan plastisin, bahan keras seperti sabun tidak bisa dibentuk ulang jika terlanjur terpahat. Karena itu, kerjakan perlahan dan hati-hati, ikuti arahan gurumu!</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">5 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Mengapa memahat bahan keras membutuhkan kesabaran ekstra dibanding plastisin?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> karena hasil yang sudah terpahat tidak bisa dikembalikan/diubah seperti semula.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Alat yang aman digunakan pemula untuk memahat sabun adalah ...</div>
+      <ul class="pilihan"><li><b>a.</b> pisau plastik/alat tumpul</li><li><b>b.</b> pisau tajam</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: a</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Mengapa pengawasan guru penting selama proses memahat?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> demi keselamatan siswa karena kegiatan ini melibatkan alat potong, meski sederhana.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Sebutkan 1 bahan keras sederhana yang aman untuk dipahat pemula!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> sabun batangan.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Praktik: buatlah kerajinan sederhana dari sabun batangan dengan pengawasan gurumu!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Panduan penilaian guru:</b> utamakan keselamatan dan ketelitian, bukan kesempurnaan bentuk.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 5 ============ -->
+<div class="panel" data-t="t5">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 2</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Mengenal dan Membuat Karya Seni Digital Sederhana</div>
+      <div><b>Alokasi Waktu</b>2 x pertemuan (2 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Mengenal dasar penggunaan perangkat digital (jika ada)</div>
+      <div><b>Profil Pelajar Pancasila</b>Kreatif, bernalar kritis</div>
+      <div><b>Sarana</b>Aplikasi menggambar digital (jika ada), atau contoh gambar digital</div>
+      <div><b>Model</b>Eksplorasi digital / diskusi jika fasilitas terbatas</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat menjelaskan bahwa seni digital adalah salah satu bentuk seni rupa masa kini.</li>
+      <li>Peserta didik dapat mencoba membuat karya sederhana menggunakan aplikasi menggambar digital (jika tersedia fasilitas).</li>
+      <li>Peserta didik dapat membandingkan seni digital dengan seni rupa tradisional.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Seni terus berkembang mengikuti zaman — seni digital adalah bentuk seni rupa yang memanfaatkan teknologi, tetapi tetap membutuhkan kreativitas seperti seni tradisional.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>💻 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Sediakan alternatif non-digital</b> jika fasilitas sekolah terbatas — misalnya menunjukkan contoh karya seni digital melalui gambar cetak/proyektor dan mendiskusikannya.</li>
+        <li><b>Miskonsepsi umum:</b> siswa/masyarakat menganggap seni digital "lebih mudah" atau "bukan seni sungguhan" dibanding seni tradisional. Jelaskan bahwa seni digital tetap membutuhkan kreativitas dan keterampilan, hanya menggunakan alat yang berbeda.</li>
+        <li><b>Jika ada fasilitas,</b> perkenalkan aplikasi menggambar sederhana dan beri kesempatan siswa bereksperimen langsung.</li>
+        <li><b>Diferensiasi:</b> siswa yang memiliki akses perangkat bisa berlatih lebih lanjut di rumah (dengan pengawasan orang tua); siswa lain cukup memahami konsepnya melalui diskusi.</li>
+        <li><b>Asesmen formatif:</b> amati pemahaman siswa tentang konsep seni digital dan perbandingannya dengan seni tradisional.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>💻 Ayo Kenali Seni Digital!</h4>
+      <div class="isi">
+        <p>Seni digital dibuat menggunakan komputer, tablet, atau aplikasi menggambar. Meski menggunakan teknologi, tetap dibutuhkan kreativitas seperti saat kita menggambar di kertas!</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">5 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Apa yang dimaksud dengan seni digital?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> karya seni rupa yang dibuat menggunakan perangkat digital seperti komputer atau tablet.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Apakah seni digital "bukan seni sungguhan" dibanding seni tradisional?</div>
+      <ul class="pilihan"><li><b>a.</b> benar</li><li><b>b.</b> salah, tetap membutuhkan kreativitas dan keterampilan</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: b</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Sebutkan 1 perangkat yang bisa digunakan untuk membuat seni digital!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> komputer, tablet, ponsel pintar.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Apa persamaan antara seni digital dan seni tradisional?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> keduanya membutuhkan kreativitas, hanya menggunakan alat/media yang berbeda.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Praktik: cobalah membuat karya sederhana menggunakan aplikasi menggambar digital (jika tersedia), atau diskusikan contoh karya seni digital bersama gurumu!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Panduan penilaian guru:</b> sesuaikan dengan ketersediaan fasilitas di sekolah.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 6 ============ -->
+<div class="panel" data-t="t6">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 2</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Kritik Seni Sederhana: Mengamati, Mendeskripsikan, dan Menilai Karya</div>
+      <div><b>Alokasi Waktu</b>3 x pertemuan (3 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Dapat mengapresiasi karya sendiri dan teman (materi kelas 3)</div>
+      <div><b>Profil Pelajar Pancasila</b>Bernalar kritis, mandiri</div>
+      <div><b>Sarana</b>Kumpulan karya siswa sepanjang tahun</div>
+      <div><b>Model</b>Latihan kritik seni bertahap</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat melakukan kritik seni sederhana melalui tahap mengamati, mendeskripsikan, menganalisis, dan menilai karya.</li>
+      <li>Peserta didik dapat menyampaikan pendapat tentang suatu karya dengan bahasa yang santun dan berdasar.</li>
+      <li>Peserta didik dapat menerima kritik terhadap karyanya sendiri dengan sikap terbuka.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Kritik seni yang baik bukan sekadar mencari kesalahan, tetapi proses memahami karya secara lebih dalam melalui pengamatan dan analisis yang sistematis.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>🔍 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Ajarkan 4 tahap kritik seni sederhana secara bertahap:</b> (1) mengamati — melihat karya secara detail, (2) mendeskripsikan — menyebutkan apa yang terlihat, (3) menganalisis — menjelaskan bagaimana unsur-unsur karya disusun, (4) menilai — memberikan pendapat berdasar.</li>
+        <li><b>Miskonsepsi umum:</b> siswa mengira kritik berarti mencari kesalahan/kekurangan saja. Tekankan bahwa kritik seni mencakup juga mengenali kelebihan dan keunikan sebuah karya.</li>
+        <li><b>Latih menggunakan kalimat berdasar,</b> misalnya "Menurutku komposisinya seimbang karena..." bukan sekadar "bagus" atau "jelek".</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah mahir bisa melalui keempat tahap kritik secara lengkap; siswa lain cukup fokus pada tahap mengamati dan mendeskripsikan.</li>
+        <li><b>Asesmen formatif:</b> amati kualitas kritik seni siswa berdasarkan keempat tahap yang telah diajarkan.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>🔍 Ayo Belajar Kritik Seni!</h4>
+      <div class="isi">
+        <div class="contoh-visual">
+          <div class="kartu"><span class="emoji">👀</span>1. Mengamati</div>
+          <div class="kartu"><span class="emoji">✏️</span>2. Mendeskripsikan</div>
+          <div class="kartu"><span class="emoji">🔎</span>3. Menganalisis</div>
+          <div class="kartu"><span class="emoji">⭐</span>4. Menilai</div>
+        </div>
+        <p>Kritik seni bukan mencari kesalahan saja — kamu juga bisa menemukan hal-hal menarik dari sebuah karya!</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">6 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Sebutkan 4 tahap dalam kritik seni sederhana!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: mengamati, mendeskripsikan, menganalisis, menilai</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Apakah kritik seni hanya mencari kesalahan sebuah karya?</div>
+      <ul class="pilihan"><li><b>a.</b> ya</li><li><b>b.</b> tidak, juga mengenali kelebihan dan keunikan karya</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: b</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Pada tahap mana kita menyebutkan apa saja yang terlihat dalam karya?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: tahap mendeskripsikan</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Berikan contoh kalimat penilaian yang berdasar (bukan sekadar "bagus/jelek")!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> "Menurutku warnanya cocok karena menciptakan suasana ceria."</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Bagaimana sikap yang tepat saat karyamu dikritik oleh teman?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> menerima dengan sikap terbuka dan menganggapnya sebagai masukan untuk berkembang.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">6</span>Praktik: lakukan kritik seni sederhana terhadap salah satu karyamu sendiri menggunakan 4 tahap yang telah dipelajari!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Panduan penilaian guru:</b> periksa kelengkapan keempat tahap dalam kritik siswa.</div></details></div>
+  </div>
+</div>
+
+</div><!-- /panelwrap -->
+
+<footer>Modul Seni Rupa Kelas 5 · Kurikulum Merdeka Fase C · Dapat dicetak (Ctrl/Cmd + P) untuk dibagikan ke siswa</footer>
+
+<script>
+  const btns = document.querySelectorAll('.topic-btn');
+  const panels = document.querySelectorAll('.panel');
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const t = btn.getAttribute('data-t');
+      btns.forEach(b => b.classList.toggle('active', b === btn));
+      panels.forEach(p => p.classList.toggle('active', p.getAttribute('data-t') === t));
+      window.scrollTo({top: 0, behavior:'smooth'});
+    });
+  });
+</script>
+
+</body>
+</html>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kumpulan Pelajaran Sekolah & Umum</title>
+<title>Modul Pelajaran Sekolah</title>
 <meta name="description" content="Kumpulan pelajaran sekolah dan utilitas umum by Fauzi.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -658,6 +658,19 @@ iframe{
 }
 #umumGrid.compact:after{display:none}
 
+
+/* === 03 Pendukung: thumbnail visual ringan, tanpa file gambar eksternal === */
+#umumGrid .card{padding:0!important;overflow:hidden!important;min-height:270px!important}
+#umumGrid .umum-thumb{position:relative;width:100%;height:138px;overflow:hidden;background:#eee6d5;border-radius:8px 8px 0 0}
+#umumGrid .umum-thumb img{display:block;width:100%;height:100%;object-fit:cover}
+#umumGrid .thumb-shade{position:absolute;inset:0;background:linear-gradient(180deg,transparent 42%,rgba(36,27,16,.16));pointer-events:none}
+#umumGrid .thumb-icon{position:absolute;left:14px;bottom:11px;font-size:34px;line-height:1;text-shadow:0 2px 8px rgba(0,0,0,.18);filter:saturate(.9)}
+#umumGrid .card-top{padding:12px 15px 0 17px}
+#umumGrid .card-body{padding:8px 17px 0}
+#umumGrid .card-bottom{margin-top:auto!important;padding:11px 17px!important;border-top:1px solid rgba(179,129,44,.18)!important}
+#umumGrid .card:hover .umum-thumb img{transform:scale(1.035);transition:transform .28s ease}
+@media(max-width:620px){#umumGrid .umum-thumb{height:125px}}
+@media(max-width:430px){#umumGrid .umum-thumb{height:112px}}
 /* Remove the special PDF-book outer frame too; the book itself remains unchanged. */
 .modal.pdf-mode.book-active .modal-frame-wrap{
   inset:0!important;
@@ -849,6 +862,127 @@ body{
 #kitabGrid .card:hover{box-shadow:0 24px 44px rgba(37,61,99,.18)!important}
 #kitabGrid .icon{background:linear-gradient(145deg,#eaf0ff,#e0f7fb)!important;color:var(--school-blue)!important}
 #kitabGrid .badge{background:#eef5ff!important;color:#3153a5!important}
+
+/* === 2026 visual refinement: PDF covers + uniform UMUM card size === */
+#pdfGrid .pdf-card .icon{position:absolute!important;inset:0 0 34px 0!important;display:block!important}
+#pdfGrid .pdf-card .pdf-cover{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:cover;object-position:top center;border-radius:8px 10px 4px 4px;background:#eaf0f7}
+#pdfGrid .pdf-card .pdf-cover-fallback{position:absolute;inset:0;display:grid;place-items:center;color:rgba(255,255,255,.88);font:800 1rem Inter,sans-serif;letter-spacing:.16em}
+#pdfGrid .pdf-card .icon.has-cover:before,#pdfGrid .pdf-card .icon.has-cover:after{display:none!important}
+#umumGrid .card{min-height:270px!important}
+@media(max-width:620px){#umumGrid .card{min-height:245px!important}}
+@media(max-width:430px){#umumGrid .card{min-height:225px!important}}
+
+/* === FINAL: Chapter 03 Pendukung dibuat sederhana dan seragam dengan kartu Pembaca PDF === */
+#umumGrid{
+  grid-template-columns:repeat(5,minmax(0,1fr))!important;
+  gap:28px 18px!important;
+  padding:20px 8px 34px!important;
+  align-items:end!important;
+  position:relative;
+}
+#umumGrid:after{display:none!important}
+#umumGrid .card{
+  min-height:270px!important;
+  height:270px!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:8px 10px 5px 5px!important;
+  overflow:visible!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  backdrop-filter:none!important;
+  transform-origin:bottom center;
+  transition:transform .22s ease,filter .22s ease!important;
+  position:relative!important;
+}
+#umumGrid .card:before,
+#umumGrid .card:after{display:none!important}
+#umumGrid .card:hover{
+  transform:translateY(-9px) rotate(-1deg)!important;
+  filter:drop-shadow(0 18px 18px rgba(37,61,99,.20))!important;
+  box-shadow:none!important;
+}
+#umumGrid .card:nth-child(3n+2):hover,
+#umumGrid .card:nth-child(3n):hover{transform:translateY(-9px) rotate(-1deg)!important}
+#umumGrid .card .card-top,
+#umumGrid .card .card-body,
+#umumGrid .card .card-bottom{position:absolute!important;z-index:3}
+#umumGrid .card .card-top{left:12px;right:10px;top:10px}
+#umumGrid .card .num{color:rgba(255,255,255,.82)!important;font-size:.57rem!important}
+#umumGrid .card .badge{background:rgba(255,255,255,.17)!important;color:#fff!important;border:1px solid rgba(255,255,255,.25)!important;font-size:.48rem!important;backdrop-filter:blur(5px)}
+#umumGrid .card .icon{
+  position:absolute!important;inset:0 0 34px 0!important;width:auto!important;height:auto!important;margin:0!important;
+  border:0!important;border-radius:8px 10px 4px 4px!important;
+  background:linear-gradient(145deg,#2563eb 0%,#4f46e5 54%,#172554 100%)!important;
+  color:#fff!important;box-shadow:inset 9px 0 0 rgba(255,255,255,.12),inset -2px 0 0 rgba(0,0,0,.14),0 7px 0 #dbe3ed!important;
+  overflow:hidden;display:flex!important;align-items:center!important;justify-content:center!important;
+  font-size:2.2rem!important;font-weight:700!important;
+}
+#umumGrid .card .icon:before{
+  content:"";position:absolute;left:15px;right:15px;top:53px;height:0;
+  border-top:1px solid rgba(255,255,255,.35);border-bottom:1px solid rgba(255,255,255,.35);
+}
+#umumGrid .card .icon:after{content:""!important}
+#umumGrid .card .card-body{left:13px;right:13px;bottom:48px;color:#fff!important;text-align:center}
+#umumGrid .card .card-body h3{
+  color:#fff!important;font:700 .88rem Inter,sans-serif!important;line-height:1.25!important;margin:0!important;
+  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;text-shadow:0 1px 2px rgba(0,0,0,.18)
+}
+#umumGrid .card .card-body p,
+#umumGrid .card .path{display:none!important}
+#umumGrid .card .card-bottom{
+  left:0;right:0;bottom:0;height:38px;padding:0 9px!important;margin:0!important;border:0!important;
+  border-radius:0 0 4px 4px;background:#fff;box-shadow:0 5px 0 #cbd5e1,0 9px 12px rgba(37,61,99,.13);align-items:center!important;
+}
+#umumGrid .card .open{width:100%;text-align:center;color:var(--school-blue)!important;font-size:.62rem!important;font-weight:800!important}
+#umumGrid .card .corner,
+#umumGrid .card .card-newtab{z-index:5}
+#umumGrid.compact{grid-template-columns:repeat(7,minmax(0,1fr))!important;gap:18px 12px!important}
+#umumGrid.compact .card{min-height:190px!important;height:190px!important}
+#umumGrid.compact .card .card-body{bottom:42px}
+#umumGrid.compact .card .icon:before{top:38px}
+@media(max-width:1100px){#umumGrid{grid-template-columns:repeat(4,minmax(0,1fr))!important}#umumGrid.compact{grid-template-columns:repeat(6,minmax(0,1fr))!important}}
+@media(max-width:850px){#umumGrid{grid-template-columns:repeat(3,minmax(0,1fr))!important}#umumGrid.compact{grid-template-columns:repeat(4,minmax(0,1fr))!important}}
+@media(max-width:620px){#umumGrid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:22px 14px!important}#umumGrid.compact{grid-template-columns:repeat(3,minmax(0,1fr))!important}#umumGrid .card{min-height:245px!important;height:245px!important}}
+@media(max-width:430px){#umumGrid{grid-template-columns:repeat(2,minmax(0,1fr))!important}#umumGrid .card{min-height:225px!important;height:225px!important}}
+/* === FINAL POLISH 03 Pendukung: thumbnail lebih rapi + judul lebih kontras === */
+#umumGrid .card .umum-thumb{
+  position:absolute!important;inset:0 0 34px 0!important;width:auto!important;height:auto!important;
+  overflow:hidden!important;border-radius:8px 10px 4px 4px!important;background:#253247!important;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.16),0 7px 0 #dbe3ed!important;z-index:1!important;
+}
+#umumGrid .card .umum-thumb img{
+  display:block!important;width:100%!important;height:100%!important;object-fit:cover!important;
+  transform:scale(1.001);transition:transform .25s ease,filter .25s ease!important;
+  filter:saturate(.88) contrast(1.02)!important;
+}
+#umumGrid .card .thumb-shade{
+  position:absolute!important;inset:0!important;display:block!important;pointer-events:none!important;
+  background:linear-gradient(180deg,rgba(12,20,32,.10) 0%,rgba(12,20,32,.03) 38%,rgba(10,17,29,.82) 100%)!important;
+  z-index:2!important;
+}
+#umumGrid .card .thumb-icon{
+  position:absolute!important;left:16px!important;bottom:72px!important;z-index:3!important;
+  font-size:2rem!important;line-height:1!important;color:#fff!important;
+  text-shadow:0 2px 7px rgba(0,0,0,.55)!important;opacity:.96!important;
+}
+#umumGrid .card .card-body{
+  left:12px!important;right:12px!important;bottom:49px!important;z-index:4!important;
+  color:#fff!important;text-align:left!important;
+}
+#umumGrid .card .card-body h3{
+  color:#fff!important;font:800 .84rem/1.22 Inter,sans-serif!important;margin:0!important;
+  padding:8px 10px!important;border-radius:7px!important;
+  background:rgba(9,16,28,.68)!important;
+  border:1px solid rgba(255,255,255,.16)!important;
+  box-shadow:0 3px 10px rgba(0,0,0,.18)!important;
+  text-shadow:0 1px 2px rgba(0,0,0,.55)!important;
+  display:-webkit-box!important;-webkit-line-clamp:3!important;-webkit-box-orient:vertical!important;overflow:hidden!important;
+}
+#umumGrid .card:hover .umum-thumb img{transform:scale(1.025)!important;filter:saturate(.95) contrast(1.04)!important}
+#umumGrid .card:hover .card-body h3{background:rgba(7,14,25,.78)!important}
+@media(max-width:620px){#umumGrid .card .thumb-icon{bottom:65px!important;font-size:1.75rem!important}#umumGrid .card .card-body{left:9px!important;right:9px!important}#umumGrid .card .card-body h3{font-size:.78rem!important;padding:7px 8px!important}}
+
 </style>
 
 </head>
@@ -896,7 +1030,7 @@ body{
 
 <main class="container" id="top">
 <section class="hero">
-  <div class="eyebrow"><i></i> DIGITAL SEKOLAH · PSAM</div>
+  <div class="eyebrow"><i></i> DIGITAL SEKOLAH · EDISI 2026</div>
   <h1>Portal <span class="gradient">Pelajaran Umum</span> SD · SMP · SMA</h1>
   <p>Ruang belajar digital untuk pelajaran umum tingkat SD, SMP, dan SMA — tersusun rapi seperti rak buku agar mudah dipilih, dibaca, dan dikembangkan.</p>
   <div class="rule"><span class="line"></span><span class="gem"></span><span class="line r"></span></div>
@@ -1040,38 +1174,87 @@ body{
 
 <script>
 const kitab=[
- {n:"01",title:"Bahasa Indonesia",cat:"sd",icon:"Aa",badge:"SD",url:"",desc:"Pelajaran umum SD: Bahasa Indonesia."},
- {n:"02",title:"Matematika",cat:"sd",icon:"∑",badge:"SD",url:"",desc:"Pelajaran umum SD: Matematika."},
- {n:"03",title:"IPAS",cat:"sd",icon:"⌬",badge:"SD",url:"",desc:"Pelajaran umum SD: Ilmu Pengetahuan Alam dan Sosial."},
- {n:"04",title:"Pendidikan Pancasila",cat:"sd",icon:"★",badge:"SD",url:"",desc:"Pelajaran umum SD: Pendidikan Pancasila."},
- {n:"05",title:"Bahasa Inggris",cat:"sd",icon:"EN",badge:"SD",url:"",desc:"Pelajaran umum SD: Bahasa Inggris."},
- {n:"06",title:"Seni dan Budaya",cat:"sd",icon:"✎",badge:"SD",url:"",desc:"Pelajaran umum SD: Seni dan Budaya."},
- {n:"07",title:"PJOK",cat:"sd",icon:"⚽",badge:"SD",url:"",desc:"Pelajaran umum SD: Pendidikan Jasmani, Olahraga, dan Kesehatan."},
- {n:"08",title:"Bahasa Indonesia",cat:"smp",icon:"Aa",badge:"SMP",url:"",desc:"Pelajaran umum SMP: Bahasa Indonesia."},
- {n:"09",title:"Matematika",cat:"smp",icon:"∑",badge:"SMP",url:"",desc:"Pelajaran umum SMP: Matematika."},
- {n:"10",title:"IPA",cat:"smp",icon:"⚗",badge:"SMP",url:"",desc:"Pelajaran umum SMP: Ilmu Pengetahuan Alam."},
- {n:"11",title:"IPS",cat:"smp",icon:"◎",badge:"SMP",url:"",desc:"Pelajaran umum SMP: Ilmu Pengetahuan Sosial."},
- {n:"12",title:"Pendidikan Pancasila",cat:"smp",icon:"★",badge:"SMP",url:"",desc:"Pelajaran umum SMP: Pendidikan Pancasila."},
- {n:"13",title:"Bahasa Inggris",cat:"smp",icon:"EN",badge:"SMP",url:"",desc:"Pelajaran umum SMP: Bahasa Inggris."},
- {n:"14",title:"Informatika",cat:"smp",icon:"⌘",badge:"SMP",url:"",desc:"Pelajaran umum SMP: Informatika."},
- {n:"15",title:"Seni dan Budaya",cat:"smp",icon:"✎",badge:"SMP",url:"",desc:"Pelajaran umum SMP: Seni dan Budaya."},
- {n:"16",title:"Bahasa Indonesia",cat:"sma",icon:"Aa",badge:"SMA",url:"",desc:"Pelajaran umum SMA: Bahasa Indonesia."},
- {n:"17",title:"Matematika",cat:"sma",icon:"∑",badge:"SMA",url:"",desc:"Pelajaran umum SMA: Matematika."},
- {n:"18",title:"Bahasa Inggris",cat:"sma",icon:"EN",badge:"SMA",url:"",desc:"Pelajaran umum SMA: Bahasa Inggris."},
- {n:"19",title:"Fisika",cat:"sma",icon:"Φ",badge:"SMA",url:"",desc:"Pelajaran umum SMA: Fisika."},
- {n:"20",title:"Kimia",cat:"sma",icon:"⚗",badge:"SMA",url:"",desc:"Pelajaran umum SMA: Kimia."},
- {n:"21",title:"Biologi",cat:"sma",icon:"⌬",badge:"SMA",url:"",desc:"Pelajaran umum SMA: Biologi."},
- {n:"22",title:"Ekonomi",cat:"sma",icon:"₿",badge:"SMA",url:"",desc:"Pelajaran umum SMA: Ekonomi."},
- {n:"23",title:"Geografi",cat:"sma",icon:"◎",badge:"SMA",url:"",desc:"Pelajaran umum SMA: Geografi."},
- {n:"24",title:"Sosiologi",cat:"sma",icon:"◉",badge:"SMA",url:"",desc:"Pelajaran umum SMA: Sosiologi."},
- {n:"25",title:"Sejarah",cat:"sma",icon:"⌛",badge:"SMA",url:"",desc:"Pelajaran umum SMA: Sejarah."},
- {n:"26",title:"Informatika",cat:"sma",icon:"⌘",badge:"SMA",url:"",desc:"Pelajaran umum SMA: Informatika."},
- {n:"27",title:"Pendidikan Pancasila",cat:"sma",icon:"★",badge:"SMA",url:"",desc:"Pelajaran umum SMA: Pendidikan Pancasila."},
- {n:"28",title:"PJOK",cat:"sma",icon:"⚽",badge:"SMA",url:"",desc:"Pelajaran umum SMA: Pendidikan Jasmani, Olahraga, dan Kesehatan."},
- {n:"29",title:"Seni dan Budaya",cat:"sma",icon:"✎",badge:"SMA",url:"",desc:"Pelajaran umum SMA: Seni dan Budaya."},
- {n:"30",title:"Literasi dan Keterampilan",cat:"sma",icon:"▤",badge:"SMA",url:"",desc:"Materi pendukung literasi dan keterampilan belajar SMA."}
+ {n:"01",title:"Bahasa Indonesia",cat:"lain",icon:"Aa",badge:"",url:"",desc:"Pelajaran umum SD, SMP, dan SMA: Bahasa Indonesia."},
+ {n:"02",title:"Matematika",cat:"lain",icon:"∑",badge:"",url:"",desc:"Pelajaran umum SD, SMP, dan SMA: Matematika."},
+ {n:"03",title:"IPAS",cat:"lain",icon:"⌬",badge:"",url:"",desc:"Pelajaran umum SD (mulai kelas 3): Ilmu Pengetahuan Alam dan Sosial."},
+ {n:"04",title:"Pendidikan Pancasila",cat:"lain",icon:"★",badge:"",url:"",desc:"Pelajaran umum SD, SMP, dan SMA: Pendidikan Pancasila."},
+ {n:"05",title:"Bahasa Inggris",cat:"lain",icon:"EN",badge:"",url:"",desc:"Pelajaran umum SD, SMP, dan SMA: Bahasa Inggris."},
+ {n:"06",title:"Seni dan Budaya",cat:"lain",icon:"✎",badge:"",url:"",desc:"Pelajaran umum SD, SMP, dan SMA: Seni dan Budaya."},
+ {n:"07",title:"PJOK",cat:"lain",icon:"⚽",badge:"",url:"",desc:"Pelajaran umum SD, SMP, dan SMA: Pendidikan Jasmani, Olahraga, dan Kesehatan."},
+ {n:"08",title:"IPA",cat:"lain",icon:"⚗",badge:"",url:"",desc:"Pelajaran umum SMP: Ilmu Pengetahuan Alam."},
+ {n:"09",title:"IPS",cat:"lain",icon:"◎",badge:"",url:"",desc:"Pelajaran umum SMP: Ilmu Pengetahuan Sosial."},
+ {n:"10",title:"Informatika",cat:"lain",icon:"⌘",badge:"",url:"",desc:"Pelajaran umum SMP dan SMA: Informatika."},
+ {n:"11",title:"Fisika",cat:"lain",icon:"Φ",badge:"",url:"",desc:"Pelajaran umum SMA: Fisika."},
+ {n:"12",title:"Kimia",cat:"lain",icon:"⚗",badge:"",url:"",desc:"Pelajaran umum SMA: Kimia."},
+ {n:"13",title:"Biologi",cat:"lain",icon:"⌬",badge:"",url:"",desc:"Pelajaran umum SMA: Biologi."},
+ {n:"14",title:"Ekonomi",cat:"lain",icon:"₿",badge:"",url:"",desc:"Pelajaran umum SMA: Ekonomi."},
+ {n:"15",title:"Geografi",cat:"lain",icon:"◎",badge:"",url:"",desc:"Pelajaran umum SMA: Geografi."},
+ {n:"16",title:"Sosiologi",cat:"lain",icon:"◉",badge:"",url:"",desc:"Pelajaran umum SMA: Sosiologi."},
+ {n:"17",title:"Sejarah",cat:"lain",icon:"⌛",badge:"",url:"",desc:"Pelajaran umum SMA: Sejarah."},
+ {n:"18",title:"Literasi dan Keterampilan",cat:"lain",icon:"▤",badge:"",url:"",desc:"Materi pendukung literasi dan keterampilan belajar SMA."},
+ {n:"19",title:"Pendidikan Agama Islam (PAI)",cat:"lain",icon:"☪",badge:"",url:"",desc:"Pelajaran umum SD, SMP, dan SMA: Pendidikan Agama Islam dan Budi Pekerti."}
 ];
+/* === Deteksi otomatis modul yang benar-benar ada ===
+   Supaya kotak mapel di atas TIDAK PERLU diedit manual setiap kali modul
+   ditambah/belum ada, tiap mapel dicek ke berkas per-kelasnya sendiri
+   (modul-<slug-judul>-kelas-<N>.html, sesuai konvensi di halaman hub-nya).
+   Kalau tidak satu pun berkas kelasnya ditemukan, kotak mapel itu otomatis
+   disembunyikan dari dashboard ini -- begitu Ibra menaruh minimal satu
+   berkas kelas untuk mapel itu, kotaknya otomatis muncul lagi tanpa perlu
+   mengedit file ini sama sekali. Rentang kelas di bawah mengikuti jenjang
+   tempat mapel itu benar-benar diajarkan (mis. IPAS baru mulai kelas 3). */
+const SUBJECT_KELAS_RANGE={
+  "Bahasa Indonesia":[1,2,3,4,5,6,7,8,9,10,11,12],
+  "Matematika":[1,2,3,4,5,6,7,8,9,10,11,12],
+  "IPAS":[3,4,5,6],
+  "Pendidikan Pancasila":[1,2,3,4,5,6,7,8,9,10,11,12],
+  "Bahasa Inggris":[1,2,3,4,5,6,7,8,9,10,11,12],
+  "Seni dan Budaya":[1,2,3,4,5,6,7,8,9,10,11,12],
+  "PJOK":[1,2,3,4,5,6,7,8,9,10,11,12],
+  "IPA":[7,8,9],
+  "IPS":[7,8,9],
+  "Informatika":[7,8,9,10,11,12],
+  "Fisika":[10,11,12],
+  "Kimia":[10,11,12],
+  "Biologi":[10,11,12],
+  "Ekonomi":[10,11,12],
+  "Geografi":[10,11,12],
+  "Sosiologi":[10,11,12],
+  "Sejarah":[10,11,12],
+  "Literasi dan Keterampilan":[10,11,12],
+  "Pendidikan Agama Islam (PAI)":[1,2,3,4,5,6,7,8,9,10,11,12]
+};
+async function dashboardFileExists(url){
+  try{
+    const res=await fetch(url,{method:'HEAD',cache:'no-store'});
+    if(res.ok)return true;
+    if(res.status===405){ // sebagian server statis tidak dukung HEAD -- coba GET
+      const res2=await fetch(url,{method:'GET',cache:'no-store'});
+      return res2.ok;
+    }
+    return false;
+  }catch(e){ return null; } // null = tidak bisa diperiksa (mis. dibuka lewat file:// tanpa server lokal)
+}
+async function detectSubjectAvailability(){
+  const targets=kitab.filter(x=>SUBJECT_KELAS_RANGE[x.title]);
+  let anyCheckWorked=false;
+  await Promise.all(targets.map(async x=>{
+    const slug=dashboardLocalFile(x).replace(/\.html$/,'');
+    const files=SUBJECT_KELAS_RANGE[x.title].map(k=>`modul-${slug}-kelas-${k}.html`);
+    const results=await Promise.all(files.map(dashboardFileExists));
+    if(results.some(r=>r!==null))anyCheckWorked=true;
+    x._available=results.some(r=>r===true);
+  }));
+  if(!anyCheckWorked){
+    /* Deteksi sama sekali tidak jalan (kemungkinan dashboard dibuka langsung
+       dari file:// tanpa server lokal) -- jangan sembunyikan apa pun supaya
+       aman, tetap tampilkan semua kotak mapel seperti biasa. */
+    targets.forEach(x=>{ x._available=true; });
+    console.warn('Deteksi modul otomatis tidak berjalan (kemungkinan dashboard dibuka langsung dari file:// tanpa server lokal). Semua kotak mapel tetap ditampilkan apa adanya.');
+  }
+}
 const umum=[
+
  {n:"01",title:"POLIBUN",cat:"lain",icon:"✦",badge:"UMUM",url:"",desc:"Aplikasi dan utilitas: POLIBUN."},
  {n:"02",title:"Sawit Monitor",cat:"lain",icon:"✦",badge:"UMUM",url:"",desc:"Aplikasi dan utilitas: Sawit Monitor."},
  {n:"03",title:"KopSUS",cat:"lain",icon:"✦",badge:"UMUM",url:"",desc:"Aplikasi dan utilitas: KopSUS."},
@@ -1117,18 +1300,28 @@ function dashboardLocalFile(x){
  const slug=String(x.title||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[’']/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
  return slug?slug+'.html':'';
 }
+function umumThumb(x){
+ const title=String(x.title||'Umum & Hiburan').replace(/[&<>"']/g,'');
+ const icon=String(x.icon||'✦').replace(/[&<>"']/g,'');
+ const seed=[...title].reduce((a,c)=>a+c.charCodeAt(0),0);
+ const hue=seed%360;
+ const bg1=`hsl(${hue} 42% 93%)`, bg2=`hsl(${(hue+38)%360} 48% 78%)`;
+ const svg=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 300"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="${bg1}"/><stop offset="1" stop-color="${bg2}"/></linearGradient></defs><rect width="640" height="300" rx="22" fill="url(#g)"/><circle cx="540" cy="55" r="105" fill="white" opacity=".28"/><circle cx="95" cy="255" r="125" fill="white" opacity=".18"/><path d="M0 235 Q170 155 330 225 T640 185 V300 H0Z" fill="white" opacity=".18"/><text x="52" y="158" font-size="88" font-family="Segoe UI Emoji,Apple Color Emoji,Noto Color Emoji,sans-serif">${icon}</text><text x="52" y="245" font-size="30" font-family="Arial,sans-serif" font-weight="700" fill="#4b3820">${title.slice(0,34)}</text></svg>`;
+ return 'data:image/svg+xml;charset=UTF-8,'+encodeURIComponent(svg);
+}
+
 function card(x,dispN){
  const shown=dispN||x.n;
  const online=dashboardValidUrl(x.onlineUrl||x.url||'');
  const local=x.localUrl||dashboardLocalFile(x);
  const href=online||local||'#';
  const sourceLabel=online?'ONLINE':'OFFLINE';
- const hideBadge=['SD','SMP','SMA'].includes(x.badge);
+ const hideBadge=!x.badge||['SD','SMP','SMA'].includes(x.badge);
  return `<a href="${escAttr(href)}" class="card" data-url="${escAttr(online)}" data-local-url="${escAttr(local)}" data-title="${escAttr(x.title)}" data-cat="${escAttr(x.cat||'umum')}" data-n="${escAttr(x.n)}" data-source="${sourceLabel}">
    <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
    <button type="button" class="card-newtab" data-newtab-url="${escAttr(href)}" title="Buka modul ini di tab baru" aria-label="Buka modul ini di tab baru">↗</button>
    <div class="card-top"><span class="num">MODUL ${shown}</span>${hideBadge?'':`<span class="badge">${x.badge}</span>`}</div>
-   <div class="icon">${x.icon}</div>
+   ${x.section==='umum'?`<div class="umum-thumb"><img src="${escAttr(umumThumb(x))}" alt="Thumbnail ${escAttr(x.title)}" loading="lazy"><span class="thumb-shade"></span><span class="thumb-icon">${x.icon||'✦'}</span></div>`:`<div class="icon">${x.icon}</div>`}
    <div class="card-body"><h3>${x.title}</h3><p>${x.desc}</p></div>
    <div class="card-bottom"><span class="path">${online?(new URL(online).pathname.replaceAll('/','')||'/'):local}</span><span class="open">${online&&local?'Online / Offline →':'Buka →'}</span></div>
  </a>`;
@@ -1713,7 +1906,17 @@ if('IntersectionObserver' in window){
 
   function computeLists(){
     const merged=allBaseModules();
-    const kitabList=merged.filter(x=>x.section!=='umum').sort(byStableId);
+    const kitabList=merged.filter(x=>{
+      if(x.section==='umum')return false;
+      if(x._available===false){
+        /* Kalau item ini sudah dikustom lewat manajer modul (diberi link online
+           atau file lokal yang berbeda dari nama bawaan), jangan sembunyikan --
+           anggap itu keputusan sadar Ibra, bukan status "belum ada modul". */
+        const customized=x.onlineUrl||(x.localUrl&&x.localUrl!==dashboardLocalFile(x));
+        if(!customized)return false;
+      }
+      return true;
+    }).sort(byStableId);
     const umumList=merged.filter(x=>x.section==='umum').sort(byStableId);
     return{kitabList,umumList};
   }
@@ -1857,6 +2060,7 @@ if('IntersectionObserver' in window){
   });
 
   renderAll();
+  detectSubjectAvailability().then(renderAll);
   syncFromSheet();
 })();
 
@@ -1995,6 +2199,12 @@ if('IntersectionObserver' in window){
   }
 
   function esc(v){return String(v??'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+  const pdfThumbMemory=new Map(); let pdfThumbBusy=false; const PDF_THUMB_MAX_W=320;
+  function driveThumbUrl(x){return x&&x.driveId?'https://drive.google.com/thumbnail?id='+encodeURIComponent(x.driveId)+'&sz=w'+PDF_THUMB_MAX_W:''}
+  async function makeLocalPdfThumb(x){if(!x||!x.file)return '';if(pdfThumbMemory.has(x.id))return pdfThumbMemory.get(x.id);try{const lib=await loadPdfJs();const doc=await lib.getDocument({data:await x.file.arrayBuffer()}).promise;const page=await doc.getPage(1),base=page.getViewport({scale:1});const scale=Math.min(PDF_THUMB_MAX_W/base.width,.38),vp=page.getViewport({scale:Math.max(.2,scale)});const c=document.createElement('canvas');c.width=Math.max(1,Math.floor(vp.width));c.height=Math.max(1,Math.floor(vp.height));await page.render({canvasContext:c.getContext('2d',{alpha:false}),viewport:vp}).promise;const data=c.toDataURL('image/jpeg',.58);pdfThumbMemory.set(x.id,data);return data}catch(e){console.warn('Thumbnail PDF tidak dapat dibuat:',e);return ''}}
+  async function setPdfCover(card,x){const holder=card?.querySelector('[data-pdf-cover]');if(!holder||holder.dataset.coverLoaded==='1')return;const img=document.createElement('img');img.className='pdf-cover';img.alt='Sampul halaman pertama '+((x?.name||'PDF').replace(/\.pdf$/i,''));img.decoding='async';img.loading='lazy';let src=x?.remote?driveThumbUrl(x):'';if(src){img.onload=()=>{holder.classList.add('has-cover');holder.dataset.coverLoaded='1';holder.querySelector('.pdf-cover-fallback')?.remove()};img.onerror=()=>img.remove();img.src=src;holder.appendChild(img);return}if(pdfThumbBusy)return;pdfThumbBusy=true;try{src=await makeLocalPdfThumb(x);if(src){img.onload=()=>{holder.classList.add('has-cover');holder.dataset.coverLoaded='1';holder.querySelector('.pdf-cover-fallback')?.remove()};img.src=src;holder.appendChild(img)}}finally{pdfThumbBusy=false}}
+  function lazyPdfCovers(){const cards=[...grid.querySelectorAll('.pdf-card')];if(!(('IntersectionObserver') in window)){cards.slice(0,2).forEach(c=>{const x=pdfEntries.find(y=>y.id===c.dataset.pdfId);if(x)setPdfCover(c,x)});return}const io=new IntersectionObserver(entries=>{entries.filter(e=>e.isIntersecting).forEach(e=>{const x=pdfEntries.find(y=>y.id===e.target.dataset.pdfId);if(x)setPdfCover(e.target,x);io.unobserve(e.target)})},{rootMargin:'180px 0px'});cards.forEach(c=>io.observe(c))}
+
   function updateEmpty(){
     empty.style.display=pdfEntries.length?'none':'block';
     if(!pdfEntries.length){
@@ -2127,7 +2337,7 @@ if('IntersectionObserver' in window){
       return `<div class="card pdf-card" data-pdf-id="${esc(x.id)}">
       <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
       <div class="card-top"><span class="num">PDF ${String(i+1).padStart(2,'0')}</span><span class="badge">${x.remote?(isLarge?'PDF · BESAR':'PDF · DRIVE'):'PDF'}</span></div>
-      <div class="icon">PDF</div>
+      <div class="icon" data-pdf-cover><span class="pdf-cover-fallback">PDF</span></div>
       <div class="card-body"><h3>${esc(title)}</h3><p>${x.remote?(isLarge?'File berukuran besar ('+esc(sizeLabel)+') -- diunduh langsung lalu dibuka di pembaca VAOZEE.':'Kitab PDF dari koleksi Google Drive, dibuka di pembaca VAOZEE (mode scroll/buku).'):'Pembaca PDF VAOZEE dengan mode scroll biasa atau mode buku halaman per halaman.'}</p><div class="pdf-meta">${esc(x.path||x.name||'')}${sizeLabel?' · '+esc(sizeLabel):''}</div></div>
       <div class="card-bottom"><span class="path">${esc(x.name||'PDF Tanpa Judul')}</span><span class="open" data-pdf-open>Baca PDF →</span></div>
     </div>`;
@@ -2144,6 +2354,7 @@ if('IntersectionObserver' in window){
       });
     });
     updateEmpty();
+    lazyPdfCovers();
   }
 
   pickFiles&&pickFiles.addEventListener('click',()=>filesInput.click());
@@ -2182,6 +2393,8 @@ if('IntersectionObserver' in window){
   modal.addEventListener('touchstart',revealPdfHeader,{passive:true});
 
   function openPdf(x){
+    const activeCard=grid.querySelector('.pdf-card[data-pdf-id="'+CSS.escape(String(x.id))+'"]');
+    if(activeCard)setPdfCover(activeCard,x);
     activePdf=x; activeSpread=1; activeDoc=null;
     const url=URL.createObjectURL(x.file);
     frame.dataset.pdfBlob=url; frame.src='about:blank';

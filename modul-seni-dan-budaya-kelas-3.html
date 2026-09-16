@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modul Seni Rupa Kelas 3 — Kurikulum Merdeka</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F7F1E1; --paper-line:#E4D9BE;
+    --ink:#2B2B27; --ink-soft:#5B5648;
+    --accent:#B2588A; --tint:#F5E6EF;
+    --chalk:#2E3430;
+    --card-shadow: 3px 3px 0 rgba(43,43,39,0.10);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:repeating-linear-gradient(to bottom, transparent 0px, transparent 34px, var(--paper-line) 35px), var(--paper);
+    color:var(--ink); font-family:'Atkinson Hyperlegible', sans-serif; font-size:17px; line-height:1.65; padding-bottom:60px;
+  }
+  h1,h2,h3,h4{font-family:'Baloo 2', sans-serif; margin:0 0 .4em 0;}
+
+  .cover{position:relative; padding:38px 24px 30px; max-width:920px; margin:0 auto; border-bottom:3px solid var(--ink);}
+  .cover .stamp{position:absolute; top:28px; right:24px; width:88px; height:88px; border-radius:50%; border:3px dashed var(--ink);
+    display:flex; align-items:center; justify-content:center; transform:rotate(-8deg); font-family:'Baloo 2',sans-serif; font-weight:700;
+    font-size:12px; text-align:center; line-height:1.2; color:var(--ink-soft); padding:6px;}
+  .cover h1{font-size:2.1rem; max-width:600px; color:var(--accent);}
+  .cover p.sub{margin:0; color:var(--ink-soft); font-size:1.02rem; max-width:600px;}
+  .cover .meta{margin-top:18px; display:flex; flex-wrap:wrap; gap:10px 26px; font-size:.92rem; color:var(--ink-soft);}
+  .cover .meta span b{color:var(--ink); font-weight:700;}
+
+  .topicbar{
+    max-width:920px; margin:8px auto 0; padding:0 24px 6px;
+    display:flex; gap:8px; flex-wrap:wrap; position:sticky; top:0; background:var(--paper); z-index:20; padding-top:10px;
+  }
+  .topic-btn{
+    appearance:none; cursor:pointer; border:2.5px solid var(--ink); background:#fff; color:var(--ink-soft);
+    font-family:'Baloo 2',sans-serif; font-weight:700; font-size:.82rem; padding:8px 14px; border-radius:20px;
+  }
+  .topic-btn.active{background:var(--accent); border-color:var(--accent); color:#fff;}
+
+  .panelwrap{max-width:920px; margin:0 auto; border:3px solid var(--ink); border-top:none; background:#fffdf8; padding:6px;}
+  .panel{display:none; padding:26px 26px 10px;}
+  .panel.active{display:block;}
+
+  .section{margin:0 0 34px;}
+  .section-head{display:flex; align-items:baseline; gap:10px; border-bottom:2.5px solid var(--accent); padding-bottom:6px; margin-bottom:14px;}
+  .section-head h2{font-size:1.35rem; color:var(--ink);}
+  .section-head .tag{font-family:'Baloo 2',sans-serif; font-weight:700; font-size:.72rem; padding:3px 10px; border-radius:20px; background:var(--accent); color:#fff;}
+
+  .info-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px 24px; background:#fff; border:2px solid var(--paper-line); border-radius:10px; padding:16px 18px; font-size:.94rem;}
+  .info-grid div b{display:block; color:var(--ink-soft); font-size:.78rem; font-weight:700; margin-bottom:2px;}
+  @media(max-width:600px){.info-grid{grid-template-columns:1fr;}}
+
+  ul.tp-list{margin:0; padding-left:22px;}
+  ul.tp-list li{margin-bottom:6px;}
+
+  .callout{border-radius:10px; padding:18px 20px; margin:16px 0;}
+  .callout h4{font-size:1.02rem; display:flex; align-items:center; gap:8px; color:var(--accent);}
+  .pemahaman{border:2px dashed var(--accent); background:var(--tint);}
+  .pemahaman h4{color:var(--accent);}
+
+  .guru{background:var(--chalk); color:#EDEAE2; border:2px solid var(--chalk);}
+  .guru h4{color:#fff;} .guru b{color:#fff;}
+  .guru ul{padding-left:20px; margin:8px 0 0;} .guru li{margin-bottom:6px;}
+
+  .murid{border:2.5px solid var(--accent); background:#fff;}
+  .murid .isi{color:var(--ink);}
+
+  .contoh-visual{display:flex; flex-wrap:wrap; gap:14px; margin:14px 0;}
+  .contoh-visual .kartu{flex:1 1 150px; background:#fff; border:2px solid var(--paper-line); border-radius:10px; padding:12px 14px; text-align:center; font-size:.92rem;}
+  .contoh-visual .kartu .emoji{font-size:1.6rem; display:block; margin-bottom:6px; letter-spacing:2px;}
+
+  .soal-card{background:#fff; border:2px solid var(--ink); border-radius:2px 14px 2px 14px; padding:16px 18px; margin-bottom:14px; box-shadow:var(--card-shadow);}
+  .soal-card .no{font-family:'Baloo 2',sans-serif; font-weight:800; font-size:.85rem; color:#fff; background:var(--ink);
+    display:inline-flex; align-items:center; justify-content:center; width:26px; height:26px; border-radius:50%; margin-right:8px; flex-shrink:0;}
+  .soal-card .pertanyaan{display:flex; align-items:flex-start; gap:4px; font-weight:600;}
+  .soal-card .pilihan{list-style:none; padding:0; margin:10px 0 0 34px; font-size:.95rem;}
+  .soal-card .pilihan li{margin-bottom:4px;} .soal-card .pilihan li b{margin-right:6px;}
+  details.jawaban{margin:10px 0 0 34px;}
+  details.jawaban summary{cursor:pointer; font-family:'Baloo 2',sans-serif; font-weight:700; font-size:.85rem; color:var(--ink-soft); display:inline-block; padding:4px 0;}
+  details.jawaban[open] summary{color:var(--ink);}
+  details.jawaban .kotak-jawab{margin-top:8px; padding:10px 14px; border-radius:8px; font-size:.92rem; background:var(--tint);}
+
+  footer{max-width:920px; margin:24px auto 0; padding:0 26px; color:var(--ink-soft); font-size:.85rem; text-align:center;}
+  @media print{.topicbar{display:none;} .panel{display:block !important; page-break-after:always;}}
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="stamp">KURIKULUM<br>MERDEKA<br>FASE B</div>
+  <h1>Modul Ajar Seni Rupa</h1>
+  <p class="sub">Kelas 3 SD — 6 topik lengkap untuk 2 semester, mulai memasuki teknik dan prinsip komposisi yang lebih beragam, dilengkapi catatan pedagogis untuk guru, penjelasan untuk murid, dan latihan soal apresiasi seni beserta kunci jawaban.</p>
+  <div class="meta">
+    <span>Kelas: <b>3 (Tiga)</b></span>
+    <span>Elemen CP: <b>Mengalami, Menciptakan, Merefleksikan, Berpikir & Bekerja Artistik, Berdampak</b></span>
+    <span>Total Alokasi: <b>±18 pertemuan</b></span>
+  </div>
+</div>
+
+<div class="topicbar" id="topicbar">
+  <button class="topic-btn active" data-t="t1">1. Ilustrasi Cerita</button>
+  <button class="topic-btn" data-t="t2">2. Mozaik Sederhana</button>
+  <button class="topic-btn" data-t="t3">3. Prinsip Keseimbangan</button>
+  <button class="topic-btn" data-t="t4">4. Karya Daur Ulang</button>
+  <button class="topic-btn" data-t="t5">5. Ragam Hias Nusantara</button>
+  <button class="topic-btn" data-t="t6">6. Pameran & Apresiasi</button>
+</div>
+
+<div class="panelwrap">
+
+<!-- ============ TOPIK 1 ============ -->
+<div class="panel active" data-t="t1">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 1</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Menggambar Ilustrasi Cerita Sederhana</div>
+      <div><b>Alokasi Waktu</b>3 x pertemuan (3 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Dapat menggambar objek dari pengamatan (materi kelas 2)</div>
+      <div><b>Profil Pelajar Pancasila</b>Kreatif, bernalar kritis</div>
+      <div><b>Sarana</b>Cerita pendek untuk dibacakan, kertas gambar</div>
+      <div><b>Model</b>Menggambar berdasarkan cerita yang disimak</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat menggambar ilustrasi yang menggambarkan adegan dari cerita yang dibaca/didengar.</li>
+      <li>Peserta didik dapat menyusun beberapa gambar menjadi rangkaian cerita sederhana.</li>
+      <li>Peserta didik dapat menjelaskan hubungan antara gambar dan bagian cerita yang diwakilinya.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Ilustrasi membantu kita menyampaikan cerita secara visual, sebuah keterampilan yang menggabungkan kemampuan memahami cerita dengan kemampuan menggambar.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>📖 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Pilih cerita pendek yang familiar</b> bagi siswa (dongeng, cerita rakyat sederhana) agar mereka lebih mudah membayangkan adegannya.</li>
+        <li><b>Miskonsepsi umum:</b> siswa/guru mengira ilustrasi harus sangat detail dan realistis. Tekankan bahwa ilustrasi sederhana pun efektif selama menyampaikan inti cerita.</li>
+        <li><b>Minta siswa memilih 1 adegan penting</b> dari cerita untuk digambar, agar fokus dan tidak kewalahan menggambar keseluruhan cerita sekaligus.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah mahir bisa membuat rangkaian 3-4 gambar (seperti komik sederhana); siswa lain cukup 1 gambar adegan favorit.</li>
+        <li><b>Asesmen formatif:</b> minta siswa menjelaskan hubungan gambarnya dengan bagian cerita yang diwakilinya.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>📖 Ayo Gambar Ceritamu!</h4>
+      <div class="isi">
+        <p>Dengarkan atau baca cerita, lalu pilih 1 adegan yang paling menarik bagimu, dan gambarkan adegan tersebut.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">5 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Apa fungsi ilustrasi dalam sebuah cerita?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> membantu menyampaikan cerita secara visual, memudahkan pembaca membayangkan adegannya.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Apakah ilustrasi harus sangat detail dan rumit?</div>
+      <ul class="pilihan"><li><b>a.</b> ya, harus selalu detail</li><li><b>b.</b> tidak, ilustrasi sederhana juga efektif</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: b</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Sebutkan 1 hal yang perlu dipikirkan sebelum menggambar ilustrasi cerita!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> adegan mana yang akan digambar, siapa tokoh yang terlibat.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Jelaskan hubungan antara gambar ilustrasi yang kamu buat dengan cerita yang kamu dengar!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban bebas</b> sesuai gambar dan cerita masing-masing siswa.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Praktik: gambarlah ilustrasi dari salah satu adegan cerita yang dibacakan gurumu!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Panduan penilaian guru:</b> nilai kesesuaian gambar dengan cerita, bukan kerumitan teknis.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 2 ============ -->
+<div class="panel" data-t="t2">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 1</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Membuat Karya Mozaik Sederhana</div>
+      <div><b>Alokasi Waktu</b>3 x pertemuan (3 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Dapat membuat karya kolase (materi kelas 2)</div>
+      <div><b>Profil Pelajar Pancasila</b>Kreatif, mandiri</div>
+      <div><b>Sarana</b>Potongan kertas kecil/biji-bijian seragam, lem, kertas dasar bergambar pola</div>
+      <div><b>Model</b>Latihan menempel dengan pola teratur</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat menyusun potongan kecil (kertas/biji-bijian) menjadi gambar menggunakan teknik mozaik.</li>
+      <li>Peserta didik dapat membedakan teknik mozaik dari kolase.</li>
+      <li>Peserta didik dapat menyelesaikan karya mozaik dengan kesabaran dan ketelitian.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Mozaik mengajarkan bahwa gambar besar bisa terbentuk dari banyak potongan kecil yang disusun rapi, melatih kesabaran dan ketekunan.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>🔲 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Bedakan mozaik dari kolase secara eksplisit:</b> mozaik menggunakan potongan-potongan kecil berukuran seragam yang menutupi seluruh bidang gambar, sedangkan kolase menggunakan bahan beragam bentuk secara lebih bebas.</li>
+        <li><b>Miskonsepsi umum:</b> siswa mengira mozaik dan kolase adalah teknik yang sama. Tunjukkan contoh perbandingan keduanya secara berdampingan.</li>
+        <li><b>Sediakan pola sederhana</b> (misalnya gambar bunga atau bintang) sebagai panduan awal sebelum siswa menyusun potongan mozaiknya.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah terampil bisa membuat mozaik dengan pola lebih rumit; siswa lain cukup mengisi pola sederhana.</li>
+        <li><b>Asesmen formatif:</b> amati kerapian dan kesabaran siswa dalam menyusun potongan mozaik.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>🔲 Ayo Membuat Mozaik!</h4>
+      <div class="isi">
+        <p><b>Mozaik</b> dibuat dari banyak potongan kecil seragam yang disusun rapat menutupi seluruh gambar — berbeda dengan kolase yang bahannya lebih bebas bentuknya.</p>
+        <p>Tempelkan potongan kecil satu per satu mengikuti pola gambar dengan sabar!</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">5 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Apa yang dimaksud dengan teknik mozaik?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> teknik menyusun potongan-potongan kecil berukuran seragam untuk menutupi seluruh bidang gambar.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Apa perbedaan utama mozaik dan kolase?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> mozaik menggunakan potongan kecil seragam menutupi seluruh bidang, kolase menggunakan bahan beragam bentuk secara lebih bebas.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Sebutkan 1 bahan yang bisa digunakan untuk membuat mozaik!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> potongan kertas kecil, biji-bijian, kepingan keramik.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Sebutkan 1 keterampilan yang dilatih saat membuat mozaik!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> kesabaran, ketelitian.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Praktik: buatlah karya mozaik sederhana mengikuti pola yang diberikan gurumu!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Panduan penilaian guru:</b> nilai kerapian dan kesabaran, bukan kecepatan.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 3 ============ -->
+<div class="panel" data-t="t3">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 1</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Mengenal Prinsip Komposisi (Keseimbangan Sederhana)</div>
+      <div><b>Alokasi Waktu</b>3 x pertemuan (3 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Mengenal garis, bentuk, dan warna dasar (materi kelas 1-2)</div>
+      <div><b>Profil Pelajar Pancasila</b>Bernalar kritis, kreatif</div>
+      <div><b>Sarana</b>Contoh gambar simetris dan asimetris, kertas gambar</div>
+      <div><b>Model</b>Perbandingan visual & praktik komposisi</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat mengenal konsep keseimbangan simetris dan asimetris dalam komposisi gambar.</li>
+      <li>Peserta didik dapat membedakan contoh gambar simetris dan asimetris.</li>
+      <li>Peserta didik dapat menerapkan keseimbangan sederhana dalam karyanya sendiri.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Keseimbangan dalam komposisi membuat karya seni terasa nyaman dilihat, meski bisa dicapai dengan cara yang simetris (rapi) maupun asimetris (dinamis).</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>⚖️ Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Gunakan contoh visual sederhana</b> untuk membandingkan komposisi simetris (kedua sisi sama) dan asimetris (berbeda tapi tetap seimbang).</li>
+        <li><b>Miskonsepsi umum:</b> siswa mengira komposisi asimetris berarti "berantakan" atau salah. Jelaskan bahwa asimetris tetap bisa terasa seimbang jika disusun dengan tepat, misalnya objek besar di satu sisi diimbangi beberapa objek kecil di sisi lain.</li>
+        <li><b>Ajak siswa membandingkan</b> contoh kupu-kupu (simetris) dengan lukisan pemandangan (sering asimetris) untuk melihat perbedaannya secara nyata.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah mahir bisa bereksperimen dengan komposisi asimetris; siswa lain mulai dengan komposisi simetris yang lebih mudah dipahami.</li>
+        <li><b>Asesmen formatif:</b> amati pemahaman siswa dalam membedakan dan menerapkan kedua jenis keseimbangan.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>⚖️ Ayo Kenali Keseimbangan!</h4>
+      <div class="isi">
+        <div class="contoh-visual">
+          <div class="kartu"><span class="emoji">🦋</span>Simetris: kedua sisi sama persis</div>
+          <div class="kartu"><span class="emoji">🏞️</span>Asimetris: berbeda tapi tetap terasa seimbang</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">5 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Komposisi di mana kedua sisi gambar sama persis disebut ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: simetris</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Sebutkan 1 contoh benda/gambar yang bersifat simetris!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> kupu-kupu, wajah manusia (secara umum), daun.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Apakah komposisi asimetris berarti berantakan?</div>
+      <ul class="pilihan"><li><b>a.</b> ya</li><li><b>b.</b> tidak, tetap bisa terasa seimbang</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: b</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Sebutkan 1 cara membuat komposisi asimetris tetap seimbang!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> objek besar di satu sisi diimbangi dengan beberapa objek kecil di sisi lain.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Praktik: buatlah 2 gambar sederhana, satu dengan komposisi simetris dan satu dengan komposisi asimetris!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Panduan penilaian guru:</b> periksa pemahaman siswa terhadap kedua jenis komposisi.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 4 ============ -->
+<div class="panel" data-t="t4">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 2</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Membuat Karya Seni dari Bahan Daur Ulang</div>
+      <div><b>Alokasi Waktu</b>3 x pertemuan (3 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Dapat membuat karya 3 dimensi sederhana (materi kelas 2)</div>
+      <div><b>Profil Pelajar Pancasila</b>Kreatif, peduli lingkungan</div>
+      <div><b>Sarana</b>Kardus, botol plastik bersih, kertas bekas</div>
+      <div><b>Model</b>Proyek daur ulang kreatif</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat memanfaatkan bahan bekas/daur ulang menjadi karya seni.</li>
+      <li>Peserta didik dapat menjelaskan pentingnya daur ulang bagi kelestarian lingkungan.</li>
+      <li>Peserta didik dapat mengembangkan kreativitas dalam mengolah bahan yang terbatas.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Membuat karya dari bahan daur ulang mengajarkan bahwa barang bekas bisa memiliki nilai baru, sekaligus menanamkan kesadaran menjaga lingkungan sejak dini.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>♻️ Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Sediakan bahan bekas yang bersih dan aman</b> (kardus, botol plastik yang sudah dicuci, kertas bekas) sebelum digunakan siswa.</li>
+        <li><b>Kaitkan kegiatan dengan kesadaran lingkungan</b> — diskusikan mengapa daur ulang penting untuk mengurangi sampah.</li>
+        <li><b>Miskonsepsi umum:</b> siswa/orang tua mengira karya dari bahan daur ulang pasti terlihat "murahan" atau kurang bagus. Tunjukkan contoh karya daur ulang yang kreatif dan menarik untuk mematahkan anggapan ini.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah kreatif bisa menggabungkan beberapa jenis bahan bekas; siswa lain cukup menggunakan 1-2 jenis bahan sederhana.</li>
+        <li><b>Asesmen formatif:</b> amati kreativitas siswa dalam mengolah bahan terbatas menjadi karya baru.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>♻️ Ayo Berkreasi dari Bahan Bekas!</h4>
+      <div class="isi">
+        <p>Botol plastik bisa jadi vas bunga, kardus bisa jadi rumah-rumahan mini! Barang bekas bisa punya kehidupan baru lewat kreativitasmu.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">5 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Sebutkan 1 contoh bahan bekas yang bisa didaur ulang menjadi karya seni!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> kardus, botol plastik, kertas bekas.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Mengapa daur ulang penting bagi lingkungan?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> untuk mengurangi jumlah sampah dan memanfaatkan kembali barang yang masih bisa digunakan.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Apakah karya dari bahan daur ulang pasti terlihat murahan?</div>
+      <ul class="pilihan"><li><b>a.</b> ya</li><li><b>b.</b> tidak, bisa terlihat kreatif dan menarik</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: b</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Sebutkan 1 contoh benda yang bisa dibuat dari botol plastik bekas!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> vas bunga, tempat pensil.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Praktik: buatlah karya seni dari bahan daur ulang yang disediakan gurumu!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Panduan penilaian guru:</b> nilai kreativitas dan pemanfaatan bahan.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 5 ============ -->
+<div class="panel" data-t="t5">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 2</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Mengenal Ragam Hias Nusantara Sederhana</div>
+      <div><b>Alokasi Waktu</b>3 x pertemuan (3 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Mengenal motif tradisional daerah sendiri (materi kelas 2)</div>
+      <div><b>Profil Pelajar Pancasila</b>Berkebinekaan global, kreatif</div>
+      <div><b>Sarana</b>Contoh ragam hias flora, fauna, geometris dari berbagai daerah</div>
+      <div><b>Model</b>Observasi & praktik menggambar ulang</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat mengenal beberapa jenis ragam hias khas Nusantara (flora, fauna, geometris).</li>
+      <li>Peserta didik dapat mencoba menggambar ulang ragam hias sederhana.</li>
+      <li>Peserta didik dapat menyebutkan asal daerah dari ragam hias yang dipelajarinya.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Ragam hias Nusantara sangat beragam, mencerminkan kekayaan budaya Indonesia dari Sabang sampai Merauke, bukan hanya satu jenis pola saja.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>🌺 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Gunakan referensi ragam hias dari beberapa daerah berbeda</b> (bukan hanya satu daerah) agar siswa memahami keberagamannya.</li>
+        <li><b>Miskonsepsi umum:</b> siswa mengira ragam hias Nusantara hanya berupa satu jenis pola tertentu. Perkenalkan variasi flora (bunga, daun), fauna (burung, ikan), dan geometris (garis, bentuk berulang).</li>
+        <li><b>Latih menggambar ulang pola sederhana</b> dari ragam hias yang ditunjukkan, dimulai dari bentuk dasarnya.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah mahir bisa mencoba ragam hias yang lebih detail; siswa lain cukup meniru pola paling sederhana.</li>
+        <li><b>Asesmen formatif:</b> amati usaha siswa mengenali jenis ragam hias dan menggambar ulangnya.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>🌺 Ayo Kenali Ragam Hias Nusantara!</h4>
+      <div class="isi">
+        <div class="contoh-visual">
+          <div class="kartu"><span class="emoji">🌸</span>Ragam hias flora</div>
+          <div class="kartu"><span class="emoji">🦚</span>Ragam hias fauna</div>
+          <div class="kartu"><span class="emoji">◆</span>Ragam hias geometris</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">5 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Sebutkan 3 jenis ragam hias Nusantara!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: flora, fauna, geometris</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Ragam hias yang terinspirasi dari bentuk tumbuhan disebut ragam hias ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: flora</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Ragam hias yang terinspirasi dari bentuk hewan disebut ragam hias ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: fauna</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Mengapa ragam hias Nusantara sangat beragam?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> karena Indonesia memiliki banyak daerah dengan budaya dan tradisi yang berbeda-beda.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Praktik: gambarlah ulang salah satu ragam hias sederhana yang ditunjukkan gurumu!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Panduan penilaian guru:</b> nilai usaha meniru pola, bukan kesempurnaan.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 6 ============ -->
+<div class="panel" data-t="t6">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 2</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Pameran Kecil dan Apresiasi Karya Sendiri & Teman</div>
+      <div><b>Alokasi Waktu</b>3 x pertemuan (3 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Memiliki beberapa karya dari topik-topik sebelumnya</div>
+      <div><b>Profil Pelajar Pancasila</b>Bernalar kritis, mandiri</div>
+      <div><b>Sarana</b>Karya-karya siswa sepanjang semester, ruang pajang sederhana</div>
+      <div><b>Model</b>Pameran kelas & sesi apresiasi</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat menyiapkan dan menata karyanya sendiri untuk pameran sederhana.</li>
+      <li>Peserta didik dapat menceritakan proses dan makna di balik karyanya.</li>
+      <li>Peserta didik dapat memberikan apresiasi terhadap karya teman dengan bahasa yang santun.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Memamerkan dan mengapresiasi karya melatih rasa percaya diri serta kemampuan memberi dan menerima umpan balik secara positif.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>🖼️ Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Rancang pameran kecil di kelas</b> sebagai puncak pembelajaran seni rupa semester ini, memajang karya-karya siswa dari berbagai topik.</li>
+        <li><b>Latih siswa memberi komentar konstruktif</b>, bukan hanya "bagus" atau "jelek" — misalnya "aku suka warnanya karena..." atau "menurutku ide ceritanya menarik karena...".</li>
+        <li><b>Miskonsepsi umum:</b> siswa mengira apresiasi hanya berarti memuji tanpa alasan. Tekankan pentingnya memberikan alasan spesifik di balik komentar mereka.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah percaya diri bisa menceritakan karyanya di depan kelas; siswa lain cukup bercerita kepada teman sebangku.</li>
+        <li><b>Asesmen formatif:</b> amati kualitas apresiasi (bukan hanya kesantunan) yang diberikan siswa terhadap karya temannya.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>🖼️ Ayo Berbagi dan Mengapresiasi!</h4>
+      <div class="isi">
+        <p>Pajang salah satu karya favoritmu, lalu ceritakan proses membuatnya. Saat melihat karya teman, beri komentar dengan alasan, misalnya: <i>"Aku suka warnanya karena terlihat ceria."</i></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">5 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Pilihlah 1 karyamu yang paling kamu sukai, lalu ceritakan alasannya!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban bebas</b> sesuai karya dan alasan masing-masing siswa.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Contoh apresiasi yang baik terhadap karya teman adalah ...</div>
+      <ul class="pilihan"><li><b>a.</b> "Bagus." saja tanpa alasan</li><li><b>b.</b> "Aku suka warnanya karena terlihat ceria."</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: b</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Mengapa penting memberi alasan saat mengapresiasi karya teman?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> agar apresiasi terasa lebih bermakna dan membantu teman memahami kelebihan karyanya.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Bagaimana perasaanmu jika karyamu diapresiasi oleh teman?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban bebas</b> sesuai pengalaman masing-masing siswa.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Praktik: ikuti pameran kecil di kelas, tampilkan karyamu, dan beri apresiasi kepada minimal 2 karya teman!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Panduan penilaian guru:</b> amati kualitas apresiasi dan kepercayaan diri siswa saat berbagi.</div></details></div>
+  </div>
+</div>
+
+</div><!-- /panelwrap -->
+
+<footer>Modul Seni Rupa Kelas 3 · Kurikulum Merdeka Fase B · Dapat dicetak (Ctrl/Cmd + P) untuk dibagikan ke siswa</footer>
+
+<script>
+  const btns = document.querySelectorAll('.topic-btn');
+  const panels = document.querySelectorAll('.panel');
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const t = btn.getAttribute('data-t');
+      btns.forEach(b => b.classList.toggle('active', b === btn));
+      panels.forEach(p => p.classList.toggle('active', p.getAttribute('data-t') === t));
+      window.scrollTo({top: 0, behavior:'smooth'});
+    });
+  });
+</script>
+
+</body>
+</html>

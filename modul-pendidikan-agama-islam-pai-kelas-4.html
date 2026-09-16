@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modul PAI Kelas 4 — Kurikulum Merdeka</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Atkinson+Hyperlegible:wght@400;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F7F1E1; --paper-line:#E4D9BE;
+    --ink:#2B2B27; --ink-soft:#5B5648;
+    --accent:#2F7A52; --tint:#E4F2E9;
+    --chalk:#243A2E;
+    --card-shadow: 3px 3px 0 rgba(43,43,39,0.10);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:repeating-linear-gradient(to bottom, transparent 0px, transparent 34px, var(--paper-line) 35px), var(--paper);
+    color:var(--ink); font-family:'Atkinson Hyperlegible', sans-serif; font-size:17px; line-height:1.65; padding-bottom:60px;
+  }
+  h1,h2,h3,h4{font-family:'Baloo 2', sans-serif; margin:0 0 .4em 0;}
+  .arab{font-family:'Amiri', serif; font-size:1.4rem; direction:rtl; display:inline-block;}
+
+  .cover{position:relative; padding:38px 24px 30px; max-width:920px; margin:0 auto; border-bottom:3px solid var(--ink);}
+  .cover .stamp{position:absolute; top:28px; right:24px; width:88px; height:88px; border-radius:50%; border:3px dashed var(--ink);
+    display:flex; align-items:center; justify-content:center; transform:rotate(-8deg); font-family:'Baloo 2',sans-serif; font-weight:700;
+    font-size:12px; text-align:center; line-height:1.2; color:var(--ink-soft); padding:6px;}
+  .cover h1{font-size:2.1rem; max-width:600px; color:var(--accent);}
+  .cover p.sub{margin:0; color:var(--ink-soft); font-size:1.02rem; max-width:600px;}
+  .cover .meta{margin-top:18px; display:flex; flex-wrap:wrap; gap:10px 26px; font-size:.92rem; color:var(--ink-soft);}
+  .cover .meta span b{color:var(--ink); font-weight:700;}
+
+  .topicbar{
+    max-width:920px; margin:8px auto 0; padding:0 24px 6px;
+    display:flex; gap:8px; flex-wrap:wrap; position:sticky; top:0; background:var(--paper); z-index:20; padding-top:10px;
+  }
+  .topic-btn{
+    appearance:none; cursor:pointer; border:2.5px solid var(--ink); background:#fff; color:var(--ink-soft);
+    font-family:'Baloo 2',sans-serif; font-weight:700; font-size:.82rem; padding:8px 14px; border-radius:20px;
+  }
+  .topic-btn.active{background:var(--accent); border-color:var(--accent); color:#fff;}
+
+  .panelwrap{max-width:920px; margin:0 auto; border:3px solid var(--ink); border-top:none; background:#fffdf8; padding:6px;}
+  .panel{display:none; padding:26px 26px 10px;}
+  .panel.active{display:block;}
+
+  .section{margin:0 0 34px;}
+  .section-head{display:flex; align-items:baseline; gap:10px; border-bottom:2.5px solid var(--accent); padding-bottom:6px; margin-bottom:14px;}
+  .section-head h2{font-size:1.35rem; color:var(--ink);}
+  .section-head .tag{font-family:'Baloo 2',sans-serif; font-weight:700; font-size:.72rem; padding:3px 10px; border-radius:20px; background:var(--accent); color:#fff;}
+
+  .info-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px 24px; background:#fff; border:2px solid var(--paper-line); border-radius:10px; padding:16px 18px; font-size:.94rem;}
+  .info-grid div b{display:block; color:var(--ink-soft); font-size:.78rem; font-weight:700; margin-bottom:2px;}
+  @media(max-width:600px){.info-grid{grid-template-columns:1fr;}}
+
+  ul.tp-list{margin:0; padding-left:22px;}
+  ul.tp-list li{margin-bottom:6px;}
+
+  .callout{border-radius:10px; padding:18px 20px; margin:16px 0;}
+  .callout h4{font-size:1.02rem; display:flex; align-items:center; gap:8px; color:var(--accent);}
+  .pemahaman{border:2px dashed var(--accent); background:var(--tint);}
+  .pemahaman h4{color:var(--accent);}
+
+  .guru{background:var(--chalk); color:#EDEAE2; border:2px solid var(--chalk);}
+  .guru h4{color:#fff;} .guru b{color:#fff;}
+  .guru ul{padding-left:20px; margin:8px 0 0;} .guru li{margin-bottom:6px;}
+
+  .murid{border:2.5px solid var(--accent); background:#fff;}
+  .murid .isi{color:var(--ink);}
+
+  .contoh-visual{display:flex; flex-wrap:wrap; gap:14px; margin:14px 0;}
+  .contoh-visual .kartu{flex:1 1 150px; background:#fff; border:2px solid var(--paper-line); border-radius:10px; padding:12px 14px; text-align:center; font-size:.92rem;}
+  .contoh-visual .kartu .emoji{font-size:1.6rem; display:block; margin-bottom:6px; letter-spacing:2px;}
+
+  .soal-card{background:#fff; border:2px solid var(--ink); border-radius:2px 14px 2px 14px; padding:16px 18px; margin-bottom:14px; box-shadow:var(--card-shadow);}
+  .soal-card .no{font-family:'Baloo 2',sans-serif; font-weight:800; font-size:.85rem; color:#fff; background:var(--ink);
+    display:inline-flex; align-items:center; justify-content:center; width:26px; height:26px; border-radius:50%; margin-right:8px; flex-shrink:0;}
+  .soal-card .pertanyaan{display:flex; align-items:flex-start; gap:4px; font-weight:600;}
+  .soal-card .pilihan{list-style:none; padding:0; margin:10px 0 0 34px; font-size:.95rem;}
+  .soal-card .pilihan li{margin-bottom:4px;} .soal-card .pilihan li b{margin-right:6px;}
+  details.jawaban{margin:10px 0 0 34px;}
+  details.jawaban summary{cursor:pointer; font-family:'Baloo 2',sans-serif; font-weight:700; font-size:.85rem; color:var(--ink-soft); display:inline-block; padding:4px 0;}
+  details.jawaban[open] summary{color:var(--ink);}
+  details.jawaban .kotak-jawab{margin-top:8px; padding:10px 14px; border-radius:8px; font-size:.92rem; background:var(--tint);}
+
+  footer{max-width:920px; margin:24px auto 0; padding:0 26px; color:var(--ink-soft); font-size:.85rem; text-align:center;}
+  @media print{.topicbar{display:none;} .panel{display:block !important; page-break-after:always;}}
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="stamp">KURIKULUM<br>MERDEKA<br>FASE B</div>
+  <h1>Modul Ajar Pendidikan Agama Islam & Budi Pekerti</h1>
+  <p class="sub">Kelas 4 SD — 6 topik lengkap untuk 2 semester, mencakup surah pendek lanjutan, iman kepada malaikat, kisah Nabi Musa AS, puasa Ramadan, zakat fitrah, dan akhlak hormat kepada guru, dilengkapi catatan pedagogis untuk guru, penjelasan untuk murid, dan latihan soal beserta kunci jawaban.</p>
+  <div class="meta">
+    <span>Kelas: <b>4 (Empat)</b></span>
+    <span>Elemen CP: <b>Al-Qur'an Hadis, Akidah, Akhlak, Fikih, Sejarah Peradaban Islam</b></span>
+    <span>Total Alokasi: <b>±24 pertemuan</b></span>
+  </div>
+</div>
+
+<div class="topicbar" id="topicbar">
+  <button class="topic-btn active" data-t="t1">1. Al-Ikhlas & Al-Kautsar</button>
+  <button class="topic-btn" data-t="t2">2. Iman kepada Malaikat</button>
+  <button class="topic-btn" data-t="t3">3. Kisah Nabi Musa AS</button>
+  <button class="topic-btn" data-t="t4">4. Puasa Ramadan</button>
+  <button class="topic-btn" data-t="t5">5. Zakat Fitrah</button>
+  <button class="topic-btn" data-t="t6">6. Hormat kepada Guru</button>
+</div>
+
+<div class="panelwrap">
+
+<!-- ============ TOPIK 1 ============ -->
+<div class="panel active" data-t="t1">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 1</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Membaca dan Menghafal Surah Al-Ikhlas dan Al-Kautsar</div>
+      <div><b>Alokasi Waktu</b>4 x pertemuan (4 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Dapat melafalkan surah An-Nas dan Al-Falaq (materi kelas 3)</div>
+      <div><b>Profil Pelajar Pancasila</b>Beriman, bertakwa kepada Tuhan YME</div>
+      <div><b>Sarana</b>Mushaf/juz amma, kartu bacaan surah</div>
+      <div><b>Model</b>Talaqqi dan murajaah (pengulangan)</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat melafalkan surah Al-Ikhlas dan Al-Kautsar dengan tartil.</li>
+      <li>Peserta didik dapat menjelaskan makna sederhana kedua surah tersebut.</li>
+      <li>Peserta didik dapat menjelaskan bahwa surah Al-Ikhlas berisi tentang keesaan Allah.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Surah Al-Ikhlas mengajarkan konsep dasar keesaan Allah (tauhid), fondasi penting dalam akidah Islam yang perlu dipahami sejak dini.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>📿 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Lanjutkan metode talaqqi dan murajaah</b> yang sudah dibiasakan sejak kelas 3, dengan rutin mengulang surah-surah yang sudah dipelajari sebelumnya.</li>
+        <li><b>Ajarkan makna keesaan Allah</b> dari surah Al-Ikhlas dengan bahasa sederhana — Allah itu Esa (satu), tidak beranak dan tidak diperanakkan.</li>
+        <li><b>Miskonsepsi umum:</b> siswa menghafal tanpa memahami artinya. Selalu sertakan penjelasan makna setiap kali mengajarkan hafalan baru.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah hafal bisa lanjut memperdalam pemahaman makna; siswa lain fokus pada kelancaran bacaan terlebih dahulu.</li>
+        <li><b>Asesmen formatif:</b> amati kelancaran bacaan dan pemahaman makna dasar dari kedua surah.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>📿 Ayo Hafalkan Surah Al-Ikhlas!</h4>
+      <div class="isi">
+        <p>Surah <b>Al-Ikhlas</b> mengajarkan bahwa Allah itu Esa (satu), tidak ada yang menyamai-Nya. Surah <b>Al-Kautsar</b> mengajarkan kita untuk selalu bersyukur atas nikmat yang banyak dari Allah.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">5 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Surah Al-Ikhlas mengajarkan tentang ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: keesaan Allah (tauhid)</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Surah Al-Kautsar mengajarkan kita untuk ...</div>
+      <ul class="pilihan"><li><b>a.</b> bersyukur atas nikmat Allah</li><li><b>b.</b> memohon perlindungan</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: a</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Apa yang dimaksud dengan tauhid?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> keyakinan bahwa Allah itu Esa (satu), tidak ada yang menyamai-Nya.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Mengapa penting memahami makna surah yang kita hafal, tidak hanya bacaannya saja?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> agar kita benar-benar menghayati dan mengamalkan pesan dari surah tersebut.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Praktik: lafalkan surah Al-Ikhlas dan Al-Kautsar dengan tartil bersama gurumu!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Panduan penilaian guru:</b> amati kelancaran dan ketepatan bacaan siswa.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 2 ============ -->
+<div class="panel" data-t="t2">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 1</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Beriman kepada Malaikat Allah</div>
+      <div><b>Alokasi Waktu</b>4 x pertemuan (4 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Mengenal 6 rukun iman (materi kelas 1)</div>
+      <div><b>Profil Pelajar Pancasila</b>Beriman, bertakwa kepada Tuhan YME</div>
+      <div><b>Sarana</b>Kartu nama malaikat dan tugasnya</div>
+      <div><b>Model</b>Diskusi & hafalan bertahap</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat menyebutkan beberapa nama malaikat beserta tugasnya.</li>
+      <li>Peserta didik dapat menjelaskan hikmah beriman kepada malaikat.</li>
+      <li>Peserta didik dapat menjelaskan bahwa malaikat selalu taat kepada Allah.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Beriman kepada malaikat mengajarkan kita bahwa ada makhluk Allah yang selalu taat tanpa membangkang, menjadi teladan ketaatan bagi kita.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>👼 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Fokus pada malaikat yang tugasnya mudah dipahami</b> anak — Jibril (menyampaikan wahyu), Mikail (mengatur rezeki), Israfil (meniup sangkakala), Izrail (mencabut nyawa), dan beberapa lainnya secara bertahap.</li>
+        <li><b>Miskonsepsi umum:</b> siswa membayangkan malaikat seperti sosok bersayap dalam budaya populer (film, kartun) yang belum tentu sesuai. Jelaskan bahwa wujud asli malaikat adalah gaib dan tidak bisa digambarkan pasti, cukup fokus pada sifat dan tugasnya.</li>
+        <li><b>Jelaskan hikmah beriman kepada malaikat</b> — mendorong kita untuk selalu taat kepada Allah seperti halnya malaikat.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah lancar bisa menghafal lebih banyak nama dan tugas malaikat; siswa lain fokus pada 3-4 malaikat utama.</li>
+        <li><b>Asesmen formatif:</b> amati kemampuan siswa menyebutkan nama malaikat dan tugasnya secara sederhana.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>👼 Ayo Kenali Malaikat Allah!</h4>
+      <div class="isi">
+        <div class="contoh-visual">
+          <div class="kartu"><span class="emoji">📜</span>Jibril: menyampaikan wahyu</div>
+          <div class="kartu"><span class="emoji">🌾</span>Mikail: mengatur rezeki</div>
+          <div class="kartu"><span class="emoji">📯</span>Israfil: meniup sangkakala</div>
+        </div>
+        <p>Malaikat selalu taat kepada Allah dan tidak pernah membangkang.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">6 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Malaikat yang bertugas menyampaikan wahyu kepada nabi adalah ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: Malaikat Jibril</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Malaikat yang bertugas mengatur rezeki adalah ...</div>
+      <ul class="pilihan"><li><b>a.</b> Mikail</li><li><b>b.</b> Israfil</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: a</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Malaikat yang bertugas meniup sangkakala adalah ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: Malaikat Israfil</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Apa sifat utama para malaikat terhadap Allah?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> selalu taat dan tidak pernah membangkang.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Apa hikmah yang bisa kita ambil dari beriman kepada malaikat?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> mendorong kita untuk selalu taat kepada Allah seperti para malaikat.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">6</span>Praktik: sebutkan 3 nama malaikat beserta tugasnya yang telah kamu pelajari!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Panduan penilaian guru:</b> periksa ketepatan nama dan tugas malaikat yang disebutkan siswa.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 3 ============ -->
+<div class="panel" data-t="t3">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 1</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Kisah Keteladanan Nabi Musa AS</div>
+      <div><b>Alokasi Waktu</b>4 x pertemuan (4 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Mengenal kisah Nabi Ibrahim AS dan Nabi Ismail AS (materi kelas 3)</div>
+      <div><b>Profil Pelajar Pancasila</b>Beriman, bertakwa kepada Tuhan YME</div>
+      <div><b>Sarana</b>Gambar/ilustrasi cerita nabi</div>
+      <div><b>Model</b>Bercerita & diskusi teladan</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat menceritakan kisah Nabi Musa AS secara sederhana.</li>
+      <li>Peserta didik dapat menyebutkan mukjizat yang diberikan Allah kepada Nabi Musa AS.</li>
+      <li>Peserta didik dapat mengambil teladan keberanian dan ketaatan dari kisah tersebut.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Kisah Nabi Musa AS mengajarkan keberanian menghadapi kezaliman dan ketaatan penuh kepada perintah Allah, meski menghadapi tantangan besar.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>🌊 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Gunakan ilustrasi untuk bagian-bagian penting kisah</b> (kelahiran Nabi Musa AS, tongkat yang menjadi ular, terbelahnya lautan) agar siswa lebih mudah membayangkan alur cerita.</li>
+        <li><b>Fokus pada pesan moral</b>, bukan detail yang rumit — keberanian menghadapi kezaliman Firaun dan ketaatan kepada Allah.</li>
+        <li><b>Miskonsepsi umum:</b> siswa mengira mukjizat adalah sesuatu yang bisa dicoba atau ditiru siapa saja. Jelaskan bahwa mukjizat adalah kejadian luar biasa yang diberikan Allah khusus kepada para nabi.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah lancar bercerita bisa menceritakan kembali dengan lebih detail; siswa lain cukup menjawab pertanyaan sederhana tentang kisah.</li>
+        <li><b>Asesmen formatif:</b> amati pemahaman siswa terhadap alur cerita dan teladan yang bisa diambil.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>🌊 Ayo Dengarkan Kisah Nabi Musa!</h4>
+      <div class="isi">
+        <p>Nabi Musa AS diberi mukjizat oleh Allah, salah satunya tongkat yang bisa membelah lautan. Nabi Musa AS berani menghadapi kezaliman Firaun demi membela kebenaran.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">5 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Sebutkan 1 mukjizat yang diberikan Allah kepada Nabi Musa AS!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> tongkat yang bisa membelah lautan/menjadi ular.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Nabi Musa AS menghadapi kezaliman raja bernama ...</div>
+      <ul class="pilihan"><li><b>a.</b> Firaun</li><li><b>b.</b> Namrud</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: a</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Apa yang dimaksud dengan mukjizat?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> kejadian luar biasa yang diberikan Allah khusus kepada para nabi.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Sebutkan 1 teladan yang bisa diambil dari kisah Nabi Musa AS!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> keberanian menghadapi kezaliman, ketaatan kepada Allah.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Praktik: ceritakan kembali salah satu bagian kisah Nabi Musa AS dengan kata-katamu sendiri!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Panduan penilaian guru:</b> amati pemahaman alur cerita, bukan hafalan kata per kata.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 4 ============ -->
+<div class="panel" data-t="t4">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 2</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Puasa Ramadan: Ketentuan dan Hikmahnya</div>
+      <div><b>Alokasi Waktu</b>4 x pertemuan (4 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Mengenal rukun Islam (materi kelas 1)</div>
+      <div><b>Profil Pelajar Pancasila</b>Beriman, bertakwa kepada Tuhan YME, mandiri</div>
+      <div><b>Sarana</b>Kartu ketentuan puasa, cerita hikmah puasa</div>
+      <div><b>Model</b>Diskusi & penjelasan bertahap</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat menjelaskan ketentuan dasar puasa Ramadan (syarat, rukun, hal yang membatalkan).</li>
+      <li>Peserta didik dapat menjelaskan hikmah puasa bagi kehidupan sehari-hari.</li>
+      <li>Peserta didik dapat menjelaskan bahwa anak-anak boleh berlatih puasa secara bertahap sesuai kemampuannya.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Puasa mengajarkan pengendalian diri, bukan hanya menahan lapar dan haus, tetapi juga menahan diri dari perkataan dan perbuatan buruk.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>🌙 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Sesuaikan dengan kemampuan fisik anak usia ini</b> — jelaskan bahwa anak-anak boleh berlatih puasa secara bertahap (misalnya puasa setengah hari) sesuai kemampuan masing-masing.</li>
+        <li><b>Miskonsepsi umum:</b> siswa mengira puasa hanya soal menahan lapar dan haus. Tekankan bahwa puasa juga melatih menahan diri dari perkataan dan perbuatan buruk.</li>
+        <li><b>Jelaskan ketentuan dasar</b> secara sederhana: syarat wajib (muslim, balig, mampu), rukun (niat dan menahan diri dari terbit fajar hingga terbenam matahari), dan hal yang membatalkan (makan, minum dengan sengaja).</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah biasa berpuasa bisa berbagi pengalamannya; siswa lain cukup memahami konsep dasarnya.</li>
+        <li><b>Asesmen formatif:</b> amati pemahaman siswa tentang ketentuan dan hikmah puasa.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>🌙 Ayo Kenali Puasa Ramadan!</h4>
+      <div class="isi">
+        <p>Puasa berarti menahan diri dari makan, minum, dan perbuatan buruk mulai terbit fajar hingga terbenam matahari. Anak-anak boleh berlatih puasa secara bertahap sesuai kemampuannya.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">6 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Puasa dimulai dari terbit fajar hingga ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: terbenam matahari</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Puasa hanya soal menahan lapar dan haus saja?</div>
+      <ul class="pilihan"><li><b>a.</b> ya</li><li><b>b.</b> tidak, juga menahan diri dari perkataan/perbuatan buruk</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: b</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Sebutkan 1 hal yang membatalkan puasa!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> makan atau minum dengan sengaja.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Apa yang perlu dilakukan sebelum memulai puasa?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: niat</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Sebutkan 1 hikmah puasa bagi kehidupan kita!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> melatih pengendalian diri, menumbuhkan empati kepada orang yang kekurangan.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">6</span>Ceritakan pengalamanmu berlatih puasa (jika pernah)!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban bebas</b> sesuai pengalaman masing-masing siswa.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 5 ============ -->
+<div class="panel" data-t="t5">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 2</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Zakat Fitrah</div>
+      <div><b>Alokasi Waktu</b>3 x pertemuan (3 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Memahami ketentuan puasa Ramadan (topik sebelumnya)</div>
+      <div><b>Profil Pelajar Pancasila</b>Beriman, bertakwa kepada Tuhan YME, gotong royong</div>
+      <div><b>Sarana</b>Kartu ketentuan zakat fitrah, contoh takaran</div>
+      <div><b>Model</b>Diskusi & penjelasan bertahap</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat menjelaskan pengertian zakat fitrah.</li>
+      <li>Peserta didik dapat menjelaskan waktu pelaksanaan zakat fitrah.</li>
+      <li>Peserta didik dapat menjelaskan hikmah zakat fitrah bagi kehidupan bermasyarakat.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Zakat fitrah mengajarkan kepedulian sosial — berbagi kepada sesama yang membutuhkan, terutama menjelang Hari Raya Idul Fitri.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>🌾 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Kaitkan dengan momen Idul Fitri</b> yang mereka kenal, agar konsep zakat fitrah terasa relevan dan mudah dipahami.</li>
+        <li><b>Jelaskan siapa yang wajib membayar</b> (setiap muslim yang mampu) <b>dan siapa yang berhak menerima</b> (fakir, miskin, dan golongan lain yang berhak) secara sederhana.</li>
+        <li><b>Miskonsepsi umum:</b> siswa mengira zakat fitrah sama dengan sedekah biasa. Jelaskan bahwa zakat fitrah memiliki ketentuan waktu dan jumlah tertentu, berbeda dengan sedekah yang lebih bebas.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah memahami bisa menjelaskan perbedaan zakat dan sedekah; siswa lain cukup memahami pengertian dasar zakat fitrah.</li>
+        <li><b>Asesmen formatif:</b> amati pemahaman siswa tentang pengertian dan waktu pelaksanaan zakat fitrah.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>🌾 Ayo Kenali Zakat Fitrah!</h4>
+      <div class="isi">
+        <p><b>Zakat fitrah</b> adalah zakat yang wajib dikeluarkan setiap muslim menjelang Hari Raya Idul Fitri, untuk membantu saudara kita yang membutuhkan.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">5 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Zakat fitrah dikeluarkan menjelang hari raya ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: Idul Fitri</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Zakat fitrah wajib dikeluarkan oleh ...</div>
+      <ul class="pilihan"><li><b>a.</b> setiap muslim yang mampu</li><li><b>b.</b> hanya orang kaya saja</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: a</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Sebutkan 1 golongan yang berhak menerima zakat!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> fakir, miskin.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Apa perbedaan zakat fitrah dengan sedekah biasa?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> zakat fitrah memiliki ketentuan waktu dan jumlah tertentu, sedangkan sedekah lebih bebas.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Praktik: jelaskan kepada temanmu mengapa zakat fitrah penting bagi kepedulian sosial!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Panduan penilaian guru:</b> amati pemahaman siswa tentang makna kepedulian dalam zakat fitrah.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 6 ============ -->
+<div class="panel" data-t="t6">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 2</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Akhlak Terpuji: Hormat kepada Guru dan Semangat Menuntut Ilmu</div>
+      <div><b>Alokasi Waktu</b>4 x pertemuan (4 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Memahami akhlak sabar dan bersyukur (materi kelas 3)</div>
+      <div><b>Profil Pelajar Pancasila</b>Beriman, bertakwa kepada Tuhan YME, berakhlak mulia</div>
+      <div><b>Sarana</b>Kisah teladan pencari ilmu dalam Islam</div>
+      <div><b>Model</b>Bercerita & refleksi sikap</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat menjelaskan pentingnya sikap hormat kepada guru.</li>
+      <li>Peserta didik dapat menunjukkan semangat dalam menuntut ilmu.</li>
+      <li>Peserta didik dapat menyebutkan manfaat ilmu bagi kehidupan.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Islam sangat menghargai ilmu dan orang yang mengajarkannya, sehingga hormat kepada guru dan semangat belajar adalah bagian penting dari akhlak seorang muslim.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>📚 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Gunakan kisah teladan pencari ilmu</b> dalam Islam untuk menginspirasi semangat belajar siswa.</li>
+        <li><b>Ajak refleksi sikap siswa</b> terhadap gurunya sendiri — bagaimana cara mereka menunjukkan hormat sehari-hari.</li>
+        <li><b>Miskonsepsi umum:</b> siswa mengira hormat kepada guru hanya berlaku di dalam kelas. Jelaskan bahwa sikap hormat ini juga penting di luar kelas, misalnya saat bertemu di jalan.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah memahami bisa menjelaskan manfaat ilmu bagi masa depan; siswa lain cukup mengidentifikasi contoh sikap hormat kepada guru.</li>
+        <li><b>Asesmen formatif:</b> amati pemahaman dan sikap siswa terkait hormat kepada guru dan semangat belajar.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>📚 Ayo Hormati Gurumu dan Semangat Belajar!</h4>
+      <div class="isi">
+        <p>Islam sangat menghargai ilmu dan orang yang mengajarkannya. Tunjukkan rasa hormatmu kepada guru dengan mendengarkan dengan baik dan bersikap sopan, baik di dalam maupun di luar kelas.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">5 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Sebutkan 1 contoh sikap hormat kepada guru!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> mendengarkan dengan baik, bersikap sopan, mematuhi arahan guru.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Sikap hormat kepada guru sebaiknya ditunjukkan ...</div>
+      <ul class="pilihan"><li><b>a.</b> hanya di dalam kelas</li><li><b>b.</b> baik di dalam maupun di luar kelas</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: b</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Mengapa Islam sangat menghargai ilmu dan orang yang mengajarkannya?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> karena ilmu membantu kita memahami kehidupan dan menjalankan agama dengan lebih baik.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Sebutkan 1 manfaat ilmu bagi kehidupan kita!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> membantu kita memahami dunia, membuat keputusan yang baik, mencapai cita-cita.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Praktik: tuliskan 1 cara kamu bisa menunjukkan semangat menuntut ilmu setiap hari!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban bebas</b> sesuai refleksi masing-masing siswa.</div></details></div>
+  </div>
+</div>
+
+</div><!-- /panelwrap -->
+
+<footer>Modul PAI Kelas 4 · Kurikulum Merdeka Fase B · Dapat dicetak (Ctrl/Cmd + P) untuk dibagikan ke siswa</footer>
+
+<script>
+  const btns = document.querySelectorAll('.topic-btn');
+  const panels = document.querySelectorAll('.panel');
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const t = btn.getAttribute('data-t');
+      btns.forEach(b => b.classList.toggle('active', b === btn));
+      panels.forEach(p => p.classList.toggle('active', p.getAttribute('data-t') === t));
+      window.scrollTo({top: 0, behavior:'smooth'});
+    });
+  });
+</script>
+
+</body>
+</html>

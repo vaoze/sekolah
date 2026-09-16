@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modul Seni Rupa Kelas 2 — Kurikulum Merdeka</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F7F1E1; --paper-line:#E4D9BE;
+    --ink:#2B2B27; --ink-soft:#5B5648;
+    --accent:#B2588A; --tint:#F5E6EF;
+    --chalk:#2E3430;
+    --card-shadow: 3px 3px 0 rgba(43,43,39,0.10);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:repeating-linear-gradient(to bottom, transparent 0px, transparent 34px, var(--paper-line) 35px), var(--paper);
+    color:var(--ink); font-family:'Atkinson Hyperlegible', sans-serif; font-size:17px; line-height:1.65; padding-bottom:60px;
+  }
+  h1,h2,h3,h4{font-family:'Baloo 2', sans-serif; margin:0 0 .4em 0;}
+
+  .cover{position:relative; padding:38px 24px 30px; max-width:920px; margin:0 auto; border-bottom:3px solid var(--ink);}
+  .cover .stamp{position:absolute; top:28px; right:24px; width:88px; height:88px; border-radius:50%; border:3px dashed var(--ink);
+    display:flex; align-items:center; justify-content:center; transform:rotate(-8deg); font-family:'Baloo 2',sans-serif; font-weight:700;
+    font-size:12px; text-align:center; line-height:1.2; color:var(--ink-soft); padding:6px;}
+  .cover h1{font-size:2.1rem; max-width:600px; color:var(--accent);}
+  .cover p.sub{margin:0; color:var(--ink-soft); font-size:1.02rem; max-width:600px;}
+  .cover .meta{margin-top:18px; display:flex; flex-wrap:wrap; gap:10px 26px; font-size:.92rem; color:var(--ink-soft);}
+  .cover .meta span b{color:var(--ink); font-weight:700;}
+
+  .topicbar{
+    max-width:920px; margin:8px auto 0; padding:0 24px 6px;
+    display:flex; gap:8px; flex-wrap:wrap; position:sticky; top:0; background:var(--paper); z-index:20; padding-top:10px;
+  }
+  .topic-btn{
+    appearance:none; cursor:pointer; border:2.5px solid var(--ink); background:#fff; color:var(--ink-soft);
+    font-family:'Baloo 2',sans-serif; font-weight:700; font-size:.82rem; padding:8px 14px; border-radius:20px;
+  }
+  .topic-btn.active{background:var(--accent); border-color:var(--accent); color:#fff;}
+
+  .panelwrap{max-width:920px; margin:0 auto; border:3px solid var(--ink); border-top:none; background:#fffdf8; padding:6px;}
+  .panel{display:none; padding:26px 26px 10px;}
+  .panel.active{display:block;}
+
+  .section{margin:0 0 34px;}
+  .section-head{display:flex; align-items:baseline; gap:10px; border-bottom:2.5px solid var(--accent); padding-bottom:6px; margin-bottom:14px;}
+  .section-head h2{font-size:1.35rem; color:var(--ink);}
+  .section-head .tag{font-family:'Baloo 2',sans-serif; font-weight:700; font-size:.72rem; padding:3px 10px; border-radius:20px; background:var(--accent); color:#fff;}
+
+  .info-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px 24px; background:#fff; border:2px solid var(--paper-line); border-radius:10px; padding:16px 18px; font-size:.94rem;}
+  .info-grid div b{display:block; color:var(--ink-soft); font-size:.78rem; font-weight:700; margin-bottom:2px;}
+  @media(max-width:600px){.info-grid{grid-template-columns:1fr;}}
+
+  ul.tp-list{margin:0; padding-left:22px;}
+  ul.tp-list li{margin-bottom:6px;}
+
+  .callout{border-radius:10px; padding:18px 20px; margin:16px 0;}
+  .callout h4{font-size:1.02rem; display:flex; align-items:center; gap:8px; color:var(--accent);}
+  .pemahaman{border:2px dashed var(--accent); background:var(--tint);}
+  .pemahaman h4{color:var(--accent);}
+
+  .guru{background:var(--chalk); color:#EDEAE2; border:2px solid var(--chalk);}
+  .guru h4{color:#fff;} .guru b{color:#fff;}
+  .guru ul{padding-left:20px; margin:8px 0 0;} .guru li{margin-bottom:6px;}
+
+  .murid{border:2.5px solid var(--accent); background:#fff;}
+  .murid .isi{color:var(--ink);}
+
+  .contoh-visual{display:flex; flex-wrap:wrap; gap:14px; margin:14px 0;}
+  .contoh-visual .kartu{flex:1 1 150px; background:#fff; border:2px solid var(--paper-line); border-radius:10px; padding:12px 14px; text-align:center; font-size:.92rem;}
+  .contoh-visual .kartu .emoji{font-size:1.6rem; display:block; margin-bottom:6px; letter-spacing:2px;}
+
+  .soal-card{background:#fff; border:2px solid var(--ink); border-radius:2px 14px 2px 14px; padding:16px 18px; margin-bottom:14px; box-shadow:var(--card-shadow);}
+  .soal-card .no{font-family:'Baloo 2',sans-serif; font-weight:800; font-size:.85rem; color:#fff; background:var(--ink);
+    display:inline-flex; align-items:center; justify-content:center; width:26px; height:26px; border-radius:50%; margin-right:8px; flex-shrink:0;}
+  .soal-card .pertanyaan{display:flex; align-items:flex-start; gap:4px; font-weight:600;}
+  .soal-card .pilihan{list-style:none; padding:0; margin:10px 0 0 34px; font-size:.95rem;}
+  .soal-card .pilihan li{margin-bottom:4px;} .soal-card .pilihan li b{margin-right:6px;}
+  details.jawaban{margin:10px 0 0 34px;}
+  details.jawaban summary{cursor:pointer; font-family:'Baloo 2',sans-serif; font-weight:700; font-size:.85rem; color:var(--ink-soft); display:inline-block; padding:4px 0;}
+  details.jawaban[open] summary{color:var(--ink);}
+  details.jawaban .kotak-jawab{margin-top:8px; padding:10px 14px; border-radius:8px; font-size:.92rem; background:var(--tint);}
+
+  footer{max-width:920px; margin:24px auto 0; padding:0 26px; color:var(--ink-soft); font-size:.85rem; text-align:center;}
+  @media print{.topicbar{display:none;} .panel{display:block !important; page-break-after:always;}}
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="stamp">KURIKULUM<br>MERDEKA<br>FASE A</div>
+  <h1>Modul Ajar Seni Rupa</h1>
+  <p class="sub">Kelas 2 SD — 6 topik lengkap untuk 2 semester, melanjutkan eksplorasi tekstur, warna, dan bentuk dari kelas 1, dilengkapi catatan pedagogis untuk guru, penjelasan untuk murid, dan latihan soal apresiasi seni beserta kunci jawaban.</p>
+  <div class="meta">
+    <span>Kelas: <b>2 (Dua)</b></span>
+    <span>Elemen CP: <b>Mengalami, Menciptakan, Merefleksikan, Berpikir & Bekerja Artistik, Berdampak</b></span>
+    <span>Total Alokasi: <b>±18 pertemuan</b></span>
+  </div>
+</div>
+
+<div class="topicbar" id="topicbar">
+  <button class="topic-btn active" data-t="t1">1. Eksplorasi Tekstur</button>
+  <button class="topic-btn" data-t="t2">2. Menggambar dari Pengamatan</button>
+  <button class="topic-btn" data-t="t3">3. Gradasi Warna</button>
+  <button class="topic-btn" data-t="t4">4. Karya Cetak Sederhana</button>
+  <button class="topic-btn" data-t="t5">5. Karya 3 Dimensi</button>
+  <button class="topic-btn" data-t="t6">6. Motif Tradisional</button>
+</div>
+
+<div class="panelwrap">
+
+<!-- ============ TOPIK 1 ============ -->
+<div class="panel active" data-t="t1">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 1</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Eksplorasi Tekstur dalam Karya Seni</div>
+      <div><b>Alokasi Waktu</b>3 x pertemuan (3 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Mengenal garis, bentuk, dan warna (materi kelas 1)</div>
+      <div><b>Profil Pelajar Pancasila</b>Kreatif, bernalar kritis</div>
+      <div><b>Sarana</b>Permukaan bertekstur (daun, kain kasar, kertas ampelas), kertas, krayon</div>
+      <div><b>Model</b>Eksplorasi rabaan & teknik gosokan (frottage)</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat mengenal tekstur kasar dan halus melalui perabaan langsung.</li>
+      <li>Peserta didik dapat menerapkan tekstur dalam karya sederhana menggunakan teknik gosokan (frottage).</li>
+      <li>Peserta didik dapat membedakan hasil karya bertekstur berbeda.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Tekstur adalah unsur seni yang bisa dirasakan, bukan hanya dilihat, dan mengenalnya lewat perabaan langsung membuat pengalaman belajar lebih bermakna.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>🍃 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Sediakan berbagai permukaan bertekstur</b> (daun, kain kasar, kertas ampelas) untuk dirasakan langsung dengan tangan sebelum diaplikasikan ke karya.</li>
+        <li><b>Miskonsepsi umum:</b> siswa mengira tekstur hanya bisa dilihat, bukan dirasakan. Tekankan bahwa tekstur adalah unsur seni yang bisa dialami lewat sentuhan.</li>
+        <li><b>Ajarkan teknik gosokan (frottage)</b> — meletakkan kertas di atas permukaan bertekstur lalu menggosok dengan krayon — sebagai cara sederhana merekam tekstur ke dalam karya.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah mahir bisa menggabungkan beberapa tekstur dalam satu karya; siswa lain cukup mencoba 1-2 tekstur sederhana.</li>
+        <li><b>Asesmen formatif:</b> amati kemampuan siswa membedakan dan menjelaskan tekstur kasar-halus dari hasil karyanya.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>🍃 Ayo Rasakan Tekstur!</h4>
+      <div class="isi">
+        <p>Raba permukaan daun (kasar) dan kertas halus (licin) — rasanya berbeda, bukan? Itulah <b>tekstur</b>.</p>
+        <p>Coba letakkan kertas di atas daun, lalu gosok dengan krayon — motif daun akan muncul di kertasmu!</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">5 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Apa yang dimaksud dengan tekstur dalam seni rupa?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> kesan permukaan suatu benda yang bisa dirasakan, misalnya kasar atau halus.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Sebutkan 1 contoh benda bertekstur kasar!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> daun, kertas ampelas, kulit kayu.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Teknik menggosok kertas di atas permukaan bertekstur disebut ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: frottage (teknik gosokan)</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Apakah tekstur hanya bisa dilihat, tidak bisa dirasakan?</div>
+      <ul class="pilihan"><li><b>a.</b> benar</li><li><b>b.</b> salah, tekstur juga bisa dirasakan</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: b</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Praktik: buatlah karya menggunakan teknik gosokan (frottage) dari 2 permukaan bertekstur berbeda!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Panduan penilaian guru:</b> nilai eksplorasi dan kejelasan hasil tekstur.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 2 ============ -->
+<div class="panel" data-t="t2">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 1</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Menggambar Objek Sederhana dari Pengamatan</div>
+      <div><b>Alokasi Waktu</b>3 x pertemuan (3 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Dapat menggambar bebas dari pengalaman (materi kelas 1)</div>
+      <div><b>Profil Pelajar Pancasila</b>Bernalar kritis, kreatif</div>
+      <div><b>Sarana</b>Buah/tumbuhan/benda kelas untuk diamati, kertas gambar</div>
+      <div><b>Model</b>Observasi objek nyata sebelum menggambar</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat mengamati objek nyata (buah, tumbuhan, benda kelas) sebelum menggambar.</li>
+      <li>Peserta didik dapat menggambar objek sederhana berdasarkan hasil pengamatannya.</li>
+      <li>Peserta didik dapat membandingkan hasil gambarnya dengan objek aslinya.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Menggambar dari pengamatan langsung melatih ketelitian melihat detail, sebuah keterampilan berbeda dari menggambar bebas dari imajinasi.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>🍎 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Perkenalkan konsep "mengamati sebelum menggambar"</b> — minta siswa memperhatikan bentuk, warna, dan detail objek selama beberapa menit sebelum mulai menggambar.</li>
+        <li><b>Miskonsepsi umum:</b> siswa mengira menggambar dari ingatan sama efektifnya dengan mengamati langsung. Tekankan bahwa mengamati langsung membantu menangkap detail yang mungkin terlewat dari ingatan.</li>
+        <li><b>Gunakan objek nyata yang sederhana</b> (buah, daun, gelas) sebagai model, bukan objek yang terlalu rumit untuk usia ini.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah lancar bisa menggambar objek dengan lebih banyak detail; siswa lain cukup menangkap bentuk dasarnya.</li>
+        <li><b>Asesmen formatif:</b> amati usaha siswa membandingkan hasil gambarnya dengan objek asli, bukan hanya kemiripan hasil akhir.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>🍎 Ayo Amati dan Gambar!</h4>
+      <div class="isi">
+        <p>Sebelum menggambar, lihat baik-baik objeknya: apa bentuknya, apa warnanya, apa ada bagian yang unik? Baru gambar sesuai yang kamu lihat.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">5 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Sebelum menggambar objek, sebaiknya kita ...</div>
+      <ul class="pilihan"><li><b>a.</b> mengamatinya dengan teliti</li><li><b>b.</b> langsung menggambar tanpa melihat</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: a</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Mengapa mengamati langsung lebih baik daripada menggambar dari ingatan saja?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> karena kita bisa menangkap detail objek yang mungkin terlewat jika hanya mengandalkan ingatan.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Sebutkan 1 contoh objek sederhana yang bisa digambar dari pengamatan!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> buah apel, daun, gelas.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Apa yang perlu diperhatikan saat mengamati objek sebelum menggambar?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> bentuk, warna, dan bagian unik dari objek tersebut.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Praktik: amati sebuah benda/buah, lalu gambarlah berdasarkan hasil pengamatanmu!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Panduan penilaian guru:</b> nilai usaha mengamati dan menangkap detail, bukan kesempurnaan gambar.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 3 ============ -->
+<div class="panel" data-t="t3">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 1</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Mencampur Warna Lanjutan (Gelap-Terang)</div>
+      <div><b>Alokasi Waktu</b>3 x pertemuan (3 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Dapat mencampur warna primer menjadi sekunder (materi kelas 1)</div>
+      <div><b>Profil Pelajar Pancasila</b>Kreatif, bernalar kritis</div>
+      <div><b>Sarana</b>Cat air/poster, kuas, palet, warna hitam dan putih</div>
+      <div><b>Model</b>Eksperimen gradasi warna</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat membuat warna menjadi lebih gelap dengan mencampur warna hitam.</li>
+      <li>Peserta didik dapat membuat warna menjadi lebih terang dengan mencampur warna putih.</li>
+      <li>Peserta didik dapat menerapkan gradasi warna sederhana dalam karyanya.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Gradasi warna gelap-terang membuat karya seni terlihat lebih hidup dan memiliki kedalaman, dibandingkan hanya menggunakan warna datar.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>🌈 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Gunakan cat air/poster</b> untuk eksperimen langsung membuat gradasi dari terang ke gelap pada satu warna.</li>
+        <li><b>Miskonsepsi umum:</b> siswa mengira mencampur warna dengan hitam selalu membuat warna terlihat "kotor". Jelaskan bahwa ini justru menciptakan warna gelap (shade) yang berguna dalam karya seni.</li>
+        <li><b>Latih membuat gradasi bertahap</b> — mulai dari warna asli, tambahkan sedikit putih/hitam secara bertahap — agar siswa melihat prosesnya secara jelas.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah mahir bisa membuat gradasi dengan banyak tingkatan; siswa lain cukup mencoba 2-3 tingkatan sederhana.</li>
+        <li><b>Asesmen formatif:</b> amati hasil eksperimen gradasi warna siswa dan pemahamannya tentang proses tersebut.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>🌈 Ayo Buat Warna Gelap dan Terang!</h4>
+      <div class="isi">
+        <p>Tambahkan sedikit <b>hitam</b> ke warna untuk membuatnya lebih gelap, atau tambahkan <b>putih</b> untuk membuatnya lebih terang.</p>
+        <p>Cobalah membuat gradasi dari warna terang ke gelap pada satu gambar, misalnya langit senja!</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">5 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Untuk membuat warna lebih gelap, kita mencampurnya dengan warna ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: hitam</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Untuk membuat warna lebih terang, kita mencampurnya dengan warna ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: putih</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Apa manfaat gradasi warna dalam sebuah karya seni?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> membuat karya terlihat lebih hidup dan memiliki kedalaman.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Apakah mencampur warna dengan hitam selalu berarti warnanya "rusak"?</div>
+      <ul class="pilihan"><li><b>a.</b> ya</li><li><b>b.</b> tidak, itu menciptakan warna gelap yang berguna dalam karya seni</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: b</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Praktik: buatlah gradasi warna dari terang ke gelap menggunakan satu warna pilihanmu!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Panduan penilaian guru:</b> nilai eksplorasi dan kejelasan gradasi yang dihasilkan.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 4 ============ -->
+<div class="panel" data-t="t4">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 2</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Membuat Karya Cetak Sederhana (Cap Jari/Daun)</div>
+      <div><b>Alokasi Waktu</b>3 x pertemuan (3 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Dapat menggunakan cat/pewarna dengan bantuan</div>
+      <div><b>Profil Pelajar Pancasila</b>Kreatif, mandiri</div>
+      <div><b>Sarana</b>Cat aman untuk anak, daun/sayuran untuk cap, kertas</div>
+      <div><b>Model</b>Eksperimen teknik cetak</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat membuat karya seni menggunakan teknik cetak sederhana (cap jari, cap daun, atau cap sayuran).</li>
+      <li>Peserta didik dapat menyusun hasil cetakan menjadi pola atau gambar sederhana.</li>
+      <li>Peserta didik dapat menikmati proses berkarya dengan teknik yang baru dikenalnya.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Teknik cetak memperkenalkan cara berkarya yang berbeda dari menggambar biasa — hasil cetakan sering kali unik dan tidak bisa diprediksi sepenuhnya, itulah keseruannya.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>🖐️ Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Gunakan cat yang aman untuk anak</b> (cat berbahan dasar air/food grade) dan sediakan area kerja yang mudah dibersihkan.</li>
+        <li><b>Miskonsepsi umum:</b> siswa/guru mengharapkan setiap cetakan identik persis satu sama lain. Jelaskan bahwa variasi hasil cetakan adalah bagian menarik dari teknik ini, bukan kesalahan.</li>
+        <li><b>Contohkan menyusun beberapa cetakan</b> menjadi pola berulang atau gambar sederhana (misalnya cap daun disusun menjadi pohon).</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah terampil bisa menyusun pola lebih kompleks; siswa lain cukup mencoba beberapa cetakan sederhana.</li>
+        <li><b>Asesmen formatif:</b> amati kreativitas siswa dalam menyusun hasil cetakan menjadi karya yang bermakna.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>🖐️ Ayo Berkarya dengan Cetak!</h4>
+      <div class="isi">
+        <p>Celupkan jarimu atau daun ke cat, lalu cap ke kertas. Setiap cetakan bisa terlihat sedikit berbeda — itulah keseruannya!</p>
+        <p>Coba susun beberapa cap menjadi gambar, misalnya cap daun menjadi pohon atau cap jari menjadi bunga.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">5 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Sebutkan 1 bahan yang bisa digunakan untuk teknik cetak sederhana!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> jari, daun, sayuran (seperti belimbing atau kentang).</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Apakah setiap hasil cetakan harus identik persis?</div>
+      <ul class="pilihan"><li><b>a.</b> ya, harus sama persis</li><li><b>b.</b> tidak, variasi hasil justru menarik</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: b</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Sebutkan 1 contoh gambar yang bisa dibuat dari susunan cap daun!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> pohon, bunga, kupu-kupu.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Mengapa cat yang digunakan untuk teknik cetak harus aman untuk anak?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> karena teknik ini melibatkan kontak langsung dengan tangan/jari anak.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Praktik: buatlah karya cetak sederhana menggunakan cap jari atau cap daun!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Panduan penilaian guru:</b> nilai kreativitas dan keberanian bereksperimen.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 5 ============ -->
+<div class="panel" data-t="t5">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 2</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Membuat Karya 3 Dimensi Sederhana (Plastisin/Tanah Liat)</div>
+      <div><b>Alokasi Waktu</b>3 x pertemuan (3 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Dapat membuat karya kolase sederhana (materi kelas 1)</div>
+      <div><b>Profil Pelajar Pancasila</b>Kreatif, mandiri</div>
+      <div><b>Sarana</b>Plastisin/tanah liat, alas kerja</div>
+      <div><b>Model</b>Latihan membentuk bertahap</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat membentuk plastisin/tanah liat menjadi bentuk dasar (bola, silinder).</li>
+      <li>Peserta didik dapat mengembangkan bentuk dasar menjadi objek sederhana (buah, hewan).</li>
+      <li>Peserta didik dapat mengembangkan koordinasi tangan dalam membentuk objek 3 dimensi.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Berkarya 3 dimensi melatih koordinasi tangan yang berbeda dari menggambar 2 dimensi, karena kita harus membentuk objek dari segala sisi.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>🧸 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Latih membentuk bola dan silinder dasar terlebih dahulu</b> sebelum mencoba bentuk objek yang lebih kompleks, karena keduanya adalah dasar dari banyak bentuk lain.</li>
+        <li><b>Miskonsepsi umum:</b> siswa/orang tua mengharapkan hasil karya harus terlihat sangat mirip objek aslinya. Fokuskan pada proses eksplorasi bentuk, bukan kesempurnaan hasil akhir.</li>
+        <li><b>Beri contoh sederhana</b> (misalnya membuat buah apel dari bola plastisin) sebagai langkah awal sebelum siswa berkreasi bebas.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah terampil bisa mencoba bentuk yang lebih detail; siswa lain cukup membuat bentuk dasar sederhana.</li>
+        <li><b>Asesmen formatif:</b> amati koordinasi tangan dan kreativitas siswa saat membentuk objek 3 dimensi.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>🧸 Ayo Membentuk Plastisin!</h4>
+      <div class="isi">
+        <p>Coba bulatkan plastisin menjadi bola, lalu bentuk menjadi buah apel. Atau gulung menjadi silinder panjang untuk membuat ular!</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">5 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Sebutkan 2 bentuk dasar yang bisa dibuat dari plastisin!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: bola dan silinder</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Karya 3 dimensi berbeda dari gambar 2 dimensi karena ...</div>
+      <ul class="pilihan"><li><b>a.</b> bisa dilihat dan dibentuk dari segala sisi</li><li><b>b.</b> hanya bisa dilihat dari satu sisi</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: a</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Sebutkan 1 contoh objek yang bisa dibuat dari bentuk bola plastisin!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> buah apel, kelereng, bola.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Mengapa hasil karya plastisin tidak perlu terlihat sangat sempurna?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> karena fokusnya adalah proses eksplorasi dan kreativitas, bukan kesempurnaan hasil akhir.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Praktik: buatlah 1 objek sederhana (buah atau hewan) dari plastisin!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Panduan penilaian guru:</b> nilai koordinasi tangan dan kreativitas siswa.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 6 ============ -->
+<div class="panel" data-t="t6">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 2</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Mengenal Motif dan Karya Seni Tradisional Daerah</div>
+      <div><b>Alokasi Waktu</b>3 x pertemuan (3 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Mengapresiasi karya seni di sekitar (materi kelas 1)</div>
+      <div><b>Profil Pelajar Pancasila</b>Berkebinekaan global, kreatif</div>
+      <div><b>Sarana</b>Contoh motif batik/tenun/ukiran daerah setempat</div>
+      <div><b>Model</b>Observasi motif & praktik meniru sederhana</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat mengenal motif tradisional sederhana dari daerahnya sendiri.</li>
+      <li>Peserta didik dapat mencoba meniru motif sederhana dalam karyanya sendiri.</li>
+      <li>Peserta didik dapat menunjukkan rasa bangga terhadap kekayaan seni daerahnya.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Mengenal motif tradisional sejak dini menumbuhkan rasa bangga dan cinta terhadap kekayaan budaya daerah sendiri.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>🎋 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Gunakan contoh motif daerah setempat siswa</b> (batik, tenun, ukiran) agar lebih relevan dan mudah dikenali oleh siswa.</li>
+        <li><b>Miskonsepsi umum:</b> siswa mengira motif tradisional hanya untuk orang dewasa atau acara formal. Jelaskan bahwa motif ini bisa dinikmati dan dipelajari oleh siapa saja, termasuk anak-anak.</li>
+        <li><b>Ajak siswa meniru motif sederhana</b> (garis, bentuk berulang) dari contoh yang diberikan, bukan motif yang terlalu rumit.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah mahir bisa mencoba motif yang lebih detail; siswa lain cukup meniru pola sederhana berulang.</li>
+        <li><b>Asesmen formatif:</b> amati usaha siswa mengenali dan meniru motif tradisional dalam karyanya.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>🎋 Ayo Kenali Motif Daerahmu!</h4>
+      <div class="isi">
+        <p>Motif tradisional seperti batik atau ukiran adalah kekayaan budaya daerah kita. Coba amati salah satu motif, lalu tirukan polanya (misalnya garis atau bentuk berulang) di kertasmu!</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">5 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Sebutkan 1 contoh motif tradisional yang kamu ketahui!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> motif batik, motif tenun, motif ukiran.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Apakah motif tradisional hanya boleh dipelajari orang dewasa?</div>
+      <ul class="pilihan"><li><b>a.</b> ya</li><li><b>b.</b> tidak, semua orang termasuk anak-anak boleh mempelajarinya</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: b</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Mengapa kita perlu mengenal motif tradisional daerah kita?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> agar kita bangga dan mencintai kekayaan budaya daerah sendiri.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Sebutkan 1 ciri motif tradisional (misalnya pola berulang)!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> memiliki pola/bentuk yang berulang dan teratur.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Praktik: tirukan motif tradisional sederhana yang ditunjukkan gurumu!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Panduan penilaian guru:</b> nilai usaha dan ketelitian meniru pola, bukan kesempurnaan.</div></details></div>
+  </div>
+</div>
+
+</div><!-- /panelwrap -->
+
+<footer>Modul Seni Rupa Kelas 2 · Kurikulum Merdeka Fase A · Dapat dicetak (Ctrl/Cmd + P) untuk dibagikan ke siswa</footer>
+
+<script>
+  const btns = document.querySelectorAll('.topic-btn');
+  const panels = document.querySelectorAll('.panel');
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const t = btn.getAttribute('data-t');
+      btns.forEach(b => b.classList.toggle('active', b === btn));
+      panels.forEach(p => p.classList.toggle('active', p.getAttribute('data-t') === t));
+      window.scrollTo({top: 0, behavior:'smooth'});
+    });
+  });
+</script>
+
+</body>
+</html>

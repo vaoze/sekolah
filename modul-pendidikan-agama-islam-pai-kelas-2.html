@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modul PAI Kelas 2 — Kurikulum Merdeka</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Atkinson+Hyperlegible:wght@400;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F7F1E1; --paper-line:#E4D9BE;
+    --ink:#2B2B27; --ink-soft:#5B5648;
+    --accent:#2F7A52; --tint:#E4F2E9;
+    --chalk:#243A2E;
+    --card-shadow: 3px 3px 0 rgba(43,43,39,0.10);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:repeating-linear-gradient(to bottom, transparent 0px, transparent 34px, var(--paper-line) 35px), var(--paper);
+    color:var(--ink); font-family:'Atkinson Hyperlegible', sans-serif; font-size:17px; line-height:1.65; padding-bottom:60px;
+  }
+  h1,h2,h3,h4{font-family:'Baloo 2', sans-serif; margin:0 0 .4em 0;}
+  .arab{font-family:'Amiri', serif; font-size:1.4rem; direction:rtl; display:inline-block;}
+
+  .cover{position:relative; padding:38px 24px 30px; max-width:920px; margin:0 auto; border-bottom:3px solid var(--ink);}
+  .cover .stamp{position:absolute; top:28px; right:24px; width:88px; height:88px; border-radius:50%; border:3px dashed var(--ink);
+    display:flex; align-items:center; justify-content:center; transform:rotate(-8deg); font-family:'Baloo 2',sans-serif; font-weight:700;
+    font-size:12px; text-align:center; line-height:1.2; color:var(--ink-soft); padding:6px;}
+  .cover h1{font-size:2.1rem; max-width:600px; color:var(--accent);}
+  .cover p.sub{margin:0; color:var(--ink-soft); font-size:1.02rem; max-width:600px;}
+  .cover .meta{margin-top:18px; display:flex; flex-wrap:wrap; gap:10px 26px; font-size:.92rem; color:var(--ink-soft);}
+  .cover .meta span b{color:var(--ink); font-weight:700;}
+
+  .topicbar{
+    max-width:920px; margin:8px auto 0; padding:0 24px 6px;
+    display:flex; gap:8px; flex-wrap:wrap; position:sticky; top:0; background:var(--paper); z-index:20; padding-top:10px;
+  }
+  .topic-btn{
+    appearance:none; cursor:pointer; border:2.5px solid var(--ink); background:#fff; color:var(--ink-soft);
+    font-family:'Baloo 2',sans-serif; font-weight:700; font-size:.82rem; padding:8px 14px; border-radius:20px;
+  }
+  .topic-btn.active{background:var(--accent); border-color:var(--accent); color:#fff;}
+
+  .panelwrap{max-width:920px; margin:0 auto; border:3px solid var(--ink); border-top:none; background:#fffdf8; padding:6px;}
+  .panel{display:none; padding:26px 26px 10px;}
+  .panel.active{display:block;}
+
+  .section{margin:0 0 34px;}
+  .section-head{display:flex; align-items:baseline; gap:10px; border-bottom:2.5px solid var(--accent); padding-bottom:6px; margin-bottom:14px;}
+  .section-head h2{font-size:1.35rem; color:var(--ink);}
+  .section-head .tag{font-family:'Baloo 2',sans-serif; font-weight:700; font-size:.72rem; padding:3px 10px; border-radius:20px; background:var(--accent); color:#fff;}
+
+  .info-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px 24px; background:#fff; border:2px solid var(--paper-line); border-radius:10px; padding:16px 18px; font-size:.94rem;}
+  .info-grid div b{display:block; color:var(--ink-soft); font-size:.78rem; font-weight:700; margin-bottom:2px;}
+  @media(max-width:600px){.info-grid{grid-template-columns:1fr;}}
+
+  ul.tp-list{margin:0; padding-left:22px;}
+  ul.tp-list li{margin-bottom:6px;}
+
+  .callout{border-radius:10px; padding:18px 20px; margin:16px 0;}
+  .callout h4{font-size:1.02rem; display:flex; align-items:center; gap:8px; color:var(--accent);}
+  .pemahaman{border:2px dashed var(--accent); background:var(--tint);}
+  .pemahaman h4{color:var(--accent);}
+
+  .guru{background:var(--chalk); color:#EDEAE2; border:2px solid var(--chalk);}
+  .guru h4{color:#fff;} .guru b{color:#fff;}
+  .guru ul{padding-left:20px; margin:8px 0 0;} .guru li{margin-bottom:6px;}
+
+  .murid{border:2.5px solid var(--accent); background:#fff;}
+  .murid .isi{color:var(--ink);}
+
+  .contoh-visual{display:flex; flex-wrap:wrap; gap:14px; margin:14px 0;}
+  .contoh-visual .kartu{flex:1 1 150px; background:#fff; border:2px solid var(--paper-line); border-radius:10px; padding:12px 14px; text-align:center; font-size:.92rem;}
+  .contoh-visual .kartu .emoji{font-size:1.6rem; display:block; margin-bottom:6px; letter-spacing:2px;}
+
+  .soal-card{background:#fff; border:2px solid var(--ink); border-radius:2px 14px 2px 14px; padding:16px 18px; margin-bottom:14px; box-shadow:var(--card-shadow);}
+  .soal-card .no{font-family:'Baloo 2',sans-serif; font-weight:800; font-size:.85rem; color:#fff; background:var(--ink);
+    display:inline-flex; align-items:center; justify-content:center; width:26px; height:26px; border-radius:50%; margin-right:8px; flex-shrink:0;}
+  .soal-card .pertanyaan{display:flex; align-items:flex-start; gap:4px; font-weight:600;}
+  .soal-card .pilihan{list-style:none; padding:0; margin:10px 0 0 34px; font-size:.95rem;}
+  .soal-card .pilihan li{margin-bottom:4px;} .soal-card .pilihan li b{margin-right:6px;}
+  details.jawaban{margin:10px 0 0 34px;}
+  details.jawaban summary{cursor:pointer; font-family:'Baloo 2',sans-serif; font-weight:700; font-size:.85rem; color:var(--ink-soft); display:inline-block; padding:4px 0;}
+  details.jawaban[open] summary{color:var(--ink);}
+  details.jawaban .kotak-jawab{margin-top:8px; padding:10px 14px; border-radius:8px; font-size:.92rem; background:var(--tint);}
+
+  footer{max-width:920px; margin:24px auto 0; padding:0 26px; color:var(--ink-soft); font-size:.85rem; text-align:center;}
+  @media print{.topicbar{display:none;} .panel{display:block !important; page-break-after:always;}}
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="stamp">KURIKULUM<br>MERDEKA<br>FASE A</div>
+  <h1>Modul Ajar Pendidikan Agama Islam & Budi Pekerti</h1>
+  <p class="sub">Kelas 2 SD — 6 topik lengkap untuk 2 semester, melanjutkan pengenalan Al-Qur'an, syahadat, kisah nabi, tata cara ibadah, dan akhlak terpuji, dilengkapi catatan pedagogis untuk guru, penjelasan untuk murid, dan latihan soal beserta kunci jawaban.</p>
+  <div class="meta">
+    <span>Kelas: <b>2 (Dua)</b></span>
+    <span>Elemen CP: <b>Al-Qur'an Hadis, Akidah, Akhlak, Fikih, Sejarah Peradaban Islam</b></span>
+    <span>Total Alokasi: <b>±24 pertemuan</b></span>
+  </div>
+</div>
+
+<div class="topicbar" id="topicbar">
+  <button class="topic-btn active" data-t="t1">1. Adab Al-Qur'an</button>
+  <button class="topic-btn" data-t="t2">2. Dua Kalimat Syahadat</button>
+  <button class="topic-btn" data-t="t3">3. Kisah Nabi Adam & Nuh</button>
+  <button class="topic-btn" data-t="t4">4. Tata Cara Wudu</button>
+  <button class="topic-btn" data-t="t5">5. Gerakan Salat</button>
+  <button class="topic-btn" data-t="t6">6. Akhlak Terpuji</button>
+</div>
+
+<div class="panelwrap">
+
+<!-- ============ TOPIK 1 ============ -->
+<div class="panel active" data-t="t1">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 1</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Mengenal Al-Qur'an sebagai Kitab Suci dan Adab Terhadapnya</div>
+      <div><b>Alokasi Waktu</b>4 x pertemuan (4 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Mengenal huruf hijaiyah dan harakat (materi kelas 1)</div>
+      <div><b>Profil Pelajar Pancasila</b>Beriman, bertakwa kepada Tuhan YME</div>
+      <div><b>Sarana</b>Mushaf Al-Qur'an, gambar adab memegang Al-Qur'an</div>
+      <div><b>Model</b>Demonstrasi adab & diskusi</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat menjelaskan bahwa Al-Qur'an adalah kitab suci umat Islam.</li>
+      <li>Peserta didik dapat menunjukkan adab yang baik saat memegang dan membaca Al-Qur'an.</li>
+      <li>Peserta didik dapat menjelaskan pentingnya menjaga kebersihan saat menyentuh Al-Qur'an.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Al-Qur'an adalah kitab suci yang perlu diperlakukan dengan penuh hormat, dan adab yang baik terhadapnya perlu dibiasakan sejak usia dini.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>📗 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Gunakan mushaf Al-Qur'an nyata</b> sebagai media pembelajaran agar siswa lebih memahami secara konkret cara memperlakukan kitab suci dengan hormat.</li>
+        <li><b>Ajarkan adab sejak dini</b> — mencuci tangan/berwudu sebelum menyentuh, meletakkan di tempat yang bersih dan tinggi, tidak meletakkan benda lain di atasnya.</li>
+        <li><b>Miskonsepsi umum:</b> orang tua/guru mengira anak masih terlalu kecil untuk diajarkan adab ini. Justru kebiasaan yang ditanamkan sejak dini akan lebih kuat tertanam hingga dewasa.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah memahami bisa menjelaskan alasan di balik setiap adab; siswa lain cukup mempraktikkan adab dasarnya.</li>
+        <li><b>Asesmen formatif:</b> amati praktik adab siswa saat memegang dan meletakkan mushaf Al-Qur'an.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>📗 Ayo Hormati Al-Qur'an!</h4>
+      <div class="isi">
+        <p>Al-Qur'an adalah kitab suci umat Islam. Sebelum menyentuhnya, sebaiknya kita mencuci tangan dan meletakkannya di tempat yang bersih dan tinggi, tidak di lantai.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">5 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Al-Qur'an adalah kitab suci bagi umat ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: Islam</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Sebelum menyentuh Al-Qur'an, sebaiknya kita ...</div>
+      <ul class="pilihan"><li><b>a.</b> mencuci tangan terlebih dahulu</li><li><b>b.</b> langsung menyentuhnya tanpa persiapan</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: a</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Al-Qur'an sebaiknya diletakkan di tempat yang ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: bersih dan tinggi (tidak di lantai)</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Mengapa kita perlu memperlakukan Al-Qur'an dengan hormat?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> karena Al-Qur'an adalah kitab suci yang berisi firman Allah SWT.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Praktik: peragakan cara memegang dan meletakkan Al-Qur'an dengan adab yang baik!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Panduan penilaian guru:</b> amati kesungguhan siswa mempraktikkan adab yang diajarkan.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 2 ============ -->
+<div class="panel" data-t="t2">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 1</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Dua Kalimat Syahadat</div>
+      <div><b>Alokasi Waktu</b>3 x pertemuan (3 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Mengenal rukun Islam (materi kelas 1)</div>
+      <div><b>Profil Pelajar Pancasila</b>Beriman, bertakwa kepada Tuhan YME</div>
+      <div><b>Sarana</b>Kartu bacaan syahadat, artinya dalam bahasa Indonesia</div>
+      <div><b>Model</b>Hafalan melalui pengulangan</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat melafalkan dua kalimat syahadat dengan benar.</li>
+      <li>Peserta didik dapat menjelaskan makna sederhana dari kalimat syahadat.</li>
+      <li>Peserta didik dapat menjelaskan bahwa syahadat adalah rukun Islam yang pertama.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Dua kalimat syahadat adalah pernyataan keyakinan dasar seorang muslim, sehingga penting dipahami maknanya, bukan hanya dihafal lafalnya saja.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>🕌 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Ajarkan pelafalan syahadat dengan pengulangan</b> yang konsisten setiap pertemuan, agar siswa semakin fasih melafalkannya.</li>
+        <li><b>Jelaskan makna secara sangat sederhana:</b> syahadat pertama berarti percaya hanya kepada Allah, syahadat kedua berarti percaya Nabi Muhammad SAW adalah utusan Allah.</li>
+        <li><b>Miskonsepsi umum:</b> siswa/guru mengira cukup hafal lafalnya tanpa memahami maknanya. Tekankan pentingnya memahami arti kalimat, bukan hanya menghafal bunyinya.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah lancar bisa menjelaskan makna dengan kata-katanya sendiri; siswa lain fokus pada kelancaran pelafalan.</li>
+        <li><b>Asesmen formatif:</b> amati kelancaran pelafalan dan pemahaman makna dasar syahadat.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>🕌 Ayo Lafalkan Syahadat!</h4>
+      <div class="isi">
+        <p><span class="arab">أَشْهَدُ أَنْ لَا إِلٰهَ إِلَّا اللّٰهُ</span><br>Artinya: Aku bersaksi tiada Tuhan selain Allah.</p>
+        <p><span class="arab">وَأَشْهَدُ أَنَّ مُحَمَّدًا رَسُوْلُ اللّٰهِ</span><br>Artinya: Dan aku bersaksi Nabi Muhammad adalah utusan Allah.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">5 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Syahadat pertama berisi kesaksian bahwa ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: tiada Tuhan selain Allah</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Syahadat kedua berisi kesaksian bahwa ...</div>
+      <ul class="pilihan"><li><b>a.</b> Nabi Muhammad adalah utusan Allah</b></li><li><b>b.</b> Allah menciptakan alam semesta</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: a</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Syahadat termasuk rukun Islam yang ke ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: satu (pertama)</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Mengapa penting memahami makna syahadat, bukan hanya menghafal lafalnya?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> agar kita benar-benar meyakini dan memahami keyakinan yang kita ucapkan, bukan sekadar hafalan kosong.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Praktik: lafalkan dua kalimat syahadat bersama gurumu dengan benar!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Panduan penilaian guru:</b> amati kelancaran dan ketepatan pelafalan siswa.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 3 ============ -->
+<div class="panel" data-t="t3">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 1</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Kisah Keteladanan Nabi Adam AS dan Nabi Nuh AS</div>
+      <div><b>Alokasi Waktu</b>4 x pertemuan (4 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Mengenal Allah sebagai pencipta (materi kelas 1)</div>
+      <div><b>Profil Pelajar Pancasila</b>Beriman, bertakwa kepada Tuhan YME</div>
+      <div><b>Sarana</b>Gambar/ilustrasi cerita nabi</div>
+      <div><b>Model</b>Bercerita & diskusi teladan</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat menceritakan kembali kisah Nabi Adam AS sebagai manusia pertama secara sederhana.</li>
+      <li>Peserta didik dapat menceritakan kembali kisah Nabi Nuh AS dan bahteranya secara sederhana.</li>
+      <li>Peserta didik dapat menyebutkan 1 teladan yang bisa diambil dari kedua kisah tersebut.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Kisah para nabi bukan sekadar cerita, tetapi mengandung pesan moral dan teladan yang bisa kita terapkan dalam kehidupan sehari-hari.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>📜 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Gunakan gambar/ilustrasi cerita</b> untuk membantu siswa membayangkan dan mengingat alur kisah dengan lebih mudah.</li>
+        <li><b>Fokus pada pesan moral, bukan detail yang rumit</b> — misalnya dari kisah Nabi Nuh AS, fokus pada ketaatan dan kesabaran, bukan detail teknis pembuatan bahtera.</li>
+        <li><b>Miskonsepsi umum:</b> siswa mengira kisah nabi hanyalah dongeng biasa seperti cerita rakyat. Tekankan bahwa ini adalah kisah nyata dalam ajaran Islam yang mengandung pelajaran penting.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah lancar bercerita bisa menceritakan kembali dengan kalimatnya sendiri; siswa lain cukup menjawab pertanyaan sederhana tentang kisah tersebut.</li>
+        <li><b>Asesmen formatif:</b> amati pemahaman siswa terhadap alur cerita dan teladan yang bisa diambil.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>📜 Ayo Dengarkan Kisah Nabi!</h4>
+      <div class="isi">
+        <p><b>Nabi Adam AS</b> adalah manusia pertama yang diciptakan Allah SWT.</p>
+        <p><b>Nabi Nuh AS</b> membuat bahtera besar atas perintah Allah untuk menyelamatkan kaumnya yang beriman dari banjir besar. Kisah ini mengajarkan kita untuk taat dan sabar.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">5 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Siapakah manusia pertama yang diciptakan Allah SWT?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: Nabi Adam AS</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Nabi Nuh AS membuat bahtera besar untuk ...</div>
+      <ul class="pilihan"><li><b>a.</b> menyelamatkan kaumnya yang beriman dari banjir</li><li><b>b.</b> berlayar mencari harta karun</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: a</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Sebutkan 1 teladan yang bisa kita ambil dari kisah Nabi Nuh AS!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> ketaatan kepada Allah, kesabaran menghadapi ujian.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Mengapa kisah nabi penting untuk dipelajari?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> karena mengandung pesan moral dan teladan yang bisa diterapkan dalam kehidupan sehari-hari.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Praktik: ceritakan kembali salah satu kisah Nabi Adam AS atau Nabi Nuh AS dengan kata-katamu sendiri!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Panduan penilaian guru:</b> amati pemahaman alur cerita, bukan hafalan kata per kata.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 4 ============ -->
+<div class="panel" data-t="t4">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 2</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Tata Cara Wudu</div>
+      <div><b>Alokasi Waktu</b>4 x pertemuan (4 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Memahami bersuci/taharah (materi kelas 1)</div>
+      <div><b>Profil Pelajar Pancasila</b>Beriman, bertakwa kepada Tuhan YME, mandiri</div>
+      <div><b>Sarana</b>Gambar urutan wudu, area praktik wudu</div>
+      <div><b>Model</b>Demonstrasi bertahap & praktik langsung</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat menyebutkan urutan gerakan wudu dengan benar.</li>
+      <li>Peserta didik dapat mempraktikkan wudu dengan tertib sesuai urutan.</li>
+      <li>Peserta didik dapat menjelaskan pentingnya wudu sebelum salat.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Wudu adalah salah satu bentuk bersuci yang menjadi syarat sah salat, sehingga urutannya perlu dipahami dan dipraktikkan dengan benar.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>💦 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Demonstrasikan langsung tahap demi tahap</b> di tempat wudu, agar siswa bisa melihat dan menirukan urutan gerakan secara nyata.</li>
+        <li><b>Miskonsepsi umum:</b> siswa mengira wudu hanya soal membasuh anggota tubuh sembarangan tanpa memperhatikan urutan. Tekankan pentingnya urutan yang benar sesuai tuntunan.</li>
+        <li><b>Ajarkan niat wudu secara sederhana</b> sebagai bagian penting sebelum memulai gerakan wudu.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah lancar bisa mempraktikkan wudu secara mandiri; siswa lain berlatih dengan bimbingan langkah demi langkah dari guru.</li>
+        <li><b>Asesmen formatif:</b> amati ketepatan urutan gerakan wudu yang dipraktikkan siswa.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>💦 Ayo Belajar Wudu!</h4>
+      <div class="isi">
+        <p>Urutan wudu secara sederhana: niat → membasuh wajah → membasuh kedua tangan hingga siku → mengusap sebagian kepala → membasuh kedua kaki hingga mata kaki.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">5 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Sebutkan urutan wudu secara sederhana!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> niat, membasuh wajah, membasuh tangan hingga siku, mengusap kepala, membasuh kaki hingga mata kaki.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Anggota tubuh yang dibasuh pertama kali setelah niat adalah ...</div>
+      <ul class="pilihan"><li><b>a.</b> wajah</li><li><b>b.</b> kaki</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: a</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Mengapa wudu penting dilakukan sebelum salat?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> karena wudu adalah syarat sah salat.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Apa yang perlu dilakukan sebelum memulai gerakan wudu?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: niat</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Praktik: praktikkan wudu dengan urutan yang benar sesuai bimbingan gurumu!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Panduan penilaian guru:</b> periksa ketepatan urutan gerakan wudu siswa.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 5 ============ -->
+<div class="panel" data-t="t5">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 2</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Bacaan dan Gerakan Salat Sederhana</div>
+      <div><b>Alokasi Waktu</b>4 x pertemuan (4 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Dapat mempraktikkan wudu (topik sebelumnya)</div>
+      <div><b>Profil Pelajar Pancasila</b>Beriman, bertakwa kepada Tuhan YME</div>
+      <div><b>Sarana</b>Gambar urutan gerakan salat, area praktik</div>
+      <div><b>Model</b>Pengenalan bertahap & demonstrasi</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat mengenal urutan gerakan salat secara sederhana.</li>
+      <li>Peserta didik dapat melafalkan bacaan pendek dalam salat (misalnya bacaan takbiratul ihram).</li>
+      <li>Peserta didik dapat menjelaskan bahwa salat adalah rukun Islam yang kedua.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Mengenal gerakan dan bacaan salat sejak dini membantu anak membangun kebiasaan ibadah secara bertahap dan menyenangkan.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>🕋 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Fokus pada pengenalan bertahap</b>, bukan menuntut hafalan sempurna sekaligus — perkenalkan 1-2 gerakan dan bacaan setiap pertemuan.</li>
+        <li><b>Gunakan gambar tahapan gerakan</b> salat (berdiri, rukuk, sujud, duduk) untuk membantu siswa memvisualisasikan urutannya.</li>
+        <li><b>Miskonsepsi umum:</b> guru/orang tua menuntut anak kelas 2 sudah harus hafal semua bacaan salat dengan sempurna. Proses ini butuh waktu dan pengulangan bertahun-tahun ke depan.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah lancar bisa mempraktikkan rangkaian gerakan lebih lengkap; siswa lain fokus pada 2-3 gerakan dasar terlebih dahulu.</li>
+        <li><b>Asesmen formatif:</b> amati pengenalan siswa terhadap urutan gerakan salat secara umum.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>🕋 Ayo Mengenal Gerakan Salat!</h4>
+      <div class="isi">
+        <div class="contoh-visual">
+          <div class="kartu"><span class="emoji">🧍</span>Berdiri (takbiratul ihram)</div>
+          <div class="kartu"><span class="emoji">🙇</span>Rukuk</div>
+          <div class="kartu"><span class="emoji">🕌</span>Sujud</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">5 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Salat termasuk rukun Islam yang ke ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: dua</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Gerakan salat yang dilakukan dengan membungkukkan badan disebut ...</div>
+      <ul class="pilihan"><li><b>a.</b> rukuk</li><li><b>b.</b> sujud</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: a</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Gerakan salat yang menempelkan dahi ke lantai disebut ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: sujud</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Salat diawali dengan gerakan takbiratul ihram, yaitu ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> mengangkat kedua tangan sambil mengucapkan Allahu Akbar.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Praktik: peragakan urutan gerakan salat sederhana yang telah kamu pelajari!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Panduan penilaian guru:</b> amati urutan gerakan, bukan kesempurnaan bacaan.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 6 ============ -->
+<div class="panel" data-t="t6">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 2</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Akhlak Terpuji: Hidup Bersih, Rendah Hati, dan Peduli Sesama</div>
+      <div><b>Alokasi Waktu</b>4 x pertemuan (4 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Memahami akhlak jujur dan kasih sayang (materi kelas 1)</div>
+      <div><b>Profil Pelajar Pancasila</b>Beriman, bertakwa kepada Tuhan YME, berakhlak mulia</div>
+      <div><b>Sarana</b>Cerita/kisah teladan sederhana</div>
+      <div><b>Model</b>Bercerita & refleksi perilaku sehari-hari</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat menjelaskan pentingnya hidup bersih dalam ajaran Islam.</li>
+      <li>Peserta didik dapat menunjukkan sikap rendah hati dalam kehidupan sehari-hari.</li>
+      <li>Peserta didik dapat menunjukkan sikap peduli terhadap sesama.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Hidup bersih, rendah hati, dan peduli sesama adalah akhlak yang sangat dianjurkan dalam Islam, karena mencerminkan keimanan seseorang dalam kehidupan sehari-hari.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>🌱 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Kaitkan dengan kebiasaan sehari-hari siswa</b> — kebersihan diri, kebersihan kelas, sikap tidak sombong, dan membantu teman yang kesulitan.</li>
+        <li><b>Gunakan cerita teladan</b> untuk menjelaskan setiap sikap secara konkret dan mudah dipahami.</li>
+        <li><b>Miskonsepsi umum:</b> siswa mengira rendah hati berarti tidak boleh percaya diri sama sekali. Jelaskan bahwa rendah hati berarti tidak sombong, tetap boleh percaya diri dengan kemampuan sendiri.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah memahami bisa menceritakan pengalaman pribadinya; siswa lain cukup mengidentifikasi contoh sikap baik dari cerita yang didengar.</li>
+        <li><b>Asesmen formatif:</b> amati pemahaman dan praktik siswa terkait hidup bersih, rendah hati, dan peduli sesama.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>🌱 Ayo Berakhlak Mulia!</h4>
+      <div class="isi">
+        <div class="contoh-visual">
+          <div class="kartu"><span class="emoji">🧼</span>Hidup bersih: menjaga kebersihan diri dan lingkungan</div>
+          <div class="kartu"><span class="emoji">🙇</span>Rendah hati: tidak sombong meski punya kelebihan</div>
+          <div class="kartu"><span class="emoji">🤗</span>Peduli sesama: membantu teman yang kesulitan</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">5 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Sebutkan 1 contoh perilaku hidup bersih!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> mencuci tangan, membuang sampah pada tempatnya.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Rendah hati berarti ...</div>
+      <ul class="pilihan"><li><b>a.</b> tidak sombong meski memiliki kelebihan</li><li><b>b.</b> tidak boleh percaya diri sama sekali</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: a</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Sebutkan 1 contoh perilaku peduli terhadap sesama!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> membantu teman yang kesulitan, berbagi dengan teman.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Mengapa Islam sangat menganjurkan hidup bersih?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> karena kebersihan mencerminkan keimanan dan berkaitan erat dengan kesiapan beribadah.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Praktik: ceritakan 1 pengalamanmu membantu teman atau menjaga kebersihan!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban bebas</b> sesuai pengalaman masing-masing siswa.</div></details></div>
+  </div>
+</div>
+
+</div><!-- /panelwrap -->
+
+<footer>Modul PAI Kelas 2 · Kurikulum Merdeka Fase A · Dapat dicetak (Ctrl/Cmd + P) untuk dibagikan ke siswa</footer>
+
+<script>
+  const btns = document.querySelectorAll('.topic-btn');
+  const panels = document.querySelectorAll('.panel');
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const t = btn.getAttribute('data-t');
+      btns.forEach(b => b.classList.toggle('active', b === btn));
+      panels.forEach(p => p.classList.toggle('active', p.getAttribute('data-t') === t));
+      window.scrollTo({top: 0, behavior:'smooth'});
+    });
+  });
+</script>
+
+</body>
+</html>

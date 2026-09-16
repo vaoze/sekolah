@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modul Seni Rupa Kelas 4 — Kurikulum Merdeka</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F7F1E1; --paper-line:#E4D9BE;
+    --ink:#2B2B27; --ink-soft:#5B5648;
+    --accent:#B2588A; --tint:#F5E6EF;
+    --chalk:#2E3430;
+    --card-shadow: 3px 3px 0 rgba(43,43,39,0.10);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:repeating-linear-gradient(to bottom, transparent 0px, transparent 34px, var(--paper-line) 35px), var(--paper);
+    color:var(--ink); font-family:'Atkinson Hyperlegible', sans-serif; font-size:17px; line-height:1.65; padding-bottom:60px;
+  }
+  h1,h2,h3,h4{font-family:'Baloo 2', sans-serif; margin:0 0 .4em 0;}
+
+  .cover{position:relative; padding:38px 24px 30px; max-width:920px; margin:0 auto; border-bottom:3px solid var(--ink);}
+  .cover .stamp{position:absolute; top:28px; right:24px; width:88px; height:88px; border-radius:50%; border:3px dashed var(--ink);
+    display:flex; align-items:center; justify-content:center; transform:rotate(-8deg); font-family:'Baloo 2',sans-serif; font-weight:700;
+    font-size:12px; text-align:center; line-height:1.2; color:var(--ink-soft); padding:6px;}
+  .cover h1{font-size:2.1rem; max-width:600px; color:var(--accent);}
+  .cover p.sub{margin:0; color:var(--ink-soft); font-size:1.02rem; max-width:600px;}
+  .cover .meta{margin-top:18px; display:flex; flex-wrap:wrap; gap:10px 26px; font-size:.92rem; color:var(--ink-soft);}
+  .cover .meta span b{color:var(--ink); font-weight:700;}
+
+  .topicbar{
+    max-width:920px; margin:8px auto 0; padding:0 24px 6px;
+    display:flex; gap:8px; flex-wrap:wrap; position:sticky; top:0; background:var(--paper); z-index:20; padding-top:10px;
+  }
+  .topic-btn{
+    appearance:none; cursor:pointer; border:2.5px solid var(--ink); background:#fff; color:var(--ink-soft);
+    font-family:'Baloo 2',sans-serif; font-weight:700; font-size:.82rem; padding:8px 14px; border-radius:20px;
+  }
+  .topic-btn.active{background:var(--accent); border-color:var(--accent); color:#fff;}
+
+  .panelwrap{max-width:920px; margin:0 auto; border:3px solid var(--ink); border-top:none; background:#fffdf8; padding:6px;}
+  .panel{display:none; padding:26px 26px 10px;}
+  .panel.active{display:block;}
+
+  .section{margin:0 0 34px;}
+  .section-head{display:flex; align-items:baseline; gap:10px; border-bottom:2.5px solid var(--accent); padding-bottom:6px; margin-bottom:14px;}
+  .section-head h2{font-size:1.35rem; color:var(--ink);}
+  .section-head .tag{font-family:'Baloo 2',sans-serif; font-weight:700; font-size:.72rem; padding:3px 10px; border-radius:20px; background:var(--accent); color:#fff;}
+
+  .info-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px 24px; background:#fff; border:2px solid var(--paper-line); border-radius:10px; padding:16px 18px; font-size:.94rem;}
+  .info-grid div b{display:block; color:var(--ink-soft); font-size:.78rem; font-weight:700; margin-bottom:2px;}
+  @media(max-width:600px){.info-grid{grid-template-columns:1fr;}}
+
+  ul.tp-list{margin:0; padding-left:22px;}
+  ul.tp-list li{margin-bottom:6px;}
+
+  .callout{border-radius:10px; padding:18px 20px; margin:16px 0;}
+  .callout h4{font-size:1.02rem; display:flex; align-items:center; gap:8px; color:var(--accent);}
+  .pemahaman{border:2px dashed var(--accent); background:var(--tint);}
+  .pemahaman h4{color:var(--accent);}
+
+  .guru{background:var(--chalk); color:#EDEAE2; border:2px solid var(--chalk);}
+  .guru h4{color:#fff;} .guru b{color:#fff;}
+  .guru ul{padding-left:20px; margin:8px 0 0;} .guru li{margin-bottom:6px;}
+
+  .murid{border:2.5px solid var(--accent); background:#fff;}
+  .murid .isi{color:var(--ink);}
+
+  .contoh-visual{display:flex; flex-wrap:wrap; gap:14px; margin:14px 0;}
+  .contoh-visual .kartu{flex:1 1 150px; background:#fff; border:2px solid var(--paper-line); border-radius:10px; padding:12px 14px; text-align:center; font-size:.92rem;}
+  .contoh-visual .kartu .emoji{font-size:1.6rem; display:block; margin-bottom:6px; letter-spacing:2px;}
+
+  .soal-card{background:#fff; border:2px solid var(--ink); border-radius:2px 14px 2px 14px; padding:16px 18px; margin-bottom:14px; box-shadow:var(--card-shadow);}
+  .soal-card .no{font-family:'Baloo 2',sans-serif; font-weight:800; font-size:.85rem; color:#fff; background:var(--ink);
+    display:inline-flex; align-items:center; justify-content:center; width:26px; height:26px; border-radius:50%; margin-right:8px; flex-shrink:0;}
+  .soal-card .pertanyaan{display:flex; align-items:flex-start; gap:4px; font-weight:600;}
+  .soal-card .pilihan{list-style:none; padding:0; margin:10px 0 0 34px; font-size:.95rem;}
+  .soal-card .pilihan li{margin-bottom:4px;} .soal-card .pilihan li b{margin-right:6px;}
+  details.jawaban{margin:10px 0 0 34px;}
+  details.jawaban summary{cursor:pointer; font-family:'Baloo 2',sans-serif; font-weight:700; font-size:.85rem; color:var(--ink-soft); display:inline-block; padding:4px 0;}
+  details.jawaban[open] summary{color:var(--ink);}
+  details.jawaban .kotak-jawab{margin-top:8px; padding:10px 14px; border-radius:8px; font-size:.92rem; background:var(--tint);}
+
+  footer{max-width:920px; margin:24px auto 0; padding:0 26px; color:var(--ink-soft); font-size:.85rem; text-align:center;}
+  @media print{.topicbar{display:none;} .panel{display:block !important; page-break-after:always;}}
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="stamp">KURIKULUM<br>MERDEKA<br>FASE B</div>
+  <h1>Modul Ajar Seni Rupa</h1>
+  <p class="sub">Kelas 4 SD — 6 topik lengkap untuk 2 semester, melanjutkan dan memperdalam teknik serta apresiasi seni dari kelas 3, dilengkapi catatan pedagogis untuk guru, penjelasan untuk murid, dan latihan soal apresiasi seni beserta kunci jawaban.</p>
+  <div class="meta">
+    <span>Kelas: <b>4 (Empat)</b></span>
+    <span>Elemen CP: <b>Mengalami, Menciptakan, Merefleksikan, Berpikir & Bekerja Artistik, Berdampak</b></span>
+    <span>Total Alokasi: <b>±18 pertemuan</b></span>
+  </div>
+</div>
+
+<div class="topicbar" id="topicbar">
+  <button class="topic-btn active" data-t="t1">1. Perspektif Sederhana</button>
+  <button class="topic-btn" data-t="t2">2. Menganyam Sederhana</button>
+  <button class="topic-btn" data-t="t3">3. Proporsi Menggambar</button>
+  <button class="topic-btn" data-t="t4">4. Poster Sederhana</button>
+  <button class="topic-btn" data-t="t5">5. Karya 2D & 3D</button>
+  <button class="topic-btn" data-t="t6">6. Tokoh Seni Indonesia</button>
+</div>
+
+<div class="panelwrap">
+
+<!-- ============ TOPIK 1 ============ -->
+<div class="panel active" data-t="t1">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 1</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Menggambar Perspektif Sederhana (Dekat-Jauh)</div>
+      <div><b>Alokasi Waktu</b>3 x pertemuan (3 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Mengenal prinsip komposisi dasar (materi kelas 3)</div>
+      <div><b>Profil Pelajar Pancasila</b>Bernalar kritis, kreatif</div>
+      <div><b>Sarana</b>Contoh gambar bersudut pandang, kertas gambar</div>
+      <div><b>Model</b>Pengamatan langsung objek dekat-jauh</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat menjelaskan bahwa objek yang lebih dekat terlihat lebih besar dan yang jauh terlihat lebih kecil.</li>
+      <li>Peserta didik dapat menerapkan prinsip perspektif sederhana dalam gambarnya.</li>
+      <li>Peserta didik dapat membandingkan gambar dengan dan tanpa prinsip perspektif.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Memahami perspektif membuat gambar terasa lebih hidup dan sesuai dengan cara kita melihat dunia nyata, di mana jarak memengaruhi ukuran yang terlihat.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>🛤️ Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Gunakan pengamatan langsung</b> — ajak siswa melihat pohon di dekat dan pohon di kejauhan untuk menunjukkan prinsip ini secara nyata sebelum menggambar.</li>
+        <li><b>Miskonsepsi umum:</b> siswa mengira semua objek harus digambar dengan ukuran yang sama. Jelaskan bahwa objek yang lebih jauh perlu digambar lebih kecil agar terlihat realistis.</li>
+        <li><b>Perkenalkan konsep garis horizon sederhana</b> sebagai patokan dasar untuk menggambar perspektif, meski masih dalam bentuk yang sangat sederhana untuk usia ini.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah mahir bisa mencoba menggambar jalan yang mengecil ke kejauhan; siswa lain cukup membandingkan ukuran 2 objek sejenis pada jarak berbeda.</li>
+        <li><b>Asesmen formatif:</b> amati penerapan prinsip dekat-besar/jauh-kecil dalam gambar siswa.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>🛤️ Ayo Gambar dengan Perspektif!</h4>
+      <div class="isi">
+        <p>Coba perhatikan: pohon yang dekat denganmu terlihat besar, sedangkan pohon yang jauh terlihat kecil. Terapkan ini saat menggambar agar gambarmu terlihat lebih nyata!</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">5 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Objek yang letaknya lebih dekat akan terlihat ...</div>
+      <ul class="pilihan"><li><b>a.</b> lebih besar</li><li><b>b.</b> lebih kecil</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: a</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Objek yang letaknya lebih jauh akan terlihat ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: lebih kecil</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Mengapa memahami perspektif membuat gambar terlihat lebih nyata?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> karena sesuai dengan cara mata kita melihat dunia, di mana jarak memengaruhi ukuran objek yang terlihat.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Sebutkan 1 contoh benda yang bisa digunakan untuk berlatih perspektif (dekat-jauh)!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> pohon, tiang listrik, jalan.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Praktik: gambarlah sebuah jalan dengan pohon-pohon yang semakin kecil ke arah kejauhan!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Panduan penilaian guru:</b> periksa penerapan prinsip dekat-besar/jauh-kecil.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 2 ============ -->
+<div class="panel" data-t="t2">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 1</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Membuat Karya Seni dengan Teknik Menganyam Sederhana</div>
+      <div><b>Alokasi Waktu</b>3 x pertemuan (3 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Dapat membuat karya mozaik (materi kelas 3)</div>
+      <div><b>Profil Pelajar Pancasila</b>Kreatif, mandiri</div>
+      <div><b>Sarana</b>Kertas warna dipotong memanjang/daun pandan</div>
+      <div><b>Model</b>Latihan pola anyam bertahap</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat mempraktikkan teknik menganyam sederhana menggunakan kertas atau bahan alam.</li>
+      <li>Peserta didik dapat menghasilkan pola anyaman dasar (atas-bawah bergantian).</li>
+      <li>Peserta didik dapat menjelaskan bahwa menganyam adalah salah satu kerajinan tradisional Indonesia.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Menganyam adalah keterampilan tradisional yang masih banyak digunakan untuk membuat berbagai barang sehari-hari, mulai dari tikar hingga tas.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>🧺 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Ajarkan pola anyam dasar</b> (memasukkan bahan secara bergantian atas-bawah) secara bertahap dan perlahan, karena memerlukan koordinasi yang cukup rumit bagi pemula.</li>
+        <li><b>Miskonsepsi umum:</b> siswa mengira menganyam hanya untuk kerajinan orang dewasa atau tidak relevan bagi mereka. Jelaskan bahwa menganyam adalah keterampilan tradisional yang bisa dipelajari sejak dini.</li>
+        <li><b>Gunakan kertas warna yang dipotong memanjang</b> sebagai bahan latihan awal sebelum mencoba bahan alam yang lebih menantang seperti daun pandan.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah mahir bisa mencoba pola anyam yang lebih variatif; siswa lain fokus pada pola dasar bergantian.</li>
+        <li><b>Asesmen formatif:</b> amati ketepatan pola anyam dan kesabaran siswa selama proses berkarya.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>🧺 Ayo Belajar Menganyam!</h4>
+      <div class="isi">
+        <p><b>Menganyam</b> adalah teknik menyusun bahan (kertas/daun) secara bergantian atas-bawah untuk membentuk pola tertentu. Ini adalah kerajinan tradisional yang masih digunakan untuk membuat tikar, tas, dan topi.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">5 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Apa yang dimaksud dengan teknik menganyam?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> teknik menyusun bahan secara bergantian atas-bawah untuk membentuk pola tertentu.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Sebutkan 1 contoh benda hasil kerajinan anyaman!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> tikar, tas, topi anyaman.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Sebutkan 1 bahan yang bisa digunakan untuk menganyam!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> kertas, daun pandan, bambu.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Mengapa menganyam termasuk keterampilan tradisional Indonesia?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> karena sudah dipraktikkan turun-temurun untuk membuat berbagai barang kebutuhan sehari-hari di berbagai daerah Indonesia.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Praktik: buatlah anyaman sederhana dari kertas warna dengan pola atas-bawah bergantian!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Panduan penilaian guru:</b> nilai ketepatan pola dan kesabaran siswa.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 3 ============ -->
+<div class="panel" data-t="t3">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 1</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Mengenal Proporsi dalam Menggambar Manusia/Hewan</div>
+      <div><b>Alokasi Waktu</b>3 x pertemuan (3 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Dapat menggambar objek dari pengamatan (materi kelas 2-3)</div>
+      <div><b>Profil Pelajar Pancasila</b>Bernalar kritis, kreatif</div>
+      <div><b>Sarana</b>Contoh gambar referensi manusia/hewan sederhana</div>
+      <div><b>Model</b>Pengamatan dan perbandingan ukuran</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat mengenal konsep proporsi dasar tubuh manusia/hewan (perbandingan ukuran kepala dan badan).</li>
+      <li>Peserta didik dapat menerapkan proporsi sederhana dalam gambar manusia/hewan yang dibuatnya.</li>
+      <li>Peserta didik dapat membandingkan gambar dengan proporsi tepat dan tidak tepat.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Memahami proporsi dasar membuat gambar manusia/hewan terlihat lebih seimbang dan enak dipandang, meski tidak harus seakurat gambar anatomi ilmiah.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>🧍 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Gunakan gambar referensi sederhana</b> untuk menunjukkan perbandingan ukuran kepala dan badan pada manusia (misalnya anak-anak memiliki kepala relatif lebih besar dibanding orang dewasa).</li>
+        <li><b>Miskonsepsi umum:</b> siswa/guru mengira proporsi harus sangat akurat seperti anatomi ilmiah profesional. Tekankan bahwa di tingkat ini, cukup memahami perbandingan dasar secara umum.</li>
+        <li><b>Latih dengan cara membandingkan</b> — tunjukkan 2 gambar (proporsi tepat dan tidak tepat) untuk didiskusikan bersama.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah mahir bisa menggambar dengan proporsi lebih detail; siswa lain cukup memahami perbandingan dasar kepala-badan.</li>
+        <li><b>Asesmen formatif:</b> amati penerapan proporsi dasar dalam gambar siswa.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>🧍 Ayo Kenali Proporsi!</h4>
+      <div class="isi">
+        <p><b>Proporsi</b> adalah perbandingan ukuran antarbagian tubuh. Misalnya, kepala orang dewasa biasanya lebih kecil dibanding badannya, sedangkan kepala anak-anak terlihat relatif lebih besar.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">5 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Apa yang dimaksud dengan proporsi dalam menggambar?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> perbandingan ukuran antarbagian tubuh dalam sebuah gambar.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Apakah proporsi harus selalu akurat seperti anatomi ilmiah?</div>
+      <ul class="pilihan"><li><b>a.</b> ya, harus sangat presisi</li><li><b>b.</b> tidak, cukup memahami perbandingan dasar</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: b</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Mengapa kepala anak-anak terlihat relatif lebih besar dibanding badannya?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> karena proporsi tubuh anak berbeda dari orang dewasa, sesuai tahap pertumbuhannya.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Mengapa memahami proporsi membuat gambar terlihat lebih seimbang?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> karena ukuran antarbagian tubuh terlihat sesuai dan enak dipandang.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Praktik: gambarlah seorang manusia atau hewan sederhana dengan memperhatikan proporsi dasarnya!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Panduan penilaian guru:</b> nilai usaha penerapan proporsi, bukan kesempurnaan teknis.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 4 ============ -->
+<div class="panel" data-t="t4">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 2</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Membuat Poster Sederhana (Seni Rupa Terapan)</div>
+      <div><b>Alokasi Waktu</b>3 x pertemuan (3 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Dapat menggabungkan gambar dan tulisan sederhana</div>
+      <div><b>Profil Pelajar Pancasila</b>Kreatif, bernalar kritis</div>
+      <div><b>Sarana</b>Contoh poster sederhana, kertas gambar, alat tulis warna</div>
+      <div><b>Model</b>Proyek membuat poster bertema</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat menjelaskan fungsi poster sebagai media penyampai pesan.</li>
+      <li>Peserta didik dapat membuat poster sederhana dengan gambar dan teks singkat.</li>
+      <li>Peserta didik dapat memilih tema poster yang relevan dengan kehidupan sehari-hari.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Poster adalah contoh seni rupa terapan — seni yang tidak hanya indah, tetapi juga memiliki fungsi praktis menyampaikan pesan kepada orang banyak.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>📢 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Pilih tema poster yang relevan</b> dengan kehidupan siswa (ajakan hemat air, jaga kebersihan, rajin membaca) agar lebih bermakna.</li>
+        <li><b>Miskonsepsi umum:</b> siswa mengira poster harus penuh teks tanpa gambar. Tekankan bahwa poster yang baik menyeimbangkan gambar menarik dengan teks singkat dan jelas.</li>
+        <li><b>Ajarkan prinsip poster sederhana:</b> gambar besar dan jelas, teks singkat (slogan), warna yang mencolok agar mudah dilihat.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah mahir bisa membuat poster dengan komposisi lebih kompleks; siswa lain cukup 1 gambar utama dan 1 kalimat singkat.</li>
+        <li><b>Asesmen formatif:</b> amati kejelasan pesan dan keseimbangan gambar-teks dalam poster siswa.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>📢 Ayo Membuat Poster!</h4>
+      <div class="isi">
+        <p>Poster yang baik punya gambar besar dan jelas, disertai teks singkat (slogan) yang mudah dibaca dari jauh. Contoh: gambar keran air + tulisan "Ayo Hemat Air!"</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">5 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Apa fungsi utama sebuah poster?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> menyampaikan pesan kepada orang banyak.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Poster yang baik sebaiknya memiliki ...</div>
+      <ul class="pilihan"><li><b>a.</b> gambar jelas dan teks singkat</li><li><b>b.</b> teks yang sangat panjang tanpa gambar</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: a</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Sebutkan 1 contoh tema poster yang relevan bagi siswa!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> hemat air, jaga kebersihan, rajin membaca.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Mengapa poster disebut sebagai seni rupa terapan?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> karena tidak hanya indah, tetapi juga memiliki fungsi praktis menyampaikan pesan.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Praktik: buatlah poster sederhana dengan tema pilihanmu!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Panduan penilaian guru:</b> nilai kejelasan pesan dan keseimbangan gambar-teks.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 5 ============ -->
+<div class="panel" data-t="t5">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 2</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Mengenal Seni Rupa 2 Dimensi dan 3 Dimensi Secara Lebih Mendalam</div>
+      <div><b>Alokasi Waktu</b>3 x pertemuan (3 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Membuat karya 2D dan 3D sederhana (materi kelas 1-3)</div>
+      <div><b>Profil Pelajar Pancasila</b>Bernalar kritis, kreatif</div>
+      <div><b>Sarana</b>Contoh karya 2D (lukisan) dan 3D (patung/kerajinan) nyata</div>
+      <div><b>Model</b>Perbandingan langsung karya nyata</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat membedakan karya seni rupa 2 dimensi dan 3 dimensi.</li>
+      <li>Peserta didik dapat memberi contoh masing-masing jenis karya dari lingkungan sekitar.</li>
+      <li>Peserta didik dapat menjelaskan ciri khas yang membedakan keduanya.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Membedakan karya 2D dan 3D membantu kita memahami bahwa seni rupa hadir dalam berbagai bentuk, tidak hanya berupa gambar di atas kertas.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>🗿 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Bawa contoh nyata karya 2D</b> (lukisan, gambar) <b>dan 3D</b> (patung kecil, kerajinan) untuk dibandingkan secara langsung dan dipegang siswa.</li>
+        <li><b>Miskonsepsi umum:</b> siswa menganggap relief (misalnya ukiran timbul) sepenuhnya 2D atau sepenuhnya 3D. Jelaskan bahwa relief adalah bentuk peralihan yang memiliki kedalaman namun tetap menempel pada permukaan datar.</li>
+        <li><b>Tekankan ciri utama:</b> karya 2D hanya memiliki panjang dan lebar (bisa dilihat dari 1 sisi), karya 3D memiliki panjang, lebar, dan tinggi (bisa dilihat dari berbagai sisi).</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah mahir bisa menjelaskan contoh relief sebagai bentuk peralihan; siswa lain fokus membedakan 2D dan 3D secara dasar.</li>
+        <li><b>Asesmen formatif:</b> siswa mengelompokkan beberapa contoh karya ke dalam kategori 2D atau 3D.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>🗿 Ayo Bedakan 2D dan 3D!</h4>
+      <div class="isi">
+        <div class="contoh-visual">
+          <div class="kartu"><span class="emoji">🖼️</span>2 dimensi: lukisan, gambar (hanya bisa dilihat dari 1 sisi)</div>
+          <div class="kartu"><span class="emoji">🗿</span>3 dimensi: patung, kerajinan (bisa dilihat dari berbagai sisi)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">5 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Karya seni yang hanya bisa dilihat dari satu sisi disebut karya ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: 2 dimensi</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Karya seni yang bisa dilihat dari berbagai sisi disebut karya ...</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: 3 dimensi</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Sebutkan 1 contoh karya seni 2 dimensi!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> lukisan, gambar, foto.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Sebutkan 1 contoh karya seni 3 dimensi!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Contoh jawaban:</b> patung, kerajinan tanah liat, ukiran kayu.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Praktik: kelompokkan beberapa gambar karya seni yang diberikan gurumu ke dalam kategori 2D atau 3D!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Panduan penilaian guru:</b> sesuaikan dengan contoh karya yang diberikan.</div></details></div>
+  </div>
+</div>
+
+<!-- ============ TOPIK 6 ============ -->
+<div class="panel" data-t="t6">
+  <div class="section">
+    <div class="section-head"><h2>Informasi Umum</h2><span class="tag">Semester 2</span></div>
+    <div class="info-grid">
+      <div><b>Topik</b>Mengenal Karya dan Tokoh Seni Rupa Indonesia</div>
+      <div><b>Alokasi Waktu</b>3 x pertemuan (3 x 35 menit)</div>
+      <div><b>Kompetensi Awal</b>Mengapresiasi karya seni di sekitar (materi kelas 1-3)</div>
+      <div><b>Profil Pelajar Pancasila</b>Berkebinekaan global, bernalar kritis</div>
+      <div><b>Sarana</b>Gambar reproduksi karya tokoh seni rupa Indonesia</div>
+      <div><b>Model</b>Observasi karya & diskusi apresiasi</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Tujuan Pembelajaran</h2></div>
+    <ul class="tp-list">
+      <li>Peserta didik dapat mengenal 1-2 tokoh seni rupa Indonesia beserta karyanya.</li>
+      <li>Peserta didik dapat mendeskripsikan ciri khas karya yang diamatinya secara sederhana.</li>
+      <li>Peserta didik dapat menunjukkan rasa bangga terhadap karya seniman Indonesia.</li>
+    </ul>
+    <div class="callout pemahaman"><h4>💡 Pemahaman Bermakna</h4>
+      <p style="margin:0;">Indonesia memiliki banyak seniman berbakat dengan karya yang diakui — mengenalnya menumbuhkan rasa bangga terhadap kekayaan seni bangsa sendiri.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Guru</h2><span class="tag">Catatan Mengajar</span></div>
+    <div class="callout guru"><h4>🎨 Strategi & Miskonsepsi Umum</h4>
+      <ul>
+        <li><b>Pilih tokoh yang karyanya mudah dipahami anak</b> (misalnya pelukis pemandangan alam Indonesia) agar lebih relevan bagi usia mereka.</li>
+        <li><b>Miskonsepsi umum:</b> siswa/masyarakat kadang menganggap seni rupa Indonesia "kalah" dibanding seni rupa dari luar negeri. Tunjukkan bahwa Indonesia memiliki seniman berbakat dengan karya yang diakui secara luas.</li>
+        <li><b>Ajak siswa mendeskripsikan</b> apa yang mereka lihat dari karya tersebut (warna, objek, suasana) sebagai latihan apresiasi sederhana.</li>
+        <li><b>Diferensiasi:</b> siswa yang sudah mahir bisa mencari tahu lebih banyak tentang tokoh tersebut; siswa lain cukup mengenal 1 karya dan penciptanya.</li>
+        <li><b>Asesmen formatif:</b> amati kemampuan siswa mendeskripsikan karya dan menunjukkan apresiasi terhadapnya.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Untuk Murid</h2><span class="tag">Penjelasan</span></div>
+    <div class="callout murid"><h4>🎨 Ayo Kenali Seniman Indonesia!</h4>
+      <div class="isi">
+        <p>Indonesia punya banyak seniman berbakat yang karyanya diakui di dalam maupun luar negeri. Ayo kenali salah satu karya mereka dan ceritakan apa yang kamu lihat!</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2>Latihan Soal</h2><span class="tag">5 Soal</span></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">1</span>Sebutkan 1 tokoh seni rupa Indonesia yang telah kamu pelajari!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban bebas</b> sesuai tokoh yang diperkenalkan gurumu.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">2</span>Apakah karya seni rupa Indonesia kalah dibanding karya dari luar negeri?</div>
+      <ul class="pilihan"><li><b>a.</b> ya</li><li><b>b.</b> tidak, Indonesia punya banyak seniman berbakat</li></ul>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban: b</b></div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">3</span>Deskripsikan 1 karya seni rupa Indonesia yang kamu amati (warna, objek, suasana)!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban bebas</b> sesuai pengamatan masing-masing siswa.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">4</span>Mengapa kita perlu bangga terhadap karya seniman Indonesia?</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Jawaban:</b> karena karya mereka merupakan kekayaan budaya bangsa yang patut dihargai.</div></details></div>
+    <div class="soal-card"><div class="pertanyaan"><span class="no">5</span>Praktik: buatlah gambar terinspirasi dari salah satu karya seniman Indonesia yang telah kamu pelajari!</div>
+      <details class="jawaban"><summary>Lihat Jawaban</summary><div class="kotak-jawab"><b>Panduan penilaian guru:</b> nilai kreativitas dan usaha mengambil inspirasi, bukan meniru persis.</div></details></div>
+  </div>
+</div>
+
+</div><!-- /panelwrap -->
+
+<footer>Modul Seni Rupa Kelas 4 · Kurikulum Merdeka Fase B · Dapat dicetak (Ctrl/Cmd + P) untuk dibagikan ke siswa</footer>
+
+<script>
+  const btns = document.querySelectorAll('.topic-btn');
+  const panels = document.querySelectorAll('.panel');
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const t = btn.getAttribute('data-t');
+      btns.forEach(b => b.classList.toggle('active', b === btn));
+      panels.forEach(p => p.classList.toggle('active', p.getAttribute('data-t') === t));
+      window.scrollTo({top: 0, behavior:'smooth'});
+    });
+  });
+</script>
+
+</body>
+</html>
